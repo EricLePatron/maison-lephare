@@ -1,96 +1,137 @@
+@import "@fontsource/playfair-display/400.css";
+@import "@fontsource/playfair-display/500.css";
+@import "@fontsource/playfair-display/600.css";
+@import "@fontsource/playfair-display/700.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Le Phare - Design System
+   A warm, calming palette inspired by French châteaux, nature, and wellness
+   Colors: Sage green, warm cream, golden amber, deep navy
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
+    /* Core palette */
+    --background: 48 33% 97%;
+    --foreground: 220 25% 20%;
+    
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
+    --card-foreground: 220 25% 20%;
+    
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --popover-foreground: 220 25% 20%;
+    
+    /* Primary: Deep sage green - trust, nature, healing */
+    --primary: 155 30% 35%;
+    --primary-foreground: 48 33% 97%;
+    
+    /* Secondary: Warm cream - warmth, comfort */
+    --secondary: 40 40% 94%;
+    --secondary-foreground: 220 25% 20%;
+    
+    /* Muted: Soft beige */
+    --muted: 40 25% 92%;
+    --muted-foreground: 220 15% 45%;
+    
+    /* Accent: Golden amber - hope, light */
+    --accent: 38 75% 55%;
+    --accent-foreground: 220 25% 15%;
+    
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 40 20% 88%;
+    --input: 40 20% 88%;
+    --ring: 155 30% 35%;
+    
+    --radius: 0.75rem;
+    
+    /* Extended palette */
+    --sage-50: 155 25% 96%;
+    --sage-100: 155 25% 90%;
+    --sage-200: 155 25% 80%;
+    --sage-300: 155 28% 65%;
+    --sage-400: 155 30% 45%;
+    --sage-500: 155 30% 35%;
+    --sage-600: 155 32% 28%;
+    --sage-700: 155 35% 22%;
+    
+    --cream-50: 48 40% 98%;
+    --cream-100: 45 35% 96%;
+    --cream-200: 42 30% 92%;
+    --cream-300: 40 25% 85%;
+    
+    --amber-400: 38 80% 60%;
+    --amber-500: 38 75% 55%;
+    --amber-600: 36 70% 45%;
+    
+    --navy-800: 220 35% 18%;
+    --navy-900: 220 40% 12%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(155 30% 35% / 0.95), hsl(155 35% 25% / 0.9));
+    --gradient-warm: linear-gradient(180deg, hsl(48 33% 97%), hsl(40 40% 94%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(40 25% 98%));
+    
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -4px hsl(220 25% 20% / 0.08);
+    --shadow-elevated: 0 8px 30px -6px hsl(220 25% 20% / 0.12);
+    --shadow-glow: 0 0 40px hsl(155 30% 35% / 0.15);
+    
+    /* Sidebar (keep for compatibility) */
+    --sidebar-background: 48 33% 97%;
+    --sidebar-foreground: 220 25% 20%;
+    --sidebar-primary: 155 30% 35%;
+    --sidebar-primary-foreground: 48 33% 97%;
+    --sidebar-accent: 40 40% 94%;
+    --sidebar-accent-foreground: 220 25% 20%;
+    --sidebar-border: 40 20% 88%;
+    --sidebar-ring: 155 30% 35%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --background: 220 35% 10%;
+    --foreground: 48 33% 95%;
+    
+    --card: 220 30% 14%;
+    --card-foreground: 48 33% 95%;
+    
+    --popover: 220 30% 14%;
+    --popover-foreground: 48 33% 95%;
+    
+    --primary: 155 35% 50%;
+    --primary-foreground: 220 35% 10%;
+    
+    --secondary: 220 25% 18%;
+    --secondary-foreground: 48 33% 95%;
+    
+    --muted: 220 25% 18%;
+    --muted-foreground: 220 15% 60%;
+    
+    --accent: 38 70% 50%;
+    --accent-foreground: 220 35% 10%;
+    
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 220 25% 20%;
+    --input: 220 25% 20%;
+    --ring: 155 35% 50%;
+    
+    --sidebar-background: 220 35% 10%;
+    --sidebar-foreground: 48 33% 95%;
+    --sidebar-primary: 155 35% 50%;
+    --sidebar-primary-foreground: 220 35% 10%;
+    --sidebar-accent: 220 25% 18%;
+    --sidebar-accent-foreground: 48 33% 95%;
+    --sidebar-border: 220 25% 20%;
+    --sidebar-ring: 155 35% 50%;
   }
 }
 
@@ -98,8 +139,137 @@ All colors MUST be HSL.
   * {
     @apply border-border;
   }
-
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    @apply font-medium tracking-tight;
+  }
+}
+
+@layer components {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .section-padding {
+    @apply px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24;
+  }
+  
+  .container-narrow {
+    @apply mx-auto max-w-4xl px-4 sm:px-6 lg:px-8;
+  }
+  
+  .container-wide {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Elegant card styling */
+  .card-elegant {
+    @apply bg-card rounded-2xl p-6 sm:p-8;
+    box-shadow: var(--shadow-soft);
+    background: var(--gradient-card);
+  }
+  
+  .card-elevated {
+    @apply bg-card rounded-2xl p-6 sm:p-8 transition-all duration-300;
+    box-shadow: var(--shadow-soft);
+  }
+  
+  .card-elevated:hover {
+    box-shadow: var(--shadow-elevated);
+    transform: translateY(-2px);
+  }
+  
+  /* Hero text gradient */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--sage-400)));
+  }
+  
+  /* Decorative elements */
+  .decorative-line {
+    @apply h-px w-16 bg-gradient-to-r from-transparent via-primary/40 to-transparent;
+  }
+  
+  .decorative-dot {
+    @apply h-2 w-2 rounded-full bg-accent;
+  }
+}
+
+@layer utilities {
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+  
+  .animate-fade-up-delay {
+    animation: fadeUp 0.6s ease-out 0.15s forwards;
+    opacity: 0;
+  }
+  
+  .animate-fade-up-delay-2 {
+    animation: fadeUp 0.6s ease-out 0.3s forwards;
+    opacity: 0;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.5s ease-out forwards;
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }
