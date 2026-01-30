@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { 
   Plus, 
   Pencil, 
@@ -8,8 +8,10 @@ import {
   Eye, 
   EyeOff,
   ArrowLeft,
-  Users
+  Users,
+  LogOut
 } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -60,7 +62,9 @@ const emptyForm: ProfessionnelInsert = {
 };
 
 export default function AdminProfessionnels() {
+  const navigate = useNavigate();
   const { toast } = useToast();
+  const { signOut } = useAuth();
   const { data: professionnels, isLoading } = useAllProfessionnels();
   const createMutation = useCreateProfessionnel();
   const updateMutation = useUpdateProfessionnel();
@@ -72,6 +76,11 @@ export default function AdminProfessionnels() {
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<ProfessionnelInsert>(emptyForm);
   const [specialitesInput, setSpecialitesInput] = useState("");
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/admin/login");
+  };
 
   const handleOpenCreate = () => {
     setEditingId(null);
@@ -186,6 +195,9 @@ export default function AdminProfessionnels() {
             <Button onClick={handleOpenCreate} variant="hero">
               <Plus className="h-4 w-4" />
               Ajouter un professionnel
+            </Button>
+            <Button variant="ghost" size="icon" onClick={handleSignOut} title="Se déconnecter">
+              <LogOut className="h-4 w-4" />
             </Button>
           </div>
         </div>
