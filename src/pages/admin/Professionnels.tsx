@@ -179,10 +179,15 @@ export default function AdminProfessionnels() {
               <h1 className="font-serif text-xl font-medium">Administration - Professionnels</h1>
             </div>
           </div>
-          <Button onClick={handleOpenCreate} variant="hero">
-            <Plus className="h-4 w-4" />
-            Ajouter un professionnel
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" asChild>
+              <Link to="/admin/ateliers">Gérer les ateliers</Link>
+            </Button>
+            <Button onClick={handleOpenCreate} variant="hero">
+              <Plus className="h-4 w-4" />
+              Ajouter un professionnel
+            </Button>
+          </div>
         </div>
       </header>
 
