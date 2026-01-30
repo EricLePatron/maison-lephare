@@ -11,6 +11,7 @@ import Professionnels from "./pages/Professionnels";
 import Ateliers from "./pages/Ateliers";
 import Contact from "./pages/Contact";
 import AdminProfessionnels from "./pages/admin/Professionnels";
+import AdminAteliers from "./pages/admin/Ateliers";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,16 +23,18 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          {/* Public routes with layout */}
-          <Route element={<Layout><Index /></Layout>} path="/" />
-          <Route element={<Layout><LeLieu /></Layout>} path="/le-lieu" />
-          <Route element={<Layout><Association /></Layout>} path="/association" />
-          <Route element={<Layout><Professionnels /></Layout>} path="/professionnels" />
-          <Route element={<Layout><Ateliers /></Layout>} path="/ateliers" />
-          <Route element={<Layout><Contact /></Layout>} path="/contact" />
+          <Route element={<Layout />}>
+            <Route index element={<Index />} />
+            <Route path="le-lieu" element={<LeLieu />} />
+            <Route path="association" element={<Association />} />
+            <Route path="professionnels" element={<Professionnels />} />
+            <Route path="ateliers" element={<Ateliers />} />
+            <Route path="contact" element={<Contact />} />
+          </Route>
           
           {/* Admin routes without layout */}
           <Route path="/admin/professionnels" element={<AdminProfessionnels />} />
+          <Route path="/admin/ateliers" element={<AdminAteliers />} />
           
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
