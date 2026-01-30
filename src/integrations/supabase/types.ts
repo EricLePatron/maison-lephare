@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      ateliers: {
+        Row: {
+          actif: boolean
+          categorie: string
+          created_at: string
+          description: string | null
+          format: string | null
+          icone: string | null
+          id: string
+          objectifs: string[] | null
+          ordre_affichage: number | null
+          public_cible: string | null
+          titre: string
+          updated_at: string
+        }
+        Insert: {
+          actif?: boolean
+          categorie: string
+          created_at?: string
+          description?: string | null
+          format?: string | null
+          icone?: string | null
+          id?: string
+          objectifs?: string[] | null
+          ordre_affichage?: number | null
+          public_cible?: string | null
+          titre: string
+          updated_at?: string
+        }
+        Update: {
+          actif?: boolean
+          categorie?: string
+          created_at?: string
+          description?: string | null
+          format?: string | null
+          icone?: string | null
+          id?: string
+          objectifs?: string[] | null
+          ordre_affichage?: number | null
+          public_cible?: string | null
+          titre?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       professionnels: {
         Row: {
           actif: boolean
