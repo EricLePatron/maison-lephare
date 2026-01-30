@@ -1,4 +1,3 @@
-import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles, TreePine, Building2 } from "lucide-react";
@@ -48,7 +47,7 @@ const spaces = [
 
 export default function LeLieu() {
   return (
-    <Layout>
+    <>
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
@@ -221,6 +220,6 @@ export default function LeLieu() {
           </Button>
         </div>
       </section>
-    </Layout>
+    </>
   );
 }

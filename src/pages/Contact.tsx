@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -44,7 +43,7 @@ export default function Contact() {
   };
 
   return (
-    <Layout>
+    <>
       {/* Hero Section */}
       <section className="relative min-h-[40vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
@@ -275,6 +274,6 @@ export default function Contact() {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   );
 }

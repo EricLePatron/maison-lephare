@@ -1,4 +1,3 @@
-import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Heart, Users, Brain, Handshake, Palette, MessageCircle } from "lucide-react";
@@ -64,7 +63,7 @@ const values = [
 
 export default function Association() {
   return (
-    <Layout>
+    <>
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
@@ -244,6 +243,6 @@ export default function Association() {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   );
 }
