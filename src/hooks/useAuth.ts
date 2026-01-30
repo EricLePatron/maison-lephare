@@ -8,14 +8,10 @@ export function useAuth() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const checkAdminRole = useCallback(async (userId: string) => {
+  const checkAdminRole = useCallback(async () => {
     try {
-      const { data, error } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", userId)
-        .eq("role", "admin")
-        .maybeSingle();
+      // Use server-side RPC function for secure admin validation
+      const { data, error } = await supabase.rpc("am_i_admin");
 
       if (error) {
         console.error("Error checking admin role:", error);
@@ -37,7 +33,7 @@ export function useAuth() {
         // Defer admin check with setTimeout to prevent deadlock
         if (session?.user) {
           setTimeout(() => {
-            checkAdminRole(session.user.id).then(setIsAdmin);
+            checkAdminRole().then(setIsAdmin);
           }, 0);
         } else {
           setIsAdmin(false);
@@ -52,7 +48,7 @@ export function useAuth() {
       setUser(session?.user ?? null);
       
       if (session?.user) {
-        checkAdminRole(session.user.id).then(setIsAdmin);
+        checkAdminRole().then(setIsAdmin);
       }
       setLoading(false);
     });
