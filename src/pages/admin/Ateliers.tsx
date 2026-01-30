@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -28,6 +28,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 import {
   useAteliers,
   useCreateAtelier,
@@ -48,6 +49,7 @@ import {
   Users,
   Heart,
   Sparkles,
+  LogOut,
   BookOpen,
   Music,
   Lightbulb,
@@ -94,6 +96,8 @@ const emptyForm: FormData = {
 };
 
 export default function AdminAteliers() {
+  const navigate = useNavigate();
+  const { signOut } = useAuth();
   const { data: ateliers, isLoading, error } = useAteliers();
   const createAtelier = useCreateAtelier();
   const updateAtelier = useUpdateAtelier();
@@ -104,6 +108,11 @@ export default function AdminAteliers() {
   const [editingAtelier, setEditingAtelier] = useState<Atelier | null>(null);
   const [formData, setFormData] = useState<FormData>(emptyForm);
   const [objectifsText, setObjectifsText] = useState("");
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/admin/login");
+  };
 
   const resetForm = () => {
     setFormData(emptyForm);
@@ -242,7 +251,7 @@ export default function AdminAteliers() {
                 </p>
               </div>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               <Button variant="outline" asChild>
                 <Link to="/ateliers">Voir le site</Link>
               </Button>
@@ -417,6 +426,9 @@ export default function AdminAteliers() {
                   </form>
                 </DialogContent>
               </Dialog>
+              <Button variant="ghost" size="icon" onClick={handleSignOut} title="Se déconnecter">
+                <LogOut className="h-4 w-4" />
+              </Button>
             </div>
           </div>
         </div>
