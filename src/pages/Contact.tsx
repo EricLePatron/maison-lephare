@@ -1,45 +1,121 @@
 import { useState } from "react";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Mail, MapPin, Phone, Send, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import chateauImage from "@/assets/chateau-main.jpg";
+
+// Validation schema for contact form
+const contactSchema = z.object({
+  nom: z.string()
+    .trim()
+    .min(2, "Le nom doit contenir au moins 2 caractères")
+    .max(100, "Le nom ne peut pas dépasser 100 caractères"),
+  email: z.string()
+    .trim()
+    .email("Adresse email invalide")
+    .max(255, "L'email ne peut pas dépasser 255 caractères"),
+  sujet: z.string()
+    .trim()
+    .min(5, "Le sujet doit contenir au moins 5 caractères")
+    .max(200, "Le sujet ne peut pas dépasser 200 caractères"),
+  message: z.string()
+    .trim()
+    .min(10, "Le message doit contenir au moins 10 caractères")
+    .max(5000, "Le message ne peut pas dépasser 5000 caractères"),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
 
 export default function Contact() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     nom: "",
     email: "",
     sujet: "",
     message: "",
   });
+  const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
+
+    // Client-side validation with Zod
+    const result = contactSchema.safeParse(formData);
+    if (!result.success) {
+      const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
+      result.error.errors.forEach((err) => {
+        const field = err.path[0] as keyof ContactFormData;
+        if (field) fieldErrors[field] = err.message;
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      // Call edge function for server-side validation and processing
+      const { data, error } = await supabase.functions.invoke("contact-form", {
+        body: result.data,
+      });
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    toast({
-      title: "Message envoyé",
-      description: "Nous vous répondrons dans les plus brefs délais.",
-    });
+      if (error) {
+        console.error("Contact form error:", error);
+        toast({
+          title: "Erreur",
+          description: "Une erreur est survenue lors de l'envoi du message.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (data?.error) {
+        toast({
+          title: "Erreur de validation",
+          description: data.error,
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      toast({
+        title: "Message envoyé",
+        description: "Nous vous répondrons dans les plus brefs délais.",
+      });
+    } catch {
+      toast({
+        title: "Erreur",
+        description: "Une erreur inattendue est survenue.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
+    // Clear error when user starts typing
+    if (errors[name as keyof ContactFormData]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
   };
 
   return (
@@ -168,8 +244,12 @@ export default function Contact() {
                           value={formData.nom}
                           onChange={handleChange}
                           required
-                          className="bg-background"
+                          maxLength={100}
+                          className={`bg-background ${errors.nom ? "border-destructive" : ""}`}
                         />
+                        {errors.nom && (
+                          <p className="text-sm text-destructive">{errors.nom}</p>
+                        )}
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="email">Email</Label>
@@ -181,8 +261,12 @@ export default function Contact() {
                           value={formData.email}
                           onChange={handleChange}
                           required
-                          className="bg-background"
+                          maxLength={255}
+                          className={`bg-background ${errors.email ? "border-destructive" : ""}`}
                         />
+                        {errors.email && (
+                          <p className="text-sm text-destructive">{errors.email}</p>
+                        )}
                       </div>
                     </div>
 
@@ -195,8 +279,12 @@ export default function Contact() {
                         value={formData.sujet}
                         onChange={handleChange}
                         required
-                        className="bg-background"
+                        maxLength={200}
+                        className={`bg-background ${errors.sujet ? "border-destructive" : ""}`}
                       />
+                      {errors.sujet && (
+                        <p className="text-sm text-destructive">{errors.sujet}</p>
+                      )}
                     </div>
 
                     <div className="space-y-2">
@@ -209,8 +297,12 @@ export default function Contact() {
                         value={formData.message}
                         onChange={handleChange}
                         required
-                        className="bg-background resize-none"
+                        maxLength={5000}
+                        className={`bg-background resize-none ${errors.message ? "border-destructive" : ""}`}
                       />
+                      {errors.message && (
+                        <p className="text-sm text-destructive">{errors.message}</p>
+                      )}
                     </div>
 
                     <Button
