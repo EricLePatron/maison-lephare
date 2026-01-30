@@ -5,7 +5,6 @@ import {
   ArrowLeft,
   Loader2,
   Mail,
-  Globe,
   Calendar,
   Users,
   Heart,
@@ -190,32 +189,16 @@ export default function ProfessionnelProfile() {
               {/* Contact */}
               <div className="card-elegant">
                 <h3 className="font-serif text-lg font-medium text-foreground mb-4">
-                  Contact
+                  Prendre rendez-vous
                 </h3>
-                <div className="space-y-3">
-                  {pro.contact && (
-                    <a
-                      href={pro.contact.includes("@") ? `mailto:${pro.contact}` : `tel:${pro.contact}`}
-                      className="flex items-center gap-3 text-sm text-foreground hover:text-primary transition-colors"
-                    >
-                      <Mail className="h-5 w-5 text-primary" />
-                      {pro.contact}
-                    </a>
-                  )}
-                  {pro.site_web && (
-                    <a
-                      href={pro.site_web}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-3 text-sm text-foreground hover:text-primary transition-colors"
-                    >
-                      <Globe className="h-5 w-5 text-primary" />
-                      Voir le site web
-                    </a>
-                  )}
-                </div>
-                <Button asChild variant="hero" className="w-full mt-6">
-                  <Link to="/contact">Prendre contact</Link>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Pour contacter {pro.prenom} {pro.nom}, utilisez notre formulaire de contact. Nous transmettrons votre demande.
+                </p>
+                <Button asChild variant="hero" className="w-full">
+                  <Link to="/contact">
+                    <Mail className="h-4 w-4 mr-2" />
+                    Nous contacter
+                  </Link>
                 </Button>
               </div>
             </div>
