@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import LeLieu from "./pages/LeLieu";
 import Association from "./pages/Association";
 import Professionnels from "./pages/Professionnels";
+import ProfessionnelProfile from "./pages/ProfessionnelProfile";
 import Ateliers from "./pages/Ateliers";
 import Contact from "./pages/Contact";
 import AdminLogin from "./pages/admin/Login";
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="le-lieu" element={<LeLieu />} />
             <Route path="association" element={<Association />} />
             <Route path="professionnels" element={<Professionnels />} />
+            <Route path="professionnels/:id" element={<ProfessionnelProfile />} />
             <Route path="ateliers" element={<Ateliers />} />
             <Route path="contact" element={<Contact />} />
           </Route>
