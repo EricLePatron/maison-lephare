@@ -6,24 +6,41 @@ export type Professionnel = Tables<"professionnels">;
 export type ProfessionnelInsert = TablesInsert<"professionnels">;
 export type ProfessionnelUpdate = TablesUpdate<"professionnels">;
 
-// Fetch all active professionals (public)
+// Public view type (without contact info)
+export type ProfessionnelPublic = {
+  id: string;
+  nom: string;
+  prenom: string;
+  profession: string;
+  specialites: string[] | null;
+  description: string | null;
+  approche: string | null;
+  public_cible: string | null;
+  jours_presence: string | null;
+  photo_url: string | null;
+  actif: boolean;
+  ordre_affichage: number | null;
+  created_at: string;
+  updated_at: string;
+};
+
+// Fetch all active professionals (public) - uses the secure view
 export function useProfessionnels() {
   return useQuery({
-    queryKey: ["professionnels"],
+    queryKey: ["professionnels", "public"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("professionnels")
+        .from("professionnels_public" as "professionnels")
         .select("*")
-        .eq("actif", true)
         .order("ordre_affichage", { ascending: true });
 
       if (error) throw error;
-      return data;
+      return data as unknown as ProfessionnelPublic[];
     },
   });
 }
 
-// Fetch all professionals including inactive (admin)
+// Fetch all professionals including inactive (admin only)
 export function useAllProfessionnels() {
   return useQuery({
     queryKey: ["professionnels", "all"],
@@ -39,10 +56,29 @@ export function useAllProfessionnels() {
   });
 }
 
-// Fetch a single professional by ID
+// Fetch a single professional by ID (public view)
 export function useProfessionnel(id: string | undefined) {
   return useQuery({
-    queryKey: ["professionnels", id],
+    queryKey: ["professionnels", "public", id],
+    queryFn: async () => {
+      if (!id) return null;
+      const { data, error } = await supabase
+        .from("professionnels_public" as "professionnels")
+        .select("*")
+        .eq("id", id)
+        .maybeSingle();
+
+      if (error) throw error;
+      return data as unknown as ProfessionnelPublic | null;
+    },
+    enabled: !!id,
+  });
+}
+
+// Fetch a single professional by ID (admin - full data)
+export function useProfessionnelAdmin(id: string | undefined) {
+  return useQuery({
+    queryKey: ["professionnels", "admin", id],
     queryFn: async () => {
       if (!id) return null;
       const { data, error } = await supabase
@@ -52,7 +88,7 @@ export function useProfessionnel(id: string | undefined) {
         .maybeSingle();
 
       if (error) throw error;
-      return data;
+      return data as Professionnel | null;
     },
     enabled: !!id,
   });
@@ -120,19 +156,19 @@ export function useDeleteProfessionnel() {
   });
 }
 
-// Get unique professions for filtering
+// Get unique professions for filtering (uses public view)
 export function useProfessions() {
   return useQuery({
     queryKey: ["professions"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("professionnels")
+        .from("professionnels_public" as "professionnels")
         .select("profession")
-        .eq("actif", true);
+        .order("profession", { ascending: true });
 
       if (error) throw error;
       
-      const professions = [...new Set(data.map((p) => p.profession))];
+      const professions = [...new Set((data as unknown as { profession: string }[]).map((p) => p.profession))];
       return professions;
     },
   });

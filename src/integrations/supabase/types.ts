@@ -139,7 +139,57 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      professionnels_public: {
+        Row: {
+          actif: boolean | null
+          approche: string | null
+          created_at: string | null
+          description: string | null
+          id: string | null
+          jours_presence: string | null
+          nom: string | null
+          ordre_affichage: number | null
+          photo_url: string | null
+          prenom: string | null
+          profession: string | null
+          public_cible: string | null
+          specialites: string[] | null
+          updated_at: string | null
+        }
+        Insert: {
+          actif?: boolean | null
+          approche?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string | null
+          jours_presence?: string | null
+          nom?: string | null
+          ordre_affichage?: number | null
+          photo_url?: string | null
+          prenom?: string | null
+          profession?: string | null
+          public_cible?: string | null
+          specialites?: string[] | null
+          updated_at?: string | null
+        }
+        Update: {
+          actif?: boolean | null
+          approche?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string | null
+          jours_presence?: string | null
+          nom?: string | null
+          ordre_affichage?: number | null
+          photo_url?: string | null
+          prenom?: string | null
+          profession?: string | null
+          public_cible?: string | null
+          specialites?: string[] | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
