@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Heart, Users, Home, Coffee } from "lucide-react";
 import chateauImage from "@/assets/chateau-main.jpg";
@@ -56,7 +55,7 @@ const spaces = [
 
 export default function Index() {
   return (
-    <Layout>
+    <>
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         {/* Background Image */}
@@ -265,6 +264,6 @@ export default function Index() {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   );
 }

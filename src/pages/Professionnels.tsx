@@ -1,4 +1,3 @@
-import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Users, UserCheck, Mail } from "lucide-react";
@@ -84,7 +83,7 @@ const professions = [...new Set(professionals.map((p) => p.profession))];
 
 export default function Professionnels() {
   return (
-    <Layout>
+    <>
       {/* Hero Section */}
       <section className="relative min-h-[50vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
@@ -230,6 +229,6 @@ export default function Professionnels() {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   );
 }
