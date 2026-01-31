@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, MapPin, Phone, Send, CheckCircle } from "lucide-react";
+import { Mail, MapPin, Phone, Send, CheckCircle, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { usePageContent } from "@/hooks/useSiteContent";
 import chateauImage from "@/assets/chateau-main.jpg";
 
 // Validation schema for contact form
@@ -33,6 +34,7 @@ type ContactFormData = z.infer<typeof contactSchema>;
 
 export default function Contact() {
   const { toast } = useToast();
+  const { getContent, isLoading: contentLoading } = usePageContent("contact");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState<ContactFormData>({
@@ -118,6 +120,14 @@ export default function Contact() {
     }
   };
 
+  if (contentLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
   return (
     <>
       {/* Hero Section */}
@@ -134,10 +144,10 @@ export default function Contact() {
         <div className="container-wide relative z-10 py-20">
           <div className="max-w-2xl">
             <h1 className="font-serif text-4xl sm:text-5xl font-medium text-primary-foreground leading-tight mb-6">
-              Contactez-nous
+              {getContent("hero", "title", "Contact")}
             </h1>
             <p className="text-lg sm:text-xl text-primary-foreground/85 leading-relaxed">
-              Une question, une demande d'information ou envie de nous rejoindre ? Nous sommes à votre écoute.
+              {getContent("hero", "description", "Une question, une demande d'information ou envie de nous rejoindre ? Nous sommes à votre écoute.")}
             </p>
           </div>
         </div>

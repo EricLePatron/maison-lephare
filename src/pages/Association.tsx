@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Heart, Users, Brain, Handshake, Palette, MessageCircle } from "lucide-react";
+import { ArrowRight, Heart, Users, Brain, Handshake, Palette, MessageCircle, Loader2 } from "lucide-react";
+import { usePageContent } from "@/hooks/useSiteContent";
 import associationImage from "@/assets/association-room.png";
 
 const activities = [
@@ -62,6 +63,16 @@ const values = [
 ];
 
 export default function Association() {
+  const { getContent, isLoading } = usePageContent("association");
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
   return (
     <>
       {/* Hero Section */}
@@ -80,16 +91,16 @@ export default function Association() {
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/10 backdrop-blur-sm rounded-full mb-6">
               <Heart className="h-4 w-4 text-accent" />
               <span className="text-primary-foreground/90 text-sm font-medium">
-                Association loi 1901
+                {getContent("hero", "badge", "Association loi 1901")}
               </span>
             </div>
             
             <h1 className="font-serif text-4xl sm:text-5xl font-medium text-primary-foreground leading-tight mb-6">
-              L'Association Le Phare
+              {getContent("hero", "title", "L'Association Le Phare")}
             </h1>
             
             <p className="text-lg sm:text-xl text-primary-foreground/85 leading-relaxed">
-              Des activités collectives et un accompagnement chaleureux pour tous ceux qui sont concernés par la santé mentale.
+              {getContent("hero", "description", "Des activités collectives et un accompagnement chaleureux pour tous ceux qui sont concernés par la santé mentale.")}
             </p>
           </div>
         </div>
@@ -101,17 +112,17 @@ export default function Association() {
           <div className="grid gap-12 lg:grid-cols-2 items-center">
             <div>
               <h2 className="font-serif text-3xl sm:text-4xl font-medium text-foreground mb-6">
-                Notre mission
+                {getContent("mission", "title", "Notre mission")}
               </h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  L'association Le Phare a pour vocation d'<strong className="text-foreground">accompagner les personnes concernées par la santé mentale</strong>, leurs proches et tous ceux qui souhaitent s'informer.
+                  {getContent("mission", "paragraph_1", "L'association Le Phare a pour vocation d'accompagner les personnes concernées par la santé mentale, leurs proches et tous ceux qui souhaitent s'informer.")}
                 </p>
                 <p>
-                  À travers nos ateliers thérapeutiques, groupes de parole et activités psycho-éducatives, nous créons des espaces de rencontre et de partage où chacun peut avancer à son rythme.
+                  {getContent("mission", "paragraph_2", "À travers nos ateliers thérapeutiques, groupes de parole et activités psycho-éducatives, nous créons des espaces de rencontre et de partage où chacun peut avancer à son rythme.")}
                 </p>
                 <p>
-                  Nous croyons fermement au <strong className="text-foreground">rétablissement</strong> et à la capacité de chaque personne à mener une vie épanouissante, malgré les difficultés traversées.
+                  {getContent("mission", "paragraph_3", "Nous croyons fermement au rétablissement et à la capacité de chaque personne à mener une vie épanouissante, malgré les difficultés traversées.")}
                 </p>
               </div>
               <Button asChild variant="hero" size="lg" className="mt-8">
@@ -144,10 +155,10 @@ export default function Association() {
         <div className="container-wide">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <h2 className="font-serif text-3xl sm:text-4xl font-medium text-foreground mb-4">
-              Nos activités
+              {getContent("activities", "title", "Nos activités")}
             </h2>
             <p className="text-muted-foreground text-lg">
-              Des ateliers et moments de partage adaptés à chaque besoin et à chaque parcours.
+              {getContent("activities", "description", "Des ateliers et moments de partage adaptés à chaque besoin et à chaque parcours.")}
             </p>
           </div>
           
@@ -178,7 +189,7 @@ export default function Association() {
       <section className="section-padding">
         <div className="container-narrow">
           <h2 className="font-serif text-3xl sm:text-4xl font-medium text-foreground text-center mb-12">
-            À qui s'adresse l'association ?
+            {getContent("publics", "title", "À qui s'adresse l'association ?")}
           </h2>
           
           <div className="grid gap-6 sm:grid-cols-2">
@@ -225,10 +236,10 @@ export default function Association() {
       <section className="section-padding bg-sage-600">
         <div className="container-narrow text-center">
           <h2 className="font-serif text-3xl sm:text-4xl font-medium text-primary-foreground mb-4">
-            Rejoignez-nous
+            {getContent("cta", "title", "Rejoignez-nous")}
           </h2>
           <p className="text-primary-foreground/85 text-lg mb-8 max-w-xl mx-auto">
-            Devenez adhérent, bénévole, ou participez simplement à nos activités. Toutes les formes d'engagement sont les bienvenues.
+            {getContent("cta", "description", "Devenez adhérent, bénévole, ou participez simplement à nos activités. Toutes les formes d'engagement sont les bienvenues.")}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button asChild variant="warm" size="xl">

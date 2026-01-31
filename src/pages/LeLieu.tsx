@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles, TreePine, Building2 } from "lucide-react";
+import { ArrowRight, Sparkles, TreePine, Building2, Loader2 } from "lucide-react";
+import { usePageContent } from "@/hooks/useSiteContent";
 import chateauImage from "@/assets/chateau-main.jpg";
 import cabinetImage from "@/assets/cabinet-room.png";
 import associationImage from "@/assets/association-room.png";
@@ -46,6 +47,16 @@ const spaces = [
 ];
 
 export default function LeLieu() {
+  const { getContent, isLoading } = usePageContent("le-lieu");
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
   return (
     <>
       {/* Hero Section */}
@@ -64,16 +75,16 @@ export default function LeLieu() {
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/10 backdrop-blur-sm rounded-full mb-6">
               <Building2 className="h-4 w-4 text-accent" />
               <span className="text-primary-foreground/90 text-sm font-medium">
-                Un château à Bordeaux
+                {getContent("hero", "badge", "Un château à Bordeaux")}
               </span>
             </div>
             
             <h1 className="font-serif text-4xl sm:text-5xl font-medium text-primary-foreground leading-tight mb-6">
-              Le Lieu
+              {getContent("hero", "title", "Le Lieu")}
             </h1>
             
             <p className="text-lg sm:text-xl text-primary-foreground/85 leading-relaxed">
-              Un château chargé d'histoire, transformé en maison dédiée à la santé mentale. Un lieu où l'on pense différemment l'accompagnement.
+              {getContent("hero", "description", "Un château chargé d'histoire, transformé en maison dédiée à la santé mentale. Un lieu où l'on pense différemment l'accompagnement.")}
             </p>
           </div>
         </div>
@@ -85,17 +96,17 @@ export default function LeLieu() {
           <div className="grid gap-12 lg:grid-cols-2 items-center">
             <div>
               <h2 className="font-serif text-3xl sm:text-4xl font-medium text-foreground mb-6">
-                Notre philosophie
+                {getContent("philosophy", "title", "Notre philosophie")}
               </h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Le Phare est né d'une conviction : <strong className="text-foreground">la santé mentale mérite un lieu à sa hauteur</strong>. Pas un hôpital froid, mais une maison chaleureuse où l'on se sent accueilli.
+                  {getContent("philosophy", "paragraph_1", "Le Phare est né d'une conviction : la santé mentale mérite un lieu à sa hauteur. Pas un hôpital froid, mais une maison chaleureuse où l'on se sent accueilli.")}
                 </p>
                 <p>
-                  Dans ce château aux espaces généreux, nous avons voulu créer un environnement propice au rétablissement. La lumière naturelle, la vue sur le parc, les matériaux nobles – tout contribue à apaiser et rassurer.
+                  {getContent("philosophy", "paragraph_2", "Dans ce château aux espaces généreux, nous avons voulu créer un environnement propice au rétablissement. La lumière naturelle, la vue sur le parc, les matériaux nobles – tout contribue à apaiser et rassurer.")}
                 </p>
                 <p>
-                  Ici, professionnels de santé, association et café cohabitent pour offrir un accompagnement global, où le soin côtoie le lien social et la convivialité.
+                  {getContent("philosophy", "paragraph_3", "Ici, professionnels de santé, association et café cohabitent pour offrir un accompagnement global, où le soin côtoie le lien social et la convivialité.")}
                 </p>
               </div>
             </div>
@@ -127,7 +138,7 @@ export default function LeLieu() {
       <section className="section-padding bg-secondary/50">
         <div className="container-narrow">
           <h2 className="font-serif text-3xl sm:text-4xl font-medium text-foreground text-center mb-12">
-            Histoire du lieu
+            {getContent("timeline", "title", "Histoire du lieu")}
           </h2>
           
           <div className="space-y-8">
@@ -158,10 +169,10 @@ export default function LeLieu() {
       <section className="section-padding">
         <div className="container-wide">
           <h2 className="font-serif text-3xl sm:text-4xl font-medium text-foreground text-center mb-4">
-            Nos espaces
+            {getContent("spaces", "title", "Nos espaces")}
           </h2>
           <p className="text-muted-foreground text-center text-lg mb-12 max-w-2xl mx-auto">
-            Trois espaces distincts qui composent Le Phare, chacun avec sa vocation propre.
+            {getContent("spaces", "description", "Trois espaces distincts qui composent Le Phare, chacun avec sa vocation propre.")}
           </p>
           
           <div className="space-y-16">
@@ -207,10 +218,10 @@ export default function LeLieu() {
       <section className="section-padding bg-sage-600">
         <div className="container-narrow text-center">
           <h2 className="font-serif text-3xl sm:text-4xl font-medium text-primary-foreground mb-4">
-            Envie de visiter ?
+            {getContent("cta", "title", "Envie de visiter ?")}
           </h2>
           <p className="text-primary-foreground/85 text-lg mb-8">
-            Contactez-nous pour organiser une visite du lieu ou en savoir plus sur nos activités.
+            {getContent("cta", "description", "Contactez-nous pour organiser une visite du lieu ou en savoir plus sur nos activités.")}
           </p>
           <Button asChild variant="warm" size="xl">
             <Link to="/contact">
