@@ -1,59 +1,90 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Heart, Users, Home, Coffee } from "lucide-react";
+import { ArrowRight, Heart, Users, Home, Coffee, Loader2 } from "lucide-react";
+import { usePageContent } from "@/hooks/useSiteContent";
 import chateauImage from "@/assets/chateau-main.jpg";
 import cabinetImage from "@/assets/cabinet-room.png";
 import associationImage from "@/assets/association-room.png";
 import cafeImage from "@/assets/cafe-phare.jpg";
 
-const features = [
-  {
-    icon: Home,
-    title: "Un lieu unique",
-    description: "Un château chargé d'histoire dédié entièrement à la santé mentale, avec vue sur un parc de 2 hectares.",
-  },
-  {
-    icon: Users,
-    title: "Des professionnels engagés",
-    description: "Une équipe pluridisciplinaire de praticiens passionnés : psychiatres, psychologues, thérapeutes.",
-  },
-  {
-    icon: Heart,
-    title: "Une approche humaine",
-    description: "Des ateliers, groupes de parole et activités conçus pour accompagner chacun dans son parcours.",
-  },
-  {
-    icon: Coffee,
-    title: "Un espace ouvert",
-    description: "Un café ouvert à tous pour déstigmatiser la santé mentale et créer du lien dans le quartier.",
-  },
-];
-
-const spaces = [
-  {
-    image: cabinetImage,
-    title: "Le Cabinet",
-    description: "8 cabinets de consultation lumineux donnant sur le parc, pour des accompagnements individuels.",
-    link: "/professionnels",
-    linkText: "Découvrir les professionnels",
-  },
-  {
-    image: associationImage,
-    title: "L'Association",
-    description: "Des salles de vie pour les ateliers thérapeutiques, groupes de parole et moments de partage.",
-    link: "/association",
-    linkText: "En savoir plus",
-  },
-  {
-    image: cafeImage,
-    title: "Le Café",
-    description: "Un espace chaleureux ouvert à tout le quartier, pour des café-débats et rencontres.",
-    link: "/le-lieu",
-    linkText: "Découvrir le lieu",
-  },
-];
+const featureIcons = [Home, Users, Heart, Coffee];
 
 export default function Index() {
+  const { getContent, isLoading } = usePageContent("home");
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  const features = [
+    {
+      icon: featureIcons[0],
+      title: getContent("features", "feature_1_title", "Un lieu unique"),
+      description: getContent("features", "feature_1_description", "Un château chargé d'histoire dédié entièrement à la santé mentale, avec vue sur un parc de 2 hectares."),
+    },
+    {
+      icon: featureIcons[1],
+      title: getContent("features", "feature_2_title", "Des professionnels engagés"),
+      description: getContent("features", "feature_2_description", "Une équipe pluridisciplinaire de praticiens passionnés : psychiatres, psychologues, thérapeutes."),
+    },
+    {
+      icon: featureIcons[2],
+      title: getContent("features", "feature_3_title", "Une approche humaine"),
+      description: getContent("features", "feature_3_description", "Des ateliers, groupes de parole et activités conçus pour accompagner chacun dans son parcours."),
+    },
+    {
+      icon: featureIcons[3],
+      title: getContent("features", "feature_4_title", "Un espace ouvert"),
+      description: getContent("features", "feature_4_description", "Un café ouvert à tous pour déstigmatiser la santé mentale et créer du lien dans le quartier."),
+    },
+  ];
+
+  const spaces = [
+    {
+      image: cabinetImage,
+      title: getContent("spaces", "space_1_title", "Le Cabinet"),
+      description: getContent("spaces", "space_1_description", "8 cabinets de consultation lumineux donnant sur le parc, pour des accompagnements individuels."),
+      link: "/professionnels",
+      linkText: "Découvrir les professionnels",
+    },
+    {
+      image: associationImage,
+      title: getContent("spaces", "space_2_title", "L'Association"),
+      description: getContent("spaces", "space_2_description", "Des salles de vie pour les ateliers thérapeutiques, groupes de parole et moments de partage."),
+      link: "/association",
+      linkText: "En savoir plus",
+    },
+    {
+      image: cafeImage,
+      title: getContent("spaces", "space_3_title", "Le Café"),
+      description: getContent("spaces", "space_3_description", "Un espace chaleureux ouvert à tout le quartier, pour des café-débats et rencontres."),
+      link: "/le-lieu",
+      linkText: "Découvrir le lieu",
+    },
+  ];
+
+  const values = [
+    {
+      title: getContent("values", "value_1_title", "Bienveillance"),
+      description: getContent("values", "value_1_description", "Accueillir chaque personne avec respect et sans jugement, dans sa singularité."),
+      color: "bg-accent",
+    },
+    {
+      title: getContent("values", "value_2_title", "Déstigmatisation"),
+      description: getContent("values", "value_2_description", "Contribuer à changer le regard sur la santé mentale, ouvrir le dialogue."),
+      color: "bg-primary",
+    },
+    {
+      title: getContent("values", "value_3_title", "Collectif"),
+      description: getContent("values", "value_3_description", "Croire en la force du groupe et de l'entraide pour accompagner le rétablissement."),
+      color: "bg-sage-400",
+    },
+  ];
+
   return (
     <>
       {/* Hero Section */}
@@ -74,16 +105,16 @@ export default function Index() {
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/10 backdrop-blur-sm rounded-full mb-6 animate-fade-up">
               <span className="h-2 w-2 rounded-full bg-accent" />
               <span className="text-primary-foreground/90 text-sm font-medium">
-                Un lieu dédié à la santé mentale
+                {getContent("hero", "badge", "Un lieu dédié à la santé mentale")}
               </span>
             </div>
             
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-medium text-primary-foreground leading-tight mb-6 animate-fade-up-delay">
-              Bienvenue au Phare
+              {getContent("hero", "title", "Bienvenue au Phare")}
             </h1>
             
             <p className="text-lg sm:text-xl text-primary-foreground/85 leading-relaxed mb-8 animate-fade-up-delay-2">
-              Une maison chaleureuse au cœur de Bordeaux, où professionnels et association s'unissent pour accompagner chacun vers le rétablissement.
+              {getContent("hero", "description", "Une maison chaleureuse au cœur de Bordeaux, où professionnels et association s'unissent pour accompagner chacun vers le rétablissement.")}
             </p>
             
             <div className="flex flex-wrap gap-4 animate-fade-up-delay-2">
@@ -109,10 +140,10 @@ export default function Index() {
         <div className="container-wide">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="font-serif text-3xl sm:text-4xl font-medium text-foreground mb-4">
-              Un lieu pas comme les autres
+              {getContent("features", "title", "Un lieu pas comme les autres")}
             </h2>
             <p className="text-muted-foreground text-lg">
-              Le Phare réunit soins, accompagnement et convivialité dans un cadre exceptionnel.
+              {getContent("features", "description", "Le Phare réunit soins, accompagnement et convivialité dans un cadre exceptionnel.")}
             </p>
           </div>
 
@@ -143,10 +174,10 @@ export default function Index() {
         <div className="container-wide">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="font-serif text-3xl sm:text-4xl font-medium text-foreground mb-4">
-              Trois espaces, une mission
+              {getContent("spaces", "title", "Trois espaces, une mission")}
             </h2>
             <p className="text-muted-foreground text-lg">
-              Découvrez les différents espaces qui composent Le Phare, chacun avec sa vocation propre.
+              {getContent("spaces", "description", "Découvrez les différents espaces qui composent Le Phare, chacun avec sa vocation propre.")}
             </p>
           </div>
 
@@ -184,10 +215,10 @@ export default function Index() {
       <section className="section-padding bg-sage-600">
         <div className="container-narrow text-center">
           <h2 className="font-serif text-3xl sm:text-4xl font-medium text-primary-foreground mb-4">
-            Besoin d'être accompagné ?
+            {getContent("cta", "title", "Besoin d'être accompagné ?")}
           </h2>
           <p className="text-primary-foreground/85 text-lg mb-8 max-w-xl mx-auto">
-            Que vous cherchiez un professionnel ou souhaitiez participer à nos activités, nous sommes là pour vous accueillir.
+            {getContent("cta", "description", "Que vous cherchiez un professionnel ou souhaitiez participer à nos activités, nous sommes là pour vous accueillir.")}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button asChild variant="warm" size="xl">
@@ -209,42 +240,22 @@ export default function Index() {
           <div className="grid gap-12 lg:grid-cols-2 items-center">
             <div>
               <h2 className="font-serif text-3xl sm:text-4xl font-medium text-foreground mb-6">
-                Nos valeurs
+                {getContent("values", "title", "Nos valeurs")}
               </h2>
               <div className="space-y-6">
-                <div className="flex gap-4">
-                  <div className="h-8 w-1 bg-accent rounded-full flex-shrink-0" />
-                  <div>
-                    <h3 className="font-serif text-xl font-medium text-foreground mb-1">
-                      Bienveillance
-                    </h3>
-                    <p className="text-muted-foreground">
-                      Accueillir chaque personne avec respect et sans jugement, dans sa singularité.
-                    </p>
+                {values.map((value) => (
+                  <div key={value.title} className="flex gap-4">
+                    <div className={`h-8 w-1 ${value.color} rounded-full flex-shrink-0`} />
+                    <div>
+                      <h3 className="font-serif text-xl font-medium text-foreground mb-1">
+                        {value.title}
+                      </h3>
+                      <p className="text-muted-foreground">
+                        {value.description}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="h-8 w-1 bg-primary rounded-full flex-shrink-0" />
-                  <div>
-                    <h3 className="font-serif text-xl font-medium text-foreground mb-1">
-                      Déstigmatisation
-                    </h3>
-                    <p className="text-muted-foreground">
-                      Contribuer à changer le regard sur la santé mentale, ouvrir le dialogue.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="h-8 w-1 bg-sage-400 rounded-full flex-shrink-0" />
-                  <div>
-                    <h3 className="font-serif text-xl font-medium text-foreground mb-1">
-                      Collectif
-                    </h3>
-                    <p className="text-muted-foreground">
-                      Croire en la force du groupe et de l'entraide pour accompagner le rétablissement.
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
             <div className="relative">
@@ -257,7 +268,7 @@ export default function Index() {
               </div>
               <div className="absolute -bottom-6 -left-6 bg-card rounded-2xl p-6 shadow-elevated max-w-xs hidden sm:block">
                 <p className="font-serif text-lg text-foreground italic">
-                  "Un lieu où l'on prend soin de la santé mentale, ensemble."
+                  "{getContent("values", "quote", "Un lieu où l'on prend soin de la santé mentale, ensemble.")}"
                 </p>
               </div>
             </div>
