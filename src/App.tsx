@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { RequireAdmin } from "@/components/admin/RequireAdmin";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 import Index from "./pages/Index";
 import LeLieu from "./pages/LeLieu";
 import Association from "./pages/Association";
@@ -40,18 +41,12 @@ const App = () => (
           
           {/* Admin routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/professionnels" element={
-            <RequireAdmin><AdminProfessionnels /></RequireAdmin>
-          } />
-          <Route path="/admin/ateliers" element={
-            <RequireAdmin><AdminAteliers /></RequireAdmin>
-          } />
-          <Route path="/admin/contenu" element={
-            <RequireAdmin><AdminContenu /></RequireAdmin>
-          } />
-          <Route path="/admin/apparence" element={
-            <RequireAdmin><AdminApparence /></RequireAdmin>
-          } />
+          <Route path="/admin" element={<RequireAdmin><AdminLayout /></RequireAdmin>}>
+            <Route path="professionnels" element={<AdminProfessionnels />} />
+            <Route path="ateliers" element={<AdminAteliers />} />
+            <Route path="contenu" element={<AdminContenu />} />
+            <Route path="apparence" element={<AdminApparence />} />
+          </Route>
           
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
