@@ -2,16 +2,20 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Heart, Users, Home, Coffee, Loader2 } from "lucide-react";
 import { usePageContent } from "@/hooks/useSiteContent";
-import chateauImage from "@/assets/chateau-main.jpg";
-import cabinetImage from "@/assets/cabinet-room.png";
-import associationImage from "@/assets/association-room.png";
-import cafeImage from "@/assets/cafe-phare.jpg";
+import { useSiteImage } from "@/hooks/useTheme";
+import chateauImageStatic from "@/assets/chateau-main.jpg";
+import cabinetImageStatic from "@/assets/cabinet-room.png";
+import associationImageStatic from "@/assets/association-room.png";
+import cafeImageStatic from "@/assets/cafe-phare.jpg";
 
 const featureIcons = [Home, Users, Heart, Coffee];
 
 export default function Index() {
   const { getContent, isLoading } = usePageContent("home");
-
+  const chateauImage = useSiteImage("chateau-main", chateauImageStatic);
+  const cabinetImage = useSiteImage("cabinet-room", cabinetImageStatic);
+  const associationImage = useSiteImage("association-room", associationImageStatic);
+  const cafeImage = useSiteImage("cafe-phare", cafeImageStatic);
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">

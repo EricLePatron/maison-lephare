@@ -2,10 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles, TreePine, Building2, Loader2 } from "lucide-react";
 import { usePageContent } from "@/hooks/useSiteContent";
-import chateauImage from "@/assets/chateau-main.jpg";
-import cabinetImage from "@/assets/cabinet-room.png";
-import associationImage from "@/assets/association-room.png";
-import cafeImage from "@/assets/cafe-phare.jpg";
+import { useSiteImage } from "@/hooks/useTheme";
+import chateauImageStatic from "@/assets/chateau-main.jpg";
+import cabinetImageStatic from "@/assets/cabinet-room.png";
+import associationImageStatic from "@/assets/association-room.png";
+import cafeImageStatic from "@/assets/cafe-phare.jpg";
 
 const timeline = [
   {
@@ -25,30 +26,33 @@ const timeline = [
   },
 ];
 
-const spaces = [
-  {
-    image: cabinetImage,
-    title: "Les cabinets de consultation",
-    description: "8 cabinets lumineux de 18m² donnant sur le parc, offrant un cadre apaisant pour les consultations individuelles.",
-    features: ["Vue sur le parc de 2ha", "Salles d'attente confortables", "Espace détente pour l'équipe"],
-  },
-  {
-    image: associationImage,
-    title: "Les salles de vie",
-    description: "De grands espaces polyvalents pour les ateliers thérapeutiques, groupes de parole et moments de partage collectifs.",
-    features: ["Ateliers thérapeutiques", "Groupes de parole", "Art-thérapie"],
-  },
-  {
-    image: cafeImage,
-    title: "Le Café Le Phare",
-    description: "Un espace convivial ouvert à tout le quartier, pour déstigmatiser la santé mentale autour d'un café.",
-    features: ["Café-débats", "Ouvert à tous", "Rencontres conviviales"],
-  },
-];
-
 export default function LeLieu() {
   const { getContent, isLoading } = usePageContent("le-lieu");
+  const chateauImage = useSiteImage("chateau-main", chateauImageStatic);
+  const cabinetImage = useSiteImage("cabinet-room", cabinetImageStatic);
+  const associationImage = useSiteImage("association-room", associationImageStatic);
+  const cafeImage = useSiteImage("cafe-phare", cafeImageStatic);
 
+  const spaces = [
+    {
+      image: cabinetImage,
+      title: "Les cabinets de consultation",
+      description: "8 cabinets lumineux de 18m² donnant sur le parc, offrant un cadre apaisant pour les consultations individuelles.",
+      features: ["Vue sur le parc de 2ha", "Salles d'attente confortables", "Espace détente pour l'équipe"],
+    },
+    {
+      image: associationImage,
+      title: "Les salles de vie",
+      description: "De grands espaces polyvalents pour les ateliers thérapeutiques, groupes de parole et moments de partage collectifs.",
+      features: ["Ateliers thérapeutiques", "Groupes de parole", "Art-thérapie"],
+    },
+    {
+      image: cafeImage,
+      title: "Le Café Le Phare",
+      description: "Un espace convivial ouvert à tout le quartier, pour déstigmatiser la santé mentale autour d'un café.",
+      features: ["Café-débats", "Ouvert à tous", "Rencontres conviviales"],
+    },
+  ];
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">

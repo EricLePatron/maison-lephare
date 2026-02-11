@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Heart, Users, Brain, Handshake, Palette, MessageCircle, Loader2 } from "lucide-react";
 import { usePageContent } from "@/hooks/useSiteContent";
-import associationImage from "@/assets/association-room.png";
+import { useSiteImage } from "@/hooks/useTheme";
+import associationImageStatic from "@/assets/association-room.png";
 
 const activities = [
   {
@@ -64,7 +65,7 @@ const values = [
 
 export default function Association() {
   const { getContent, isLoading } = usePageContent("association");
-
+  const associationImage = useSiteImage("association-room", associationImageStatic);
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
