@@ -2,12 +2,14 @@ import { ReactNode } from "react";
 import { Outlet } from "react-router-dom";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { useApplyTheme } from "@/hooks/useTheme";
 
 interface LayoutProps {
   children?: ReactNode;
 }
 
 export function Layout({ children }: LayoutProps) {
+  useApplyTheme();
   return (
     <div className="min-h-screen flex flex-col">
       <Header />

@@ -16,6 +16,7 @@ import AdminLogin from "./pages/admin/Login";
 import AdminProfessionnels from "./pages/admin/Professionnels";
 import AdminAteliers from "./pages/admin/Ateliers";
 import AdminContenu from "./pages/admin/Contenu";
+import AdminApparence from "./pages/admin/Apparence";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -47,6 +48,9 @@ const App = () => (
           } />
           <Route path="/admin/contenu" element={
             <RequireAdmin><AdminContenu /></RequireAdmin>
+          } />
+          <Route path="/admin/apparence" element={
+            <RequireAdmin><AdminApparence /></RequireAdmin>
           } />
           
           {/* Catch-all */}
