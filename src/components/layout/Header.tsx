@@ -1,16 +1,12 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Menu, X, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: "/", label: "Accueil" },
-  { href: "/le-lieu", label: "Le Lieu" },
-  { href: "/association", label: "L'Association" },
-  { href: "/professionnels", label: "Professionnels" },
-  { href: "/ateliers", label: "Ateliers" },
-  { href: "/contact", label: "Contact" },
+  { href: "/le-lieu", label: "Le lieu" },
+  { href: "/professionnels", label: "Les professionnels" },
+  { href: "/ateliers", label: "Les Ateliers" },
 ];
 
 export function Header() {
@@ -18,33 +14,25 @@ export function Header() {
   const location = useLocation();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border/40">
       <div className="container-wide">
-        <div className="flex h-16 sm:h-20 items-center justify-between">
+        <div className="flex h-16 sm:h-18 items-center justify-between">
           {/* Logo */}
-          <Link 
-            to="/" 
-            className="flex items-center gap-2 group"
-          >
-            <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center transition-transform group-hover:scale-105">
-              <span className="text-primary-foreground font-serif text-lg font-semibold">P</span>
-            </div>
-            <span className="font-serif text-xl font-semibold text-foreground">
-              Le Phare
-            </span>
+          <Link to="/" className="font-script text-2xl sm:text-3xl text-primary font-bold tracking-wide">
+            LePhare
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 to={link.href}
                 className={cn(
-                  "px-4 py-2 text-sm font-medium rounded-lg transition-colors",
+                  "text-sm font-medium transition-colors",
                   location.pathname === link.href
-                    ? "text-primary bg-primary/5"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 {link.label}
@@ -54,9 +42,13 @@ export function Header() {
 
           {/* CTA Button - Desktop */}
           <div className="hidden lg:block">
-            <Button asChild variant="hero" size="default">
-              <Link to="/contact">Nous contacter</Link>
-            </Button>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 px-6 py-2.5 bg-primary text-primary-foreground rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
+            >
+              Contactez-nous !
+              <Sun className="h-4 w-4" />
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -94,11 +86,14 @@ export function Header() {
             </Link>
           ))}
           <div className="pt-4 px-4">
-            <Button asChild variant="hero" size="lg" className="w-full">
-              <Link to="/contact" onClick={() => setIsOpen(false)}>
-                Nous contacter
-              </Link>
-            </Button>
+            <Link
+              to="/contact"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-primary text-primary-foreground rounded-full text-sm font-medium"
+            >
+              Contactez-nous !
+              <Sun className="h-4 w-4" />
+            </Link>
           </div>
         </nav>
       </div>

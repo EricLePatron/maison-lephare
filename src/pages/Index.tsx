@@ -1,21 +1,13 @@
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Heart, Users, Home, Coffee, Loader2 } from "lucide-react";
+import { ArrowRight, Heart, Handshake, Coffee, Sprout, Loader2 } from "lucide-react";
 import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
 import chateauImageStatic from "@/assets/chateau-main.jpg";
-import cabinetImageStatic from "@/assets/cabinet-room.png";
-import associationImageStatic from "@/assets/association-room.png";
-import cafeImageStatic from "@/assets/cafe-phare.jpg";
-
-const featureIcons = [Home, Users, Heart, Coffee];
 
 export default function Index() {
   const { getContent, isLoading } = usePageContent("home");
   const chateauImage = useSiteImage("chateau-main", chateauImageStatic);
-  const cabinetImage = useSiteImage("cabinet-room", cabinetImageStatic);
-  const associationImage = useSiteImage("association-room", associationImageStatic);
-  const cafeImage = useSiteImage("cafe-phare", cafeImageStatic);
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -24,190 +16,93 @@ export default function Index() {
     );
   }
 
-  const features = [
-    {
-      icon: featureIcons[0],
-      title: getContent("features", "feature_1_title", "Un lieu unique"),
-      description: getContent("features", "feature_1_description", "Un château chargé d'histoire dédié entièrement à la santé mentale, avec vue sur un parc de 2 hectares."),
-    },
-    {
-      icon: featureIcons[1],
-      title: getContent("features", "feature_2_title", "Des professionnels engagés"),
-      description: getContent("features", "feature_2_description", "Une équipe pluridisciplinaire de praticiens passionnés : psychiatres, psychologues, thérapeutes."),
-    },
-    {
-      icon: featureIcons[2],
-      title: getContent("features", "feature_3_title", "Une approche humaine"),
-      description: getContent("features", "feature_3_description", "Des ateliers, groupes de parole et activités conçus pour accompagner chacun dans son parcours."),
-    },
-    {
-      icon: featureIcons[3],
-      title: getContent("features", "feature_4_title", "Un espace ouvert"),
-      description: getContent("features", "feature_4_description", "Un café ouvert à tous pour déstigmatiser la santé mentale et créer du lien dans le quartier."),
-    },
-  ];
-
-  const spaces = [
-    {
-      image: cabinetImage,
-      title: getContent("spaces", "space_1_title", "Le Cabinet"),
-      description: getContent("spaces", "space_1_description", "8 cabinets de consultation lumineux donnant sur le parc, pour des accompagnements individuels."),
-      link: "/professionnels",
-      linkText: "Découvrir les professionnels",
-    },
-    {
-      image: associationImage,
-      title: getContent("spaces", "space_2_title", "L'Association"),
-      description: getContent("spaces", "space_2_description", "Des salles de vie pour les ateliers thérapeutiques, groupes de parole et moments de partage."),
-      link: "/association",
-      linkText: "En savoir plus",
-    },
-    {
-      image: cafeImage,
-      title: getContent("spaces", "space_3_title", "Le Café"),
-      description: getContent("spaces", "space_3_description", "Un espace chaleureux ouvert à tout le quartier, pour des café-débats et rencontres."),
-      link: "/le-lieu",
-      linkText: "Découvrir le lieu",
-    },
-  ];
-
-  const values = [
-    {
-      title: getContent("values", "value_1_title", "Bienveillance"),
-      description: getContent("values", "value_1_description", "Accueillir chaque personne avec respect et sans jugement, dans sa singularité."),
-      color: "bg-accent",
-    },
-    {
-      title: getContent("values", "value_2_title", "Déstigmatisation"),
-      description: getContent("values", "value_2_description", "Contribuer à changer le regard sur la santé mentale, ouvrir le dialogue."),
-      color: "bg-primary",
-    },
-    {
-      title: getContent("values", "value_3_title", "Collectif"),
-      description: getContent("values", "value_3_description", "Croire en la force du groupe et de l'entraide pour accompagner le rétablissement."),
-      color: "bg-sage-400",
-    },
-  ];
-
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <img
-            src={chateauImage}
-            alt="Château Le Phare"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-sage-700/95 via-sage-600/80 to-sage-500/60" />
+      {/* Hero Section - Split diagonal */}
+      <section className="relative min-h-[70vh] flex items-center overflow-hidden">
+        {/* Left - Cream */}
+        <div className="absolute inset-0 flex">
+          <div className="w-full lg:w-1/2 bg-secondary" />
+          <div className="hidden lg:block w-1/2 bg-primary" style={{ clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0 100%)' }} />
+        </div>
+        {/* Mobile brown bg */}
+        <div className="absolute inset-0 lg:hidden">
+          <div className="absolute inset-0 bg-secondary" />
         </div>
 
-        {/* Content */}
-        <div className="container-wide relative z-10 py-20">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/10 backdrop-blur-sm rounded-full mb-6 animate-fade-up">
-              <span className="h-2 w-2 rounded-full bg-accent" />
-              <span className="text-primary-foreground/90 text-sm font-medium">
-                {getContent("hero", "badge", "Un lieu dédié à la santé mentale")}
-              </span>
+        <div className="container-wide relative z-10 py-20 lg:py-28">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left content */}
+            <div className="animate-fade-up">
+              <h1 className="font-script text-6xl sm:text-7xl lg:text-8xl text-primary font-bold mb-4 leading-none">
+                {getContent("hero", "title", "LePhare")}
+              </h1>
+              <div className="w-32 h-0.5 bg-primary/40 mb-6" />
+              <p className="font-serif text-xl sm:text-2xl text-primary/80 italic leading-relaxed">
+                {getContent("hero", "description", "Maison dédiée à la\nSanté Mentale")}
+              </p>
             </div>
-            
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-medium text-primary-foreground leading-tight mb-6 animate-fade-up-delay">
-              {getContent("hero", "title", "Bienvenue au Phare")}
-            </h1>
-            
-            <p className="text-lg sm:text-xl text-primary-foreground/85 leading-relaxed mb-8 animate-fade-up-delay-2">
-              {getContent("hero", "description", "Une maison chaleureuse au cœur de Bordeaux, où professionnels et association s'unissent pour accompagner chacun vers le rétablissement.")}
-            </p>
-            
-            <div className="flex flex-wrap gap-4 animate-fade-up-delay-2">
-              <Button asChild variant="warm" size="xl">
-                <Link to="/professionnels">
-                  Découvrir les professionnels
-                  <ArrowRight className="h-5 w-5" />
-                </Link>
-              </Button>
-              <Button asChild variant="heroOutline" size="xl">
-                <Link to="/ateliers">Voir les ateliers</Link>
-              </Button>
+
+            {/* Right - château illustration area (on mobile, show photo) */}
+            <div className="hidden lg:flex items-center justify-center relative">
+              <div className="text-primary-foreground text-center">
+                <img
+                  src={chateauImage}
+                  alt="Château du Tenet"
+                  className="w-full max-w-md rounded-2xl opacity-90 mix-blend-luminosity"
+                />
+                <p className="font-script text-xl text-primary-foreground/90 mt-4">
+                  Château du Tenet, Mérignac (33)
+                </p>
+              </div>
             </div>
           </div>
         </div>
-
-        {/* Decorative elements */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
       </section>
 
-      {/* Features Section */}
-      <section className="section-padding bg-gradient-to-b from-background to-secondary/30">
+      {/* Features Section - 3 hand-drawn cards */}
+      <section className="section-padding bg-muted/30">
         <div className="container-wide">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="font-serif text-3xl sm:text-4xl font-medium text-foreground mb-4">
-              {getContent("features", "title", "Un lieu pas comme les autres")}
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-medium text-foreground mb-4 italic">
+              {getContent("features", "title", "Un lieu pas comme les autres,\nentièrement dédié à la santé mentale")}
             </h2>
-            <p className="text-muted-foreground text-lg">
-              {getContent("features", "description", "Le Phare réunit soins, accompagnement et convivialité dans un cadre exceptionnel.")}
-            </p>
+            <div className="decorative-line-terra mx-auto" />
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {features.map((feature, index) => (
+          <div className="grid gap-8 sm:grid-cols-3 max-w-4xl mx-auto">
+            {[
+              {
+                icon: Heart,
+                title: getContent("features", "feature_1_title", "L'espace\nConsultations"),
+                link: "/professionnels",
+              },
+              {
+                icon: Handshake,
+                title: getContent("features", "feature_2_title", "L'association\nLePhare"),
+                link: "/association",
+              },
+              {
+                icon: Coffee,
+                title: getContent("features", "feature_3_title", "Le café\ninclusif"),
+                link: "/le-lieu",
+              },
+            ].map((feature, index) => (
               <div
-                key={feature.title}
-                className="card-elevated group"
-                style={{ animationDelay: `${index * 100}ms` }}
+                key={index}
+                className="hand-drawn-border p-8 text-center group hover:bg-secondary/50 transition-colors"
               >
-                <div className="h-12 w-12 rounded-xl bg-sage-100 flex items-center justify-center mb-4 group-hover:bg-sage-200 transition-colors">
-                  <feature.icon className="h-6 w-6 text-primary" />
+                <div className="flex justify-center mb-6">
+                  <feature.icon className="h-12 w-12 text-primary/70 stroke-[1.5]" />
                 </div>
-                <h3 className="font-serif text-xl font-medium text-foreground mb-2">
+                <h3 className="font-serif text-lg sm:text-xl font-medium text-foreground mb-6 whitespace-pre-line">
                   {feature.title}
                 </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Spaces Section */}
-      <section className="section-padding">
-        <div className="container-wide">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="font-serif text-3xl sm:text-4xl font-medium text-foreground mb-4">
-              {getContent("spaces", "title", "Trois espaces, une mission")}
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              {getContent("spaces", "description", "Découvrez les différents espaces qui composent Le Phare, chacun avec sa vocation propre.")}
-            </p>
-          </div>
-
-          <div className="grid gap-8 lg:grid-cols-3">
-            {spaces.map((space) => (
-              <div key={space.title} className="group">
-                <div className="relative overflow-hidden rounded-2xl mb-6 aspect-[4/3]">
-                  <img
-                    src={space.image}
-                    alt={space.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy-900/60 via-transparent to-transparent" />
-                </div>
-                <h3 className="font-serif text-2xl font-medium text-foreground mb-2">
-                  {space.title}
-                </h3>
-                <p className="text-muted-foreground mb-4 leading-relaxed">
-                  {space.description}
-                </p>
                 <Link
-                  to={space.link}
-                  className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all"
+                  to={feature.link}
+                  className="inline-flex items-center gap-1 px-4 py-1.5 border border-border rounded-full text-sm text-muted-foreground hover:text-foreground hover:border-primary transition-colors"
                 >
-                  {space.linkText}
-                  <ArrowRight className="h-4 w-4" />
+                  en savoir +
                 </Link>
               </div>
             ))}
@@ -215,46 +110,108 @@ export default function Index() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="section-padding bg-sage-600">
-        <div className="container-narrow text-center">
-          <h2 className="font-serif text-3xl sm:text-4xl font-medium text-primary-foreground mb-4">
-            {getContent("cta", "title", "Besoin d'être accompagné ?")}
+      {/* Photo Banner - Full width château photo */}
+      <section className="relative h-[40vh] sm:h-[50vh] overflow-hidden">
+        <img
+          src={chateauImage}
+          alt="Le Phare - Château du Tenet"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-foreground/20" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <h2 className="font-script text-5xl sm:text-7xl lg:text-8xl text-[hsl(10_80%_70%)] font-bold drop-shadow-lg">
+            LePhare
           </h2>
-          <p className="text-primary-foreground/85 text-lg mb-8 max-w-xl mx-auto">
-            {getContent("cta", "description", "Que vous cherchiez un professionnel ou souhaitiez participer à nos activités, nous sommes là pour vous accueillir.")}
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button asChild variant="warm" size="xl">
-              <Link to="/contact">
-                Nous contacter
-                <ArrowRight className="h-5 w-5" />
-              </Link>
-            </Button>
-            <Button asChild variant="heroOutline" size="xl">
-              <Link to="/professionnels">Trouver un professionnel</Link>
-            </Button>
+        </div>
+      </section>
+
+      {/* "Vous voulez..." Section */}
+      <section className="section-padding">
+        <div className="container-narrow">
+          <p className="text-muted-foreground text-lg mb-8">Vous voulez …</p>
+          <div className="space-y-0">
+            {[
+              { text: "Consulter un professionnel de la Santé Mentale du Phare ?", link: "/professionnels" },
+              { text: "Trouver la programmation des activités de l'association ?", link: "/ateliers" },
+              { text: "En savoir plus sur le Lieu ?", link: "/le-lieu" },
+              { text: "Rejoindre le projet ?", link: "/contact" },
+              { text: "Proposer une activité ?", link: "/contact" },
+              { text: "Chercher à vous faire accompagner ?", link: "/professionnels" },
+              { text: "Louer une salle pour une activité sur la Santé Mentale ?", link: "/contact" },
+              { text: "Vous installer en libéral ?", link: "/contact" },
+              { text: "Venir boire un café et nous rencontrer ?", link: "/le-lieu" },
+            ].map((item, index) => (
+              <div key={index}>
+                <Link
+                  to={item.link}
+                  className="group flex items-center justify-between py-4 transition-colors hover:text-primary"
+                >
+                  <span className="text-base sm:text-lg font-medium text-foreground group-hover:text-primary transition-colors">
+                    {item.text}
+                  </span>
+                  <div className="flex-shrink-0 ml-4 h-10 w-10 rounded-full border-2 border-primary/30 flex items-center justify-center group-hover:border-primary group-hover:bg-primary/5 transition-all">
+                    <ArrowRight className="h-4 w-4 text-primary/50 group-hover:text-primary transition-colors" />
+                  </div>
+                </Link>
+                <div className="h-0.5 w-48 bg-primary/30 rounded-full" />
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Values Section */}
+      {/* Values Banner - Sage green */}
+      <section className="py-16 sm:py-20 bg-[hsl(var(--sage-500))]">
+        <div className="container-narrow text-center">
+          <div className="flex items-center justify-center gap-8">
+            <Heart className="h-10 w-10 text-white/70 stroke-[1.5] hidden sm:block" />
+            <div>
+              <p className="font-serif text-xl sm:text-2xl text-white italic leading-relaxed">
+                Consulter. Participer. Echanger.<br />
+                Se rencontrer.
+              </p>
+              <p className="font-serif text-xl sm:text-2xl text-white font-semibold mt-2">
+                Faire-ensemble autour de la Santé Mentale.
+              </p>
+            </div>
+            <Heart className="h-10 w-10 text-white/70 stroke-[1.5] hidden sm:block" />
+          </div>
+        </div>
+      </section>
+
+      {/* Values Section - "Ce qui compte pour nous" */}
       <section className="section-padding">
         <div className="container-wide">
           <div className="grid gap-12 lg:grid-cols-2 items-center">
             <div>
-              <h2 className="font-serif text-3xl sm:text-4xl font-medium text-foreground mb-6">
-                {getContent("values", "title", "Nos valeurs")}
+              <h2 className="font-serif text-3xl sm:text-4xl font-medium text-foreground mb-8 italic">
+                {getContent("values", "title", "Ce qui compte pour nous")}
               </h2>
-              <div className="space-y-6">
-                {values.map((value) => (
-                  <div key={value.title} className="flex gap-4">
-                    <div className={`h-8 w-1 ${value.color} rounded-full flex-shrink-0`} />
+              <div className="space-y-8">
+                {[
+                  {
+                    icon: Handshake,
+                    title: getContent("values", "value_1_title", "Faire confiance"),
+                    description: getContent("values", "value_1_description", "Accorder du crédit à la parole et à l'expérience de chacun"),
+                  },
+                  {
+                    icon: Heart,
+                    title: getContent("values", "value_2_title", "Faire ensemble"),
+                    description: getContent("values", "value_2_description", "Croire en la force du collectif pour accompagner le rétablissement"),
+                  },
+                  {
+                    icon: Sprout,
+                    title: getContent("values", "value_3_title", "Faire grandir"),
+                    description: getContent("values", "value_3_description", "Croire en la capacité de chacun à avancer, à son rythme vers le rétablissement"),
+                  },
+                ].map((value, index) => (
+                  <div key={index} className="flex gap-4 items-start">
+                    <value.icon className="h-6 w-6 text-primary/60 flex-shrink-0 mt-1 stroke-[1.5]" />
                     <div>
-                      <h3 className="font-serif text-xl font-medium text-foreground mb-1">
+                      <h3 className="font-serif text-lg font-semibold text-foreground mb-1">
                         {value.title}
                       </h3>
-                      <p className="text-muted-foreground">
+                      <p className="text-muted-foreground leading-relaxed">
                         {value.description}
                       </p>
                     </div>
@@ -262,18 +219,13 @@ export default function Index() {
                 ))}
               </div>
             </div>
-            <div className="relative">
-              <div className="aspect-square rounded-3xl overflow-hidden">
+            <div className="relative flex justify-center">
+              <div className="hand-drawn-border p-3 inline-block">
                 <img
                   src={chateauImage}
                   alt="Le Château Le Phare"
-                  className="w-full h-full object-cover"
+                  className="rounded-lg w-full max-w-md object-cover aspect-[4/3]"
                 />
-              </div>
-              <div className="absolute -bottom-6 -left-6 bg-card rounded-2xl p-6 shadow-elevated max-w-xs hidden sm:block">
-                <p className="font-serif text-lg text-foreground italic">
-                  "{getContent("values", "quote", "Un lieu où l'on prend soin de la santé mentale, ensemble.")}"
-                </p>
               </div>
             </div>
           </div>
