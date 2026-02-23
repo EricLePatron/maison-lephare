@@ -5,6 +5,7 @@ import { useSiteImage } from "@/hooks/useTheme";
 import chateauImageStatic from "@/assets/chateau-main.jpg";
 import heroBanner from "@/assets/hero-banner.png";
 import photoBanner from "@/assets/photo-banner.png";
+import valuesBanner from "@/assets/values-banner.png";
 
 export default function Index() {
   const { getContent, isLoading } = usePageContent("home");
@@ -167,23 +168,13 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Values Banner - Sage green */}
-      <section className="py-16 sm:py-20 bg-[hsl(var(--sage-500))]">
-        <div className="container-narrow text-center">
-          <div className="flex items-center justify-center gap-8">
-            <Heart className="h-10 w-10 text-white/70 stroke-[1.5] hidden sm:block" />
-            <div>
-              <p className="font-serif text-xl sm:text-2xl text-white italic leading-relaxed">
-                Consulter. Participer. Echanger.<br />
-                Se rencontrer.
-              </p>
-              <p className="font-serif text-xl sm:text-2xl text-white font-semibold mt-2">
-                Faire-ensemble autour de la Santé Mentale.
-              </p>
-            </div>
-            <Heart className="h-10 w-10 text-white/70 stroke-[1.5] hidden sm:block" />
-          </div>
-        </div>
+      {/* Values Banner - exact mockup image */}
+      <section className="w-full">
+        <img
+          src={valuesBanner}
+          alt="Consulter. Participer. Echanger. Se rencontrer. Faire-ensemble autour de la Santé Mentale."
+          className="w-full h-auto"
+        />
       </section>
 
       {/* Values Section - "Ce qui compte pour nous" */}
