@@ -4,6 +4,7 @@ import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
 import chateauImageStatic from "@/assets/chateau-main.jpg";
 import heroBanner from "@/assets/hero-banner.png";
+import photoBanner from "@/assets/photo-banner.png";
 
 export default function Index() {
   const { getContent, isLoading } = usePageContent("home");
@@ -105,19 +106,13 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Photo Banner - Full width château photo */}
-      <section className="relative h-[40vh] sm:h-[50vh] overflow-hidden">
+      {/* Photo Banner - exact mockup image */}
+      <section className="w-full">
         <img
-          src={chateauImage}
-          alt="Le Phare - Château du Tenet"
-          className="w-full h-full object-cover"
+          src={photoBanner}
+          alt="LePhare - Château du Tenet"
+          className="w-full h-auto"
         />
-        <div className="absolute inset-0 bg-foreground/20" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <h2 className="font-script text-5xl sm:text-7xl lg:text-8xl text-[hsl(10_80%_70%)] font-bold drop-shadow-lg">
-            LePhare
-          </h2>
-        </div>
       </section>
 
       {/* "Vous voulez..." Section */}
