@@ -29,50 +29,77 @@ export default function Index() {
       </section>
 
       {/* Features Section - 3 hand-drawn cards */}
-      <section className="section-padding bg-muted/30">
+      <section className="py-16 sm:py-24 bg-[hsl(var(--muted)_/_0.3)]">
         <div className="container-wide">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-medium text-foreground mb-4 italic">
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-medium text-foreground italic leading-snug">
               {getContent("features", "title", "Un lieu pas comme les autres,\nentièrement dédié à la santé mentale")}
             </h2>
-            <div className="decorative-line-terra mx-auto" />
+            <div className="flex justify-center mt-5">
+              <div className="decorative-line-terra" />
+            </div>
           </div>
 
-          <div className="grid gap-8 sm:grid-cols-3 max-w-4xl mx-auto">
+          <div className="grid gap-8 sm:grid-cols-3 max-w-5xl mx-auto">
             {[
               {
                 icon: Heart,
-                title: getContent("features", "feature_1_title", "L'espace\nConsultations"),
+                title: "L'espace\nConsultations",
+                description: "8 bureaux pour professionnels de santé mentale installés en libéral",
                 link: "/professionnels",
               },
               {
                 icon: Handshake,
-                title: getContent("features", "feature_2_title", "L'association\nLePhare"),
+                title: "L'association\nLePhare",
+                description: "Des ateliers, des groupes et des rencontres pour parler santé mentale autrement",
                 link: "/association",
               },
               {
                 icon: Coffee,
-                title: getContent("features", "feature_3_title", "Le café\ninclusif"),
+                title: "Le café\ninclusif",
+                description: "Un espace ouvert à tous pour se retrouver et échanger",
                 link: "/le-lieu",
               },
             ].map((feature, index) => (
-              <div
+              <Link
                 key={index}
-                className="hand-drawn-border p-8 text-center group hover:bg-secondary/50 transition-colors"
+                to={feature.link}
+                className="group relative block"
               >
-                <div className="flex justify-center mb-6">
-                  <feature.icon className="h-12 w-12 text-primary/70 stroke-[1.5]" />
+                {/* Hand-drawn border using SVG */}
+                <div className="relative p-8 sm:p-10 text-center transition-all duration-300">
+                  {/* Outer hand-drawn border */}
+                  <svg className="absolute inset-0 w-full h-full" viewBox="0 0 300 350" preserveAspectRatio="none" fill="none">
+                    <path
+                      d="M12 8 C 60 4, 240 6, 290 10 C 294 60, 296 290, 292 340 C 240 344, 60 346, 8 342 C 4 290, 6 60, 12 8 Z"
+                      stroke="hsl(var(--primary))"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      fill="none"
+                      className="transition-all duration-300 group-hover:stroke-[4]"
+                    />
+                  </svg>
+
+                  <div className="relative z-10">
+                    <div className="flex justify-center mb-6">
+                      <feature.icon className="h-14 w-14 text-primary/60 stroke-[1.2] group-hover:text-primary/80 transition-colors" />
+                    </div>
+                    <h3 className="font-serif text-xl sm:text-2xl font-medium text-foreground mb-4 whitespace-pre-line leading-tight">
+                      {feature.title}
+                    </h3>
+
+                    {/* Description - visible on hover */}
+                    <p className="text-sm text-muted-foreground mb-4 max-h-0 overflow-hidden opacity-0 group-hover:max-h-20 group-hover:opacity-100 transition-all duration-300">
+                      {feature.description}
+                    </p>
+
+                    <span className="inline-flex items-center gap-1 px-5 py-2 bg-muted/60 rounded-full text-sm text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                      en savoir +
+                    </span>
+                  </div>
                 </div>
-                <h3 className="font-serif text-lg sm:text-xl font-medium text-foreground mb-6 whitespace-pre-line">
-                  {feature.title}
-                </h3>
-                <Link
-                  to={feature.link}
-                  className="inline-flex items-center gap-1 px-4 py-1.5 border border-border rounded-full text-sm text-muted-foreground hover:text-foreground hover:border-primary transition-colors"
-                >
-                  en savoir +
-                </Link>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
