@@ -3,6 +3,7 @@ import { ArrowRight, Heart, Handshake, Coffee, Sprout, Loader2 } from "lucide-re
 import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
 import chateauImageStatic from "@/assets/chateau-main.jpg";
+import heroBanner from "@/assets/hero-banner.png";
 
 export default function Index() {
   const { getContent, isLoading } = usePageContent("home");
@@ -18,46 +19,13 @@ export default function Index() {
 
   return (
     <>
-      {/* Hero Section - Split diagonal */}
-      <section className="relative min-h-[70vh] flex items-center overflow-hidden">
-        {/* Left - Cream */}
-        <div className="absolute inset-0 flex">
-          <div className="w-full lg:w-1/2 bg-secondary" />
-          <div className="hidden lg:block w-1/2 bg-primary" style={{ clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0 100%)' }} />
-        </div>
-        {/* Mobile brown bg */}
-        <div className="absolute inset-0 lg:hidden">
-          <div className="absolute inset-0 bg-secondary" />
-        </div>
-
-        <div className="container-wide relative z-10 py-20 lg:py-28">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left content */}
-            <div className="animate-fade-up">
-              <h1 className="font-script text-6xl sm:text-7xl lg:text-8xl text-primary font-bold mb-4 leading-none">
-                {getContent("hero", "title", "LePhare")}
-              </h1>
-              <div className="w-32 h-0.5 bg-primary/40 mb-6" />
-              <p className="font-serif text-xl sm:text-2xl text-primary/80 italic leading-relaxed">
-                {getContent("hero", "description", "Maison dédiée à la\nSanté Mentale")}
-              </p>
-            </div>
-
-            {/* Right - château illustration area (on mobile, show photo) */}
-            <div className="hidden lg:flex items-center justify-center relative">
-              <div className="text-primary-foreground text-center">
-                <img
-                  src={chateauImage}
-                  alt="Château du Tenet"
-                  className="w-full max-w-md rounded-2xl opacity-90 mix-blend-luminosity"
-                />
-                <p className="font-script text-xl text-primary-foreground/90 mt-4">
-                  Château du Tenet, Mérignac (33)
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* Hero Banner - exact mockup image */}
+      <section className="w-full">
+        <img
+          src={heroBanner}
+          alt="LePhare - Maison dédiée à la Santé Mentale - Château du Tenet, Mérignac (33)"
+          className="w-full h-auto"
+        />
       </section>
 
       {/* Features Section - 3 hand-drawn cards */}
