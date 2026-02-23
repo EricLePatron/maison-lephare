@@ -139,11 +139,28 @@ export default function Index() {
                   <span className="text-base sm:text-lg font-medium text-foreground group-hover:text-primary transition-colors">
                     {item.text}
                   </span>
-                  <div className="flex-shrink-0 ml-4 h-10 w-10 rounded-full border-2 border-primary/30 flex items-center justify-center group-hover:border-primary group-hover:bg-primary/5 transition-all">
-                    <ArrowRight className="h-4 w-4 text-primary/50 group-hover:text-primary transition-colors" />
+                  <div className="flex-shrink-0 ml-4">
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" className="group-hover:scale-105 transition-transform">
+                      {/* Outer hand-drawn circle */}
+                      <ellipse cx="22" cy="22" rx="19" ry="19.5" stroke="hsl(var(--primary))" strokeWidth="1.2" strokeOpacity="0.35" strokeLinecap="round" />
+                      {/* Inner hand-drawn circle */}
+                      <ellipse cx="22" cy="22" rx="16.5" ry="17" stroke="hsl(var(--primary))" strokeWidth="1.8" strokeOpacity="0.5" strokeLinecap="round" className="group-hover:stroke-[hsl(var(--primary))] group-hover:[stroke-opacity:1]" />
+                      {/* Arrow */}
+                      <path d="M18 22H27M24 18.5L27.5 22L24 25.5" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.5" className="group-hover:[stroke-opacity:1]" />
+                    </svg>
                   </div>
                 </Link>
-                <div className="h-0.5 w-48 bg-primary/30 rounded-full" />
+                {/* Hand-drawn wavy underline */}
+                <svg width="180" height="8" viewBox="0 0 180 8" fill="none" className="ml-0">
+                  <path
+                    d={`M2 ${4 + Math.sin(index) * 1.5} C 30 ${2 + Math.cos(index * 2)}, 50 ${5 + Math.sin(index * 3) * 1.2}, 80 ${4 + Math.cos(index)} S 130 ${3 + Math.sin(index * 1.5)}, 160 ${4 + Math.cos(index * 2.5) * 0.8} L 178 ${4 + Math.sin(index + 1)}`}
+                    stroke="hsl(var(--primary))"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    fill="none"
+                  />
+                </svg>
               </div>
             ))}
           </div>
