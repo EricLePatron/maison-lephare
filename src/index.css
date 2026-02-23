@@ -5,67 +5,77 @@
 @import "@fontsource/inter/400.css";
 @import "@fontsource/inter/500.css";
 @import "@fontsource/inter/600.css";
+@import "@fontsource/caveat/400.css";
+@import "@fontsource/caveat/700.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* Le Phare - Design System
-   A warm, calming palette inspired by French châteaux, nature, and wellness
-   Colors: Sage green, warm cream, golden amber, deep navy
+   Warm terra cotta, cream, and sage - organic, hand-drawn aesthetic
 */
 
 @layer base {
   :root {
     /* Core palette */
-    --background: 48 33% 97%;
-    --foreground: 220 25% 20%;
+    --background: 30 30% 96%;
+    --foreground: 20 20% 20%;
     
-    --card: 0 0% 100%;
-    --card-foreground: 220 25% 20%;
+    --card: 30 25% 98%;
+    --card-foreground: 20 20% 20%;
     
     --popover: 0 0% 100%;
-    --popover-foreground: 220 25% 20%;
+    --popover-foreground: 20 20% 20%;
     
-    /* Primary: Deep sage green - trust, nature, healing */
-    --primary: 155 30% 35%;
-    --primary-foreground: 48 33% 97%;
+    /* Primary: Terra cotta / brown */
+    --primary: 24 55% 40%;
+    --primary-foreground: 30 30% 96%;
     
-    /* Secondary: Warm cream - warmth, comfort */
-    --secondary: 40 40% 94%;
-    --secondary-foreground: 220 25% 20%;
+    /* Secondary: Warm cream/peach */
+    --secondary: 25 60% 93%;
+    --secondary-foreground: 20 20% 20%;
     
-    /* Muted: Soft beige */
-    --muted: 40 25% 92%;
-    --muted-foreground: 220 15% 45%;
+    /* Muted */
+    --muted: 30 20% 92%;
+    --muted-foreground: 20 10% 45%;
     
-    /* Accent: Golden amber - hope, light */
-    --accent: 38 75% 55%;
-    --accent-foreground: 220 25% 15%;
+    /* Accent: Same terra cotta family */
+    --accent: 24 55% 40%;
+    --accent-foreground: 30 30% 96%;
     
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
     
-    --border: 40 20% 88%;
-    --input: 40 20% 88%;
-    --ring: 155 30% 35%;
+    --border: 30 20% 85%;
+    --input: 30 20% 85%;
+    --ring: 24 55% 40%;
     
     --radius: 0.75rem;
     
     /* Extended palette */
+    --terra-50: 25 50% 96%;
+    --terra-100: 25 45% 90%;
+    --terra-200: 24 50% 80%;
+    --terra-300: 24 55% 65%;
+    --terra-400: 24 55% 50%;
+    --terra-500: 24 55% 40%;
+    --terra-600: 24 58% 32%;
+    --terra-700: 24 60% 25%;
+    
     --sage-50: 155 25% 96%;
     --sage-100: 155 25% 90%;
     --sage-200: 155 25% 80%;
     --sage-300: 155 28% 65%;
-    --sage-400: 155 30% 45%;
-    --sage-500: 155 30% 35%;
-    --sage-600: 155 32% 28%;
-    --sage-700: 155 35% 22%;
+    --sage-400: 155 25% 55%;
+    --sage-500: 155 20% 60%;
+    --sage-600: 155 22% 55%;
+    --sage-700: 155 25% 45%;
     
-    --cream-50: 48 40% 98%;
-    --cream-100: 45 35% 96%;
-    --cream-200: 42 30% 92%;
-    --cream-300: 40 25% 85%;
+    --cream-50: 30 50% 98%;
+    --cream-100: 28 55% 95%;
+    --cream-200: 25 50% 92%;
+    --cream-300: 25 40% 85%;
     
     --amber-400: 38 80% 60%;
     --amber-500: 38 75% 55%;
@@ -74,47 +84,42 @@
     --navy-800: 220 35% 18%;
     --navy-900: 220 40% 12%;
     
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(155 30% 35% / 0.95), hsl(155 35% 25% / 0.9));
-    --gradient-warm: linear-gradient(180deg, hsl(48 33% 97%), hsl(40 40% 94%));
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(40 25% 98%));
-    
     /* Shadows */
-    --shadow-soft: 0 4px 20px -4px hsl(220 25% 20% / 0.08);
-    --shadow-elevated: 0 8px 30px -6px hsl(220 25% 20% / 0.12);
-    --shadow-glow: 0 0 40px hsl(155 30% 35% / 0.15);
+    --shadow-soft: 0 4px 20px -4px hsl(20 20% 20% / 0.06);
+    --shadow-elevated: 0 8px 30px -6px hsl(20 20% 20% / 0.1);
+    --shadow-glow: 0 0 40px hsl(24 55% 40% / 0.12);
     
-    /* Sidebar (keep for compatibility) */
-    --sidebar-background: 48 33% 97%;
-    --sidebar-foreground: 220 25% 20%;
-    --sidebar-primary: 155 30% 35%;
-    --sidebar-primary-foreground: 48 33% 97%;
-    --sidebar-accent: 40 40% 94%;
-    --sidebar-accent-foreground: 220 25% 20%;
-    --sidebar-border: 40 20% 88%;
-    --sidebar-ring: 155 30% 35%;
+    /* Sidebar */
+    --sidebar-background: 30 30% 96%;
+    --sidebar-foreground: 20 20% 20%;
+    --sidebar-primary: 24 55% 40%;
+    --sidebar-primary-foreground: 30 30% 96%;
+    --sidebar-accent: 25 60% 93%;
+    --sidebar-accent-foreground: 20 20% 20%;
+    --sidebar-border: 30 20% 85%;
+    --sidebar-ring: 24 55% 40%;
   }
 
   .dark {
     --background: 220 35% 10%;
-    --foreground: 48 33% 95%;
+    --foreground: 30 30% 95%;
     
     --card: 220 30% 14%;
-    --card-foreground: 48 33% 95%;
+    --card-foreground: 30 30% 95%;
     
     --popover: 220 30% 14%;
-    --popover-foreground: 48 33% 95%;
+    --popover-foreground: 30 30% 95%;
     
-    --primary: 155 35% 50%;
+    --primary: 24 50% 55%;
     --primary-foreground: 220 35% 10%;
     
     --secondary: 220 25% 18%;
-    --secondary-foreground: 48 33% 95%;
+    --secondary-foreground: 30 30% 95%;
     
     --muted: 220 25% 18%;
     --muted-foreground: 220 15% 60%;
     
-    --accent: 38 70% 50%;
+    --accent: 24 50% 55%;
     --accent-foreground: 220 35% 10%;
     
     --destructive: 0 62% 45%;
@@ -122,16 +127,16 @@
     
     --border: 220 25% 20%;
     --input: 220 25% 20%;
-    --ring: 155 35% 50%;
+    --ring: 24 50% 55%;
     
     --sidebar-background: 220 35% 10%;
-    --sidebar-foreground: 48 33% 95%;
-    --sidebar-primary: 155 35% 50%;
+    --sidebar-foreground: 30 30% 95%;
+    --sidebar-primary: 24 50% 55%;
     --sidebar-primary-foreground: 220 35% 10%;
     --sidebar-accent: 220 25% 18%;
-    --sidebar-accent-foreground: 48 33% 95%;
+    --sidebar-accent-foreground: 30 30% 95%;
     --sidebar-border: 220 25% 20%;
-    --sidebar-ring: 155 35% 50%;
+    --sidebar-ring: 24 50% 55%;
   }
 }
 
@@ -172,11 +177,26 @@
     @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
   }
   
-  /* Elegant card styling */
+  /* Hand-drawn border effect */
+  .hand-drawn-border {
+    border: 3px solid hsl(var(--primary));
+    border-radius: 8px 12px 10px 14px;
+    position: relative;
+  }
+  
+  .hand-drawn-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border: 2px solid hsl(var(--primary) / 0.3);
+    border-radius: 12px 8px 14px 10px;
+    pointer-events: none;
+  }
+  
+  /* Card styling */
   .card-elegant {
     @apply bg-card rounded-2xl p-6 sm:p-8;
     box-shadow: var(--shadow-soft);
-    background: var(--gradient-card);
   }
   
   .card-elevated {
@@ -189,10 +209,9 @@
     transform: translateY(-2px);
   }
   
-  /* Hero text gradient */
-  .text-gradient {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--sage-400)));
+  /* Font for branding */
+  .font-script {
+    font-family: 'Caveat', cursive;
   }
   
   /* Decorative elements */
@@ -200,13 +219,15 @@
     @apply h-px w-16 bg-gradient-to-r from-transparent via-primary/40 to-transparent;
   }
   
-  .decorative-dot {
-    @apply h-2 w-2 rounded-full bg-accent;
+  .decorative-line-terra {
+    height: 3px;
+    width: 120px;
+    background: hsl(var(--primary));
+    border-radius: 2px;
   }
 }
 
 @layer utilities {
-  /* Animation utilities */
   .animate-fade-in {
     animation: fadeIn 0.6s ease-out forwards;
   }
@@ -228,48 +249,19 @@
   .animate-scale-in {
     animation: scaleIn 0.5s ease-out forwards;
   }
-  
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
