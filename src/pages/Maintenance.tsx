@@ -1,4 +1,4 @@
-import maintenanceImage from "@/assets/chateau-main.jpg";
+import maintenanceImage from "@/assets/maintenance-icon.png";
 
 export default function Maintenance() {
   return (
