@@ -18,6 +18,7 @@ import AdminProfessionnels from "./pages/admin/Professionnels";
 import AdminAteliers from "./pages/admin/Ateliers";
 import AdminContenu from "./pages/admin/Contenu";
 import AdminApparence from "./pages/admin/Apparence";
+import Maintenance from "./pages/Maintenance";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
