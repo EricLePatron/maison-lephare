@@ -49,6 +49,9 @@ const App = () => (
             <Route path="apparence" element={<AdminApparence />} />
           </Route>
           
+          {/* Maintenance */}
+          <Route path="/maintenance" element={<Maintenance />} />
+          
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
         </Routes>
