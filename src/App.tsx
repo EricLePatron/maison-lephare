@@ -30,30 +30,9 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route element={<Layout />}>
-            <Route index element={<Index />} />
-            <Route path="le-lieu" element={<LeLieu />} />
-            <Route path="association" element={<Association />} />
-            <Route path="professionnels" element={<Professionnels />} />
-            <Route path="professionnels/:id" element={<ProfessionnelProfile />} />
-            <Route path="ateliers" element={<Ateliers />} />
-            <Route path="contact" element={<Contact />} />
-          </Route>
-          
-          {/* Admin routes */}
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<RequireAdmin><AdminLayout /></RequireAdmin>}>
-            <Route path="professionnels" element={<AdminProfessionnels />} />
-            <Route path="ateliers" element={<AdminAteliers />} />
-            <Route path="contenu" element={<AdminContenu />} />
-            <Route path="apparence" element={<AdminApparence />} />
-          </Route>
-          
-          {/* Maintenance */}
+          {/* All routes redirect to maintenance */}
           <Route path="/maintenance" element={<Maintenance />} />
-          
-          {/* Catch-all */}
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<Navigate to="/maintenance" replace />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
