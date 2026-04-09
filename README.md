@@ -64,6 +64,17 @@ This project is built with:
 
 Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
 
+### Local deploy helper
+
+You can run the local helper script to:
+- build the app,
+- push the current git branch to `origin`,
+- print the next Lovable publish step.
+
+```sh
+npm run deploy:local
+```
+
 ## Can I connect a custom domain to my Lovable project?
 
 Yes, you can!
