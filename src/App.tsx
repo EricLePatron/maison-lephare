@@ -2,17 +2,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { RequireAdmin } from "@/components/admin/RequireAdmin";
 import { AdminLayout } from "@/components/admin/AdminLayout";
-import Index from "./pages/Index";
-import LeLieu from "./pages/LeLieu";
-import Association from "./pages/Association";
-import Professionnels from "./pages/Professionnels";
-import ProfessionnelProfile from "./pages/ProfessionnelProfile";
-import Ateliers from "./pages/Ateliers";
-import Contact from "./pages/Contact";
+import Maintenance from "./pages/Maintenance";
 import AdminLogin from "./pages/admin/Login";
 import AdminProfessionnels from "./pages/admin/Professionnels";
 import AdminAteliers from "./pages/admin/Ateliers";
@@ -29,6 +24,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          <Route path="/maintenance" element={<Maintenance />} />
           <Route element={<Layout />}>
             <Route path="/" element={<Index />} />
             <Route path="/le-lieu" element={<LeLieu />} />
@@ -54,6 +50,7 @@ const App = () => (
             <Route path="apparence" element={<AdminApparence />} />
           </Route>
 
+          <Route path="*" element={<Navigate to="/maintenance" replace />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
