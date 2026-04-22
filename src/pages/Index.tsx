@@ -140,6 +140,7 @@ export default function Index() {
               <div key={index}>
                 <Link
                   to={item.link}
+                  onClick={() => trackCtaClick(item.text, "home_vous_voulez")}
                   className="group flex items-center justify-between py-4 transition-colors hover:text-primary"
                 >
                   <span className="text-base sm:text-lg font-medium text-foreground group-hover:text-primary transition-colors">
