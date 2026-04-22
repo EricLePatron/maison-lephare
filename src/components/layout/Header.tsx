@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { trackNavClick } from "@/lib/analytics";
 
 const navLinks = [
   { href: "/le-lieu", label: "Le lieu" },
@@ -18,7 +19,11 @@ export function Header() {
       <div className="container-wide">
         <div className="flex h-16 sm:h-18 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="font-script text-2xl sm:text-3xl text-primary font-bold tracking-wide">
+          <Link
+            to="/"
+            onClick={() => trackNavClick("Logo", "/", "header_desktop")}
+            className="font-script text-2xl sm:text-3xl text-primary font-bold tracking-wide"
+          >
             LePhare
           </Link>
 
@@ -28,6 +33,7 @@ export function Header() {
               <Link
                 key={link.href}
                 to={link.href}
+                onClick={() => trackNavClick(link.label, link.href, "header_desktop")}
                 className={cn(
                   "text-sm font-medium transition-colors",
                   location.pathname === link.href
@@ -44,6 +50,7 @@ export function Header() {
           <div className="hidden lg:block">
             <Link
               to="/contact"
+              onClick={() => trackNavClick("Contactez-nous !", "/contact", "header_desktop")}
               className="inline-flex items-center gap-2 px-6 py-2.5 bg-primary text-primary-foreground rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
             >
               Contactez-nous !
@@ -74,7 +81,10 @@ export function Header() {
             <Link
               key={link.href}
               to={link.href}
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                trackNavClick(link.label, link.href, "header_mobile");
+                setIsOpen(false);
+              }}
               className={cn(
                 "px-4 py-3 text-base font-medium rounded-lg transition-colors",
                 location.pathname === link.href
@@ -88,7 +98,10 @@ export function Header() {
           <div className="pt-4 px-4">
             <Link
               to="/contact"
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                trackNavClick("Contactez-nous !", "/contact", "header_mobile");
+                setIsOpen(false);
+              }}
               className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-primary text-primary-foreground rounded-full text-sm font-medium"
             >
               Contactez-nous !

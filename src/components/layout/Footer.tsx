@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { trackNavClick } from "@/lib/analytics";
 
 const footerLinks = {
   navigation: [
@@ -21,7 +22,11 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link to="/" className="font-script text-3xl font-bold mb-4 block">
+            <Link
+              to="/"
+              onClick={() => trackNavClick("Logo", "/", "footer")}
+              className="font-script text-3xl font-bold mb-4 block"
+            >
               LePhare
             </Link>
             <p className="text-primary-foreground/80 text-sm leading-relaxed">
@@ -37,6 +42,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     to={link.href}
+                    onClick={() => trackNavClick(link.label, link.href, "footer")}
                     className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm"
                   >
                     {link.label}
@@ -56,7 +62,11 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3 text-sm text-primary-foreground/80">
                 <Mail className="h-4 w-4 flex-shrink-0" />
-                <a href="mailto:contact@lephare.fr" className="hover:text-primary-foreground transition-colors">
+                <a
+                  href="mailto:contact@lephare.fr"
+                  onClick={() => trackNavClick("Email", "mailto:contact@lephare.fr", "footer")}
+                  className="hover:text-primary-foreground transition-colors"
+                >
                   contact@lephare.fr
                 </a>
               </li>
@@ -75,6 +85,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     to={link.href}
+                    onClick={() => trackNavClick(link.label, link.href, "footer")}
                     className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm"
                   >
                     {link.label}

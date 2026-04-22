@@ -29,3 +29,15 @@ export function trackContactFormSubmit(success: boolean, errorMessage?: string) 
     ...(errorMessage ? { error_message: errorMessage } : {}),
   });
 }
+
+export function trackNavClick(
+  linkLabel: string,
+  destination: string,
+  location: "header_desktop" | "header_mobile" | "footer" | string
+) {
+  trackEvent("nav_click", {
+    link_label: linkLabel,
+    destination,
+    nav_location: location,
+  });
+}
