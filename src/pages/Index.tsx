@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Heart, Handshake, Coffee, Sprout, Loader2 } from "lucide-react";
 import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
+import { trackCtaClick } from "@/lib/analytics";
 import chateauImageStatic from "@/assets/chateau-main.jpg";
 import heroBanner from "@/assets/hero-banner.png";
 import photoBanner from "@/assets/photo-banner.png";
@@ -49,23 +50,27 @@ export default function Index() {
                 title: "L'espace\nConsultations",
                 description: "8 bureaux pour professionnels de santé mentale installés en libéral",
                 link: "/professionnels",
+                ctaName: "Découvrir les professionnels",
               },
               {
                 icon: Handshake,
                 title: "L'association\nLePhare",
                 description: "Des ateliers, des groupes et des rencontres pour parler santé mentale autrement",
                 link: "/association",
+                ctaName: "Voir les ateliers",
               },
               {
                 icon: Coffee,
                 title: "Le café\ninclusif",
                 description: "Un espace ouvert à tous pour se retrouver et échanger",
                 link: "/le-lieu",
+                ctaName: "Découvrir le lieu",
               },
             ].map((feature, index) => (
               <Link
                 key={index}
                 to={feature.link}
+                onClick={() => trackCtaClick(feature.ctaName, "home_features")}
                 className="group relative block"
               >
                 {/* Hand-drawn border using SVG */}
