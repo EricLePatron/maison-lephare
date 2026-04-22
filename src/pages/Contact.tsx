@@ -8,6 +8,7 @@ import { Mail, MapPin, Phone, Send, CheckCircle, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { usePageContent } from "@/hooks/useSiteContent";
+import { trackContactFormSubmit } from "@/lib/analytics";
 import chateauImage from "@/assets/chateau-main.jpg";
 
 // Validation schema for contact form
@@ -58,6 +59,7 @@ export default function Contact() {
         if (field) fieldErrors[field] = err.message;
       });
       setErrors(fieldErrors);
+      trackContactFormSubmit(false, "validation_error");
       return;
     }
 
@@ -76,6 +78,7 @@ export default function Contact() {
           description: "Une erreur est survenue lors de l'envoi du message.",
           variant: "destructive",
         });
+        trackContactFormSubmit(false, "server_error");
         setIsSubmitting(false);
         return;
       }
@@ -86,12 +89,14 @@ export default function Contact() {
           description: data.error,
           variant: "destructive",
         });
+        trackContactFormSubmit(false, "server_validation_error");
         setIsSubmitting(false);
         return;
       }
 
       setIsSubmitting(false);
       setIsSubmitted(true);
+      trackContactFormSubmit(true);
       toast({
         title: "Message envoyé",
         description: "Nous vous répondrons dans les plus brefs délais.",
@@ -102,6 +107,7 @@ export default function Contact() {
         description: "Une erreur inattendue est survenue.",
         variant: "destructive",
       });
+      trackContactFormSubmit(false, "exception");
       setIsSubmitting(false);
     }
   };
