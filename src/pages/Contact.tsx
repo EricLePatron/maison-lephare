@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, MapPin, Phone, Send, CheckCircle, Loader2 } from "lucide-react";
+import { Mail, MapPin, Send, CheckCircle, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { usePageContent } from "@/hooks/useSiteContent";
@@ -177,8 +177,8 @@ export default function Contact() {
                   <div>
                     <h3 className="font-medium text-foreground mb-1">Adresse</h3>
                     <p className="text-muted-foreground">
-                      Château Le Phare<br />
-                      Bordeaux, France
+                      12 rue Jean-Jacques Rousseau<br />
+                      33700 Mérignac
                     </p>
                   </div>
                 </div>
@@ -190,21 +190,11 @@ export default function Contact() {
                   <div>
                     <h3 className="font-medium text-foreground mb-1">Email</h3>
                     <a
-                      href="mailto:contact@lephare.fr"
+                      href="mailto:contact@maison-lephare.com"
                       className="text-primary hover:underline"
                     >
-                      contact@lephare.fr
+                      contact@maison-lephare.com
                     </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="h-12 w-12 rounded-xl bg-sage-100 flex items-center justify-center flex-shrink-0">
-                    <Phone className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-foreground mb-1">Téléphone</h3>
-                    <p className="text-muted-foreground">05 00 00 00 00</p>
                   </div>
                 </div>
               </div>
