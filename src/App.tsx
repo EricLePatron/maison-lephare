@@ -14,6 +14,7 @@ import ProfessionnelProfile from "./pages/ProfessionnelProfile";
 import Association from "./pages/Association";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import Maintenance from "./pages/Maintenance";
 import AdminLogin from "./pages/admin/Login";
 import AdminProfessionnels from "./pages/admin/Professionnels";
 import AdminAteliers from "./pages/admin/Ateliers";
@@ -29,15 +30,6 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Index />} />
-            <Route path="/le-lieu" element={<LeLieu />} />
-            <Route path="/ateliers" element={<Ateliers />} />
-            <Route path="/professionnels" element={<Professionnels />} />
-            <Route path="/professionnels/:id" element={<ProfessionnelProfile />} />
-            <Route path="/association" element={<Association />} />
-            <Route path="/contact" element={<Contact />} />
-          </Route>
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route
             path="/admin"
@@ -52,7 +44,7 @@ const App = () => (
             <Route path="contenu" element={<AdminContenu />} />
             <Route path="apparence" element={<AdminApparence />} />
           </Route>
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<Maintenance />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
