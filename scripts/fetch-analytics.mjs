@@ -19,7 +19,7 @@ async function fetchMetrics() {
   const yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
 
-  const [overview, topPages, sources] = await Promise.all([
+  const [overview, topPages, sources, contactEvents] = await Promise.all([
     client.runReport({
       property: `properties/${PROPERTY_ID}`,
       dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
@@ -45,6 +45,18 @@ async function fetchMetrics() {
       dimensions: [{ name: "sessionDefaultChannelGroup" }],
       metrics: [{ name: "sessions" }],
       orderBys: [{ metric: { metricName: "sessions" }, desc: true }],
+    }),
+    client.runReport({
+      property: `properties/${PROPERTY_ID}`,
+      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dimensions: [{ name: "eventName" }],
+      metrics: [{ name: "eventCount" }],
+      dimensionFilter: {
+        filter: {
+          fieldName: "eventName",
+          stringFilter: { matchType: "EXACT", value: "contact_form_submit" },
+        },
+      },
     }),
     client.runReport({
       property: `properties/${PROPERTY_ID}`,
@@ -76,6 +88,9 @@ async function fetchMetrics() {
       pageViews: parseInt(metrics[2]?.value || 0),
       bounceRate: parseFloat(metrics[3]?.value || 0).toFixed(1),
       avgDuration: Math.round(parseFloat(metrics[4]?.value || 0)),
+    },
+    contactForm: {
+      total: (contactEvents[0].rows || []).reduce((sum, r) => sum + parseInt(r.metricValues[0].value), 0),
     },
     topPages: (topPages[0].rows || []).map((row) => ({
       page: row.dimensionValues[0].value,

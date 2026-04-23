@@ -1,31 +1,38 @@
 {
-  "generatedAt": "2026-04-23T09:16:30.911Z",
+  "generatedAt": "2026-04-23T09:34:32.378Z",
   "period": "30 derniers jours",
   "overview": {
-    "sessions": 7,
-    "users": 7,
-    "pageViews": 7,
+    "sessions": 9,
+    "users": 8,
+    "pageViews": 11,
     "bounceRate": "1.0",
-    "avgDuration": 47
+    "avgDuration": 120
+  },
+  "contactForm": {
+    "total": 0
   },
   "topPages": [
     {
       "page": "/",
-      "views": 6
+      "views": 7
+    },
+    {
+      "page": "/contact",
+      "views": 2
     },
     {
       "page": "/maintenance",
-      "views": 1
+      "views": 2
     }
   ],
   "sources": [
     {
       "source": "Unassigned",
-      "sessions": 6
+      "sessions": 8
     },
     {
       "source": "Direct",
-      "sessions": 3
+      "sessions": 4
     }
   ],
   "dailyTrend": [
@@ -36,8 +43,8 @@
     },
     {
       "date": "23/04",
-      "users": 4,
-      "sessions": 4
+      "users": 5,
+      "sessions": 6
     }
   ]
 }
