@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-04-23T09:16:30.911Z",
+  "period": "30 derniers jours",
+  "overview": {
+    "sessions": 7,
+    "users": 7,
+    "pageViews": 7,
+    "bounceRate": "1.0",
+    "avgDuration": 47
+  },
+  "topPages": [
+    {
+      "page": "/",
+      "views": 6
+    },
+    {
+      "page": "/maintenance",
+      "views": 1
+    }
+  ],
+  "sources": [
+    {
+      "source": "Unassigned",
+      "sessions": 6
+    },
+    {
+      "source": "Direct",
+      "sessions": 3
+    }
+  ],
+  "dailyTrend": [
+    {
+      "date": "22/04",
+      "users": 3,
+      "sessions": 3
+    },
+    {
+      "date": "23/04",
+      "users": 4,
+      "sessions": 4
+    }
+  ]
+}
