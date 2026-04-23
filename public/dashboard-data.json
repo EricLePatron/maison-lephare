@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-04-23T09:34:32.378Z",
+  "generatedAt": "2026-04-23T09:41:24.611Z",
   "period": "30 derniers jours",
   "overview": {
     "sessions": 9,
     "users": 8,
-    "pageViews": 11,
+    "pageViews": 12,
     "bounceRate": "1.0",
     "avgDuration": 120
   },
@@ -14,7 +14,7 @@
   "topPages": [
     {
       "page": "/",
-      "views": 7
+      "views": 8
     },
     {
       "page": "/contact",
@@ -32,7 +32,7 @@
     },
     {
       "source": "Direct",
-      "sessions": 4
+      "sessions": 5
     }
   ],
   "dailyTrend": [
