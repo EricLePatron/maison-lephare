@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { RequireAdmin } from "@/components/admin/RequireAdmin";
 import { AdminLayout } from "@/components/admin/AdminLayout";
+import { Layout } from "@/components/layout/Layout";
 import Index from "./pages/Index";
 import LeLieu from "./pages/LeLieu";
 import Ateliers from "./pages/Ateliers";
@@ -28,13 +29,15 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/le-lieu" element={<LeLieu />} />
-          <Route path="/ateliers" element={<Ateliers />} />
-          <Route path="/professionnels" element={<Professionnels />} />
-          <Route path="/professionnels/:id" element={<ProfessionnelProfile />} />
-          <Route path="/association" element={<Association />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route element={<Layout />}>
+            <Route path="/" element={<Index />} />
+            <Route path="/le-lieu" element={<LeLieu />} />
+            <Route path="/ateliers" element={<Ateliers />} />
+            <Route path="/professionnels" element={<Professionnels />} />
+            <Route path="/professionnels/:id" element={<ProfessionnelProfile />} />
+            <Route path="/association" element={<Association />} />
+            <Route path="/contact" element={<Contact />} />
+          </Route>
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route
             path="/admin"
