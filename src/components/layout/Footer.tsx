@@ -58,21 +58,17 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-3 text-sm text-primary-foreground/80">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span>Château du Tenet<br />Mérignac (33)</span>
+                <span>12 rue Jean-Jacques Rousseau<br />33700 Mérignac</span>
               </li>
               <li className="flex items-center gap-3 text-sm text-primary-foreground/80">
                 <Mail className="h-4 w-4 flex-shrink-0" />
                 <a
-                  href="mailto:contact@lephare.fr"
-                  onClick={() => trackNavClick("Email", "mailto:contact@lephare.fr", "footer")}
+                  href="mailto:contact@maison-lephare.com"
+                  onClick={() => trackNavClick("Email", "mailto:contact@maison-lephare.com", "footer")}
                   className="hover:text-primary-foreground transition-colors"
                 >
-                  contact@lephare.fr
+                  contact@maison-lephare.com
                 </a>
-              </li>
-              <li className="flex items-center gap-3 text-sm text-primary-foreground/80">
-                <Phone className="h-4 w-4 flex-shrink-0" />
-                <span>05 00 00 00 00</span>
               </li>
             </ul>
           </div>
