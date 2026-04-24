@@ -1,80 +1,23 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Brain, Palette, MessageCircle, Users, Heart, Clock, MapPin } from "lucide-react";
+import { ArrowRight, Brain, Palette, MessageCircle, Users, Heart, Clock, MapPin, Sparkles, BookOpen, Music, Lightbulb, Loader2 } from "lucide-react";
+import { useAteliers } from "@/hooks/useAteliers";
+import { trackCtaClick } from "@/lib/analytics";
 import associationImage from "@/assets/association-room.png";
 
-const workshops = [
-  {
-    icon: MessageCircle,
-    title: "Groupes de parole",
-    category: "Écoute & Partage",
-    description: "Des espaces d'écoute et de partage entre pairs, animés par des professionnels ou des pair-aidants formés. Un lieu où la parole se libère en toute confiance.",
-    format: "Hebdomadaire, 1h30",
-    audience: "Personnes concernées, aidants",
-    objectives: [
-      "Rompre l'isolement",
-      "Partager son vécu",
-      "S'enrichir des expériences des autres",
-      "Se sentir compris",
-    ],
-  },
-  {
-    icon: Brain,
-    title: "Psycho-éducation",
-    category: "Comprendre & Agir",
-    description: "Des ateliers pour mieux comprendre les troubles psychiques, leurs mécanismes et développer des stratégies d'adaptation au quotidien.",
-    format: "Sessions de 6 semaines",
-    audience: "Personnes concernées, proches",
-    objectives: [
-      "Comprendre son trouble",
-      "Reconnaître les signaux d'alerte",
-      "Développer des stratégies d'adaptation",
-      "Améliorer sa qualité de vie",
-    ],
-  },
-  {
-    icon: Palette,
-    title: "Art-thérapie",
-    category: "Expression & Créativité",
-    description: "Explorer ses émotions à travers la création artistique : peinture, collage, sculpture... Aucun talent artistique n'est requis, seule l'envie d'explorer compte.",
-    format: "Hebdomadaire, 2h",
-    audience: "Tous publics",
-    objectives: [
-      "Exprimer ses émotions autrement",
-      "Développer sa créativité",
-      "Prendre du recul sur soi",
-      "Retrouver confiance",
-    ],
-  },
-  {
-    icon: Users,
-    title: "Pair-aidance",
-    category: "Entraide & Soutien",
-    description: "Un accompagnement par des personnes qui ont traversé des difficultés similaires et qui, grâce à leur parcours de rétablissement, peuvent aujourd'hui aider les autres.",
-    format: "Sur demande",
-    audience: "Personnes concernées",
-    objectives: [
-      "Bénéficier d'un soutien vécu",
-      "Avoir un modèle de rétablissement",
-      "Recevoir des conseils pratiques",
-      "Retrouver espoir",
-    ],
-  },
-  {
-    icon: Heart,
-    title: "Gestion des émotions",
-    category: "Bien-être",
-    description: "Apprendre à identifier, accueillir et réguler ses émotions grâce à des techniques de relaxation, de pleine conscience et d'expression corporelle.",
-    format: "Sessions de 8 semaines",
-    audience: "Tous publics",
-    objectives: [
-      "Identifier ses émotions",
-      "Techniques de relaxation",
-      "Gestion du stress",
-      "Améliorer son bien-être",
-    ],
-  },
-];
+const ICON_MAP: Record<string, React.ElementType> = {
+  Brain,
+  Palette,
+  MessageCircle,
+  Users,
+  Heart,
+  Sparkles,
+  BookOpen,
+  Music,
+  Lightbulb,
+};
+
+const getIcon = (iconName: string | null) => ICON_MAP[iconName || "Brain"] || Brain;
 
 const cafeDebats = {
   title: "Café-débats",
@@ -84,6 +27,10 @@ const cafeDebats = {
 };
 
 export default function Ateliers() {
+  const { data: ateliers, isLoading, error } = useAteliers();
+
+  const ateliersActifs = ateliers?.filter((a) => a.actif) ?? [];
+
   return (
     <>
       {/* Hero Section */}
@@ -105,11 +52,9 @@ export default function Ateliers() {
                 Accompagnement collectif
               </span>
             </div>
-            
             <h1 className="font-serif text-4xl sm:text-5xl font-medium text-primary-foreground leading-tight mb-6">
               Ateliers & Activités
             </h1>
-            
             <p className="text-lg sm:text-xl text-primary-foreground/85 leading-relaxed">
               Des moments de partage et d'apprentissage pour avancer ensemble dans son parcours de rétablissement.
             </p>
@@ -132,52 +77,75 @@ export default function Ateliers() {
       {/* Workshops Grid */}
       <section className="section-padding">
         <div className="container-wide">
-          <div className="grid gap-8 lg:grid-cols-2">
-            {workshops.map((workshop) => (
-              <div key={workshop.title} className="card-elevated">
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="h-14 w-14 rounded-xl bg-sage-100 flex items-center justify-center flex-shrink-0">
-                    <workshop.icon className="h-7 w-7 text-primary" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-medium text-accent uppercase tracking-wider">
-                      {workshop.category}
-                    </span>
-                    <h3 className="font-serif text-xl font-medium text-foreground">
-                      {workshop.title}
-                    </h3>
-                  </div>
-                </div>
+          {isLoading ? (
+            <div className="flex items-center justify-center py-20">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </div>
+          ) : error ? (
+            <div className="text-center py-20">
+              <p className="text-muted-foreground">Erreur lors du chargement des ateliers.</p>
+            </div>
+          ) : ateliersActifs.length === 0 ? (
+            <div className="text-center py-20">
+              <p className="text-muted-foreground">Aucun atelier disponible pour le moment.</p>
+            </div>
+          ) : (
+            <div className="grid gap-8 lg:grid-cols-2">
+              {ateliersActifs.map((atelier) => {
+                const IconComp = getIcon(atelier.icone);
+                return (
+                  <div key={atelier.id} className="card-elevated">
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="h-14 w-14 rounded-xl bg-sage-100 flex items-center justify-center flex-shrink-0">
+                        <IconComp className="h-7 w-7 text-primary" />
+                      </div>
+                      <div>
+                        <span className="text-xs font-medium text-accent uppercase tracking-wider">
+                          {atelier.categorie}
+                        </span>
+                        <h3 className="font-serif text-xl font-medium text-foreground">
+                          {atelier.titre}
+                        </h3>
+                      </div>
+                    </div>
 
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  {workshop.description}
-                </p>
+                    <p className="text-muted-foreground leading-relaxed mb-6">
+                      {atelier.description}
+                    </p>
 
-                <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                  <div className="flex items-center gap-2 text-sm">
-                    <Clock className="h-4 w-4 text-primary" />
-                    <span className="text-foreground">{workshop.format}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm">
-                    <Users className="h-4 w-4 text-primary" />
-                    <span className="text-foreground">{workshop.audience}</span>
-                  </div>
-                </div>
+                    <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                      {atelier.format && (
+                        <div className="flex items-center gap-2 text-sm">
+                          <Clock className="h-4 w-4 text-primary" />
+                          <span className="text-foreground">{atelier.format}</span>
+                        </div>
+                      )}
+                      {atelier.public_cible && (
+                        <div className="flex items-center gap-2 text-sm">
+                          <Users className="h-4 w-4 text-primary" />
+                          <span className="text-foreground">{atelier.public_cible}</span>
+                        </div>
+                      )}
+                    </div>
 
-                <div className="bg-cream-50 rounded-lg p-4">
-                  <h4 className="text-sm font-medium text-foreground mb-2">Objectifs</h4>
-                  <ul className="grid sm:grid-cols-2 gap-2">
-                    {workshop.objectives.map((obj) => (
-                      <li key={obj} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <span className="h-1.5 w-1.5 rounded-full bg-accent flex-shrink-0" />
-                        {obj}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))}
-          </div>
+                    {atelier.objectifs && atelier.objectifs.length > 0 && (
+                      <div className="bg-cream-50 rounded-lg p-4">
+                        <h4 className="text-sm font-medium text-foreground mb-2">Objectifs</h4>
+                        <ul className="grid sm:grid-cols-2 gap-2">
+                          {atelier.objectifs.map((obj) => (
+                            <li key={obj} className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <span className="h-1.5 w-1.5 rounded-full bg-accent flex-shrink-0" />
+                              {obj}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 
@@ -211,22 +179,17 @@ export default function Ateliers() {
                 Prochains thèmes abordés
               </h3>
               <ul className="space-y-3">
-                <li className="flex items-center gap-3 text-sm">
-                  <span className="h-2 w-2 rounded-full bg-accent" />
-                  <span className="text-foreground">Vivre avec un proche concerné</span>
-                </li>
-                <li className="flex items-center gap-3 text-sm">
-                  <span className="h-2 w-2 rounded-full bg-primary" />
-                  <span className="text-foreground">Les préjugés sur la santé mentale</span>
-                </li>
-                <li className="flex items-center gap-3 text-sm">
-                  <span className="h-2 w-2 rounded-full bg-sage-400" />
-                  <span className="text-foreground">Témoignages de rétablissement</span>
-                </li>
-                <li className="flex items-center gap-3 text-sm">
-                  <span className="h-2 w-2 rounded-full bg-cream-300" />
-                  <span className="text-foreground">Santé mentale au travail</span>
-                </li>
+                {[
+                  { color: "bg-accent", text: "Vivre avec un proche concerné" },
+                  { color: "bg-primary", text: "Les préjugés sur la santé mentale" },
+                  { color: "bg-sage-400", text: "Témoignages de rétablissement" },
+                  { color: "bg-cream-300", text: "Santé mentale au travail" },
+                ].map((item) => (
+                  <li key={item.text} className="flex items-center gap-3 text-sm">
+                    <span className={`h-2 w-2 rounded-full ${item.color}`} />
+                    <span className="text-foreground">{item.text}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -242,7 +205,7 @@ export default function Ateliers() {
           <p className="text-primary-foreground/85 text-lg mb-8 max-w-xl mx-auto">
             Vous souhaitez vous inscrire à un atelier ou en savoir plus sur notre programme ? Contactez-nous pour échanger sur vos besoins.
           </p>
-          <Button asChild variant="warm" size="xl">
+          <Button asChild variant="warm" size="xl" onClick={() => trackCtaClick("Nous contacter", "ateliers_cta")}>
             <Link to="/contact">
               Nous contacter
               <ArrowRight className="h-5 w-5" />
