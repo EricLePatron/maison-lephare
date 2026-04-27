@@ -1,12 +1,21 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Heart, Handshake, Coffee, Sprout, Loader2 } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
 import { trackCtaClick } from "@/lib/analytics";
 import chateauImageStatic from "@/assets/chateau-main.jpg";
-import heroBanner from "@/assets/hero-banner.png";
-import photoBanner from "@/assets/photo-banner.png";
-import valuesBanner from "@/assets/values-banner.png";
+import featureConsultation from "@/assets/feature-consultation.jpg";
+import featureAssociation from "@/assets/feature-association.jpg";
+import featureCafe from "@/assets/feature-cafe.jpg";
+import gridConsulter from "@/assets/grid-consulter.jpg";
+import gridProgrammation from "@/assets/grid-programmation.jpg";
+import gridLieu from "@/assets/grid-lieu.jpg";
+import gridRejoindre from "@/assets/grid-rejoindre.jpg";
+import gridProposer from "@/assets/grid-proposer.jpg";
+import gridAccompagner from "@/assets/grid-accompagner.jpg";
+import gridLouer from "@/assets/grid-louer.jpg";
+import gridInstaller from "@/assets/grid-installer.jpg";
+import gridCafe from "@/assets/grid-cafe.jpg";
 
 export default function Index() {
   const { getContent, isLoading } = usePageContent("home");
@@ -20,218 +29,195 @@ export default function Index() {
     );
   }
 
+  const features = [
+    {
+      image: featureConsultation,
+      title: "L'Espace\nConsultation",
+      link: "/professionnels",
+      ctaName: "Découvrir les professionnels",
+    },
+    {
+      image: featureAssociation,
+      title: "L'Association\nLePhare",
+      link: "/association",
+      ctaName: "Voir les ateliers",
+    },
+    {
+      image: featureCafe,
+      title: "Le Café\nInclusif",
+      link: "/le-lieu",
+      ctaName: "Découvrir le café",
+    },
+  ];
+
+  const wishes = [
+    { text: "Consulter un professionnel de la santé mentale ?", image: gridConsulter, link: "/professionnels" },
+    { text: "Trouver la programmation de l'association ?", image: gridProgrammation, link: "/ateliers" },
+    { text: "En savoir plus sur le lieu ?", image: gridLieu, link: "/le-lieu" },
+    { text: "Rejoindre le projet ?", image: gridRejoindre, link: "/contact" },
+    { text: "Proposer une activité ?", image: gridProposer, link: "/contact" },
+    { text: "Chercher à vous faire accompagner ?", image: gridAccompagner, link: "/professionnels" },
+    { text: "Louer une salle pour une activité sur la Santé Mentale ?", image: gridLouer, link: "/contact" },
+    { text: "Vous installer en libéral ?", image: gridInstaller, link: "/contact" },
+    { text: "Venir boire un café ou nous rencontrer ?", image: gridCafe, link: "/le-lieu" },
+  ];
+
   return (
     <>
-      {/* Hero Banner - exact mockup image */}
-      <section className="w-full">
-        <img
-          src={heroBanner}
-          alt="LePhare - Maison dédiée à la Santé Mentale - Château du Tenet, Mérignac (33)"
-          className="w-full h-auto"
-        />
-      </section>
+      {/* Hero - Sky blue with chateau photo + script logo */}
+      <section className="w-full bg-sky-100">
+        <div className="container-wide py-12 sm:py-16 lg:py-20">
+          <div className="grid gap-8 lg:gap-16 lg:grid-cols-2 items-center">
+            {/* Photo du château - cadre arrondi */}
+            <div className="flex justify-center lg:justify-start">
+              <figure className="text-center">
+                <div className="overflow-hidden rounded-[2.5rem] shadow-elevated max-w-[420px]">
+                  <img
+                    src={chateauImage}
+                    alt="Château du Tenet, Mérignac"
+                    className="w-full h-auto aspect-square object-cover"
+                    width={800}
+                    height={800}
+                  />
+                </div>
+                <figcaption className="font-script text-lg sm:text-xl text-primary/80 mt-3">
+                  Château du Tenet — Mérignac (33)
+                </figcaption>
+              </figure>
+            </div>
 
-      {/* Features Section - 3 hand-drawn cards */}
-      <section className="py-16 sm:py-24 bg-[hsl(var(--muted)_/_0.3)]">
-        <div className="container-wide">
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-medium text-foreground italic leading-snug">
-              {getContent("features", "title", "Un lieu pas comme les autres,\nentièrement dédié à la santé mentale")}
-            </h2>
-            <div className="flex justify-center mt-5">
-              <div className="decorative-line-terra" />
+            {/* Bloc logo + tagline + CTA */}
+            <div className="text-center lg:text-left">
+              {/* Petites griffes décoratives au-dessus du logo */}
+              <svg width="120" height="28" viewBox="0 0 120 28" fill="none" className="mx-auto lg:mx-0 mb-2">
+                <path d="M5 22 C 30 8, 55 4, 85 6" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" fill="none" />
+                <path d="M30 24 C 50 14, 75 12, 100 14" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" fill="none" />
+                <path d="M55 26 C 70 20, 90 18, 115 20" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" fill="none" />
+              </svg>
+
+              <h1 className="font-script text-primary leading-none">
+                <span className="block text-7xl sm:text-8xl lg:text-9xl font-bold tracking-tight">
+                  lePhare
+                </span>
+              </h1>
+              <p className="font-serif text-foreground/80 text-lg sm:text-xl mt-3 italic">
+                {getContent("hero", "tagline", "Maison dédiée à la Santé Mentale")}
+              </p>
+
+              <div className="mt-8">
+                <Link
+                  to="/ateliers"
+                  onClick={() => trackCtaClick("Voir la programmation", "home_hero")}
+                  className="inline-flex items-center gap-2 px-7 py-3 bg-background text-primary border-2 border-primary rounded-full text-base font-medium hover:bg-primary hover:text-primary-foreground transition-colors shadow-soft"
+                >
+                  Voir la programmation
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="grid gap-8 sm:grid-cols-3 max-w-5xl mx-auto">
-            {[
-              {
-                icon: Heart,
-                title: "L'espace\nConsultations",
-                description: "8 bureaux pour professionnels de santé mentale installés en libéral",
-                link: "/professionnels",
-                ctaName: "Découvrir les professionnels",
-              },
-              {
-                icon: Handshake,
-                title: "L'association\nLePhare",
-                description: "Des ateliers, des groupes et des rencontres pour parler santé mentale autrement",
-                link: "/association",
-                ctaName: "Voir les ateliers",
-              },
-              {
-                icon: Coffee,
-                title: "Le café\ninclusif",
-                description: "Un espace ouvert à tous pour se retrouver et échanger",
-                link: "/le-lieu",
-                ctaName: "Découvrir le lieu",
-              },
-            ].map((feature, index) => (
+      {/* Features Section - 3 photos rondes avec doodles */}
+      <section className="py-16 sm:py-24 bg-background">
+        <div className="container-wide">
+          <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
+            <h2 className="font-script text-3xl sm:text-4xl lg:text-5xl text-primary font-bold leading-tight">
+              {getContent("features", "title", "Un lieu entièrement dédié à la Santé Mentale")}
+            </h2>
+          </div>
+
+          <div className="grid gap-10 sm:grid-cols-3 max-w-5xl mx-auto">
+            {features.map((feature, index) => (
               <Link
                 key={index}
                 to={feature.link}
                 onClick={() => trackCtaClick(feature.ctaName, "home_features")}
-                className="group relative block"
+                className="group flex flex-col items-center text-center"
               >
-                {/* Hand-drawn border using SVG */}
-                <div className="relative p-8 sm:p-10 text-center transition-all duration-300">
-                  {/* Outer hand-drawn border */}
-                  <svg className="absolute inset-0 w-full h-full" viewBox="0 0 300 350" preserveAspectRatio="none" fill="none">
-                    <path
-                      d="M12 8 C 60 4, 240 6, 290 10 C 294 60, 296 290, 292 340 C 240 344, 60 346, 8 342 C 4 290, 6 60, 12 8 Z"
-                      stroke="hsl(var(--primary))"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
-                      className="transition-all duration-300 group-hover:stroke-[4]"
-                    />
-                  </svg>
-
-                  <div className="relative z-10">
-                    <div className="flex justify-center mb-6">
-                      <feature.icon className="h-14 w-14 text-primary/60 stroke-[1.2] group-hover:text-primary/80 transition-colors" />
-                    </div>
-                    <h3 className="font-serif text-xl sm:text-2xl font-medium text-foreground mb-4 whitespace-pre-line leading-tight">
-                      {feature.title}
-                    </h3>
-
-                    {/* Description - visible on hover */}
-                    <p className="text-sm text-muted-foreground mb-4 max-h-0 overflow-hidden opacity-0 group-hover:max-h-20 group-hover:opacity-100 transition-all duration-300">
-                      {feature.description}
-                    </p>
-
-                    <span className="inline-flex items-center gap-1 px-5 py-2 bg-muted/60 rounded-full text-sm text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-                      en savoir +
-                    </span>
-                  </div>
+                {/* Photo dans cadre arrondi avec bord terracotta */}
+                <div className="w-full max-w-[280px] aspect-[4/3] overflow-hidden rounded-[2rem] border-[3px] border-primary p-1 bg-background shadow-soft transition-transform group-hover:-translate-y-1">
+                  <img
+                    src={feature.image}
+                    alt={feature.title.replace("\n", " ")}
+                    className="w-full h-full object-cover rounded-[1.5rem]"
+                    loading="lazy"
+                    width={800}
+                    height={512}
+                  />
                 </div>
+
+                <h3 className="font-serif text-base sm:text-lg font-semibold text-sage-700 mt-6 mb-5 uppercase tracking-wider whitespace-pre-line leading-tight">
+                  {feature.title}
+                </h3>
+
+                <span className="inline-flex items-center gap-2 px-6 py-2 bg-background border-2 border-primary text-primary rounded-full text-sm font-medium group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                  En savoir +
+                </span>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Photo Banner - exact mockup image */}
-      <section className="w-full">
-        <img
-          src={photoBanner}
-          alt="LePhare - Château du Tenet"
-          className="w-full h-auto"
-        />
-      </section>
-
-      {/* "Vous voulez..." Section */}
-      <section className="section-padding">
-        <div className="container-narrow">
-          <p className="text-muted-foreground text-lg mb-8">Vous voulez …</p>
-          <div className="space-y-0">
-            {[
-              { text: "Consulter un professionnel de la Santé Mentale du Phare ?", link: "/professionnels" },
-              { text: "Trouver la programmation des activités de l'association ?", link: "/ateliers" },
-              { text: "En savoir plus sur le Lieu ?", link: "/le-lieu" },
-              { text: "Rejoindre le projet ?", link: "/contact" },
-              { text: "Proposer une activité ?", link: "/contact" },
-              { text: "Chercher à vous faire accompagner ?", link: "/professionnels" },
-              { text: "Louer une salle pour une activité sur la Santé Mentale ?", link: "/contact" },
-              { text: "Vous installer en libéral ?", link: "/contact" },
-              { text: "Venir boire un café et nous rencontrer ?", link: "/le-lieu" },
-            ].map((item, index) => (
-              <div key={index}>
-                <Link
-                  to={item.link}
-                  onClick={() => trackCtaClick(item.text, "home_vous_voulez")}
-                  className="group flex items-center justify-between py-4 transition-colors hover:text-primary"
-                >
-                  <span className="text-base sm:text-lg font-medium text-foreground group-hover:text-primary transition-colors">
-                    {item.text}
-                  </span>
-                  <div className="flex-shrink-0 ml-4">
-                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" className="group-hover:scale-105 transition-transform">
-                      {/* Outer hand-drawn circle */}
-                      <ellipse cx="22" cy="22" rx="19" ry="19.5" stroke="hsl(var(--primary))" strokeWidth="1.2" strokeOpacity="0.35" strokeLinecap="round" />
-                      {/* Inner hand-drawn circle */}
-                      <ellipse cx="22" cy="22" rx="16.5" ry="17" stroke="hsl(var(--primary))" strokeWidth="1.8" strokeOpacity="0.5" strokeLinecap="round" className="group-hover:stroke-[hsl(var(--primary))] group-hover:[stroke-opacity:1]" />
-                      {/* Arrow */}
-                      <path d="M18 22H27M24 18.5L27.5 22L24 25.5" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.5" className="group-hover:[stroke-opacity:1]" />
-                    </svg>
-                  </div>
-                </Link>
-                {/* Hand-drawn wavy underline */}
-                <svg width="180" height="8" viewBox="0 0 180 8" fill="none" className="ml-0">
-                  <path
-                    d={`M2 ${4 + Math.sin(index) * 1.5} C 30 ${2 + Math.cos(index * 2)}, 50 ${5 + Math.sin(index * 3) * 1.2}, 80 ${4 + Math.cos(index)} S 130 ${3 + Math.sin(index * 1.5)}, 160 ${4 + Math.cos(index * 2.5) * 0.8} L 178 ${4 + Math.sin(index + 1)}`}
-                    stroke="hsl(var(--primary))"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    fill="none"
-                  />
-                </svg>
-              </div>
-            ))}
+      {/* Bandeau citation : photo château + grand titre */}
+      <section className="w-full bg-sky-100">
+        <div className="container-wide py-12 sm:py-16 lg:py-20">
+          <div className="grid gap-10 lg:gap-16 lg:grid-cols-2 items-center">
+            <div>
+              <img
+                src={chateauImage}
+                alt="Château LePhare"
+                className="w-full h-auto rounded-2xl shadow-elevated object-cover aspect-[4/3]"
+                loading="lazy"
+                width={800}
+                height={600}
+              />
+            </div>
+            <div>
+              <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-primary leading-tight">
+                {getContent("quote", "title", "La Santé Mentale mérite sa propre maison.")}
+              </h2>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Values Banner - exact mockup image */}
-      <section className="w-full">
-        <img
-          src={valuesBanner}
-          alt="Consulter. Participer. Echanger. Se rencontrer. Faire-ensemble autour de la Santé Mentale."
-          className="w-full h-auto"
-        />
-      </section>
-
-      {/* Values Section - "Ce qui compte pour nous" */}
+      {/* "Vous souhaitez..." - grille de 9 cartes-photos avec overlay */}
       <section className="section-padding">
         <div className="container-wide">
-          <div className="grid gap-12 lg:grid-cols-2 items-center">
-            <div>
-              <h2 className="font-serif text-3xl sm:text-4xl font-medium text-foreground mb-8 italic">
-                {getContent("values", "title", "Ce qui compte pour nous")}
-              </h2>
-              <div className="space-y-8">
-                {[
-                  {
-                    icon: Handshake,
-                    title: getContent("values", "value_1_title", "Faire confiance"),
-                    description: getContent("values", "value_1_description", "Accorder du crédit à la parole et à l'expérience de chacun"),
-                  },
-                  {
-                    icon: Heart,
-                    title: getContent("values", "value_2_title", "Faire ensemble"),
-                    description: getContent("values", "value_2_description", "Croire en la force du collectif pour accompagner le rétablissement"),
-                  },
-                  {
-                    icon: Sprout,
-                    title: getContent("values", "value_3_title", "Faire grandir"),
-                    description: getContent("values", "value_3_description", "Croire en la capacité de chacun à avancer, à son rythme vers le rétablissement"),
-                  },
-                ].map((value, index) => (
-                  <div key={index} className="flex gap-4 items-start">
-                    <value.icon className="h-6 w-6 text-primary/60 flex-shrink-0 mt-1 stroke-[1.5]" />
-                    <div>
-                      <h3 className="font-serif text-lg font-semibold text-foreground mb-1">
-                        {value.title}
-                      </h3>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {value.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="relative flex justify-center">
-              <div className="hand-drawn-border p-3 inline-block">
+          <p className="font-serif italic text-foreground/70 text-xl sm:text-2xl mb-10">
+            Vous souhaitez …
+          </p>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {wishes.map((item, index) => (
+              <Link
+                key={index}
+                to={item.link}
+                onClick={() => trackCtaClick(item.text, "home_vous_souhaitez")}
+                className="group relative block aspect-[16/9] overflow-hidden rounded-2xl shadow-soft hover:shadow-elevated transition-shadow"
+              >
                 <img
-                  src={chateauImage}
-                  alt="Le Château Le Phare"
-                  className="rounded-lg w-full max-w-md object-cover aspect-[4/3]"
+                  src={item.image}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                  width={800}
+                  height={450}
                 />
-              </div>
-            </div>
+                {/* Overlay sombre */}
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/55 to-foreground/30" />
+                {/* Texte + flèche */}
+                <div className="relative h-full flex flex-col justify-center items-center text-center p-5">
+                  <p className="font-serif text-background text-base sm:text-lg font-semibold leading-snug max-w-[85%]">
+                    {item.text}
+                  </p>
+                  <ArrowRight className="h-5 w-5 text-background mt-3 transition-transform group-hover:translate-x-1" />
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
