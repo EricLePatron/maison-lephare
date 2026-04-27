@@ -3,7 +3,7 @@ import { ArrowRight, Loader2 } from "lucide-react";
 import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
 import { trackCtaClick } from "@/lib/analytics";
-import chateauImageStatic from "@/assets/chateau-main.jpg";
+import chateauImageStatic from "@/assets/chateau-hero.jpg";
 import featureConsultation from "@/assets/feature-consultation.jpg";
 import featureAssociation from "@/assets/feature-association.jpg";
 import featureCafe from "@/assets/feature-cafe.jpg";
