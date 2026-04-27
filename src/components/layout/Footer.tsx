@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, MapPin } from "lucide-react";
+import { Mail, MapPin, ArrowRight } from "lucide-react";
 import { trackNavClick } from "@/lib/analytics";
 
 const navigationLinks = [
@@ -27,6 +27,26 @@ export function Footer() {
             <p className="font-serif italic text-foreground/70 text-sm leading-relaxed max-w-xs">
               Une maison entièrement dédiée à notre Santé Mentale.
             </p>
+
+            {/* Newsletter input (visual only, matches mockup) */}
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              className="mt-6 flex items-center gap-2 bg-background rounded-full pl-4 pr-1 py-1 max-w-xs border border-primary/20 shadow-soft"
+            >
+              <input
+                type="email"
+                placeholder="Enter your email"
+                aria-label="Adresse email"
+                className="flex-1 bg-transparent text-sm text-foreground placeholder:text-foreground/40 outline-none py-2"
+              />
+              <button
+                type="submit"
+                aria-label="S'inscrire"
+                className="h-9 w-9 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:opacity-90 transition-opacity flex-shrink-0"
+              >
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </form>
           </div>
 
           {/* Navigation */}
