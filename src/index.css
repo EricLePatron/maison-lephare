@@ -76,6 +76,12 @@
     --cream-100: 28 55% 95%;
     --cream-200: 25 50% 92%;
     --cream-300: 25 40% 85%;
+
+    /* Sky blue (matches mockup hero/footer background) */
+    --sky-50: 200 65% 96%;
+    --sky-100: 200 60% 90%;
+    --sky-200: 200 55% 82%;
+    --sky-300: 200 50% 75%;
     
     --amber-400: 38 80% 60%;
     --amber-500: 38 75% 55%;

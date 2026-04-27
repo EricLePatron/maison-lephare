@@ -69,6 +69,12 @@ export default {
           200: "hsl(var(--cream-200))",
           300: "hsl(var(--cream-300))",
         },
+        sky: {
+          50: "hsl(var(--sky-50))",
+          100: "hsl(var(--sky-100))",
+          200: "hsl(var(--sky-200))",
+          300: "hsl(var(--sky-300))",
+        },
         amber: {
           400: "hsl(var(--amber-400))",
           500: "hsl(var(--amber-500))",
