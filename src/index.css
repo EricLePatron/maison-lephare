@@ -28,8 +28,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 20 20% 20%;
     
-    /* Primary: Terra cotta / brown */
-    --primary: 24 55% 40%;
+    /* Primary: Bordeaux / wine (matches Accueil mockup) */
+    --primary: 350 50% 35%;
     --primary-foreground: 30 30% 96%;
     
     /* Secondary: Warm cream/peach */
@@ -40,8 +40,8 @@
     --muted: 30 20% 92%;
     --muted-foreground: 20 10% 45%;
     
-    /* Accent: Same terra cotta family */
-    --accent: 24 55% 40%;
+    /* Accent: Same bordeaux family */
+    --accent: 350 50% 35%;
     --accent-foreground: 30 30% 96%;
     
     --destructive: 0 72% 51%;
@@ -49,19 +49,19 @@
     
     --border: 30 20% 85%;
     --input: 30 20% 85%;
-    --ring: 24 55% 40%;
+    --ring: 350 50% 35%;
     
     --radius: 0.75rem;
     
     /* Extended palette */
-    --terra-50: 25 50% 96%;
-    --terra-100: 25 45% 90%;
-    --terra-200: 24 50% 80%;
-    --terra-300: 24 55% 65%;
-    --terra-400: 24 55% 50%;
-    --terra-500: 24 55% 40%;
-    --terra-600: 24 58% 32%;
-    --terra-700: 24 60% 25%;
+    --terra-50: 350 40% 96%;
+    --terra-100: 350 40% 90%;
+    --terra-200: 350 45% 80%;
+    --terra-300: 350 48% 60%;
+    --terra-400: 350 50% 45%;
+    --terra-500: 350 50% 35%;
+    --terra-600: 350 55% 28%;
+    --terra-700: 350 60% 22%;
     
     --sage-50: 155 25% 96%;
     --sage-100: 155 25% 90%;
@@ -93,17 +93,17 @@
     /* Shadows */
     --shadow-soft: 0 4px 20px -4px hsl(20 20% 20% / 0.06);
     --shadow-elevated: 0 8px 30px -6px hsl(20 20% 20% / 0.1);
-    --shadow-glow: 0 0 40px hsl(24 55% 40% / 0.12);
+    --shadow-glow: 0 0 40px hsl(350 50% 35% / 0.12);
     
     /* Sidebar */
     --sidebar-background: 30 30% 96%;
     --sidebar-foreground: 20 20% 20%;
-    --sidebar-primary: 24 55% 40%;
+    --sidebar-primary: 350 50% 35%;
     --sidebar-primary-foreground: 30 30% 96%;
     --sidebar-accent: 25 60% 93%;
     --sidebar-accent-foreground: 20 20% 20%;
     --sidebar-border: 30 20% 85%;
-    --sidebar-ring: 24 55% 40%;
+    --sidebar-ring: 350 50% 35%;
   }
 
   .dark {
