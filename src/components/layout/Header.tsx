@@ -5,9 +5,10 @@ import { cn } from "@/lib/utils";
 import { trackNavClick } from "@/lib/analytics";
 
 const navLinks = [
+  { href: "/", label: "Accueil" },
   { href: "/le-lieu", label: "Le lieu" },
   { href: "/professionnels", label: "Les professionnels" },
-  { href: "/ateliers", label: "Les Ateliers" },
+  { href: "/ateliers", label: "Les ateliers" },
 ];
 
 export function Header() {
@@ -15,16 +16,16 @@ export function Header() {
   const location = useLocation();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border/40">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-sky-100/95 backdrop-blur-md">
       <div className="container-wide">
         <div className="flex h-16 sm:h-18 items-center justify-between">
           {/* Logo */}
           <Link
             to="/"
             onClick={() => trackNavClick("Logo", "/", "header_desktop")}
-            className="font-script text-2xl sm:text-3xl text-primary font-bold tracking-wide"
+            className="font-script text-3xl sm:text-4xl text-primary font-bold tracking-tight leading-none"
           >
-            LePhare
+            lePhare
           </Link>
 
           {/* Desktop Navigation */}
@@ -35,10 +36,10 @@ export function Header() {
                 to={link.href}
                 onClick={() => trackNavClick(link.label, link.href, "header_desktop")}
                 className={cn(
-                  "text-sm font-medium transition-colors",
+                  "text-sm font-medium transition-colors relative",
                   location.pathname === link.href
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "text-primary underline underline-offset-8 decoration-2"
+                    : "text-foreground/80 hover:text-primary"
                 )}
               >
                 {link.label}
@@ -51,17 +52,16 @@ export function Header() {
             <Link
               to="/contact"
               onClick={() => trackNavClick("Contactez-nous !", "/contact", "header_desktop")}
-              className="inline-flex items-center gap-2 px-6 py-2.5 bg-primary text-primary-foreground rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 px-5 py-2 bg-background border-2 border-primary text-primary rounded-full text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
             >
               Contactez-nous !
-              <Sun className="h-4 w-4" />
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors"
+            className="lg:hidden p-2 rounded-lg hover:bg-background/40 transition-colors"
             aria-label="Toggle menu"
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -72,7 +72,7 @@ export function Header() {
       {/* Mobile Navigation */}
       <div
         className={cn(
-          "lg:hidden overflow-hidden transition-all duration-300 bg-background border-b border-border",
+          "lg:hidden overflow-hidden transition-all duration-300 bg-sky-100 border-b border-border/40",
           isOpen ? "max-h-96" : "max-h-0 border-b-0"
         )}
       >
@@ -89,7 +89,7 @@ export function Header() {
                 "px-4 py-3 text-base font-medium rounded-lg transition-colors",
                 location.pathname === link.href
                   ? "text-primary bg-primary/5"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  : "text-foreground/80 hover:text-primary hover:bg-background/40"
               )}
             >
               {link.label}
@@ -102,10 +102,9 @@ export function Header() {
                 trackNavClick("Contactez-nous !", "/contact", "header_mobile");
                 setIsOpen(false);
               }}
-              className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-primary text-primary-foreground rounded-full text-sm font-medium"
+              className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-background border-2 border-primary text-primary rounded-full text-sm font-medium"
             >
               Contactez-nous !
-              <Sun className="h-4 w-4" />
             </Link>
           </div>
         </nav>
