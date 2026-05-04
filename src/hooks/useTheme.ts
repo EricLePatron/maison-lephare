@@ -58,6 +58,7 @@ export const SITE_IMAGES = [
   { key: "cabinet-room", label: "Page Le Lieu — Salle de cabinet", fallback: "" },
   { key: "association-room", label: "Page Le Lieu — Salle de l'association", fallback: "" },
   { key: "cafe-phare", label: "Page Le Lieu — Le Café Le Phare", fallback: "" },
+  { key: "lieu-solidarity", label: "Page Le Lieu — Bannière groupe (rétablissement)", fallback: "" },
 ];
 
 export function useThemeSettings() {
