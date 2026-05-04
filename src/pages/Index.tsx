@@ -3,6 +3,7 @@ import { ArrowRight, Loader2 } from "lucide-react";
 import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
 import { trackCtaClick } from "@/lib/analytics";
+import { Reveal } from "@/components/Reveal";
 import chateauImageStatic from "@/assets/chateau-hero.jpg";
 import logoLePhare from "@/assets/logo-lephare.png";
 import featureConsultation from "@/assets/feature-consultation.jpg";
@@ -83,7 +84,7 @@ export default function Index() {
         <div className="container-wide py-12 sm:py-16 lg:py-20">
           <div className="grid gap-8 lg:gap-16 lg:grid-cols-2 items-center">
             {/* Photo du château - cadre arrondi */}
-            <div className="flex justify-center lg:justify-start">
+            <Reveal variant="left" className="flex justify-center lg:justify-start">
               <figure className="text-center">
                 <div className="overflow-hidden rounded-[2.5rem] shadow-elevated max-w-[420px]">
                   <img
@@ -98,10 +99,10 @@ export default function Index() {
                   {getContent("hero", "image_caption", "Château du Tenet — Mérignac (33)")}
                 </figcaption>
               </figure>
-            </div>
+            </Reveal>
 
             {/* Bloc logo + tagline + CTA */}
-            <div className="text-center lg:text-left">
+            <Reveal variant="right" delay={150} className="text-center lg:text-left">
               <h1 className="leading-none">
                 <img
                   src={logoSrc}
@@ -123,7 +124,7 @@ export default function Index() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -131,20 +132,20 @@ export default function Index() {
       {/* Features Section - 3 photos rondes avec doodles */}
       <section className="py-16 sm:py-24 bg-background">
         <div className="container-wide">
-          <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
+          <Reveal variant="up" className="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
             <h2 className="font-script text-4xl sm:text-5xl lg:text-6xl text-primary leading-tight">
               {getContent("features", "title", "Un lien entièrement dédié à la Santé Mentale")}
             </h2>
-          </div>
+          </Reveal>
 
           <div className="grid gap-10 sm:grid-cols-3 max-w-5xl mx-auto">
             {features.map((feature, index) => (
-              <Link
-                key={index}
-                to={feature.link}
-                onClick={() => trackCtaClick(feature.ctaName, "home_features")}
-                className="group flex flex-col items-center text-center"
-              >
+              <Reveal key={index} variant="up" delay={index * 100}>
+                <Link
+                  to={feature.link}
+                  onClick={() => trackCtaClick(feature.ctaName, "home_features")}
+                  className="group flex flex-col items-center text-center"
+                >
                 {/* Photo dans cadre arrondi avec bord terracotta */}
                 <div className="w-full max-w-[280px] aspect-[4/3] overflow-hidden rounded-[2rem] border-[3px] border-primary p-1 bg-background shadow-soft transition-transform group-hover:-translate-y-1">
                   <img
@@ -164,7 +165,8 @@ export default function Index() {
                 <span className="inline-flex items-center gap-2 px-6 py-2 bg-background border-2 border-primary text-primary rounded-full text-sm font-medium group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                   {getContent("features", "card_cta", "En savoir +")}
                 </span>
-              </Link>
+                </Link>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -174,7 +176,7 @@ export default function Index() {
       <section className="w-full bg-sky-100">
         <div className="container-wide py-12 sm:py-16 lg:py-20">
           <div className="grid gap-10 lg:gap-16 lg:grid-cols-2 items-center">
-            <div>
+            <Reveal variant="left">
               <img
                 src={chateauImage}
                 alt="Château LePhare"
@@ -183,12 +185,12 @@ export default function Index() {
                 width={800}
                 height={600}
               />
-            </div>
-            <div>
+            </Reveal>
+            <Reveal variant="right" delay={100}>
               <h2 className="font-sans font-semibold text-4xl sm:text-5xl lg:text-6xl text-primary leading-tight">
                 {getContent("quote", "title", "La Santé Mentale mérite sa propre maison.")}
               </h2>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -196,13 +198,22 @@ export default function Index() {
       {/* "Vous souhaitez..." - grille de 9 cartes-photos avec overlay */}
       <section className="section-padding">
         <div className="container-wide">
-          <p className="font-sans text-primary text-xl sm:text-2xl mb-10">
-            {getContent("wishes", "title", "Vous souhaitez …")}
-          </p>
+          <Reveal variant="up">
+            <p className="font-sans text-primary text-xl sm:text-2xl mb-10">
+              {getContent("wishes", "title", "Vous souhaitez …")}
+            </p>
+          </Reveal>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {wishes.map((item, index) => (
-              <Link
+            {wishes.map((item, index) => {
+              const row = Math.floor(index / 3);
+              const col = index % 3;
+              return (
+              <Reveal
                 key={index}
+                variant="up"
+                delay={row * 150 + col * 60}
+              >
+              <Link
                 to={item.link}
                 onClick={() => trackCtaClick(item.text, "home_vous_souhaitez")}
                 className="group relative block aspect-[16/9] overflow-hidden rounded-2xl shadow-soft hover:shadow-elevated transition-shadow"
@@ -226,7 +237,9 @@ export default function Index() {
                   <ArrowRight className="h-5 w-5 text-background mt-3 transition-transform group-hover:translate-x-1" />
                 </div>
               </Link>
-            ))}
+              </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
