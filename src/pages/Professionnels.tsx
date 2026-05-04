@@ -1,14 +1,17 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Users, UserCheck, Mail, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useProfessionnels, useProfessions } from "@/hooks/useProfessionnels";
-import cabinetImage from "@/assets/cabinet-room.png";
+import { usePageContent } from "@/hooks/useSiteContent";
+import { useSiteImage } from "@/hooks/useTheme";
+import chateauImageStatic from "@/assets/chateau-main.jpg";
 
 export default function Professionnels() {
   const { data: professionnels, isLoading, error } = useProfessionnels();
   const { data: professions = [] } = useProfessions();
   const [selectedProfession, setSelectedProfession] = useState<string | null>(null);
+  const { getContent } = usePageContent("professionnels");
+  const chateauImage = useSiteImage("chateau-main", chateauImageStatic);
 
   const filteredProfessionnels = selectedProfession
     ? professionnels?.filter((p) => p.profession === selectedProfession)
@@ -16,49 +19,27 @@ export default function Professionnels() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative min-h-[50vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src={cabinetImage}
-            alt="Cabinet de consultation"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-sage-700/95 via-sage-600/85 to-sage-500/70" />
-        </div>
-
-        <div className="container-wide relative z-10 py-20">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/10 backdrop-blur-sm rounded-full mb-6">
-              <UserCheck className="h-4 w-4 text-accent" />
-              <span className="text-primary-foreground/90 text-sm font-medium">
-                Équipe pluridisciplinaire
-              </span>
-            </div>
-            
-            <h1 className="font-serif text-4xl sm:text-5xl font-medium text-primary-foreground leading-tight mb-6">
-              Nos Professionnels
-            </h1>
-            
-            <p className="text-lg sm:text-xl text-primary-foreground/85 leading-relaxed">
-              Une équipe de praticiens passionnés, aux approches variées, pour vous accompagner selon vos besoins.
-            </p>
-          </div>
+      {/* Titre script */}
+      <section className="bg-background pt-16 sm:pt-24 pb-10 sm:pb-14">
+        <div className="container-wide text-center">
+          <h1 className="font-script text-primary leading-[1.05] text-[clamp(2.25rem,6vw,4.5rem)] max-w-4xl mx-auto">
+            <span className="block">{getContent("hero", "title_line_1", "Les professionnels de la Santé Mentale")}</span>
+            <span className="block">{getContent("hero", "title_line_2", "qui exercent au Phare")}</span>
+          </h1>
         </div>
       </section>
 
-      {/* Filter Section */}
-      <section className="py-8 border-b border-border bg-secondary/30">
-        <div className="container-wide">
-          <div className="flex flex-wrap items-center gap-4">
-            <span className="text-sm font-medium text-foreground">Filtrer par :</span>
-            <div className="flex flex-wrap gap-2">
+      {/* Filtres par profession */}
+      {professions.length > 0 && (
+        <section className="bg-background pb-6">
+          <div className="container-wide">
+            <div className="flex flex-wrap justify-center gap-2">
               <button
                 onClick={() => setSelectedProfession(null)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`px-4 py-1.5 rounded-full text-sm font-medium border-2 transition-colors ${
                   selectedProfession === null
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-card text-foreground hover:bg-muted"
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "bg-background text-primary border-primary/40 hover:border-primary"
                 }`}
               >
                 Tous
@@ -67,10 +48,10 @@ export default function Professionnels() {
                 <button
                   key={profession}
                   onClick={() => setSelectedProfession(profession)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  className={`px-4 py-1.5 rounded-full text-sm font-medium border-2 transition-colors ${
                     selectedProfession === profession
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-card text-foreground hover:bg-muted"
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "bg-background text-primary border-primary/40 hover:border-primary"
                   }`}
                 >
                   {profession}
@@ -78,11 +59,11 @@ export default function Professionnels() {
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* Professionals Grid */}
-      <section className="section-padding">
+      {/* Grille des professionnels */}
+      <section className="bg-background pb-16 sm:pb-24">
         <div className="container-wide">
           {isLoading ? (
             <div className="flex items-center justify-center py-20">
@@ -90,106 +71,80 @@ export default function Professionnels() {
             </div>
           ) : error ? (
             <div className="text-center py-20">
-              <p className="text-muted-foreground">
-                Erreur lors du chargement des professionnels.
-              </p>
+              <p className="text-muted-foreground">Erreur lors du chargement des professionnels.</p>
             </div>
           ) : filteredProfessionnels && filteredProfessionnels.length > 0 ? (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
               {filteredProfessionnels.map((pro) => (
-                <div key={pro.id} className="card-elevated group">
-                  {/* Photo or placeholder */}
-                  <div className="h-48 rounded-xl bg-sage-100 flex items-center justify-center mb-4 overflow-hidden">
+                <Link
+                  key={pro.id}
+                  to={`/professionnels/${pro.id}`}
+                  className="group flex flex-col items-center text-center"
+                >
+                  {/* Photo ronde avec bordure bordeaux */}
+                  <div className="w-40 h-40 sm:w-44 sm:h-44 rounded-full border-[3px] border-primary overflow-hidden bg-sky-100 flex items-center justify-center transition-transform duration-300 group-hover:scale-[1.02]">
                     {pro.photo_url ? (
                       <img
                         src={pro.photo_url}
                         alt={`${pro.prenom} ${pro.nom}`}
                         className="w-full h-full object-cover"
+                        loading="lazy"
                       />
                     ) : (
-                      <div className="text-center">
-                        <div className="h-20 w-20 rounded-full bg-sage-200 flex items-center justify-center mx-auto mb-2">
-                          <span className="font-serif text-2xl text-primary font-semibold">
-                            {pro.prenom[0]}{pro.nom[0]}
-                          </span>
-                        </div>
-                      </div>
+                      <span className="font-script text-primary text-4xl">
+                        {pro.prenom[0]}{pro.nom[0]}
+                      </span>
                     )}
                   </div>
 
-                  {/* Info */}
-                  <div className="space-y-3">
-                    <div>
-                      <h3 className="font-serif text-xl font-medium text-foreground">
-                        {pro.prenom} {pro.nom}
-                      </h3>
-                      <p className="text-primary font-medium text-sm">{pro.profession}</p>
-                    </div>
+                  {/* Nom Prénom */}
+                  <h3 className="mt-5 font-sans uppercase tracking-wide text-primary font-bold text-base">
+                    {pro.prenom} {pro.nom}
+                  </h3>
 
-                    <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
-                      {pro.description}
-                    </p>
+                  {/* Métier */}
+                  <p className="mt-1 uppercase tracking-[0.15em] text-foreground/70 text-xs font-medium">
+                    {pro.profession}
+                  </p>
 
-                    <div className="flex flex-wrap gap-1">
-                      {pro.specialites?.slice(0, 3).map((spec) => (
-                        <span
-                          key={spec}
-                          className="px-2 py-1 bg-cream-100 text-xs font-medium text-foreground rounded"
-                        >
-                          {spec}
-                        </span>
-                      ))}
-                    </div>
+                  {/* Description */}
+                  <p className="mt-3 text-foreground/85 text-sm leading-relaxed max-w-[18rem] line-clamp-3">
+                    {pro.description}
+                  </p>
 
-                    <div className="pt-2 flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">
-                        <Users className="h-4 w-4 inline mr-1" />
-                        {pro.public_cible}
-                      </span>
-                      <span className="text-muted-foreground">
-                        {pro.jours_presence?.split(",")[0]}...
-                      </span>
-                    </div>
-
-                    <Button asChild variant="outline" size="sm" className="w-full mt-2">
-                      <Link to={`/professionnels/${pro.id}`}>
-                        Voir le profil
-                        <ArrowRight className="h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </div>
-                </div>
+                  {/* Pill "Voir le profil" */}
+                  <span className="mt-4 inline-flex items-center px-5 py-1.5 rounded-full border-2 border-primary text-primary text-xs font-medium tracking-wide group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                    Voir le profil
+                  </span>
+                </Link>
               ))}
             </div>
           ) : (
             <div className="text-center py-20">
-              <p className="text-muted-foreground">
-                Aucun professionnel trouvé.
-              </p>
+              <p className="text-muted-foreground">Aucun professionnel trouvé.</p>
             </div>
           )}
         </div>
       </section>
 
-      {/* Info Section */}
-      <section className="section-padding bg-secondary/50">
-        <div className="container-narrow">
-          <div className="card-elegant text-center">
-            <div className="h-16 w-16 rounded-full bg-sage-100 flex items-center justify-center mx-auto mb-6">
-              <Mail className="h-8 w-8 text-primary" />
-            </div>
-            <h2 className="font-serif text-2xl font-medium text-foreground mb-4">
-              Vous êtes professionnel de la santé mentale ?
-            </h2>
-            <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-              Le Phare accueille des praticiens de toutes disciplines. Si vous souhaitez rejoindre notre équipe et installer votre cabinet au château, contactez-nous.
-            </p>
-            <Button asChild variant="hero" size="lg">
-              <Link to="/contact">
-                Nous contacter
-                <ArrowRight className="h-5 w-5" />
-              </Link>
-            </Button>
+      {/* Bannière château avec invitation à rejoindre */}
+      <section className="relative w-full overflow-hidden">
+        <div className="relative aspect-[16/7] sm:aspect-[21/8] w-full">
+          <img
+            src={chateauImage}
+            alt={getContent("cta", "image_alt", "Château LePhare")}
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-black/30" />
+          <div className="absolute inset-0 flex items-center justify-center px-6">
+            <Link
+              to="/contact"
+              className="font-script text-primary-foreground text-center leading-[1.05] text-[clamp(2rem,6vw,4.5rem)] drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)] hover:opacity-90 transition-opacity"
+            >
+              <span className="block">{getContent("cta", "line_1", "Vous souhaitez vous installer ?")}</span>
+              <span className="block">{getContent("cta", "line_2", "Contactez-nous")}</span>
+            </Link>
           </div>
         </div>
       </section>
