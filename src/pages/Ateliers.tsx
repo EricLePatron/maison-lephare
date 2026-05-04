@@ -1,22 +1,22 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2, Brain, Palette, MessageCircle, Users, Heart, Sparkles, BookOpen, Music, Lightbulb } from "lucide-react";
 import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
+import { useAteliers } from "@/hooks/useAteliers";
 import atelierImageStatic from "@/assets/atelier-collectif.jpg";
 import chateauImageStatic from "@/assets/chateau-main.jpg";
 import { Reveal } from "@/components/Reveal";
+
+const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
+  Brain, Palette, MessageCircle, Users, Heart, Sparkles, BookOpen, Music, Lightbulb,
+};
 
 export default function Ateliers() {
   const { getContent } = usePageContent("ateliers");
   const atelierImage = useSiteImage("atelier-collectif", atelierImageStatic);
   const chateauImage = useSiteImage("chateau-main", chateauImageStatic);
-
-  const categories = [
-    { key: "cat_1", label: getContent("categories", "cat_1", "Médiation créatives") },
-    { key: "cat_2", label: getContent("categories", "cat_2", "Ateliers psychoeducatifs") },
-    { key: "cat_3", label: getContent("categories", "cat_3", "Groupes de parole") },
-    { key: "cat_4", label: getContent("categories", "cat_4", "Groupe de sensibilisation") },
-  ];
+  const { data: ateliers, isLoading } = useAteliers();
+  const activeAteliers = (ateliers || []).filter((a) => a.actif);
 
   return (
     <>
@@ -56,23 +56,36 @@ export default function Ateliers() {
             </h2>
           </Reveal>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-5xl mx-auto">
-            {categories.map((cat, index) => (
-              <Reveal key={cat.key} variant="up" delay={index * 100} className="flex flex-col items-center text-center">
-                <div className="w-full aspect-[4/3] rounded-2xl border-[3px] border-primary overflow-hidden">
-                  <img
-                    src={atelierImage}
-                    alt={cat.label}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-                <h3 className="mt-4 sm:mt-5 uppercase tracking-wide text-primary font-bold text-sm sm:text-base leading-tight">
-                  {cat.label}
-                </h3>
-              </Reveal>
-            ))}
-          </div>
+          {isLoading ? (
+            <div className="flex justify-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </div>
+          ) : activeAteliers.length > 0 ? (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-5xl mx-auto">
+              {activeAteliers.map((atelier, index) => {
+                const IconComp = ICON_MAP[atelier.icone || "Brain"] || Brain;
+                return (
+                  <Reveal key={atelier.id} variant="up" delay={index * 100} className="flex flex-col items-center text-center">
+                    <div className="w-full aspect-[4/3] rounded-2xl border-[3px] border-primary overflow-hidden bg-sky-100 flex items-center justify-center">
+                      <IconComp className="h-16 w-16 text-primary" />
+                    </div>
+                    <h3 className="mt-4 sm:mt-5 uppercase tracking-wide text-primary font-bold text-sm sm:text-base leading-tight">
+                      {atelier.titre}
+                    </h3>
+                    {atelier.categorie && (
+                      <p className="mt-1 text-xs uppercase tracking-[0.15em] text-foreground/60">
+                        {atelier.categorie}
+                      </p>
+                    )}
+                  </Reveal>
+                );
+              })}
+            </div>
+          ) : (
+            <p className="text-center text-muted-foreground py-12">
+              Aucun atelier disponible pour le moment.
+            </p>
+          )}
 
           <div className="text-center mt-14 sm:mt-20">
             <p className="uppercase tracking-[0.15em] text-secondary font-semibold text-base sm:text-lg mb-6">
