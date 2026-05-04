@@ -5,6 +5,7 @@ import { useProfessionnels, useProfessions } from "@/hooks/useProfessionnels";
 import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
 import chateauImageStatic from "@/assets/chateau-main.jpg";
+import { Reveal } from "@/components/Reveal";
 
 export default function Professionnels() {
   const { data: professionnels, isLoading, error } = useProfessionnels();
@@ -22,10 +23,12 @@ export default function Professionnels() {
       {/* Titre script */}
       <section className="bg-background pt-16 sm:pt-24 pb-10 sm:pb-14">
         <div className="container-wide text-center">
-          <h1 className="font-script text-primary leading-[1.05] text-[clamp(2.25rem,6vw,4.5rem)] max-w-4xl mx-auto">
-            <span className="block">{getContent("hero", "title_line_1", "Les professionnels de la Santé Mentale")}</span>
-            <span className="block">{getContent("hero", "title_line_2", "qui exercent au Phare")}</span>
-          </h1>
+          <Reveal variant="up">
+            <h1 className="font-script text-primary leading-[1.05] text-[clamp(2.25rem,6vw,4.5rem)] max-w-4xl mx-auto">
+              <span className="block">{getContent("hero", "title_line_1", "Les professionnels de la Santé Mentale")}</span>
+              <span className="block">{getContent("hero", "title_line_2", "qui exercent au Phare")}</span>
+            </h1>
+          </Reveal>
         </div>
       </section>
 
@@ -75,9 +78,12 @@ export default function Professionnels() {
             </div>
           ) : filteredProfessionnels && filteredProfessionnels.length > 0 ? (
             <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
-              {filteredProfessionnels.map((pro) => (
+              {filteredProfessionnels.map((pro, index) => {
+                const row = Math.floor(index / 3);
+                const col = index % 3;
+                return (
+                <Reveal key={pro.id} variant="up" delay={row * 150 + col * 100}>
                 <Link
-                  key={pro.id}
                   to={`/professionnels/${pro.id}`}
                   className="group flex flex-col items-center text-center"
                 >
@@ -117,7 +123,9 @@ export default function Professionnels() {
                     Voir le profil
                   </span>
                 </Link>
-              ))}
+                </Reveal>
+                );
+              })}
             </div>
           ) : (
             <div className="text-center py-20">
