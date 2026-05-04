@@ -3,6 +3,7 @@ import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
 import chateauImageStatic from "@/assets/chateau-main.jpg";
 import lieuSolidarityStatic from "@/assets/lieu-solidarity.jpg";
+import { Reveal } from "@/components/Reveal";
 
 export default function LeLieu() {
   const { getContent, isLoading } = usePageContent("le-lieu");
@@ -52,12 +53,16 @@ export default function LeLieu() {
       {/* Bannière statistique — fond cream, citation en script bordeaux */}
       <section className="bg-background py-14 sm:py-20">
         <div className="container-narrow text-center">
-          <p className="font-script text-primary text-[clamp(2.5rem,7vw,5rem)] leading-tight">
-            {getContent("stat", "headline", "13 millions de personnes")}
-          </p>
-          <p className="mt-3 sm:mt-4 text-foreground/80 text-lg sm:text-xl font-light">
-            {getContent("stat", "subline", "souffrent de troubles psychiques en France")}
-          </p>
+          <Reveal variant="fade">
+            <p className="font-script text-primary text-[clamp(2.5rem,7vw,5rem)] leading-tight">
+              {getContent("stat", "headline", "13 millions de personnes")}
+            </p>
+          </Reveal>
+          <Reveal variant="fade" delay={200}>
+            <p className="mt-3 sm:mt-4 text-foreground/80 text-lg sm:text-xl font-light">
+              {getContent("stat", "subline", "souffrent de troubles psychiques en France")}
+            </p>
+          </Reveal>
         </div>
       </section>
 
@@ -65,14 +70,14 @@ export default function LeLieu() {
       <section className="bg-sky-100 py-16 sm:py-24">
         <div className="container-wide">
           <div className="grid gap-10 lg:grid-cols-[auto,1fr] items-start max-w-5xl mx-auto">
-            <div className="flex justify-center lg:justify-start lg:pt-16">
+            <Reveal variant="left" className="flex justify-center lg:justify-start lg:pt-16">
               <Heart
                 className="h-24 w-24 sm:h-32 sm:w-32 text-secondary"
                 fill="hsl(var(--secondary))"
                 strokeWidth={0}
               />
-            </div>
-            <div>
+            </Reveal>
+            <Reveal variant="right" delay={120}>
               <p className="text-foreground text-lg sm:text-xl text-center lg:text-left mb-6">
                 {getContent("welcome", "intro", "Tous, sont les bienvenues à la Maison LePhare :")}
               </p>
@@ -81,10 +86,10 @@ export default function LeLieu() {
                   <li key={i}>{item}</li>
                 ))}
               </ul>
-            </div>
+            </Reveal>
           </div>
 
-          <div className="max-w-3xl mx-auto mt-16 sm:mt-20">
+          <Reveal variant="up" className="max-w-3xl mx-auto mt-16 sm:mt-20">
             <h2 className="font-script text-primary text-[clamp(2rem,5vw,3.5rem)] leading-tight mb-6">
               {getContent("why", "title", "Pourquoi ouvrir une maison ?")}
             </h2>
@@ -95,7 +100,7 @@ export default function LeLieu() {
                 "Les lieux ouverts où des personnes concernées peuvent se retrouver, échanger collectivement et partager une expérience commune restent peu nombreux, surtout en dehors du cadre strict du soin."
               )}
             </p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
