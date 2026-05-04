@@ -10,17 +10,19 @@ interface ThemeSettings {
 
 // Available Google Fonts options
 export const AVAILABLE_FONTS = [
+  { label: "Sweet Belly Script", value: "Sweet Belly Script", category: "script" },
+  { label: "Caveat", value: "Caveat", category: "script" },
   { label: "Playfair Display", value: "Playfair Display", category: "serif" },
   { label: "Merriweather", value: "Merriweather", category: "serif" },
   { label: "Lora", value: "Lora", category: "serif" },
   { label: "Cormorant Garamond", value: "Cormorant Garamond", category: "serif" },
   { label: "DM Serif Display", value: "DM Serif Display", category: "serif" },
   { label: "Libre Baskerville", value: "Libre Baskerville", category: "serif" },
+  { label: "Nunito", value: "Nunito", category: "sans-serif" },
   { label: "Inter", value: "Inter", category: "sans-serif" },
   { label: "DM Sans", value: "DM Sans", category: "sans-serif" },
   { label: "Outfit", value: "Outfit", category: "sans-serif" },
   { label: "Plus Jakarta Sans", value: "Plus Jakarta Sans", category: "sans-serif" },
-  { label: "Nunito", value: "Nunito", category: "sans-serif" },
   { label: "Work Sans", value: "Work Sans", category: "sans-serif" },
   { label: "Raleway", value: "Raleway", category: "sans-serif" },
   { label: "Source Sans 3", value: "Source Sans 3", category: "sans-serif" },
