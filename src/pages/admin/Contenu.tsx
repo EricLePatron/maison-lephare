@@ -66,6 +66,10 @@ const SECTION_LABELS: Record<string, string> = {
   mission: "Mission",
   activities: "Activités",
   publics: "Publics",
+  stat: "Statistique",
+  welcome: "Bienvenue (liste)",
+  why: "Pourquoi ouvrir une maison",
+  banner: "Bannière image",
 };
 
 export default function AdminContenu() {
