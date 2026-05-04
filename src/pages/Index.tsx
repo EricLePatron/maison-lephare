@@ -93,7 +93,7 @@ export default function Index() {
                 <img
                   src={logoLePhare}
                   alt="lePhare — Maison dédiée à la Santé Mentale"
-                  className="w-full max-w-[460px] h-auto mx-auto lg:mx-0"
+                  className="w-full max-w-[640px] lg:max-w-[720px] xl:max-w-[820px] h-auto mx-auto lg:mx-0"
                 />
               </h1>
               <span className="sr-only">
