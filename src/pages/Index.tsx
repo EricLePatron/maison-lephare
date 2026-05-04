@@ -4,6 +4,7 @@ import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
 import { trackCtaClick } from "@/lib/analytics";
 import chateauImageStatic from "@/assets/chateau-hero.jpg";
+import logoLePhare from "@/assets/logo-lephare.png";
 import featureConsultation from "@/assets/feature-consultation.jpg";
 import featureAssociation from "@/assets/feature-association.jpg";
 import featureCafe from "@/assets/feature-cafe.jpg";
@@ -88,21 +89,16 @@ export default function Index() {
 
             {/* Bloc logo + tagline + CTA */}
             <div className="text-center lg:text-left">
-              {/* Petites griffes décoratives au-dessus du logo */}
-              <svg width="120" height="28" viewBox="0 0 120 28" fill="none" className="mx-auto lg:mx-0 mb-2">
-                <path d="M5 22 C 30 8, 55 4, 85 6" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" fill="none" />
-                <path d="M30 24 C 50 14, 75 12, 100 14" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" fill="none" />
-                <path d="M55 26 C 70 20, 90 18, 115 20" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" fill="none" />
-              </svg>
-
-              <h1 className="font-script text-primary leading-none">
-                <span className="block text-7xl sm:text-8xl lg:text-9xl font-bold tracking-tight">
-                  lePhare
-                </span>
+              <h1 className="leading-none">
+                <img
+                  src={logoLePhare}
+                  alt="lePhare — Maison dédiée à la Santé Mentale"
+                  className="w-full max-w-[460px] h-auto mx-auto lg:mx-0"
+                />
               </h1>
-              <p className="font-serif text-foreground/80 text-lg sm:text-xl mt-3 italic">
+              <span className="sr-only">
                 {getContent("hero", "tagline", "Maison dédiée à la Santé Mentale")}
-              </p>
+              </span>
 
               <div className="mt-8">
                 <Link
