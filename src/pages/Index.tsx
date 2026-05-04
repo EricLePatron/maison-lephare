@@ -21,6 +21,19 @@ import gridCafe from "@/assets/grid-cafe.jpg";
 export default function Index() {
   const { getContent, isLoading } = usePageContent("home");
   const chateauImage = useSiteImage("chateau-main", chateauImageStatic);
+  const logoSrc = useSiteImage("logo-main", logoLePhare);
+  const featureConsultationImg = useSiteImage("feature-consultation", featureConsultation);
+  const featureAssociationImg = useSiteImage("feature-association", featureAssociation);
+  const featureCafeImg = useSiteImage("feature-cafe", featureCafe);
+  const gridConsulterImg = useSiteImage("grid-consulter", gridConsulter);
+  const gridProgrammationImg = useSiteImage("grid-programmation", gridProgrammation);
+  const gridLieuImg = useSiteImage("grid-lieu", gridLieu);
+  const gridRejoindreImg = useSiteImage("grid-rejoindre", gridRejoindre);
+  const gridProposerImg = useSiteImage("grid-proposer", gridProposer);
+  const gridAccompagnerImg = useSiteImage("grid-accompagner", gridAccompagner);
+  const gridLouerImg = useSiteImage("grid-louer", gridLouer);
+  const gridInstallerImg = useSiteImage("grid-installer", gridInstaller);
+  const gridCafeImg = useSiteImage("grid-cafe", gridCafe);
 
   if (isLoading) {
     return (
@@ -32,35 +45,35 @@ export default function Index() {
 
   const features = [
     {
-      image: featureConsultation,
-      title: "L'Espace\nConsultation",
+      image: featureConsultationImg,
+      title: getContent("features", "card_1_title", "L'Espace\nConsultation"),
       link: "/professionnels",
       ctaName: "Découvrir les professionnels",
     },
     {
-      image: featureAssociation,
-      title: "L'Association\nLePhare",
+      image: featureAssociationImg,
+      title: getContent("features", "card_2_title", "L'Association\nLePhare"),
       link: "/association",
       ctaName: "Voir les ateliers",
     },
     {
-      image: featureCafe,
-      title: "Le Café\nInclusif",
+      image: featureCafeImg,
+      title: getContent("features", "card_3_title", "Le Café\nInclusif"),
       link: "/le-lieu",
       ctaName: "Découvrir le café",
     },
   ];
 
   const wishes = [
-    { text: "Consulter un professionnel de la santé mentale ?", image: gridConsulter, link: "/professionnels" },
-    { text: "Trouver la programmation de l'association ?", image: gridProgrammation, link: "/ateliers" },
-    { text: "En savoir plus sur le lieu ?", image: gridLieu, link: "/le-lieu" },
-    { text: "Rejoindre le projet ?", image: gridRejoindre, link: "/contact" },
-    { text: "Proposer une activité ?", image: gridProposer, link: "/contact" },
-    { text: "Chercher à vous faire accompagner ?", image: gridAccompagner, link: "/professionnels" },
-    { text: "Louer une salle pour une activité sur la Santé Mentale ?", image: gridLouer, link: "/contact" },
-    { text: "Vous installer en libéral ?", image: gridInstaller, link: "/contact" },
-    { text: "Venir boire un café ou nous rencontrer ?", image: gridCafe, link: "/le-lieu" },
+    { text: getContent("wishes", "item_1", "Consulter un professionnel de la santé mentale ?"), image: gridConsulterImg, link: "/professionnels" },
+    { text: getContent("wishes", "item_2", "Trouver la programmation de l'association ?"), image: gridProgrammationImg, link: "/ateliers" },
+    { text: getContent("wishes", "item_3", "En savoir plus sur le lieu ?"), image: gridLieuImg, link: "/le-lieu" },
+    { text: getContent("wishes", "item_4", "Rejoindre le projet ?"), image: gridRejoindreImg, link: "/contact" },
+    { text: getContent("wishes", "item_5", "Proposer une activité ?"), image: gridProposerImg, link: "/contact" },
+    { text: getContent("wishes", "item_6", "Chercher à vous faire accompagner ?"), image: gridAccompagnerImg, link: "/professionnels" },
+    { text: getContent("wishes", "item_7", "Louer une salle pour une activité sur la Santé Mentale ?"), image: gridLouerImg, link: "/contact" },
+    { text: getContent("wishes", "item_8", "Vous installer en libéral ?"), image: gridInstallerImg, link: "/contact" },
+    { text: getContent("wishes", "item_9", "Venir boire un café ou nous rencontrer ?"), image: gridCafeImg, link: "/le-lieu" },
   ];
 
   return (
@@ -82,7 +95,7 @@ export default function Index() {
                   />
                 </div>
                 <figcaption className="font-script text-lg sm:text-xl text-primary/80 mt-3">
-                  Château du Tenet — Mérignac (33)
+                  {getContent("hero", "image_caption", "Château du Tenet — Mérignac (33)")}
                 </figcaption>
               </figure>
             </div>
@@ -91,7 +104,7 @@ export default function Index() {
             <div className="text-center lg:text-left">
               <h1 className="leading-none">
                 <img
-                  src={logoLePhare}
+                  src={logoSrc}
                   alt="lePhare — Maison dédiée à la Santé Mentale"
                   className="w-full max-w-[640px] lg:max-w-[720px] xl:max-w-[820px] h-auto mx-auto lg:mx-0"
                 />
@@ -103,10 +116,10 @@ export default function Index() {
               <div className="mt-8">
                 <Link
                   to="/ateliers"
-                  onClick={() => trackCtaClick("Voir la programmation", "home_hero")}
+                  onClick={() => trackCtaClick(getContent("hero", "cta", "Voir la programmation"), "home_hero")}
                   className="inline-flex items-center gap-2 px-7 py-3 bg-background text-primary border-2 border-primary rounded-full text-base font-medium hover:bg-primary hover:text-primary-foreground transition-colors shadow-soft"
                 >
-                  Voir la programmation
+                  {getContent("hero", "cta", "Voir la programmation")}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
@@ -149,7 +162,7 @@ export default function Index() {
                 </h3>
 
                 <span className="inline-flex items-center gap-2 px-6 py-2 bg-background border-2 border-primary text-primary rounded-full text-sm font-medium group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                  En savoir +
+                  {getContent("features", "card_cta", "En savoir +")}
                 </span>
               </Link>
             ))}
@@ -184,7 +197,7 @@ export default function Index() {
       <section className="section-padding">
         <div className="container-wide">
           <p className="font-sans text-primary text-xl sm:text-2xl mb-10">
-            Vous souhaitez …
+            {getContent("wishes", "title", "Vous souhaitez …")}
           </p>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {wishes.map((item, index) => (
