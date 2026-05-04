@@ -2,11 +2,23 @@
 @import "@fontsource/playfair-display/500.css";
 @import "@fontsource/playfair-display/600.css";
 @import "@fontsource/playfair-display/700.css";
-@import "@fontsource/inter/400.css";
-@import "@fontsource/inter/500.css";
-@import "@fontsource/inter/600.css";
+@import "@fontsource/nunito/300.css";
+@import "@fontsource/nunito/400.css";
+@import "@fontsource/nunito/500.css";
+@import "@fontsource/nunito/600.css";
+@import "@fontsource/nunito/700.css";
 @import "@fontsource/caveat/400.css";
 @import "@fontsource/caveat/700.css";
+
+/* Sweet Belly Script — load if a self-hosted file is provided, fallback to Caveat */
+@font-face {
+  font-family: 'Sweet Belly Script';
+  src: local('Sweet Belly Script'),
+       url('/fonts/SweetBellyScript.woff2') format('woff2'),
+       url('/fonts/SweetBellyScript.woff') format('woff');
+  font-display: swap;
+  font-weight: 400 700;
+}
 
 @tailwind base;
 @tailwind components;
@@ -19,69 +31,72 @@
 @layer base {
   :root {
     /* Core palette */
-    --background: 30 30% 96%;
-    --foreground: 20 20% 20%;
-    
-    --card: 30 25% 98%;
-    --card-foreground: 20 20% 20%;
-    
+    --background: 50 100% 96%;
+    --foreground: 344 30% 18%;
+
+    --card: 50 100% 97%;
+    --card-foreground: 344 30% 18%;
+
     --popover: 0 0% 100%;
-    --popover-foreground: 20 20% 20%;
-    
-    /* Primary: Bordeaux / wine (matches Accueil mockup) */
-    --primary: 350 50% 35%;
-    --primary-foreground: 30 30% 96%;
-    
-    /* Secondary: Warm cream/peach */
-    --secondary: 25 60% 93%;
-    --secondary-foreground: 20 20% 20%;
-    
+    --popover-foreground: 344 30% 18%;
+
+    /* Primary: Bordeaux #742B3F */
+    --primary: 344 46% 31%;
+    --primary-foreground: 50 100% 96%;
+
+    /* Secondary: Cream yellow #FFF1B5 */
+    --secondary: 50 100% 85%;
+    --secondary-foreground: 344 46% 31%;
+
     /* Muted */
-    --muted: 30 20% 92%;
-    --muted-foreground: 20 10% 45%;
-    
-    /* Accent: Same bordeaux family */
-    --accent: 350 50% 35%;
-    --accent-foreground: 30 30% 96%;
+    --muted: 200 30% 92%;
+    --muted-foreground: 173 10% 35%;
+
+    /* Accent: sage #708F8A */
+    --accent: 173 12% 50%;
+    --accent-foreground: 50 100% 96%;
     
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
     
-    --border: 30 20% 85%;
-    --input: 30 20% 85%;
-    --ring: 350 50% 35%;
+    --border: 173 15% 80%;
+    --input: 173 15% 80%;
+    --ring: 344 46% 31%;
     
     --radius: 0.75rem;
     
     /* Extended palette */
-    --terra-50: 350 40% 96%;
-    --terra-100: 350 40% 90%;
-    --terra-200: 350 45% 80%;
-    --terra-300: 350 48% 60%;
-    --terra-400: 350 50% 45%;
-    --terra-500: 350 50% 35%;
-    --terra-600: 350 55% 28%;
-    --terra-700: 350 60% 22%;
-    
-    --sage-50: 155 25% 96%;
-    --sage-100: 155 25% 90%;
-    --sage-200: 155 25% 80%;
-    --sage-300: 155 28% 65%;
-    --sage-400: 155 25% 55%;
-    --sage-500: 155 20% 60%;
-    --sage-600: 155 22% 55%;
-    --sage-700: 155 25% 45%;
-    
-    --cream-50: 30 50% 98%;
-    --cream-100: 28 55% 95%;
-    --cream-200: 25 50% 92%;
-    --cream-300: 25 40% 85%;
+    /* Bordeaux scale (#742B3F) */
+    --terra-50: 344 40% 96%;
+    --terra-100: 344 40% 90%;
+    --terra-200: 344 42% 78%;
+    --terra-300: 344 44% 60%;
+    --terra-400: 344 46% 42%;
+    --terra-500: 344 46% 31%;
+    --terra-600: 344 50% 25%;
+    --terra-700: 344 55% 18%;
 
-    /* Sky blue (matches mockup hero/footer background) */
-    --sky-50: 200 65% 96%;
-    --sky-100: 200 60% 90%;
-    --sky-200: 200 55% 82%;
-    --sky-300: 200 50% 75%;
+    /* Sage scale (#708F8A) */
+    --sage-50: 173 20% 96%;
+    --sage-100: 173 18% 90%;
+    --sage-200: 173 16% 80%;
+    --sage-300: 173 14% 68%;
+    --sage-400: 173 13% 58%;
+    --sage-500: 173 12% 50%;
+    --sage-600: 173 14% 42%;
+    --sage-700: 173 16% 32%;
+
+    /* Cream / yellow scale (#FFF1B5) */
+    --cream-50: 50 100% 97%;
+    --cream-100: 50 100% 92%;
+    --cream-200: 50 100% 85%;
+    --cream-300: 48 80% 75%;
+
+    /* Sky scale (#C1DBE8) */
+    --sky-50: 200 50% 96%;
+    --sky-100: 200 48% 90%;
+    --sky-200: 200 44% 83%;
+    --sky-300: 200 42% 72%;
     
     --amber-400: 38 80% 60%;
     --amber-500: 38 75% 55%;
@@ -91,19 +106,19 @@
     --navy-900: 220 40% 12%;
     
     /* Shadows */
-    --shadow-soft: 0 4px 20px -4px hsl(20 20% 20% / 0.06);
-    --shadow-elevated: 0 8px 30px -6px hsl(20 20% 20% / 0.1);
-    --shadow-glow: 0 0 40px hsl(350 50% 35% / 0.12);
+    --shadow-soft: 0 4px 20px -4px hsl(344 30% 18% / 0.08);
+    --shadow-elevated: 0 8px 30px -6px hsl(344 30% 18% / 0.12);
+    --shadow-glow: 0 0 40px hsl(344 46% 31% / 0.15);
     
     /* Sidebar */
-    --sidebar-background: 30 30% 96%;
-    --sidebar-foreground: 20 20% 20%;
-    --sidebar-primary: 350 50% 35%;
-    --sidebar-primary-foreground: 30 30% 96%;
-    --sidebar-accent: 25 60% 93%;
-    --sidebar-accent-foreground: 20 20% 20%;
-    --sidebar-border: 30 20% 85%;
-    --sidebar-ring: 350 50% 35%;
+    --sidebar-background: 50 100% 96%;
+    --sidebar-foreground: 344 30% 18%;
+    --sidebar-primary: 344 46% 31%;
+    --sidebar-primary-foreground: 50 100% 96%;
+    --sidebar-accent: 50 100% 85%;
+    --sidebar-accent-foreground: 344 46% 31%;
+    --sidebar-border: 173 15% 80%;
+    --sidebar-ring: 344 46% 31%;
   }
 
   .dark {
@@ -157,11 +172,11 @@
   
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Nunito', system-ui, sans-serif;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: 'Sweet Belly Script', 'Caveat', cursive;
     @apply font-medium tracking-tight;
   }
 }
@@ -217,7 +232,7 @@
   
   /* Font for branding */
   .font-script {
-    font-family: 'Caveat', cursive;
+    font-family: 'Sweet Belly Script', 'Caveat', cursive;
   }
   
   /* Decorative elements */
