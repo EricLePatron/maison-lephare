@@ -116,6 +116,57 @@ export type Database = {
         }
         Relationships: []
       }
+      professionnels_public_profiles: {
+        Row: {
+          actif: boolean
+          approche: string | null
+          created_at: string
+          description: string | null
+          id: string
+          jours_presence: string | null
+          nom: string
+          ordre_affichage: number | null
+          photo_url: string | null
+          prenom: string
+          profession: string
+          public_cible: string | null
+          specialites: string[] | null
+          updated_at: string
+        }
+        Insert: {
+          actif?: boolean
+          approche?: string | null
+          created_at?: string
+          description?: string | null
+          id: string
+          jours_presence?: string | null
+          nom: string
+          ordre_affichage?: number | null
+          photo_url?: string | null
+          prenom: string
+          profession: string
+          public_cible?: string | null
+          specialites?: string[] | null
+          updated_at?: string
+        }
+        Update: {
+          actif?: boolean
+          approche?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          jours_presence?: string | null
+          nom?: string
+          ordre_affichage?: number | null
+          photo_url?: string | null
+          prenom?: string
+          profession?: string
+          public_cible?: string | null
+          specialites?: string[] | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_content: {
         Row: {
           content_key: string
