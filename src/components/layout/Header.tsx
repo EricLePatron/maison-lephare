@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackNavClick } from "@/lib/analytics";
+import logoLePhare from "@/assets/logo-lephare.png";
 
 const navLinks = [
   { href: "/", label: "Accueil" },
@@ -23,9 +24,14 @@ export function Header() {
           <Link
             to="/"
             onClick={() => trackNavClick("Logo", "/", "header_desktop")}
-            className="font-script text-3xl sm:text-4xl text-primary font-bold tracking-tight leading-none"
+            className="block leading-none"
+            aria-label="lePhare — Maison dédiée à la Santé Mentale"
           >
-            lePhare
+            <img
+              src={logoLePhare}
+              alt="lePhare — Maison dédiée à la Santé Mentale"
+              className="h-12 sm:h-14 w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}
