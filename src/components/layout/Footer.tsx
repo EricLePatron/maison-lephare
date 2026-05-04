@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, MapPin, ArrowRight } from "lucide-react";
 import { trackNavClick } from "@/lib/analytics";
+import logoLePhare from "@/assets/logo-lephare.png";
 
 const navigationLinks = [
   { href: "/", label: "Page d'accueil" },
@@ -20,11 +21,16 @@ export function Footer() {
             <Link
               to="/"
               onClick={() => trackNavClick("Logo", "/", "footer")}
-              className="font-script text-4xl text-primary font-bold mb-4 block leading-none"
+              className="mb-4 block leading-none"
+              aria-label="lePhare — Maison dédiée à la Santé Mentale"
             >
-              lePhare
+              <img
+                src={logoLePhare}
+                alt="lePhare — Maison dédiée à la Santé Mentale"
+                className="h-16 w-auto"
+              />
             </Link>
-            <p className="font-serif italic text-foreground/70 text-sm leading-relaxed max-w-xs">
+            <p className="font-serif italic text-foreground/70 text-sm leading-relaxed max-w-xs mt-2">
               Une maison entièrement dédiée à notre Santé Mentale.
             </p>
 
