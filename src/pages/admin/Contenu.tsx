@@ -72,6 +72,7 @@ const SECTION_LABELS: Record<string, string> = {
   welcome: "Bienvenue (liste)",
   why: "Pourquoi ouvrir une maison",
   banner: "Bannière image",
+  categories: "Catégories d'ateliers",
 };
 
 export default function AdminContenu() {
