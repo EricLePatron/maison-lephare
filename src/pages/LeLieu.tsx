@@ -123,17 +123,6 @@ export default function LeLieu() {
         </div>
       </section>
 
-      {/* CTA discret vers contact */}
-      <section className="bg-sky-100 py-12 sm:py-16">
-        <div className="container-narrow text-center">
-          <Button asChild variant="warm" size="xl">
-            <Link to="/contact">
-              {getContent("cta", "label", "Nous contacter")}
-              <ArrowRight className="h-5 w-5" />
-            </Link>
-          </Button>
-        </div>
-      </section>
     </>
   );
 }
