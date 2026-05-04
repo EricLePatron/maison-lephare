@@ -64,6 +64,7 @@ export default function Ateliers() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-5xl mx-auto">
               {activeAteliers.map((atelier, index) => {
                 const IconComp = ICON_MAP[atelier.icone || "Brain"] || Brain;
+                const lien = (atelier as any).lien_inscription as string | null;
                 return (
                   <Reveal key={atelier.id} variant="up" delay={index * 100} className="flex flex-col items-center text-center">
                     <div className="w-full aspect-[4/3] rounded-2xl border-[3px] border-primary overflow-hidden bg-sky-100 flex items-center justify-center">
@@ -76,6 +77,21 @@ export default function Ateliers() {
                       <p className="mt-1 text-xs uppercase tracking-[0.15em] text-foreground/60">
                         {atelier.categorie}
                       </p>
+                    )}
+                    {atelier.description && (
+                      <p className="mt-2 text-sm text-foreground/80 leading-relaxed">
+                        {atelier.description}
+                      </p>
+                    )}
+                    {lien && (
+                      <a
+                        href={lien}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-4 inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
+                      >
+                        S'inscrire <ArrowRight className="h-4 w-4" />
+                      </a>
                     )}
                   </Reveal>
                 );
