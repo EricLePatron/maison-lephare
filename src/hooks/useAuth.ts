@@ -10,14 +10,18 @@ export function useAuth() {
 
   const checkAdminRole = useCallback(async () => {
     try {
-      // Use server-side RPC function for secure admin validation
-      const { data, error } = await supabase.rpc("am_i_admin");
+      // Read the current user's own roles via RLS instead of exposing a privileged RPC.
+      const { data, error } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("role", "admin")
+        .maybeSingle();
 
       if (error) {
         console.error("Error checking admin role:", error);
         return false;
       }
-      return !!data;
+      return data?.role === "admin";
     } catch {
       return false;
     }
