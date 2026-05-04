@@ -73,6 +73,8 @@ const SECTION_LABELS: Record<string, string> = {
   why: "Pourquoi ouvrir une maison",
   banner: "Bannière image",
   categories: "Catégories d'ateliers",
+  info: "Coordonnées",
+  form: "Formulaire de contact",
 };
 
 export default function AdminContenu() {

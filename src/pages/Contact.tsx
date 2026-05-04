@@ -4,12 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, MapPin, Send, CheckCircle, Loader2 } from "lucide-react";
+import { Mail, MapPin, Phone, Globe, Send, CheckCircle, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { usePageContent } from "@/hooks/useSiteContent";
 import { trackContactFormSubmit } from "@/lib/analytics";
-import chateauImage from "@/assets/chateau-main.jpg";
 
 // Validation schema for contact form
 const contactSchema = z.object({
@@ -136,93 +135,78 @@ export default function Contact() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative min-h-[40vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src={chateauImage}
-            alt="Château Le Phare"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-sage-700/95 via-sage-600/85 to-sage-500/70" />
-        </div>
+      {/* Hero — fond bleu ciel + carte coordonnées avec bandeaux bordeaux */}
+      <section className="relative bg-sky-100 overflow-hidden">
+        {/* Bandeau bordeaux haut-gauche */}
+        <div className="absolute top-0 left-0 h-16 sm:h-24 w-1/2 bg-primary z-0" aria-hidden />
+        {/* Bandeau bordeaux bas-gauche */}
+        <div className="absolute bottom-0 left-0 h-16 sm:h-24 w-1/2 bg-primary z-0" aria-hidden />
 
-        <div className="container-wide relative z-10 py-20">
-          <div className="max-w-2xl">
-            <h1 className="font-serif text-4xl sm:text-5xl font-medium text-primary-foreground leading-tight mb-6">
-              {getContent("hero", "title", "Contact")}
-            </h1>
-            <p className="text-lg sm:text-xl text-primary-foreground/85 leading-relaxed">
-              {getContent("hero", "description", "Une question, une demande d'information ou envie de nous rejoindre ? Nous sommes à votre écoute.")}
-            </p>
-          </div>
-        </div>
-      </section>
+        <div className="container-wide relative z-10 py-20 sm:py-28">
+          <div className="grid gap-10 lg:grid-cols-2 items-start max-w-6xl mx-auto">
+            {/* Carte coordonnées */}
+            <div className="bg-sky-100 rounded-3xl p-8 sm:p-10 lg:p-12 shadow-soft">
+              <h1 className="font-script text-primary leading-[1.05] text-[clamp(2.5rem,6vw,4.5rem)] mb-8 sm:mb-10 text-center">
+                {getContent("info", "title", "Contactez-nous !")}
+              </h1>
 
-      {/* Contact Section */}
-      <section className="section-padding">
-        <div className="container-wide">
-          <div className="grid gap-12 lg:grid-cols-2">
-            {/* Contact Info */}
-            <div>
-              <h2 className="font-serif text-2xl font-medium text-foreground mb-6">
-                Nos coordonnées
-              </h2>
-
-              <div className="space-y-6 mb-10">
-                <div className="flex items-start gap-4">
-                  <div className="h-12 w-12 rounded-xl bg-sage-100 flex items-center justify-center flex-shrink-0">
-                    <MapPin className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-foreground mb-1">Adresse</h3>
-                    <p className="text-muted-foreground">
-                      12 rue Jean-Jacques Rousseau<br />
-                      33700 Mérignac
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="h-12 w-12 rounded-xl bg-sage-100 flex items-center justify-center flex-shrink-0">
-                    <Mail className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-foreground mb-1">Email</h3>
-                    <a
-                      href="mailto:contact@maison-lephare.com"
-                      className="text-primary hover:underline"
-                    >
-                      contact@maison-lephare.com
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Map placeholder */}
-              <div className="aspect-video rounded-2xl overflow-hidden bg-sage-100 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <MapPin className="h-12 w-12 text-sage-300 mx-auto mb-4" />
-                  <p className="text-muted-foreground">
-                    Carte interactive à venir
-                  </p>
-                </div>
-              </div>
+              <ul className="space-y-5 sm:space-y-6">
+                <li className="flex items-start gap-5 pb-5 sm:pb-6 border-b border-dashed border-foreground/30">
+                  <span className="flex-shrink-0 mt-1">
+                    <MapPin className="h-8 w-8 text-accent" strokeWidth={2} fill="currentColor" />
+                  </span>
+                  <span className="text-foreground text-base sm:text-lg leading-snug">
+                    {getContent("info", "address", "12 rue Jean Jacques Rousseau 33700 Mérignac")}
+                  </span>
+                </li>
+                <li className="flex items-center gap-5 pb-5 sm:pb-6 border-b border-dashed border-foreground/30">
+                  <span className="flex-shrink-0">
+                    <Phone className="h-8 w-8 text-accent" strokeWidth={2} fill="currentColor" />
+                  </span>
+                  <a
+                    href={`tel:${getContent("info", "phone", "06 32 80 24 98").replace(/\s/g, "")}`}
+                    className="text-foreground text-base sm:text-lg hover:text-primary transition-colors"
+                  >
+                    {getContent("info", "phone", "06 32 80 24 98")}
+                  </a>
+                </li>
+                <li className="flex items-center gap-5 pb-5 sm:pb-6 border-b border-dashed border-foreground/30">
+                  <span className="flex-shrink-0">
+                    <Mail className="h-8 w-8 text-accent" strokeWidth={2} fill="currentColor" />
+                  </span>
+                  <a
+                    href={`mailto:${getContent("info", "email", "contact@maison-lephare.com")}`}
+                    className="text-foreground text-base sm:text-lg hover:text-primary transition-colors break-all"
+                  >
+                    {getContent("info", "email", "contact@maison-lephare.com")}
+                  </a>
+                </li>
+                <li className="flex items-center gap-5">
+                  <span className="flex-shrink-0">
+                    <Globe className="h-8 w-8 text-accent" strokeWidth={2} />
+                  </span>
+                  <span className="text-foreground text-base sm:text-lg">
+                    {getContent("info", "social", "@lamaisonlephare")}
+                  </span>
+                </li>
+              </ul>
             </div>
 
-            {/* Contact Form */}
-            <div>
-              <div className="card-elegant">
-                <h2 className="font-serif text-2xl font-medium text-foreground mb-6">
-                  Envoyez-nous un message
-                </h2>
+            {/* Formulaire de contact */}
+            <div className="bg-background rounded-3xl p-8 sm:p-10 lg:p-12 shadow-soft">
+              <h2 className="font-script text-primary leading-[1.05] text-[clamp(2rem,4.5vw,3rem)] mb-3 text-center">
+                {getContent("form", "title", "Envoyez-nous un message")}
+              </h2>
+              <p className="text-muted-foreground text-center mb-8">
+                {getContent("form", "intro", "Une question, un projet, une demande de rendez-vous ? Écrivez-nous, nous vous répondrons rapidement.")}
+              </p>
 
-                {isSubmitted ? (
+              {isSubmitted ? (
                   <div className="text-center py-12">
-                    <div className="h-16 w-16 rounded-full bg-sage-100 flex items-center justify-center mx-auto mb-6">
+                    <div className="h-16 w-16 rounded-full bg-sky-100 flex items-center justify-center mx-auto mb-6">
                       <CheckCircle className="h-8 w-8 text-primary" />
                     </div>
-                    <h3 className="font-serif text-xl font-medium text-foreground mb-2">
+                    <h3 className="font-script text-primary text-3xl mb-2">
                       Message envoyé !
                     </h3>
                     <p className="text-muted-foreground mb-6">
@@ -329,45 +313,6 @@ export default function Contact() {
                     </Button>
                   </form>
                 )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="section-padding bg-secondary/30">
-        <div className="container-narrow">
-          <h2 className="font-serif text-2xl sm:text-3xl font-medium text-foreground text-center mb-10">
-            Questions fréquentes
-          </h2>
-          
-          <div className="space-y-4">
-            <div className="card-elevated">
-              <h3 className="font-medium text-foreground mb-2">
-                Comment prendre rendez-vous avec un professionnel ?
-              </h3>
-              <p className="text-muted-foreground text-sm">
-                Vous pouvez nous contacter via ce formulaire ou par téléphone. Nous vous orienterons vers le professionnel le plus adapté à votre demande.
-              </p>
-            </div>
-            
-            <div className="card-elevated">
-              <h3 className="font-medium text-foreground mb-2">
-                Les ateliers sont-ils payants ?
-              </h3>
-              <p className="text-muted-foreground text-sm">
-                Certains ateliers sont gratuits, d'autres font l'objet d'une participation libre ou d'un tarif adapté aux revenus. Contactez-nous pour en savoir plus.
-              </p>
-            </div>
-            
-            <div className="card-elevated">
-              <h3 className="font-medium text-foreground mb-2">
-                Peut-on visiter le lieu avant de s'engager ?
-              </h3>
-              <p className="text-muted-foreground text-sm">
-                Bien sûr ! Nous organisons régulièrement des portes ouvertes. Vous pouvez aussi demander une visite individuelle en nous contactant.
-              </p>
             </div>
           </div>
         </div>
