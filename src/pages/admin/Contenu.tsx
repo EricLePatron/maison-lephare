@@ -47,6 +47,8 @@ const PAGE_LABELS: Record<string, string> = {
   global: "Site (header / footer)",
   home: "Accueil",
   "le-lieu": "Le Lieu",
+  "professionnels": "Les professionnels",
+  "ateliers": "Les ateliers",
   association: "L'Association",
   contact: "Contact",
 };
