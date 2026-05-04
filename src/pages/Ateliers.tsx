@@ -1,216 +1,109 @@
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Brain, Palette, MessageCircle, Users, Heart, Clock, MapPin, Sparkles, BookOpen, Music, Lightbulb, Loader2 } from "lucide-react";
-import { useAteliers } from "@/hooks/useAteliers";
-import { trackCtaClick } from "@/lib/analytics";
-import associationImage from "@/assets/association-room.png";
-
-const ICON_MAP: Record<string, React.ElementType> = {
-  Brain,
-  Palette,
-  MessageCircle,
-  Users,
-  Heart,
-  Sparkles,
-  BookOpen,
-  Music,
-  Lightbulb,
-};
-
-const getIcon = (iconName: string | null) => ICON_MAP[iconName || "Brain"] || Brain;
-
-const cafeDebats = {
-  title: "Café-débats",
-  description: "Des moments de rencontre ouverts à tous pour échanger sur la santé mentale dans une ambiance conviviale. Thèmes variés : préjugés, rétablissement, témoignages, actualités...",
-  format: "1 fois par mois",
-  location: "Café Le Phare",
-};
+import { ArrowRight } from "lucide-react";
+import { usePageContent } from "@/hooks/useSiteContent";
+import { useSiteImage } from "@/hooks/useTheme";
+import atelierImageStatic from "@/assets/atelier-collectif.jpg";
+import chateauImageStatic from "@/assets/chateau-main.jpg";
 
 export default function Ateliers() {
-  const { data: ateliers, isLoading, error } = useAteliers();
+  const { getContent } = usePageContent("ateliers");
+  const atelierImage = useSiteImage("atelier-collectif", atelierImageStatic);
+  const chateauImage = useSiteImage("chateau-main", chateauImageStatic);
 
-  const ateliersActifs = ateliers?.filter((a) => a.actif) ?? [];
+  const categories = [
+    { key: "cat_1", label: getContent("categories", "cat_1", "Médiation créatives") },
+    { key: "cat_2", label: getContent("categories", "cat_2", "Ateliers psychoeducatifs") },
+    { key: "cat_3", label: getContent("categories", "cat_3", "Groupes de parole") },
+    { key: "cat_4", label: getContent("categories", "cat_4", "Groupe de sensibilisation") },
+  ];
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative min-h-[50vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src={associationImage}
-            alt="Salle d'ateliers"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-sage-700/95 via-sage-600/85 to-sage-500/70" />
-        </div>
-
-        <div className="container-wide relative z-10 py-20">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/10 backdrop-blur-sm rounded-full mb-6">
-              <Brain className="h-4 w-4 text-accent" />
-              <span className="text-primary-foreground/90 text-sm font-medium">
-                Accompagnement collectif
-              </span>
-            </div>
-            <h1 className="font-serif text-4xl sm:text-5xl font-medium text-primary-foreground leading-tight mb-6">
-              Ateliers & Activités
-            </h1>
-            <p className="text-lg sm:text-xl text-primary-foreground/85 leading-relaxed">
-              Des moments de partage et d'apprentissage pour avancer ensemble dans son parcours de rétablissement.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Intro Section */}
-      <section className="section-padding bg-secondary/30">
-        <div className="container-narrow text-center">
-          <h2 className="font-serif text-2xl sm:text-3xl font-medium text-foreground mb-4">
-            Une approche collective du soin
-          </h2>
-          <p className="text-muted-foreground text-lg leading-relaxed">
-            Nos ateliers sont conçus comme des espaces de rencontre et de progression, où chacun avance à son rythme, soutenu par le groupe et accompagné par des professionnels bienveillants.
-          </p>
-        </div>
-      </section>
-
-      {/* Workshops Grid */}
-      <section className="section-padding">
+      {/* Hero — fond bleu ciel : image atelier + texte script */}
+      <section className="bg-sky-100 py-12 sm:py-20">
         <div className="container-wide">
-          {isLoading ? (
-            <div className="flex items-center justify-center py-20">
-              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <div className="grid gap-10 lg:grid-cols-2 items-center max-w-6xl mx-auto">
+            <div className="rounded-2xl overflow-hidden shadow-soft">
+              <img
+                src={atelierImage}
+                alt={getContent("hero", "image_alt", "Atelier collectif à LePhare")}
+                className="w-full h-full object-cover aspect-[4/3]"
+              />
             </div>
-          ) : error ? (
-            <div className="text-center py-20">
-              <p className="text-muted-foreground">Erreur lors du chargement des ateliers.</p>
-            </div>
-          ) : ateliersActifs.length === 0 ? (
-            <div className="text-center py-20">
-              <p className="text-muted-foreground">Aucun atelier disponible pour le moment.</p>
-            </div>
-          ) : (
-            <div className="grid gap-8 lg:grid-cols-2">
-              {ateliersActifs.map((atelier) => {
-                const IconComp = getIcon(atelier.icone);
-                return (
-                  <div key={atelier.id} className="card-elevated">
-                    <div className="flex items-start gap-4 mb-4">
-                      <div className="h-14 w-14 rounded-xl bg-sage-100 flex items-center justify-center flex-shrink-0">
-                        <IconComp className="h-7 w-7 text-primary" />
-                      </div>
-                      <div>
-                        <span className="text-xs font-medium text-accent uppercase tracking-wider">
-                          {atelier.categorie}
-                        </span>
-                        <h3 className="font-serif text-xl font-medium text-foreground">
-                          {atelier.titre}
-                        </h3>
-                      </div>
-                    </div>
-
-                    <p className="text-muted-foreground leading-relaxed mb-6">
-                      {atelier.description}
-                    </p>
-
-                    <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                      {atelier.format && (
-                        <div className="flex items-center gap-2 text-sm">
-                          <Clock className="h-4 w-4 text-primary" />
-                          <span className="text-foreground">{atelier.format}</span>
-                        </div>
-                      )}
-                      {atelier.public_cible && (
-                        <div className="flex items-center gap-2 text-sm">
-                          <Users className="h-4 w-4 text-primary" />
-                          <span className="text-foreground">{atelier.public_cible}</span>
-                        </div>
-                      )}
-                    </div>
-
-                    {atelier.objectifs && atelier.objectifs.length > 0 && (
-                      <div className="bg-cream-50 rounded-lg p-4">
-                        <h4 className="text-sm font-medium text-foreground mb-2">Objectifs</h4>
-                        <ul className="grid sm:grid-cols-2 gap-2">
-                          {atelier.objectifs.map((obj) => (
-                            <li key={obj} className="flex items-center gap-2 text-sm text-muted-foreground">
-                              <span className="h-1.5 w-1.5 rounded-full bg-accent flex-shrink-0" />
-                              {obj}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Café-débats Section */}
-      <section className="section-padding bg-sage-100">
-        <div className="container-wide">
-          <div className="grid gap-8 lg:grid-cols-2 items-center">
             <div>
-              <span className="text-xs font-medium text-accent uppercase tracking-wider mb-2 block">
-                Ouvert à tous
-              </span>
-              <h2 className="font-serif text-3xl font-medium text-foreground mb-4">
-                {cafeDebats.title}
-              </h2>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                {cafeDebats.description}
+              <h1 className="font-script text-primary leading-[1.05] text-[clamp(2.5rem,6vw,4.5rem)] mb-6">
+                {getContent("hero", "title_line_1", "Echanger entre pairs.")}
+              </h1>
+              <p className="text-foreground text-base sm:text-lg leading-relaxed mb-4">
+                {getContent("hero", "intro", "L'Association LePhare propose des ateliers collectifs dans ses grandes salles.")}
               </p>
-              <div className="flex flex-wrap gap-4 text-sm">
-                <div className="flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-primary" />
-                  <span className="text-foreground">{cafeDebats.format}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-primary" />
-                  <span className="text-foreground">{cafeDebats.location}</span>
-                </div>
-              </div>
-            </div>
-            <div className="card-elegant bg-card">
-              <h3 className="font-serif text-lg font-medium text-foreground mb-4">
-                Prochains thèmes abordés
-              </h3>
-              <ul className="space-y-3">
-                {[
-                  { color: "bg-accent", text: "Vivre avec un proche concerné" },
-                  { color: "bg-primary", text: "Les préjugés sur la santé mentale" },
-                  { color: "bg-sage-400", text: "Témoignages de rétablissement" },
-                  { color: "bg-cream-300", text: "Santé mentale au travail" },
-                ].map((item) => (
-                  <li key={item.text} className="flex items-center gap-3 text-sm">
-                    <span className={`h-2 w-2 rounded-full ${item.color}`} />
-                    <span className="text-foreground">{item.text}</span>
-                  </li>
-                ))}
+              <ul className="space-y-2 text-foreground text-base sm:text-lg list-disc pl-6 marker:text-foreground">
+                <li>{getContent("hero", "item_1", "une salle de 52m2 aménagée en salon")}</li>
+                <li>{getContent("hero", "item_2", "une salle de 50m2 modulable pouvant accueillir des grandes tables, des chaises ou … rester vide !")}</li>
               </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="section-padding bg-sage-600">
-        <div className="container-narrow text-center">
-          <h2 className="font-serif text-3xl sm:text-4xl font-medium text-primary-foreground mb-4">
-            Participer à nos ateliers
+      {/* Catégories d'ateliers */}
+      <section className="bg-background py-16 sm:py-24">
+        <div className="container-wide">
+          <h2 className="font-script text-primary text-center leading-[1.05] text-[clamp(2rem,5vw,3.75rem)] mb-12 sm:mb-16">
+            {getContent("categories", "title", "Trouvez l'atelier qui résonne chez vous")}
           </h2>
-          <p className="text-primary-foreground/85 text-lg mb-8 max-w-xl mx-auto">
-            Vous souhaitez vous inscrire à un atelier ou en savoir plus sur notre programme ? Contactez-nous pour échanger sur vos besoins.
-          </p>
-          <Button asChild variant="warm" size="xl" onClick={() => trackCtaClick("Nous contacter", "ateliers_cta")}>
-            <Link to="/contact">
-              Nous contacter
-              <ArrowRight className="h-5 w-5" />
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-5xl mx-auto">
+            {categories.map((cat) => (
+              <div key={cat.key} className="flex flex-col items-center text-center">
+                <div className="w-full aspect-[4/3] rounded-2xl border-[3px] border-primary overflow-hidden">
+                  <img
+                    src={atelierImage}
+                    alt={cat.label}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 className="mt-4 sm:mt-5 uppercase tracking-wide text-primary font-bold text-sm sm:text-base leading-tight">
+                  {cat.label}
+                </h3>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-14 sm:mt-20">
+            <p className="uppercase tracking-[0.15em] text-secondary font-semibold text-base sm:text-lg mb-6">
+              {getContent("categories", "tagline", "Et beaucoup d'autres initiatives …")}
+            </p>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 px-8 py-3 rounded-full border-2 border-primary text-primary font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
+            >
+              {getContent("categories", "cta_button", "Voir l'agenda complet →")}
             </Link>
-          </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Bannière château — recherche d'intervenants */}
+      <section className="relative w-full overflow-hidden">
+        <div className="relative aspect-[16/7] sm:aspect-[21/8] w-full">
+          <img
+            src={chateauImage}
+            alt={getContent("cta", "image_alt", "Château LePhare")}
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-black/35" />
+          <div className="absolute inset-0 flex items-center justify-center px-6">
+            <Link
+              to="/contact"
+              className="font-script text-primary-foreground text-center leading-[1.05] text-[clamp(1.75rem,5.5vw,4rem)] drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)] hover:opacity-90 transition-opacity"
+            >
+              <span className="block">{getContent("cta", "line_1", "Vous souhaitez animer un atelier ?")}</span>
+              <span className="block">{getContent("cta", "line_2", "nous recherchons des intervenants !")}</span>
+            </Link>
+          </div>
         </div>
       </section>
     </>
