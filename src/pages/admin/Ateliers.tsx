@@ -93,6 +93,7 @@ const emptyForm: FormData = {
   icone: "Brain",
   actif: true,
   ordre_affichage: 0,
+  lien_inscription: "",
 };
 
 export default function AdminAteliers() {
@@ -137,6 +138,7 @@ export default function AdminAteliers() {
       icone: atelier.icone || "Brain",
       actif: atelier.actif,
       ordre_affichage: atelier.ordre_affichage || 0,
+      lien_inscription: (atelier as any).lien_inscription || "",
     });
     setObjectifsText((atelier.objectifs || []).join("\n"));
     setIsDialogOpen(true);
@@ -392,6 +394,22 @@ export default function AdminAteliers() {
                         rows={4}
                         placeholder="Rompre l'isolement&#10;Partager son vécu&#10;Se sentir compris"
                       />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="lien_inscription">Lien d'inscription (formulaire AssoConnect)</Label>
+                      <Input
+                        id="lien_inscription"
+                        type="url"
+                        value={(formData as any).lien_inscription || ""}
+                        onChange={(e) =>
+                          setFormData({ ...formData, lien_inscription: e.target.value } as FormData)
+                        }
+                        placeholder="https://www.assoconnect.com/..."
+                      />
+                      <p className="text-xs text-muted-foreground">
+                        Le bouton "S'inscrire" apparaîtra sur le site si un lien est renseigné.
+                      </p>
                     </div>
 
                     <div className="flex items-center gap-2">

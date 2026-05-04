@@ -1,0 +1,1 @@
+ALTER TABLE public.ateliers ADD COLUMN lien_inscription TEXT;
