@@ -41,13 +41,13 @@ import {
 
 // Default color values (HSL without hsl() wrapper)
 const DEFAULT_COLORS: Record<string, string> = {
-  primary: "155 30% 35%",
-  accent: "38 75% 55%",
-  background: "48 33% 97%",
-  foreground: "220 25% 20%",
-  secondary: "40 40% 94%",
-  muted: "40 25% 92%",
-  "muted-foreground": "220 15% 45%",
+  primary: "344 46% 31%",          // #742B3F bordeaux
+  accent: "173 12% 50%",           // #708F8A sage
+  background: "50 100% 96%",       // cream
+  foreground: "344 30% 18%",
+  secondary: "50 100% 85%",        // #FFF1B5 cream yellow
+  muted: "200 44% 83%",            // #C1DBE8 sky
+  "muted-foreground": "173 14% 35%",
 };
 
 function hslStringToHex(hsl: string): string {
@@ -99,8 +99,8 @@ export default function AdminApparence() {
   const queryClient = useQueryClient();
   const { data: themeSettings, isLoading } = useThemeSettings();
 
-  const [headingFont, setHeadingFont] = useState("Playfair Display");
-  const [bodyFont, setBodyFont] = useState("Inter");
+  const [headingFont, setHeadingFont] = useState("Sweet Belly Script");
+  const [bodyFont, setBodyFont] = useState("Nunito");
   const [colors, setColors] = useState<Record<string, string>>(DEFAULT_COLORS);
   const [imageUrls, setImageUrls] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
