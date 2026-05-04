@@ -396,6 +396,22 @@ export default function AdminAteliers() {
                       />
                     </div>
 
+                    <div className="space-y-2">
+                      <Label htmlFor="lien_inscription">Lien d'inscription (formulaire AssoConnect)</Label>
+                      <Input
+                        id="lien_inscription"
+                        type="url"
+                        value={(formData as any).lien_inscription || ""}
+                        onChange={(e) =>
+                          setFormData({ ...formData, lien_inscription: e.target.value } as FormData)
+                        }
+                        placeholder="https://www.assoconnect.com/..."
+                      />
+                      <p className="text-xs text-muted-foreground">
+                        Le bouton "S'inscrire" apparaîtra sur le site si un lien est renseigné.
+                      </p>
+                    </div>
+
                     <div className="flex items-center gap-2">
                       <Switch
                         id="actif"
