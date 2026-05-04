@@ -3,18 +3,23 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackNavClick } from "@/lib/analytics";
+import { usePageContent } from "@/hooks/useSiteContent";
+import { useSiteImage } from "@/hooks/useTheme";
 import logoLePhare from "@/assets/logo-lephare.png";
-
-const navLinks = [
-  { href: "/", label: "Accueil" },
-  { href: "/le-lieu", label: "Le lieu" },
-  { href: "/professionnels", label: "Les professionnels" },
-  { href: "/ateliers", label: "Les ateliers" },
-];
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { getContent } = usePageContent("global");
+  const logoSrc = useSiteImage("logo-main", logoLePhare);
+
+  const navLinks = [
+    { href: "/", label: getContent("nav", "accueil", "Accueil") },
+    { href: "/le-lieu", label: getContent("nav", "le_lieu", "Le lieu") },
+    { href: "/professionnels", label: getContent("nav", "professionnels", "Les professionnels") },
+    { href: "/ateliers", label: getContent("nav", "ateliers", "Les ateliers") },
+  ];
+  const ctaLabel = getContent("nav", "cta", "Contactez-nous !");
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-sky-100/95 backdrop-blur-md">
@@ -28,7 +33,7 @@ export function Header() {
             aria-label="lePhare — Maison dédiée à la Santé Mentale"
           >
             <img
-              src={logoLePhare}
+              src={logoSrc}
               alt="lePhare — Maison dédiée à la Santé Mentale"
               className="h-12 sm:h-14 w-auto"
             />
@@ -57,10 +62,10 @@ export function Header() {
           <div className="hidden lg:block">
             <Link
               to="/contact"
-              onClick={() => trackNavClick("Contactez-nous !", "/contact", "header_desktop")}
+              onClick={() => trackNavClick(ctaLabel, "/contact", "header_desktop")}
               className="inline-flex items-center gap-2 px-5 py-2 bg-background border-2 border-primary text-primary rounded-full text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
             >
-              Contactez-nous !
+              {ctaLabel}
             </Link>
           </div>
 
@@ -105,12 +110,12 @@ export function Header() {
             <Link
               to="/contact"
               onClick={() => {
-                trackNavClick("Contactez-nous !", "/contact", "header_mobile");
+                trackNavClick(ctaLabel, "/contact", "header_mobile");
                 setIsOpen(false);
               }}
               className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-background border-2 border-primary text-primary rounded-full text-sm font-medium"
             >
-              Contactez-nous !
+              {ctaLabel}
             </Link>
           </div>
         </nav>

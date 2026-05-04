@@ -41,10 +41,23 @@ export const EDITABLE_COLORS = [
 
 // Site images that can be replaced
 export const SITE_IMAGES = [
-  { key: "chateau-main", label: "Photo principale du château (Hero)", fallback: "/src/assets/chateau-main.jpg" },
-  { key: "cabinet-room", label: "Salle de cabinet", fallback: "/src/assets/cabinet-room.png" },
-  { key: "association-room", label: "Salle de l'association", fallback: "/src/assets/association-room.png" },
-  { key: "cafe-phare", label: "Le Café Le Phare", fallback: "/src/assets/cafe-phare.jpg" },
+  { key: "logo-main", label: "Logo lePhare (header, footer, hero)", fallback: "" },
+  { key: "chateau-main", label: "Photo principale du château (Hero)", fallback: "" },
+  { key: "feature-consultation", label: "Photo — Espace Consultation", fallback: "" },
+  { key: "feature-association", label: "Photo — Association lePhare", fallback: "" },
+  { key: "feature-cafe", label: "Photo — Café Inclusif", fallback: "" },
+  { key: "grid-consulter", label: "Vous souhaitez — Consulter un professionnel", fallback: "" },
+  { key: "grid-programmation", label: "Vous souhaitez — Programmation de l'association", fallback: "" },
+  { key: "grid-lieu", label: "Vous souhaitez — En savoir plus sur le lieu", fallback: "" },
+  { key: "grid-rejoindre", label: "Vous souhaitez — Rejoindre le projet", fallback: "" },
+  { key: "grid-proposer", label: "Vous souhaitez — Proposer une activité", fallback: "" },
+  { key: "grid-accompagner", label: "Vous souhaitez — Vous faire accompagner", fallback: "" },
+  { key: "grid-louer", label: "Vous souhaitez — Louer une salle", fallback: "" },
+  { key: "grid-installer", label: "Vous souhaitez — Vous installer en libéral", fallback: "" },
+  { key: "grid-cafe", label: "Vous souhaitez — Venir au café", fallback: "" },
+  { key: "cabinet-room", label: "Page Le Lieu — Salle de cabinet", fallback: "" },
+  { key: "association-room", label: "Page Le Lieu — Salle de l'association", fallback: "" },
+  { key: "cafe-phare", label: "Page Le Lieu — Le Café Le Phare", fallback: "" },
 ];
 
 export function useThemeSettings() {
