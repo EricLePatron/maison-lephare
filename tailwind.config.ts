@@ -14,9 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        serif: ['Playfair Display', 'Georgia', 'serif'],
-        script: ['Caveat', 'cursive'],
+        sans: ['Nunito', 'system-ui', 'sans-serif'],
+        serif: ['Sweet Belly Script', 'Caveat', 'cursive'],
+        script: ['Sweet Belly Script', 'Caveat', 'cursive'],
       },
       colors: {
         border: "hsl(var(--border))",
