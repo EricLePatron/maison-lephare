@@ -4,6 +4,7 @@ import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
 import atelierImageStatic from "@/assets/atelier-collectif.jpg";
 import chateauImageStatic from "@/assets/chateau-main.jpg";
+import { Reveal } from "@/components/Reveal";
 
 export default function Ateliers() {
   const { getContent } = usePageContent("ateliers");
@@ -23,14 +24,14 @@ export default function Ateliers() {
       <section className="bg-sky-100 py-12 sm:py-20">
         <div className="container-wide">
           <div className="grid gap-10 lg:grid-cols-2 items-center max-w-6xl mx-auto">
-            <div className="rounded-2xl overflow-hidden shadow-soft">
+            <Reveal variant="left" className="rounded-2xl overflow-hidden shadow-soft">
               <img
                 src={atelierImage}
                 alt={getContent("hero", "image_alt", "Atelier collectif à LePhare")}
                 className="w-full h-full object-cover aspect-[4/3]"
               />
-            </div>
-            <div>
+            </Reveal>
+            <Reveal variant="right" delay={120}>
               <h1 className="font-script text-primary leading-[1.05] text-[clamp(2.5rem,6vw,4.5rem)] mb-6">
                 {getContent("hero", "title_line_1", "Echanger entre pairs.")}
               </h1>
@@ -41,7 +42,7 @@ export default function Ateliers() {
                 <li>{getContent("hero", "item_1", "une salle de 52m2 aménagée en salon")}</li>
                 <li>{getContent("hero", "item_2", "une salle de 50m2 modulable pouvant accueillir des grandes tables, des chaises ou … rester vide !")}</li>
               </ul>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -49,13 +50,15 @@ export default function Ateliers() {
       {/* Catégories d'ateliers */}
       <section className="bg-background py-16 sm:py-24">
         <div className="container-wide">
-          <h2 className="font-script text-primary text-center leading-[1.05] text-[clamp(2rem,5vw,3.75rem)] mb-12 sm:mb-16">
-            {getContent("categories", "title", "Trouvez l'atelier qui résonne chez vous")}
-          </h2>
+          <Reveal variant="up">
+            <h2 className="font-script text-primary text-center leading-[1.05] text-[clamp(2rem,5vw,3.75rem)] mb-12 sm:mb-16">
+              {getContent("categories", "title", "Trouvez l'atelier qui résonne chez vous")}
+            </h2>
+          </Reveal>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-5xl mx-auto">
-            {categories.map((cat) => (
-              <div key={cat.key} className="flex flex-col items-center text-center">
+            {categories.map((cat, index) => (
+              <Reveal key={cat.key} variant="up" delay={index * 100} className="flex flex-col items-center text-center">
                 <div className="w-full aspect-[4/3] rounded-2xl border-[3px] border-primary overflow-hidden">
                   <img
                     src={atelierImage}
@@ -67,7 +70,7 @@ export default function Ateliers() {
                 <h3 className="mt-4 sm:mt-5 uppercase tracking-wide text-primary font-bold text-sm sm:text-base leading-tight">
                   {cat.label}
                 </h3>
-              </div>
+              </Reveal>
             ))}
           </div>
 
