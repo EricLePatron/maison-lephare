@@ -88,20 +88,16 @@ export default function Professionnels() {
                   className="group flex flex-col items-center text-center"
                 >
                   {/* Photo ronde avec bordure bordeaux */}
-                  <div className="w-40 h-40 sm:w-44 sm:h-44 rounded-full border-[3px] border-primary overflow-hidden bg-sky-100 flex items-center justify-center transition-transform duration-300 group-hover:scale-[1.02]">
-                    {pro.photo_url ? (
+                  {pro.photo_url && (
+                    <div className="w-40 h-40 sm:w-44 sm:h-44 rounded-full border-[3px] border-primary overflow-hidden bg-background transition-transform duration-300 group-hover:scale-[1.02]">
                       <img
                         src={pro.photo_url}
                         alt={`${pro.prenom} ${pro.nom}`}
                         className="w-full h-full object-cover"
                         loading="lazy"
                       />
-                    ) : (
-                      <span className="font-script text-primary text-4xl">
-                        {pro.prenom[0]}{pro.nom[0]}
-                      </span>
-                    )}
-                  </div>
+                    </div>
+                  )}
 
                   {/* Nom Prénom */}
                   <h3 className="mt-5 font-sans uppercase tracking-wide text-primary font-bold text-base">
