@@ -119,8 +119,8 @@ export default function Index() {
       <section className="py-16 sm:py-24 bg-background">
         <div className="container-wide">
           <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
-            <h2 className="font-script text-3xl sm:text-4xl lg:text-5xl text-primary font-bold leading-tight">
-              {getContent("features", "title", "Un lieu entièrement dédié à la Santé Mentale")}
+            <h2 className="font-script text-4xl sm:text-5xl lg:text-6xl text-primary leading-tight">
+              {getContent("features", "title", "Un lien entièrement dédié à la Santé Mentale")}
             </h2>
           </div>
 
@@ -144,7 +144,7 @@ export default function Index() {
                   />
                 </div>
 
-                <h3 className="font-serif text-base sm:text-lg font-semibold text-sage-700 mt-6 mb-5 uppercase tracking-wider whitespace-pre-line leading-tight">
+                <h3 className="font-sans text-base sm:text-lg font-semibold text-primary/85 mt-6 mb-5 uppercase tracking-wider whitespace-pre-line leading-tight">
                   {feature.title}
                 </h3>
 
@@ -172,7 +172,7 @@ export default function Index() {
               />
             </div>
             <div>
-              <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-primary leading-tight">
+              <h2 className="font-sans font-semibold text-4xl sm:text-5xl lg:text-6xl text-primary leading-tight">
                 {getContent("quote", "title", "La Santé Mentale mérite sa propre maison.")}
               </h2>
             </div>
@@ -183,7 +183,7 @@ export default function Index() {
       {/* "Vous souhaitez..." - grille de 9 cartes-photos avec overlay */}
       <section className="section-padding">
         <div className="container-wide">
-          <p className="font-serif italic text-foreground/70 text-xl sm:text-2xl mb-10">
+          <p className="font-sans text-primary text-xl sm:text-2xl mb-10">
             Vous souhaitez …
           </p>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -207,7 +207,7 @@ export default function Index() {
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/55 to-foreground/30" />
                 {/* Texte + flèche */}
                 <div className="relative h-full flex flex-col justify-center items-center text-center p-5">
-                  <p className="font-serif text-background text-base sm:text-lg font-semibold leading-snug max-w-[85%]">
+                  <p className="font-sans text-background text-base sm:text-lg font-semibold leading-snug max-w-[85%]">
                     {item.text}
                   </p>
                   <ArrowRight className="h-5 w-5 text-background mt-3 transition-transform group-hover:translate-x-1" />

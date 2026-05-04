@@ -30,7 +30,7 @@ export function Footer() {
                 className="h-16 w-auto"
               />
             </Link>
-            <p className="font-serif italic text-foreground/70 text-sm leading-relaxed max-w-xs mt-2">
+            <p className="font-sans text-foreground/75 text-sm leading-relaxed max-w-xs mt-2">
               Une maison entièrement dédiée à notre Santé Mentale.
             </p>
 
@@ -57,7 +57,7 @@ export function Footer() {
 
           {/* Navigation */}
           <div>
-            <h4 className="font-serif text-lg font-semibold text-primary mb-4">LePhare</h4>
+            <h4 className="font-sans text-base font-bold text-foreground mb-4">LePhare</h4>
             <ul className="space-y-2">
               {navigationLinks.map((link) => (
                 <li key={link.href}>
@@ -75,7 +75,7 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-serif text-lg font-semibold text-primary mb-4">Contact</h4>
+            <h4 className="font-sans text-base font-bold text-foreground mb-4">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-3 text-sm text-foreground/75">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
