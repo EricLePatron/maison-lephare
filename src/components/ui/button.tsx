@@ -18,7 +18,7 @@ const buttonVariants = cva(
         // Le Phare custom variants
         hero: "bg-primary text-primary-foreground hover:bg-sage-600 rounded-full shadow-soft hover:shadow-elevated",
         heroOutline: "border-2 border-primary-foreground bg-transparent text-primary-foreground hover:bg-primary-foreground/10 rounded-full",
-        warm: "bg-accent text-accent-foreground hover:bg-amber-600 rounded-full shadow-soft",
+        warm: "bg-accent text-accent-foreground hover:bg-primary hover:text-primary-foreground rounded-full shadow-soft",
         subtle: "bg-cream-100 text-foreground hover:bg-cream-200 rounded-lg",
       },
       size: {
