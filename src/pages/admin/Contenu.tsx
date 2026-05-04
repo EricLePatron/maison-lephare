@@ -44,6 +44,7 @@ import {
 } from "@/hooks/useSiteContent";
 
 const PAGE_LABELS: Record<string, string> = {
+  global: "Site (header / footer)",
   home: "Accueil",
   "le-lieu": "Le Lieu",
   association: "L'Association",
@@ -51,8 +52,12 @@ const PAGE_LABELS: Record<string, string> = {
 };
 
 const SECTION_LABELS: Record<string, string> = {
+  nav: "Menu de navigation",
+  footer: "Pied de page",
   hero: "En-tête (Hero)",
   features: "Caractéristiques",
+  quote: "Citation",
+  wishes: "Vous souhaitez…",
   spaces: "Espaces",
   cta: "Appel à l'action (CTA)",
   values: "Valeurs",
