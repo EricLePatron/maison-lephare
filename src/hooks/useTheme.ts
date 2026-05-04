@@ -89,13 +89,13 @@ export function useApplyTheme() {
       loadGoogleFont(headingFont);
       document.documentElement.style.setProperty(
         "--font-heading",
-        `'${headingFont}', Georgia, serif`
+        `'${headingFont}', 'Caveat', cursive`
       );
       // Apply to heading elements
       const style = document.getElementById("theme-fonts") || document.createElement("style");
       style.id = "theme-fonts";
       style.textContent = `
-        h1, h2, h3, h4, h5, h6 { font-family: '${headingFont}', Georgia, serif !important; }
+        h1, h2, h3, h4, h5, h6 { font-family: '${headingFont}', 'Caveat', cursive !important; }
         ${bodyFont ? `body { font-family: '${bodyFont}', system-ui, sans-serif !important; }` : ""}
       `;
       if (!document.getElementById("theme-fonts")) {
