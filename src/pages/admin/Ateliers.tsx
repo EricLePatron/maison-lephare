@@ -93,6 +93,7 @@ const emptyForm: FormData = {
   icone: "Brain",
   actif: true,
   ordre_affichage: 0,
+  lien_inscription: "",
 };
 
 export default function AdminAteliers() {
@@ -137,6 +138,7 @@ export default function AdminAteliers() {
       icone: atelier.icone || "Brain",
       actif: atelier.actif,
       ordre_affichage: atelier.ordre_affichage || 0,
+      lien_inscription: (atelier as any).lien_inscription || "",
     });
     setObjectifsText((atelier.objectifs || []).join("\n"));
     setIsDialogOpen(true);
