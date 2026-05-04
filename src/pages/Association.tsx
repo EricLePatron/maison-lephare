@@ -221,7 +221,7 @@ export default function Association() {
               </p>
             </div>
             
-            <div className="card-elegant border-l-4 border-navy-800">
+            <div className="card-elegant border-l-4 border-primary">
               <h3 className="font-serif text-xl font-medium text-foreground mb-2">
                 Grand public
               </h3>
