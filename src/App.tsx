@@ -3,8 +3,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { RequireAdmin } from "@/components/admin/RequireAdmin";
-import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Layout } from "@/components/layout/Layout";
 import Index from "./pages/Index";
 import LeLieu from "./pages/LeLieu";
@@ -15,11 +13,6 @@ import Association from "./pages/Association";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Maintenance from "./pages/Maintenance";
-import AdminLogin from "./pages/admin/Login";
-import AdminProfessionnels from "./pages/admin/Professionnels";
-import AdminAteliers from "./pages/admin/Ateliers";
-import AdminContenu from "./pages/admin/Contenu";
-import AdminApparence from "./pages/admin/Apparence";
 
 const queryClient = new QueryClient();
 
@@ -40,20 +33,6 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
           </Route>
           <Route path="/maintenance" element={<Maintenance />} />
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route
-            path="/admin"
-            element={
-              <RequireAdmin>
-                <AdminLayout />
-              </RequireAdmin>
-            }
-          >
-            <Route path="professionnels" element={<AdminProfessionnels />} />
-            <Route path="ateliers" element={<AdminAteliers />} />
-            <Route path="contenu" element={<AdminContenu />} />
-            <Route path="apparence" element={<AdminApparence />} />
-          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
