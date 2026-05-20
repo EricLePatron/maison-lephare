@@ -7,6 +7,7 @@ import { useSiteImage } from "@/hooks/useTheme";
 import chateauImageStatic from "@/assets/chateau-main.jpg";
 import { Reveal } from "@/components/Reveal";
 import { Seo } from "@/components/Seo";
+import { professionnelSlug } from "@/lib/slug";
 
 export default function Professionnels() {
   const { data: professionnels, isLoading, error } = useProfessionnels();
@@ -91,7 +92,7 @@ export default function Professionnels() {
                 return (
                 <Reveal key={pro.id} variant="up" delay={row * 150 + col * 100}>
                 <Link
-                  to={`/professionnels/${pro.id}`}
+                  to={`/professionnels/${professionnelSlug(pro.prenom, pro.nom)}`}
                   className="group flex flex-col items-center text-center"
                 >
                   {/* Photo ronde avec bordure bordeaux */}

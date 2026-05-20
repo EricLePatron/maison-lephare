@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useProfessionnel } from "@/hooks/useProfessionnels";
+import { useProfessionnels } from "@/hooks/useProfessionnels";
+import { professionnelSlug } from "@/lib/slug";
 import {
   ArrowLeft,
   Loader2,
@@ -14,8 +15,11 @@ import {
 import cabinetImage from "@/assets/cabinet-room.png";
 
 export default function ProfessionnelProfile() {
-  const { id } = useParams<{ id: string }>();
-  const { data: pro, isLoading, error } = useProfessionnel(id || "");
+  const { slug } = useParams<{ slug: string }>();
+  const { data: professionnels, isLoading, error } = useProfessionnels();
+  const pro = professionnels?.find(
+    (p) => professionnelSlug(p.prenom, p.nom) === slug
+  );
 
   if (isLoading) {
     return (
