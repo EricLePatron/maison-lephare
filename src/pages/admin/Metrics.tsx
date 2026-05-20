@@ -61,36 +61,21 @@ function timeAgo(isoDate: string): string {
   return `il y a ${Math.round(diff / 1440)}j`;
 }
 
-const REFRESH_INTERVAL = 5 * 60 * 1000;
-
 export default function Metrics() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [period, setPeriod] = useState<PeriodKey>("30d");
-  const [nextRefresh, setNextRefresh] = useState(REFRESH_INTERVAL / 1000);
-
   const load = (silent = false) => {
     if (!silent) setLoading(true);
     setError(false);
     fetch("/dashboard-data.json?t=" + Date.now())
       .then((r) => r.json())
-      .then((d) => { setData(d); setLoading(false); setNextRefresh(REFRESH_INTERVAL / 1000); })
+      .then((d) => { setData(d); setLoading(false); })
       .catch(() => { setError(true); setLoading(false); });
   };
 
-  useEffect(() => {
-    load();
-    const interval = setInterval(() => load(true), REFRESH_INTERVAL);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setNextRefresh((n) => (n <= 1 ? REFRESH_INTERVAL / 1000 : n - 1));
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
+  useEffect(() => { load(); }, []);
 
   if (loading) {
     return (
@@ -165,9 +150,6 @@ export default function Metrics() {
               </button>
             ))}
           </div>
-          <span className="text-xs text-muted-foreground hidden sm:block">
-            {Math.floor(nextRefresh / 60)}:{String(nextRefresh % 60).padStart(2, "0")}
-          </span>
           <Button variant="outline" size="sm" onClick={() => load()}>
             <RefreshCw className="h-4 w-4 mr-2" />
             Actualiser
