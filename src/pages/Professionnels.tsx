@@ -84,7 +84,7 @@ export default function Professionnels() {
               <p className="text-muted-foreground">Erreur lors du chargement des professionnels.</p>
             </div>
           ) : filteredProfessionnels && filteredProfessionnels.length > 0 ? (
-            <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+            <div className="grid gap-x-16 sm:gap-x-20 gap-y-16 sm:gap-y-20 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
               {filteredProfessionnels.map((pro, index) => {
                 const row = Math.floor(index / 3);
                 const col = index % 3;
