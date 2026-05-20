@@ -178,29 +178,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Bandeau citation : photo château + grand titre */}
-      <section className="w-full bg-sky-100">
-        <div className="container-wide py-12 sm:py-16 lg:py-20">
-          <div className="grid gap-10 lg:gap-16 lg:grid-cols-2 items-center">
-            <Reveal variant="left">
-              <img
-                src={chateauImage}
-                alt="Château LePhare"
-                className="w-full h-auto rounded-2xl shadow-elevated object-cover aspect-[4/3]"
-                loading="lazy"
-                width={800}
-                height={600}
-              />
-            </Reveal>
-            <Reveal variant="right" delay={100}>
-              <h2 className="font-sans font-semibold text-4xl sm:text-5xl lg:text-6xl text-primary leading-tight">
-                {getContent("quote", "title", "La Santé Mentale mérite sa propre maison.")}
-              </h2>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
       {/* "Vous souhaitez..." - grille de 9 cartes-photos avec overlay */}
       <section className="section-padding">
         <div className="container-wide">
