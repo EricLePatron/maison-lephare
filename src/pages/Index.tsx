@@ -120,7 +120,7 @@ export default function Index() {
                 {getContent("hero", "tagline", "Maison dédiée à la Santé Mentale")}
               </span>
 
-              <div className="mt-8">
+              <div className="mt-8 flex justify-center">
                 <Link
                   to="/ateliers"
                   onClick={() => trackCtaClick(getContent("hero", "cta", "Voir la programmation"), "home_hero")}
