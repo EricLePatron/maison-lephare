@@ -94,6 +94,7 @@ const emptyForm: FormData = {
   actif: true,
   ordre_affichage: 0,
   lien_inscription: "",
+  image_url: "",
 };
 
 export default function AdminAteliers() {
@@ -139,6 +140,7 @@ export default function AdminAteliers() {
       actif: atelier.actif,
       ordre_affichage: atelier.ordre_affichage || 0,
       lien_inscription: (atelier as any).lien_inscription || "",
+      image_url: (atelier as any).image_url || "",
     });
     setObjectifsText((atelier.objectifs || []).join("\n"));
     setIsDialogOpen(true);
@@ -410,6 +412,29 @@ export default function AdminAteliers() {
                       <p className="text-xs text-muted-foreground">
                         Le bouton "S'inscrire" apparaîtra sur le site si un lien est renseigné.
                       </p>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="image_url">URL de la photo (optionnel)</Label>
+                      <Input
+                        id="image_url"
+                        type="url"
+                        value={(formData as any).image_url || ""}
+                        onChange={(e) =>
+                          setFormData({ ...formData, image_url: e.target.value } as FormData)
+                        }
+                        placeholder="https://..."
+                      />
+                      <p className="text-xs text-muted-foreground">
+                        Si renseignée, la photo remplace l'icône sur la page Ateliers.
+                      </p>
+                      {(formData as any).image_url && (
+                        <img
+                          src={(formData as any).image_url}
+                          alt="Aperçu"
+                          className="mt-2 h-24 w-32 object-cover rounded-lg border border-border"
+                        />
+                      )}
                     </div>
 
                     <div className="flex items-center gap-2">
