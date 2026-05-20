@@ -4,6 +4,7 @@ import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
 import { trackCtaClick } from "@/lib/analytics";
 import { Reveal } from "@/components/Reveal";
+import { Seo } from "@/components/Seo";
 import chateauImageStatic from "@/assets/chateau-hero.jpg";
 import logoLePhare from "@/assets/logo-lephare.png";
 import featureConsultation from "@/assets/feature-consultation.jpg";
@@ -79,6 +80,11 @@ export default function Index() {
 
   return (
     <>
+      <Seo
+        title="Le Phare – Maison dédiée à la Santé Mentale à Bordeaux"
+        description="Un château à Mérignac dédié à la santé mentale : cabinets de consultation, ateliers, groupes de parole et café inclusif ouvert à tous."
+        path="/"
+      />
       {/* Hero - Sky blue with chateau photo + script logo */}
       <section className="w-full bg-sky-100">
         <div className="container-wide py-12 sm:py-16 lg:py-20">

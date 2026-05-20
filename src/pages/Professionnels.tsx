@@ -6,6 +6,7 @@ import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
 import chateauImageStatic from "@/assets/chateau-main.jpg";
 import { Reveal } from "@/components/Reveal";
+import { Seo } from "@/components/Seo";
 
 export default function Professionnels() {
   const { data: professionnels, isLoading, error } = useProfessionnels();
@@ -20,6 +21,11 @@ export default function Professionnels() {
 
   return (
     <>
+      <Seo
+        title="Les professionnels de la Santé Mentale – Le Phare"
+        description="Découvrez l'équipe de psychiatres, psychologues, neuropsychologues et thérapeutes qui exercent au Phare, à Mérignac près de Bordeaux."
+        path="/professionnels"
+      />
       {/* Titre script */}
       <section className="bg-background pt-16 sm:pt-24 pb-10 sm:pb-14">
         <div className="container-wide text-center">
@@ -68,6 +74,7 @@ export default function Professionnels() {
       {/* Grille des professionnels */}
       <section className="bg-background pb-16 sm:pb-24">
         <div className="container-wide">
+          <h2 className="sr-only">Liste des professionnels</h2>
           {isLoading ? (
             <div className="flex items-center justify-center py-20">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />

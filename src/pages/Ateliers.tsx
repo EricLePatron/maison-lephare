@@ -6,6 +6,7 @@ import { useAteliers } from "@/hooks/useAteliers";
 import atelierImageStatic from "@/assets/atelier-collectif.jpg";
 import chateauImageStatic from "@/assets/chateau-main.jpg";
 import { Reveal } from "@/components/Reveal";
+import { Seo } from "@/components/Seo";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Brain, Palette, MessageCircle, Users, Heart, Sparkles, BookOpen, Music, Lightbulb,
@@ -20,6 +21,11 @@ export default function Ateliers() {
 
   return (
     <>
+      <Seo
+        title="Les ateliers – Le Phare"
+        description="Découvrez les ateliers, groupes de parole et activités proposés par l'association Le Phare pour accompagner le rétablissement en santé mentale."
+        path="/ateliers"
+      />
       {/* Hero — fond bleu ciel : image atelier + texte script */}
       <section className="bg-sky-100 py-12 sm:py-20">
         <div className="container-wide">

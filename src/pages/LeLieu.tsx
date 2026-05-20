@@ -4,6 +4,7 @@ import { useSiteImage } from "@/hooks/useTheme";
 import chateauImageStatic from "@/assets/chateau-main.jpg";
 import lieuSolidarityStatic from "@/assets/lieu-solidarity.jpg";
 import { Reveal } from "@/components/Reveal";
+import { Seo } from "@/components/Seo";
 
 export default function LeLieu() {
   const { getContent, isLoading } = usePageContent("le-lieu");
@@ -29,6 +30,11 @@ export default function LeLieu() {
 
   return (
     <>
+      <Seo
+        title="Le lieu – un château dédié à la Santé Mentale à Mérignac"
+        description="Découvrez Le Phare : un château de 2 hectares à Mérignac qui accueille cabinets, association et café pour soutenir le rétablissement en santé mentale."
+        path="/le-lieu"
+      />
       {/* Hero — Photo du château avec logo script en surimpression */}
       <section className="relative w-full overflow-hidden">
         <div className="relative aspect-[16/9] sm:aspect-[21/9] w-full">
@@ -42,9 +48,10 @@ export default function LeLieu() {
             <h1 className="font-script text-primary-foreground leading-[0.9] drop-shadow-[0_4px_24px_rgba(0,0,0,0.35)] text-[clamp(4rem,16vw,12rem)]">
               <span className="block">le</span>
               <span className="block -mt-4 sm:-mt-6">Phare</span>
+              <span className="sr-only">— {getContent("hero", "tagline", "Maison dédiée à la Santé Mentale à Mérignac")}</span>
             </h1>
             <p className="mt-4 sm:mt-6 text-primary-foreground/95 text-sm sm:text-base md:text-lg font-light tracking-wide drop-shadow">
-              {getContent("hero", "tagline", "Maison dédiée à la Santé Mentale")}
+              {getContent("hero", "tagline", "Maison dédiée à la Santé Mentale à Mérignac")}
             </p>
           </div>
         </div>

@@ -4,6 +4,7 @@ import { ArrowRight, Heart, Users, Brain, Handshake, Palette, MessageCircle, Loa
 import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
 import associationImageStatic from "@/assets/association-room.png";
+import { Seo } from "@/components/Seo";
 
 const activities = [
   {

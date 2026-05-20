@@ -62,9 +62,9 @@ export function Footer() {
 
           {/* Navigation */}
           <div>
-            <h4 className="font-sans text-base font-bold text-foreground mb-4">
+            <h3 className="font-sans text-base font-bold text-foreground mb-4">
               {getContent("footer", "nav_title", "LePhare")}
-            </h4>
+            </h3>
             <ul className="space-y-2">
               {navigationLinks.map((link) => (
                 <li key={link.href}>
@@ -82,9 +82,9 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-sans text-base font-bold text-foreground mb-4">
+            <h3 className="font-sans text-base font-bold text-foreground mb-4">
               {getContent("footer", "contact_title", "Contact")}
-            </h4>
+            </h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-3 text-sm text-foreground/75">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
