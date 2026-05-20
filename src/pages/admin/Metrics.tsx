@@ -49,21 +49,37 @@ function timeAgo(isoDate: string): string {
   return `il y a ${Math.round(diff / 1440)}j`;
 }
 
+const REFRESH_INTERVAL = 5 * 60 * 1000; // 5 minutes
+
 export default function Metrics() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [nextRefresh, setNextRefresh] = useState(REFRESH_INTERVAL / 1000);
 
-  const load = () => {
-    setLoading(true);
+  const load = (silent = false) => {
+    if (!silent) setLoading(true);
     setError(false);
     fetch("/dashboard-data.json?t=" + Date.now())
       .then((r) => r.json())
-      .then((d) => { setData(d); setLoading(false); })
+      .then((d) => { setData(d); setLoading(false); setNextRefresh(REFRESH_INTERVAL / 1000); })
       .catch(() => { setError(true); setLoading(false); });
   };
 
-  useEffect(() => { load(); }, []);
+  // Auto-refresh data every 5 minutes
+  useEffect(() => {
+    load();
+    const interval = setInterval(() => load(true), REFRESH_INTERVAL);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Countdown timer
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setNextRefresh((n) => (n <= 1 ? REFRESH_INTERVAL / 1000 : n - 1));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   if (loading) {
     return (
@@ -116,13 +132,18 @@ export default function Metrics() {
         <div>
           <h1 className="text-2xl font-serif font-medium text-foreground">Métriques du site</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            {data.period} · Mis à jour {timeAgo(data.generatedAt)}
+            {data.period} · Données collectées {timeAgo(data.generatedAt)}
           </p>
         </div>
-        <Button variant="outline" size="sm" onClick={load}>
-          <RefreshCw className="h-4 w-4 mr-2" />
-          Actualiser
-        </Button>
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-muted-foreground">
+            Actualisation dans {Math.floor(nextRefresh / 60)}:{String(nextRefresh % 60).padStart(2, "0")}
+          </span>
+          <Button variant="outline" size="sm" onClick={() => load()}>
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Actualiser
+          </Button>
+        </div>
       </div>
 
       {/* KPI Cards */}
