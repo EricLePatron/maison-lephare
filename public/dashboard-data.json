@@ -1,50 +1,562 @@
 {
-  "generatedAt": "2026-04-23T09:41:24.611Z",
-  "period": "30 derniers jours",
-  "overview": {
-    "sessions": 9,
-    "users": 8,
-    "pageViews": 12,
-    "bounceRate": "1.0",
-    "avgDuration": 120
+  "generatedAt": "2026-05-20T09:53:39.067Z",
+  "periods": {
+    "7d": {
+      "overview": {
+        "sessions": 136,
+        "users": 123,
+        "pageViews": 289,
+        "bounceRate": "0.6",
+        "avgDuration": 111
+      },
+      "contactForm": {
+        "total": 1
+      },
+      "topPages": [
+        {
+          "page": "/",
+          "views": 87
+        },
+        {
+          "page": "/maintenance",
+          "views": 64
+        },
+        {
+          "page": "/professionnels",
+          "views": 41
+        },
+        {
+          "page": "/le-lieu",
+          "views": 24
+        },
+        {
+          "page": "/contact",
+          "views": 17
+        },
+        {
+          "page": "/ateliers",
+          "views": 16
+        },
+        {
+          "page": "/admin/login",
+          "views": 7
+        },
+        {
+          "page": "/association",
+          "views": 7
+        },
+        {
+          "page": "/professionnels/d9e3e72e-e9e6-4ee0-9052-6f9d343436a1",
+          "views": 6
+        },
+        {
+          "page": "/professionnels/05306e40-0a1a-4f9d-91f5-3559ced0b16d",
+          "views": 4
+        }
+      ],
+      "sources": [
+        {
+          "source": "Direct",
+          "sessions": 111
+        },
+        {
+          "source": "Organic Search",
+          "sessions": 20
+        },
+        {
+          "source": "Unassigned",
+          "sessions": 14
+        },
+        {
+          "source": "Referral",
+          "sessions": 3
+        }
+      ],
+      "dailyTrend": [
+        {
+          "date": "13/05",
+          "users": 15,
+          "sessions": 15
+        },
+        {
+          "date": "14/05",
+          "users": 12,
+          "sessions": 12
+        },
+        {
+          "date": "15/05",
+          "users": 9,
+          "sessions": 11
+        },
+        {
+          "date": "16/05",
+          "users": 18,
+          "sessions": 19
+        },
+        {
+          "date": "17/05",
+          "users": 15,
+          "sessions": 17
+        },
+        {
+          "date": "18/05",
+          "users": 28,
+          "sessions": 30
+        },
+        {
+          "date": "19/05",
+          "users": 18,
+          "sessions": 19
+        },
+        {
+          "date": "20/05",
+          "users": 11,
+          "sessions": 13
+        }
+      ]
+    },
+    "30d": {
+      "overview": {
+        "sessions": 448,
+        "users": 402,
+        "pageViews": 865,
+        "bounceRate": "0.5",
+        "avgDuration": 122
+      },
+      "contactForm": {
+        "total": 1
+      },
+      "topPages": [
+        {
+          "page": "/",
+          "views": 269
+        },
+        {
+          "page": "/maintenance",
+          "views": 249
+        },
+        {
+          "page": "/professionnels",
+          "views": 101
+        },
+        {
+          "page": "/ateliers",
+          "views": 62
+        },
+        {
+          "page": "/le-lieu",
+          "views": 62
+        },
+        {
+          "page": "/contact",
+          "views": 56
+        },
+        {
+          "page": "/association",
+          "views": 11
+        },
+        {
+          "page": "/professionnels/d9e3e72e-e9e6-4ee0-9052-6f9d343436a1",
+          "views": 11
+        },
+        {
+          "page": "/admin/login",
+          "views": 9
+        },
+        {
+          "page": "/professionnels/05306e40-0a1a-4f9d-91f5-3559ced0b16d",
+          "views": 6
+        }
+      ],
+      "sources": [
+        {
+          "source": "Direct",
+          "sessions": 367
+        },
+        {
+          "source": "Organic Search",
+          "sessions": 73
+        },
+        {
+          "source": "Unassigned",
+          "sessions": 14
+        },
+        {
+          "source": "Referral",
+          "sessions": 6
+        }
+      ],
+      "dailyTrend": [
+        {
+          "date": "22/04",
+          "users": 3,
+          "sessions": 3
+        },
+        {
+          "date": "23/04",
+          "users": 21,
+          "sessions": 26
+        },
+        {
+          "date": "24/04",
+          "users": 15,
+          "sessions": 15
+        },
+        {
+          "date": "25/04",
+          "users": 6,
+          "sessions": 6
+        },
+        {
+          "date": "26/04",
+          "users": 7,
+          "sessions": 7
+        },
+        {
+          "date": "27/04",
+          "users": 23,
+          "sessions": 24
+        },
+        {
+          "date": "28/04",
+          "users": 17,
+          "sessions": 17
+        },
+        {
+          "date": "29/04",
+          "users": 13,
+          "sessions": 13
+        },
+        {
+          "date": "30/04",
+          "users": 17,
+          "sessions": 17
+        },
+        {
+          "date": "01/05",
+          "users": 10,
+          "sessions": 10
+        },
+        {
+          "date": "02/05",
+          "users": 11,
+          "sessions": 11
+        },
+        {
+          "date": "03/05",
+          "users": 8,
+          "sessions": 8
+        },
+        {
+          "date": "04/05",
+          "users": 48,
+          "sessions": 54
+        },
+        {
+          "date": "05/05",
+          "users": 14,
+          "sessions": 15
+        },
+        {
+          "date": "06/05",
+          "users": 16,
+          "sessions": 17
+        },
+        {
+          "date": "07/05",
+          "users": 12,
+          "sessions": 12
+        },
+        {
+          "date": "08/05",
+          "users": 11,
+          "sessions": 12
+        },
+        {
+          "date": "09/05",
+          "users": 5,
+          "sessions": 5
+        },
+        {
+          "date": "10/05",
+          "users": 5,
+          "sessions": 5
+        },
+        {
+          "date": "11/05",
+          "users": 11,
+          "sessions": 12
+        },
+        {
+          "date": "12/05",
+          "users": 19,
+          "sessions": 22
+        },
+        {
+          "date": "13/05",
+          "users": 15,
+          "sessions": 15
+        },
+        {
+          "date": "14/05",
+          "users": 12,
+          "sessions": 12
+        },
+        {
+          "date": "15/05",
+          "users": 9,
+          "sessions": 11
+        },
+        {
+          "date": "16/05",
+          "users": 18,
+          "sessions": 19
+        },
+        {
+          "date": "17/05",
+          "users": 15,
+          "sessions": 17
+        },
+        {
+          "date": "18/05",
+          "users": 28,
+          "sessions": 30
+        },
+        {
+          "date": "19/05",
+          "users": 18,
+          "sessions": 19
+        },
+        {
+          "date": "20/05",
+          "users": 11,
+          "sessions": 13
+        }
+      ]
+    },
+    "90d": {
+      "overview": {
+        "sessions": 448,
+        "users": 402,
+        "pageViews": 865,
+        "bounceRate": "0.5",
+        "avgDuration": 122
+      },
+      "contactForm": {
+        "total": 1
+      },
+      "topPages": [
+        {
+          "page": "/",
+          "views": 269
+        },
+        {
+          "page": "/maintenance",
+          "views": 249
+        },
+        {
+          "page": "/professionnels",
+          "views": 101
+        },
+        {
+          "page": "/ateliers",
+          "views": 62
+        },
+        {
+          "page": "/le-lieu",
+          "views": 62
+        },
+        {
+          "page": "/contact",
+          "views": 56
+        },
+        {
+          "page": "/association",
+          "views": 11
+        },
+        {
+          "page": "/professionnels/d9e3e72e-e9e6-4ee0-9052-6f9d343436a1",
+          "views": 11
+        },
+        {
+          "page": "/admin/login",
+          "views": 9
+        },
+        {
+          "page": "/professionnels/05306e40-0a1a-4f9d-91f5-3559ced0b16d",
+          "views": 6
+        }
+      ],
+      "sources": [
+        {
+          "source": "Direct",
+          "sessions": 367
+        },
+        {
+          "source": "Organic Search",
+          "sessions": 73
+        },
+        {
+          "source": "Unassigned",
+          "sessions": 14
+        },
+        {
+          "source": "Referral",
+          "sessions": 6
+        }
+      ],
+      "dailyTrend": [
+        {
+          "date": "22/04",
+          "users": 3,
+          "sessions": 3
+        },
+        {
+          "date": "23/04",
+          "users": 21,
+          "sessions": 26
+        },
+        {
+          "date": "24/04",
+          "users": 15,
+          "sessions": 15
+        },
+        {
+          "date": "25/04",
+          "users": 6,
+          "sessions": 6
+        },
+        {
+          "date": "26/04",
+          "users": 7,
+          "sessions": 7
+        },
+        {
+          "date": "27/04",
+          "users": 23,
+          "sessions": 24
+        },
+        {
+          "date": "28/04",
+          "users": 17,
+          "sessions": 17
+        },
+        {
+          "date": "29/04",
+          "users": 13,
+          "sessions": 13
+        },
+        {
+          "date": "30/04",
+          "users": 17,
+          "sessions": 17
+        },
+        {
+          "date": "01/05",
+          "users": 10,
+          "sessions": 10
+        },
+        {
+          "date": "02/05",
+          "users": 11,
+          "sessions": 11
+        },
+        {
+          "date": "03/05",
+          "users": 8,
+          "sessions": 8
+        },
+        {
+          "date": "04/05",
+          "users": 48,
+          "sessions": 54
+        },
+        {
+          "date": "05/05",
+          "users": 14,
+          "sessions": 15
+        },
+        {
+          "date": "06/05",
+          "users": 16,
+          "sessions": 17
+        },
+        {
+          "date": "07/05",
+          "users": 12,
+          "sessions": 12
+        },
+        {
+          "date": "08/05",
+          "users": 11,
+          "sessions": 12
+        },
+        {
+          "date": "09/05",
+          "users": 5,
+          "sessions": 5
+        },
+        {
+          "date": "10/05",
+          "users": 5,
+          "sessions": 5
+        },
+        {
+          "date": "11/05",
+          "users": 11,
+          "sessions": 12
+        },
+        {
+          "date": "12/05",
+          "users": 19,
+          "sessions": 22
+        },
+        {
+          "date": "13/05",
+          "users": 15,
+          "sessions": 15
+        },
+        {
+          "date": "14/05",
+          "users": 12,
+          "sessions": 12
+        },
+        {
+          "date": "15/05",
+          "users": 9,
+          "sessions": 11
+        },
+        {
+          "date": "16/05",
+          "users": 18,
+          "sessions": 19
+        },
+        {
+          "date": "17/05",
+          "users": 15,
+          "sessions": 17
+        },
+        {
+          "date": "18/05",
+          "users": 28,
+          "sessions": 30
+        },
+        {
+          "date": "19/05",
+          "users": 18,
+          "sessions": 19
+        },
+        {
+          "date": "20/05",
+          "users": 11,
+          "sessions": 13
+        }
+      ]
+    }
   },
-  "contactForm": {
-    "total": 0
-  },
-  "topPages": [
-    {
-      "page": "/",
-      "views": 8
-    },
-    {
-      "page": "/contact",
-      "views": 2
-    },
-    {
-      "page": "/maintenance",
-      "views": 2
-    }
-  ],
-  "sources": [
-    {
-      "source": "Unassigned",
-      "sessions": 8
-    },
-    {
-      "source": "Direct",
-      "sessions": 5
-    }
-  ],
-  "dailyTrend": [
-    {
-      "date": "22/04",
-      "users": 3,
-      "sessions": 3
-    },
-    {
-      "date": "23/04",
-      "users": 5,
-      "sessions": 6
-    }
-  ]
+  "periodLabels": {
+    "7d": "7 derniers jours",
+    "30d": "30 derniers jours",
+    "90d": "90 derniers jours"
+  }
 }
