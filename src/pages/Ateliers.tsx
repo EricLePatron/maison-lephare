@@ -71,10 +71,20 @@ export default function Ateliers() {
               {activeAteliers.map((atelier, index) => {
                 const IconComp = ICON_MAP[atelier.icone || "Brain"] || Brain;
                 const lien = (atelier as any).lien_inscription as string | null;
+                const imageUrl = (atelier as any).image_url as string | null;
                 return (
                   <Reveal key={atelier.id} variant="up" delay={index * 100} className="flex flex-col items-center text-center">
                     <div className="w-full aspect-[4/3] rounded-2xl border-[3px] border-primary overflow-hidden bg-sky-100 flex items-center justify-center">
-                      <IconComp className="h-16 w-16 text-primary" />
+                      {imageUrl ? (
+                        <img
+                          src={imageUrl}
+                          alt={atelier.titre}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <IconComp className="h-16 w-16 text-primary" />
+                      )}
                     </div>
                     <h3 className="mt-4 sm:mt-5 uppercase tracking-wide text-primary font-bold text-sm sm:text-base leading-tight">
                       {atelier.titre}
