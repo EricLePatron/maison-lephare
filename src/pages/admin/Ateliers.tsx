@@ -287,23 +287,15 @@ export default function AdminAteliers() {
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="categorie">Catégorie *</Label>
-                        <Select
+                        <Input
+                          id="categorie"
                           value={formData.categorie}
-                          onValueChange={(value) =>
-                            setFormData({ ...formData, categorie: value })
+                          onChange={(e) =>
+                            setFormData({ ...formData, categorie: e.target.value })
                           }
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Sélectionner..." />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {CATEGORIES.map((cat) => (
-                              <SelectItem key={cat} value={cat}>
-                                {cat}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
+                          placeholder="Ex: Écoute & Partage"
+                          required
+                        />
                       </div>
                     </div>
 
