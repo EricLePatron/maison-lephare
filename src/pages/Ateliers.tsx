@@ -119,17 +119,6 @@ export default function Ateliers() {
             </p>
           )}
 
-          <div className="text-center mt-14 sm:mt-20">
-            <p className="uppercase tracking-[0.15em] text-secondary font-semibold text-base sm:text-lg mb-6">
-              {getContent("categories", "tagline", "Et beaucoup d'autres initiatives …")}
-            </p>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-3 rounded-2xl border-2 border-primary text-primary font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
-            >
-              {getContent("categories", "cta_button", "Voir l'agenda complet →")}
-            </Link>
-          </div>
         </div>
       </section>
 
