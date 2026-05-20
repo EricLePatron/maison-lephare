@@ -185,22 +185,6 @@ export default function ProfessionnelProfile() {
                   </li>
                 </ul>
               </div>
-
-              {/* Contact */}
-              <div className="card-elegant">
-                <h3 className="font-serif text-lg font-medium text-foreground mb-4">
-                  Prendre rendez-vous
-                </h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Pour contacter {pro.prenom} {pro.nom}, utilisez notre formulaire de contact. Nous transmettrons votre demande.
-                </p>
-                <Button asChild variant="hero" className="w-full">
-                  <Link to="/contact">
-                    <Mail className="h-4 w-4 mr-2" />
-                    Nous contacter
-                  </Link>
-                </Button>
-              </div>
             </div>
           </div>
         </div>
