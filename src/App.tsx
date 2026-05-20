@@ -19,6 +19,7 @@ import AdminProfessionnels from "./pages/admin/Professionnels";
 import AdminAteliers from "./pages/admin/Ateliers";
 import AdminContenu from "./pages/admin/Contenu";
 import AdminApparence from "./pages/admin/Apparence";
+import AdminMetrics from "./pages/admin/Metrics";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +48,7 @@ const App = () => (
               </RequireAdmin>
             }
           >
+            <Route path="metrics" element={<AdminMetrics />} />
             <Route path="professionnels" element={<AdminProfessionnels />} />
             <Route path="ateliers" element={<AdminAteliers />} />
             <Route path="contenu" element={<AdminContenu />} />
