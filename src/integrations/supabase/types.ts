@@ -23,6 +23,7 @@ export type Database = {
           format: string | null
           icone: string | null
           id: string
+          image_url: string | null
           lien_inscription: string | null
           objectifs: string[] | null
           ordre_affichage: number | null
@@ -38,6 +39,7 @@ export type Database = {
           format?: string | null
           icone?: string | null
           id?: string
+          image_url?: string | null
           lien_inscription?: string | null
           objectifs?: string[] | null
           ordre_affichage?: number | null
@@ -53,6 +55,7 @@ export type Database = {
           format?: string | null
           icone?: string | null
           id?: string
+          image_url?: string | null
           lien_inscription?: string | null
           objectifs?: string[] | null
           ordre_affichage?: number | null
