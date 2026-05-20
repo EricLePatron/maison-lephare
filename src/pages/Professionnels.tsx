@@ -100,7 +100,7 @@ export default function Professionnels() {
                       <img
                         src={pro.photo_url}
                         alt={`${pro.prenom} ${pro.nom}`}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover object-top"
                         loading="lazy"
                       />
                     </div>
