@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { usePageContent } from "@/hooks/useSiteContent";
 import { trackContactFormSubmit } from "@/lib/analytics";
+import { Seo } from "@/components/Seo";
 
 // Validation schema for contact form
 const contactSchema = z.object({
@@ -135,6 +136,11 @@ export default function Contact() {
 
   return (
     <>
+      <Seo
+        title="Contact – Le Phare, Maison de la Santé Mentale"
+        description="Contactez Le Phare à Mérignac : informations, rendez-vous avec un professionnel, propositions d'ateliers ou installation en libéral."
+        path="/contact"
+      />
       {/* Hero — fond bleu ciel + carte coordonnées avec bandeaux bordeaux */}
       <section className="relative bg-sky-100 overflow-hidden">
         {/* Bandeau bordeaux haut-gauche */}

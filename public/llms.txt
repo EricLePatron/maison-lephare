@@ -1,0 +1,12 @@
+# Le Phare
+
+> Maison dédiée à la Santé Mentale installée dans un château à Mérignac (Bordeaux). Réunit un cabinet pluri-professionnel, une association et un café inclusif.
+
+## Pages
+
+- [Accueil](/): Présentation du Phare, maison de la santé mentale.
+- [Le lieu](/le-lieu): Le château, son parc et la vision du projet.
+- [Les professionnels](/professionnels): Psychiatres, psychologues et thérapeutes qui exercent au Phare.
+- [Les ateliers](/ateliers): Ateliers, groupes de parole et activités de l'association.
+- [L'association](/association): Missions, valeurs et fonctionnement de l'association Le Phare.
+- [Contact](/contact): Coordonnées et formulaire de contact.

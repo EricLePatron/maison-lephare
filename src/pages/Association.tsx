@@ -77,6 +77,11 @@ export default function Association() {
 
   return (
     <>
+      <Seo
+        title="L'Association Le Phare – Santé Mentale à Mérignac"
+        description="L'association loi 1901 Le Phare propose ateliers, groupes de parole et événements pour soutenir le rétablissement et déstigmatiser la santé mentale."
+        path="/association"
+      />
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
