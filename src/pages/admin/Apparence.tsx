@@ -276,6 +276,11 @@ export default function AdminApparence() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
+                        {AVAILABLE_FONTS.filter((f) => f.category === "script").map((f) => (
+                          <SelectItem key={f.value} value={f.value}>
+                            {f.label}
+                          </SelectItem>
+                        ))}
                         {AVAILABLE_FONTS.filter((f) => f.category === "serif").map((f) => (
                           <SelectItem key={f.value} value={f.value}>
                             {f.label}
@@ -310,6 +315,11 @@ export default function AdminApparence() {
                           </SelectItem>
                         ))}
                         {AVAILABLE_FONTS.filter((f) => f.category === "serif").map((f) => (
+                          <SelectItem key={f.value} value={f.value}>
+                            {f.label}
+                          </SelectItem>
+                        ))}
+                        {AVAILABLE_FONTS.filter((f) => f.category === "script").map((f) => (
                           <SelectItem key={f.value} value={f.value}>
                             {f.label}
                           </SelectItem>
