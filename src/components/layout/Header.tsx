@@ -63,7 +63,7 @@ export function Header() {
             <Link
               to="/contact"
               onClick={() => trackNavClick(ctaLabel, "/contact", "header_desktop")}
-              className="inline-flex items-center gap-2 px-5 py-2 bg-background border-2 border-primary text-primary rounded-full text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2 bg-background border-2 border-primary text-primary rounded-2xl text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
             >
               {ctaLabel}
             </Link>
@@ -113,7 +113,7 @@ export function Header() {
                 trackNavClick(ctaLabel, "/contact", "header_mobile");
                 setIsOpen(false);
               }}
-              className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-background border-2 border-primary text-primary rounded-full text-sm font-medium"
+              className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-background border-2 border-primary text-primary rounded-2xl text-sm font-medium"
             >
               {ctaLabel}
             </Link>

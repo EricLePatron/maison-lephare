@@ -124,7 +124,7 @@ export default function Index() {
                 <Link
                   to="/ateliers"
                   onClick={() => trackCtaClick(getContent("hero", "cta", "Voir la programmation"), "home_hero")}
-                  className="inline-flex items-center gap-2 px-7 py-3 bg-background text-primary border-2 border-primary rounded-full text-base font-medium hover:bg-primary hover:text-primary-foreground transition-colors shadow-soft"
+                  className="inline-flex items-center gap-2 px-7 py-3 bg-background text-primary border-2 border-primary rounded-2xl text-base font-medium hover:bg-primary hover:text-primary-foreground transition-colors shadow-soft"
                 >
                   {getContent("hero", "cta", "Voir la programmation")}
                   <ArrowRight className="h-4 w-4" />
@@ -168,7 +168,7 @@ export default function Index() {
                   {feature.title}
                 </h3>
 
-                <span className="inline-flex items-center gap-2 px-6 py-2 bg-background border-2 border-primary text-primary rounded-full text-sm font-medium group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                <span className="inline-flex items-center gap-2 px-6 py-2 bg-background border-2 border-primary text-primary rounded-2xl text-sm font-medium group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                   {getContent("features", "card_cta", "En savoir +")}
                 </span>
                 </Link>

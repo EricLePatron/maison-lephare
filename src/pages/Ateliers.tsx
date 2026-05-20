@@ -94,7 +94,7 @@ export default function Ateliers() {
                         href={lien}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-4 inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
+                        className="mt-4 inline-flex items-center gap-2 px-5 py-2 rounded-2xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
                       >
                         S'inscrire <ArrowRight className="h-4 w-4" />
                       </a>
@@ -115,7 +115,7 @@ export default function Ateliers() {
             </p>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-3 rounded-full border-2 border-primary text-primary font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-3 rounded-2xl border-2 border-primary text-primary font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
             >
               {getContent("categories", "cta_button", "Voir l'agenda complet →")}
             </Link>
