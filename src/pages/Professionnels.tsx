@@ -45,7 +45,7 @@ export default function Professionnels() {
             <div className="flex flex-wrap justify-center gap-2">
               <button
                 onClick={() => setSelectedProfession(null)}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium border-2 transition-colors ${
+                className={`px-4 py-1.5 rounded-2xl text-sm font-medium border-2 transition-colors ${
                   selectedProfession === null
                     ? "bg-primary text-primary-foreground border-primary"
                     : "bg-background text-primary border-primary/40 hover:border-primary"
@@ -57,7 +57,7 @@ export default function Professionnels() {
                 <button
                   key={profession}
                   onClick={() => setSelectedProfession(profession)}
-                  className={`px-4 py-1.5 rounded-full text-sm font-medium border-2 transition-colors ${
+                  className={`px-4 py-1.5 rounded-2xl text-sm font-medium border-2 transition-colors ${
                     selectedProfession === profession
                       ? "bg-primary text-primary-foreground border-primary"
                       : "bg-background text-primary border-primary/40 hover:border-primary"
@@ -122,7 +122,7 @@ export default function Professionnels() {
                   </p>
 
                   {/* Pill "Voir le profil" */}
-                  <span className="mt-4 inline-flex items-center px-5 py-1.5 rounded-full border-2 border-primary text-primary text-xs font-medium tracking-wide group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                  <span className="mt-4 inline-flex items-center px-5 py-1.5 rounded-2xl border-2 border-primary text-primary text-xs font-medium tracking-wide group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                     Voir le profil
                   </span>
                 </Link>
