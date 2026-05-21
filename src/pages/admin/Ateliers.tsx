@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 import {
   useAteliers,
   useCreateAtelier,
@@ -407,26 +408,17 @@ export default function AdminAteliers() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="image_url">URL de la photo (optionnel)</Label>
-                      <Input
-                        id="image_url"
-                        type="url"
+                      <Label>Photo (optionnel)</Label>
+                      <ImageUpload
                         value={(formData as any).image_url || ""}
-                        onChange={(e) =>
-                          setFormData({ ...formData, image_url: e.target.value } as FormData)
+                        onChange={(url) =>
+                          setFormData({ ...formData, image_url: url } as FormData)
                         }
-                        placeholder="https://..."
+                        folder="ateliers"
                       />
                       <p className="text-xs text-muted-foreground">
                         Si renseignée, la photo remplace l'icône sur la page Ateliers.
                       </p>
-                      {(formData as any).image_url && (
-                        <img
-                          src={(formData as any).image_url}
-                          alt="Aperçu"
-                          className="mt-2 h-24 w-32 object-cover rounded-lg border border-border"
-                        />
-                      )}
                     </div>
 
                     <div className="flex items-center gap-2">
