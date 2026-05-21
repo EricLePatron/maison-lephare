@@ -36,6 +36,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 import {
   useAllProfessionnels,
   useCreateProfessionnel,
@@ -435,13 +436,13 @@ export default function AdminProfessionnels() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="photo_url">URL de la photo</Label>
-              <Input
-                id="photo_url"
-                name="photo_url"
+              <Label>Photo</Label>
+              <ImageUpload
                 value={formData.photo_url || ""}
-                onChange={handleChange}
-                placeholder="https://..."
+                onChange={(url) =>
+                  setFormData((prev) => ({ ...prev, photo_url: url }))
+                }
+                folder="professionnels"
               />
             </div>
 
