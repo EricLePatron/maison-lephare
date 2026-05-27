@@ -20,6 +20,8 @@ export function Header() {
     { href: "/ateliers", label: getContent("nav", "ateliers", "Les ateliers") },
   ];
   const ctaLabel = getContent("nav", "cta", "Contactez-nous !");
+  const donUrl = "https://lephare-sante-mentale-czk7vv2pjnfua.assoconnect.com/collect/donation/01KQY7G52YB5FTRZ1PS35TCM9B/un-don-a-l-association-lephare-sante-mentale";
+  const donLabel = getContent("nav", "don", "Faire un don");
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-sky-100/95 backdrop-blur-md">
@@ -59,7 +61,16 @@ export function Header() {
           </nav>
 
           {/* CTA Button - Desktop */}
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex items-center gap-3">
+            <a
+              href={donUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackNavClick(donLabel, donUrl, "header_desktop")}
+              className="inline-flex items-center gap-2 px-5 py-2 bg-primary text-primary-foreground rounded-2xl text-sm font-medium hover:opacity-90 transition-opacity"
+            >
+              {donLabel}
+            </a>
             <Link
               to="/contact"
               onClick={() => trackNavClick(ctaLabel, "/contact", "header_desktop")}
@@ -107,6 +118,18 @@ export function Header() {
             </Link>
           ))}
           <div className="pt-4 px-4">
+            <a
+              href={donUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                trackNavClick(donLabel, donUrl, "header_mobile");
+                setIsOpen(false);
+              }}
+              className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-primary text-primary-foreground rounded-2xl text-sm font-medium mb-3"
+            >
+              {donLabel}
+            </a>
             <Link
               to="/contact"
               onClick={() => {
