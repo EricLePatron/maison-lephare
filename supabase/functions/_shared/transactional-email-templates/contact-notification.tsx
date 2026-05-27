@@ -46,6 +46,7 @@ export const template = {
   subject: (data: Record<string, any>) =>
     data?.sujet ? `[Contact] ${data.sujet}` : '[Contact] Nouveau message',
   displayName: 'Notification interne — contact',
+  to: 'contact@maison-lephare.com',
   previewData: {
     nom: 'Jeanne Dupont',
     email: 'jeanne@example.com',
