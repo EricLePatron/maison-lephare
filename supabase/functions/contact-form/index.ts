@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -151,11 +152,41 @@ serve(async (req) => {
       timestamp: new Date().toISOString(),
     });
 
-    // TODO: In production, implement one of:
-    // 1. Store in database (contact_submissions table)
-    // 2. Send email via service like Resend, SendGrid, etc.
-    // 3. Send to a notification service
-    // For now, we just validate and acknowledge
+    // Send emails via the transactional email pipeline (queued + retried)
+    const supabaseUrl = Deno.env.get("SUPABASE_URL");
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    if (supabaseUrl && supabaseServiceKey) {
+      const supabase = createClient(supabaseUrl, supabaseServiceKey);
+      const submissionId = crypto.randomUUID();
+
+      // 1) Internal notification to contact@maison-lephare.com (recipient is fixed in the template)
+      const notif = await supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "contact-notification",
+          recipientEmail: "contact@maison-lephare.com",
+          idempotencyKey: `contact-notif-${submissionId}`,
+          templateData: { nom, email, sujet, message },
+        },
+      });
+      if (notif.error) {
+        console.error("Failed to enqueue contact notification email", notif.error);
+      }
+
+      // 2) Acknowledgement to the visitor
+      const ack = await supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "contact-confirmation",
+          recipientEmail: email,
+          idempotencyKey: `contact-confirm-${submissionId}`,
+          templateData: { nom },
+        },
+      });
+      if (ack.error) {
+        console.error("Failed to enqueue contact confirmation email", ack.error);
+      }
+    } else {
+      console.error("Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY — cannot send emails");
+    }
 
     return new Response(
       JSON.stringify({ success: true, message: "Message reçu avec succès" }),
