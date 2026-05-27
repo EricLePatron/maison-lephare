@@ -20,6 +20,7 @@ import AdminAteliers from "./pages/admin/Ateliers";
 import AdminContenu from "./pages/admin/Contenu";
 import AdminApparence from "./pages/admin/Apparence";
 import AdminMetrics from "./pages/admin/Metrics";
+import Unsubscribe from "./pages/Unsubscribe";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,7 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
           </Route>
           <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route
             path="/admin"
             element={
