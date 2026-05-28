@@ -157,13 +157,13 @@ export default function Association() {
       </section>
 
       {/* Activities Section */}
-      <section className="section-padding bg-secondary/50">
+      <section className="section-padding bg-terra-700">
         <div className="container-wide">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="font-serif text-3xl sm:text-4xl font-medium text-foreground mb-4">
+            <h2 className="font-serif text-3xl sm:text-4xl font-medium text-primary-foreground mb-4">
               {getContent("activities", "title", "Nos activités")}
             </h2>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-primary-foreground/85 text-lg">
               {getContent("activities", "description", "Des ateliers et moments de partage adaptés à chaque besoin et à chaque parcours.")}
             </p>
           </div>
@@ -180,11 +180,6 @@ export default function Association() {
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                   {activity.description}
                 </p>
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-cream-100 rounded-full">
-                  <span className="text-xs font-medium text-foreground">
-                    {activity.audience}
-                  </span>
-                </div>
               </div>
             ))}
           </div>
