@@ -145,7 +145,7 @@ export default function Association() {
                   key={value.title}
                   className={`card-elevated ${index === 0 ? "col-span-2" : ""}`}
                 >
-                  <h3 className="font-serif text-lg font-medium text-foreground mb-2">
+                  <h3 className="font-serif text-3xl sm:text-4xl font-medium text-foreground mb-2">
                     {value.title}
                   </h3>
                   <p className="text-sm text-muted-foreground">{value.description}</p>
