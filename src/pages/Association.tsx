@@ -90,7 +90,6 @@ export default function Association() {
             alt="Salle de l'association"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-sage-700/95 via-sage-600/85 to-sage-500/70" />
         </div>
 
         <div className="container-wide relative z-10 py-20">
