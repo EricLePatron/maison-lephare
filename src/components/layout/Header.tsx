@@ -16,6 +16,7 @@ export function Header() {
   const navLinks = [
     { href: "/", label: getContent("nav", "accueil", "Accueil") },
     { href: "/le-lieu", label: getContent("nav", "le_lieu", "Le lieu") },
+    { href: "/association", label: getContent("nav", "association", "L'association") },
     { href: "/professionnels", label: getContent("nav", "professionnels", "Les professionnels") },
     { href: "/ateliers", label: getContent("nav", "ateliers", "Les ateliers") },
   ];
