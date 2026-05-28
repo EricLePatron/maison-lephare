@@ -94,18 +94,18 @@ export default function Association() {
 
         <div className="container-wide relative z-10 py-20">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/10 backdrop-blur-sm rounded-full mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-background/80 backdrop-blur-sm rounded-full mb-6">
               <Heart className="h-4 w-4 text-accent" />
-              <span className="text-primary-foreground/90 text-sm font-medium">
+              <span className="text-foreground text-sm font-medium">
                 {getContent("hero", "badge", "Association loi 1901")}
               </span>
             </div>
-            
-            <h1 className="font-serif text-4xl sm:text-5xl font-medium text-primary-foreground leading-tight mb-6">
+
+            <h1 className="font-serif text-4xl sm:text-5xl font-medium text-foreground leading-tight mb-6 [text-shadow:_0_2px_12px_hsl(var(--background)/0.8)]">
               {getContent("hero", "title", "L'Association Le Phare")}
             </h1>
-            
-            <p className="text-lg sm:text-xl text-primary-foreground/85 leading-relaxed">
+
+            <p className="text-lg sm:text-xl text-foreground leading-relaxed [text-shadow:_0_1px_8px_hsl(var(--background)/0.8)]">
               {getContent("hero", "description", "Des activités collectives et un accompagnement chaleureux pour tous ceux qui sont concernés par la santé mentale.")}
             </p>
           </div>
