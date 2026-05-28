@@ -16,9 +16,9 @@ export function Header() {
   const navLinks = [
     { href: "/", label: getContent("nav", "accueil", "Accueil") },
     { href: "/le-lieu", label: getContent("nav", "le_lieu", "Le lieu") },
-    { href: "/association", label: getContent("nav", "association", "L'association") },
     { href: "/professionnels", label: getContent("nav", "professionnels", "Les professionnels") },
     { href: "/ateliers", label: getContent("nav", "ateliers", "Les ateliers") },
+    { href: "/association", label: getContent("nav", "association", "L'association") },
   ];
   const ctaLabel = getContent("nav", "cta", "Contactez-nous !");
   const donUrl = "https://lephare-sante-mentale-czk7vv2pjnfua.assoconnect.com/collect/donation/01KQY7G52YB5FTRZ1PS35TCM9B/un-don-a-l-association-lephare-sante-mentale";
