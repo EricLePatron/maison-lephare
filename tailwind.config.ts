@@ -69,6 +69,16 @@ export default {
           200: "hsl(var(--cream-200))",
           300: "hsl(var(--cream-300))",
         },
+        terra: {
+          50: "hsl(var(--terra-50))",
+          100: "hsl(var(--terra-100))",
+          200: "hsl(var(--terra-200))",
+          300: "hsl(var(--terra-300))",
+          400: "hsl(var(--terra-400))",
+          500: "hsl(var(--terra-500))",
+          600: "hsl(var(--terra-600))",
+          700: "hsl(var(--terra-700))",
+        },
         sky: {
           50: "hsl(var(--sky-50))",
           100: "hsl(var(--sky-100))",
