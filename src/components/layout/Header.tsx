@@ -22,7 +22,7 @@ export function Header() {
   ];
   const ctaLabel = getContent("nav", "cta", "Contactez-nous !");
   const donUrl = "https://lephare-sante-mentale-czk7vv2pjnfua.assoconnect.com/collect/donation/01KQY7G52YB5FTRZ1PS35TCM9B/un-don-a-l-association-lephare-sante-mentale";
-  const donLabel = getContent("nav", "don", "Faire un don");
+  const donLabel = getContent("nav", "don", "Faire un don à l'association");
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-sky-100/95 backdrop-blur-md">
