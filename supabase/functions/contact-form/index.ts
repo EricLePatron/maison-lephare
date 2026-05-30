@@ -153,21 +153,23 @@ serve(async (req) => {
     });
 
     // Send emails via the transactional email pipeline (queued + retried).
-    // We call the edge function directly with fetch so we can pick a key that
-    // is a valid JWT (required by the functions gateway). The auto-injected
-    // SUPABASE_ANON_KEY / SUPABASE_SERVICE_ROLE_KEY may be in the new
-    // "sb_publishable_…" / "sb_secret_…" format which the gateway rejects.
+    // We call the edge function directly with fetch. The functions gateway
+    // requires a JWT-format Authorization header. The auto-injected
+    // SUPABASE_ANON_KEY / SUPABASE_SERVICE_ROLE_KEY are in the new
+    // "sb_publishable_…" / "sb_secret_…" format which the gateway rejects,
+    // so we fall back to the legacy publishable JWT (safe — it's public).
+    const LEGACY_ANON_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoYW9neWdsdmxlZ21sdHhveGNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk3NjkzODUsImV4cCI6MjA4NTM0NTM4NX0.ewMLyWw_U4h-xTmng61FLeGwcUNhN9d5ya58ufJz_4I";
     const supabaseUrl = Deno.env.get("SUPABASE_URL");
     const jwtCandidates = [
       Deno.env.get("SUPABASE_ANON_KEY"),
       Deno.env.get("SUPABASE_PUBLISHABLE_KEY"),
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY"),
     ];
-    const bearer = jwtCandidates.find(
-      (v) => typeof v === "string" && v.split(".").length === 3,
-    );
+    const bearer =
+      jwtCandidates.find((v) => typeof v === "string" && v.split(".").length === 3) ??
+      LEGACY_ANON_JWT;
 
-    if (supabaseUrl && bearer) {
+    if (supabaseUrl) {
       const submissionId = crypto.randomUUID();
       const sendEmail = async (label: string, payload: Record<string, unknown>) => {
         try {
