@@ -152,40 +152,61 @@ serve(async (req) => {
       timestamp: new Date().toISOString(),
     });
 
-    // Send emails via the transactional email pipeline (queued + retried)
+    // Send emails via the transactional email pipeline (queued + retried).
+    // We call the edge function directly with fetch. The functions gateway
+    // requires a JWT-format Authorization header. The auto-injected
+    // SUPABASE_ANON_KEY / SUPABASE_SERVICE_ROLE_KEY are in the new
+    // "sb_publishable_…" / "sb_secret_…" format which the gateway rejects,
+    // so we fall back to the legacy publishable JWT (safe — it's public).
+    const LEGACY_ANON_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoYW9neWdsdmxlZ21sdHhveGNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk3NjkzODUsImV4cCI6MjA4NTM0NTM4NX0.ewMLyWw_U4h-xTmng61FLeGwcUNhN9d5ya58ufJz_4I";
     const supabaseUrl = Deno.env.get("SUPABASE_URL");
-    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-    if (supabaseUrl && supabaseServiceKey) {
-      const supabase = createClient(supabaseUrl, supabaseServiceKey);
-      const submissionId = crypto.randomUUID();
+    const jwtCandidates = [
+      Deno.env.get("SUPABASE_ANON_KEY"),
+      Deno.env.get("SUPABASE_PUBLISHABLE_KEY"),
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY"),
+    ];
+    const bearer =
+      jwtCandidates.find((v) => typeof v === "string" && v.split(".").length === 3) ??
+      LEGACY_ANON_JWT;
 
-      // 1) Internal notification to contact@maison-lephare.com (recipient is fixed in the template)
-      const notif = await supabase.functions.invoke("send-transactional-email", {
-        body: {
-          templateName: "contact-notification",
-          recipientEmail: "contact@maison-lephare.com",
-          idempotencyKey: `contact-notif-${submissionId}`,
-          templateData: { nom, email, sujet, message },
-        },
+    if (supabaseUrl) {
+      const submissionId = crypto.randomUUID();
+      const sendEmail = async (label: string, payload: Record<string, unknown>) => {
+        try {
+          const res = await fetch(`${supabaseUrl}/functions/v1/send-transactional-email`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${bearer}`,
+            },
+            body: JSON.stringify(payload),
+          });
+          if (!res.ok) {
+            const text = await res.text();
+            console.error(`Failed to enqueue ${label} (status ${res.status}):`, text);
+          }
+        } catch (e) {
+          console.error(`Failed to enqueue ${label}:`, e);
+        }
+      };
+
+      // 1) Internal notification
+      await sendEmail("contact notification", {
+        templateName: "contact-notification",
+        recipientEmail: "contact@maison-lephare.com",
+        idempotencyKey: `contact-notif-${submissionId}`,
+        templateData: { nom, email, sujet, message },
       });
-      if (notif.error) {
-        console.error("Failed to enqueue contact notification email", notif.error);
-      }
 
       // 2) Acknowledgement to the visitor
-      const ack = await supabase.functions.invoke("send-transactional-email", {
-        body: {
-          templateName: "contact-confirmation",
-          recipientEmail: email,
-          idempotencyKey: `contact-confirm-${submissionId}`,
-          templateData: { nom },
-        },
+      await sendEmail("contact confirmation", {
+        templateName: "contact-confirmation",
+        recipientEmail: email,
+        idempotencyKey: `contact-confirm-${submissionId}`,
+        templateData: { nom },
       });
-      if (ack.error) {
-        console.error("Failed to enqueue contact confirmation email", ack.error);
-      }
     } else {
-      console.error("Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY — cannot send emails");
+      console.error("Missing SUPABASE_URL — cannot send emails");
     }
 
     return new Response(
