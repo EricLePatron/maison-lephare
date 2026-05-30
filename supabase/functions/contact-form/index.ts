@@ -185,7 +185,7 @@ serve(async (req) => {
         console.error("Failed to enqueue contact confirmation email", ack.error);
       }
     } else {
-      console.error("Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY — cannot send emails");
+      console.error("Missing SUPABASE_URL or SUPABASE_ANON_KEY — cannot send emails");
     }
 
     return new Response(
