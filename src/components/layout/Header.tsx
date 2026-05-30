@@ -118,7 +118,7 @@ export function Header() {
               {link.label}
             </Link>
           ))}
-          <div className="pt-4 px-4">
+          <div className="pt-4 pb-6 px-4">
             <a
               href={donUrl}
               target="_blank"
