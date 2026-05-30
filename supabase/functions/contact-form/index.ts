@@ -206,9 +206,7 @@ serve(async (req) => {
         templateData: { nom },
       });
     } else {
-      console.error(
-        "Missing SUPABASE_URL or no JWT-format key available — cannot send emails",
-      );
+      console.error("Missing SUPABASE_URL — cannot send emails");
     }
 
     return new Response(
