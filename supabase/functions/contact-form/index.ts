@@ -154,9 +154,9 @@ serve(async (req) => {
 
     // Send emails via the transactional email pipeline (queued + retried)
     const supabaseUrl = Deno.env.get("SUPABASE_URL");
-    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-    if (supabaseUrl && supabaseServiceKey) {
-      const supabase = createClient(supabaseUrl, supabaseServiceKey);
+    const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY");
+    if (supabaseUrl && supabaseAnonKey) {
+      const supabase = createClient(supabaseUrl, supabaseAnonKey);
       const submissionId = crypto.randomUUID();
 
       // 1) Internal notification to contact@maison-lephare.com (recipient is fixed in the template)
