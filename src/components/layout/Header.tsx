@@ -95,8 +95,8 @@ export function Header() {
       {/* Mobile Navigation */}
       <div
         className={cn(
-          "lg:hidden overflow-hidden transition-all duration-300 bg-sky-100 border-b border-border/40",
-          isOpen ? "max-h-96" : "max-h-0 border-b-0"
+          "lg:hidden overflow-y-auto transition-all duration-300 bg-sky-100 border-b border-border/40",
+          isOpen ? "max-h-[calc(100vh-4rem)]" : "max-h-0 border-b-0"
         )}
       >
         <nav className="container-wide py-4 flex flex-col gap-1">
