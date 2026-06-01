@@ -7,6 +7,7 @@ import atelierImageStatic from "@/assets/atelier-collectif.jpg";
 import chateauImageStatic from "@/assets/chateau-main.jpg";
 import { Reveal } from "@/components/Reveal";
 import { Seo } from "@/components/Seo";
+import { trackAtelierInscription, trackAtelierCta } from "@/lib/analytics";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Brain, Palette, MessageCircle, Users, Heart, Sparkles, BookOpen, Music, Lightbulb,
@@ -105,6 +106,14 @@ export default function Ateliers() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="mt-4 inline-flex items-center gap-2 px-5 py-2 rounded-2xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
+                        onClick={() =>
+                          trackAtelierInscription(
+                            atelier.titre,
+                            atelier.categorie,
+                            index,
+                            lien
+                          )
+                        }
                       >
                         S'inscrire <ArrowRight className="h-4 w-4" />
                       </a>
@@ -136,6 +145,9 @@ export default function Ateliers() {
             <Link
               to="/contact"
               className="font-script text-primary-foreground text-center leading-[1.05] text-[clamp(1.75rem,5.5vw,4rem)] drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)] hover:opacity-90 transition-opacity"
+              onClick={() =>
+                trackAtelierCta("Animer un atelier — bannière château", "/contact")
+              }
             >
               <span className="block">{getContent("cta", "line_1", "Vous souhaitez animer un atelier ?")}</span>
               <span className="block">{getContent("cta", "line_2", "nous recherchons des intervenants !")}</span>
