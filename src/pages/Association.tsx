@@ -92,12 +92,6 @@ export default function Association() {
           />
           <div className="absolute inset-0 bg-black/30" />
           <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-background/80 backdrop-blur-sm rounded-full mb-6">
-              <Heart className="h-4 w-4 text-accent" />
-              <span className="text-foreground text-sm font-medium">
-                {getContent("hero", "badge", "Association loi 1901")}
-              </span>
-            </div>
             <h1 className="font-script text-primary-foreground leading-[1.05] text-[clamp(1.75rem,5.5vw,4rem)] drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)] max-w-4xl">
               {getContent("hero", "title", "L'Association Le Phare")}
             </h1>
