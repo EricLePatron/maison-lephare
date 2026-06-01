@@ -58,6 +58,7 @@ const emptyForm: ProfessionnelInsert = {
   contact: "",
   site_web: "",
   photo_url: "",
+  hero_photo_url: "",
   actif: true,
   ordre_affichage: 0,
 };
@@ -104,6 +105,7 @@ export default function AdminProfessionnels() {
       contact: pro.contact || "",
       site_web: pro.site_web || "",
       photo_url: pro.photo_url || "",
+      hero_photo_url: (pro as any).hero_photo_url || "",
       actif: pro.actif,
       ordre_affichage: pro.ordre_affichage || 0,
     });
@@ -443,6 +445,17 @@ export default function AdminProfessionnels() {
                   setFormData((prev) => ({ ...prev, photo_url: url }))
                 }
                 folder="professionnels"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label>Photo de fond (bannière de la page profil)</Label>
+              <ImageUpload
+                value={(formData as any).hero_photo_url || ""}
+                onChange={(url) =>
+                  setFormData((prev) => ({ ...prev, hero_photo_url: url } as any))
+                }
+                folder="professionnels-hero"
               />
             </div>
 
