@@ -113,7 +113,7 @@ export default function LeLieu() {
 
       {/* Bannière image — soutien collectif avec texte en surimpression */}
       <section className="relative w-full overflow-hidden">
-        <div className="relative aspect-[16/9] sm:aspect-[21/9] w-full">
+        <div className="relative aspect-[16/7] sm:aspect-[21/8] w-full">
           <img
             src={solidarityImage}
             alt={getContent("banner", "image_alt", "Soutien collectif et rétablissement")}
@@ -122,7 +122,7 @@ export default function LeLieu() {
           />
           <div className="absolute inset-0 bg-black/30" />
           <div className="absolute inset-0 flex items-center justify-center px-6">
-            <h2 className="font-sans text-primary-foreground text-center text-[clamp(1.75rem,5vw,3.75rem)] font-light leading-tight max-w-4xl drop-shadow-[0_2px_16px_rgba(0,0,0,0.5)]">
+            <h2 className="font-script text-primary-foreground text-center leading-[1.05] text-[clamp(1.75rem,5.5vw,4rem)] max-w-4xl drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">
               {getContent(
                 "banner",
                 "title",
