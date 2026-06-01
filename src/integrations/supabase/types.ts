@@ -352,6 +352,7 @@ export type Database = {
           approche: string | null
           created_at: string | null
           description: string | null
+          hero_photo_url: string | null
           id: string | null
           jours_presence: string | null
           nom: string | null
@@ -368,6 +369,7 @@ export type Database = {
           approche?: string | null
           created_at?: string | null
           description?: string | null
+          hero_photo_url?: string | null
           id?: string | null
           jours_presence?: string | null
           nom?: string | null
@@ -384,6 +386,7 @@ export type Database = {
           approche?: string | null
           created_at?: string | null
           description?: string | null
+          hero_photo_url?: string | null
           id?: string | null
           jours_presence?: string | null
           nom?: string | null
