@@ -159,6 +159,7 @@ export type Database = {
           contact: string | null
           created_at: string
           description: string | null
+          hero_photo_url: string | null
           id: string
           jours_presence: string | null
           nom: string
@@ -177,6 +178,7 @@ export type Database = {
           contact?: string | null
           created_at?: string
           description?: string | null
+          hero_photo_url?: string | null
           id?: string
           jours_presence?: string | null
           nom: string
@@ -195,6 +197,7 @@ export type Database = {
           contact?: string | null
           created_at?: string
           description?: string | null
+          hero_photo_url?: string | null
           id?: string
           jours_presence?: string | null
           nom?: string
@@ -215,6 +218,7 @@ export type Database = {
           approche: string | null
           created_at: string
           description: string | null
+          hero_photo_url: string | null
           id: string
           jours_presence: string | null
           nom: string
@@ -231,6 +235,7 @@ export type Database = {
           approche?: string | null
           created_at?: string
           description?: string | null
+          hero_photo_url?: string | null
           id: string
           jours_presence?: string | null
           nom: string
@@ -247,6 +252,7 @@ export type Database = {
           approche?: string | null
           created_at?: string
           description?: string | null
+          hero_photo_url?: string | null
           id?: string
           jours_presence?: string | null
           nom?: string

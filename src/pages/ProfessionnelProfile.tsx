@@ -18,10 +18,11 @@ import cabinetImage from "@/assets/cabinet-room.png";
 export default function ProfessionnelProfile() {
   const { slug } = useParams<{ slug: string }>();
   const { data: professionnels, isLoading, error } = useProfessionnels();
-  const heroImage = useSiteImage("professionnel-hero", cabinetImage);
   const pro = professionnels?.find(
     (p) => professionnelSlug(p.prenom, p.nom) === slug
   );
+  const fallbackHero = useSiteImage("professionnel-hero", cabinetImage);
+  const heroImage = (pro as any)?.hero_photo_url || fallbackHero;
 
   if (isLoading) {
     return (
