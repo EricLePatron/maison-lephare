@@ -97,32 +97,32 @@ export default function Index() {
               height={820}
             />
           </Reveal>
-          {/* Overlay sombre pour lisibilité */}
-          <div className="absolute inset-0 bg-gradient-to-t from-foreground/65 via-foreground/30 to-foreground/40" />
+          {/* Léger dégradé en bas pour lisibilité du texte sans masquer la photo */}
+          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-foreground/55 via-foreground/15 to-transparent pointer-events-none" />
 
-          {/* Contenu superposé */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="container-wide">
+          {/* Contenu superposé en bas */}
+          <div className="absolute inset-x-0 bottom-0">
+            <div className="container-wide pb-6 sm:pb-10 lg:pb-14">
               <Reveal variant="up" delay={150} className="text-center">
                 <h1 className="leading-none">
                   <img
                     src={logoSrc}
                     alt="lePhare — Maison dédiée à la Santé Mentale"
-                    className="w-full max-w-[340px] sm:max-w-[480px] lg:max-w-[600px] xl:max-w-[680px] h-auto mx-auto drop-shadow-[0_2px_14px_rgba(0,0,0,0.5)]"
+                    className="w-full max-w-[260px] sm:max-w-[360px] lg:max-w-[440px] xl:max-w-[500px] h-auto mx-auto drop-shadow-[0_2px_14px_rgba(0,0,0,0.55)]"
                   />
                 </h1>
                 <span className="sr-only">
                   {getContent("hero", "tagline", "Maison dédiée à la Santé Mentale")}
                 </span>
-                <p className="font-script text-lg sm:text-xl text-background mt-3 sm:mt-4 drop-shadow-[0_1px_6px_rgba(0,0,0,0.7)]">
+                <p className="font-script text-base sm:text-lg text-background mt-2 sm:mt-3 drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
                   {getContent("hero", "image_caption", "Château du Tenet — Mérignac (33)")}
                 </p>
 
-                <div className="mt-6 sm:mt-8 flex justify-center">
+                <div className="mt-4 sm:mt-6 flex justify-center">
                   <Link
                     to="/ateliers"
                     onClick={() => trackCtaClick(getContent("hero", "cta", "Voir la programmation"), "home_hero")}
-                    className="inline-flex items-center gap-2 px-7 py-3 bg-background/90 backdrop-blur text-primary border-2 border-background rounded-2xl text-base font-medium hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors shadow-elevated"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 bg-background/95 backdrop-blur text-primary border-2 border-background rounded-2xl text-sm sm:text-base font-medium hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors shadow-elevated"
                   >
                     {getContent("hero", "cta", "Voir la programmation")}
                     <ArrowRight className="h-4 w-4" />
