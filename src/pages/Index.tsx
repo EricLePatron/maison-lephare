@@ -87,18 +87,16 @@ export default function Index() {
       />
       {/* Hero - Photo pleine largeur avec logo/CTA en overlay */}
       <section className="relative w-full overflow-hidden bg-sky-100">
-        <div className="relative aspect-[16/9] sm:aspect-[21/9] w-full min-h-[420px] sm:min-h-0">
-          <Reveal variant="fade">
-            <img
-              src={chateauImage}
-              alt="Château du Tenet, Mérignac"
-              className="absolute inset-0 w-full h-full object-cover"
-              width={1920}
-              height={820}
-            />
-          </Reveal>
-          {/* Léger dégradé en bas pour lisibilité du texte sans masquer la photo */}
-          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-foreground/55 via-foreground/15 to-transparent pointer-events-none" />
+        <div className="relative aspect-[4/5] sm:aspect-[16/10] lg:aspect-[21/10] w-full">
+          <img
+            src={chateauImage}
+            alt="Château du Tenet, Mérignac"
+            className="absolute inset-0 w-full h-full object-cover object-[center_60%] animate-fade-in"
+            width={1920}
+            height={820}
+          />
+          {/* Dégradés discrets pour lisibilité du contenu sans masquer la photo */}
+          <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-foreground/65 via-foreground/25 to-transparent pointer-events-none" />
 
           {/* Contenu superposé en bas */}
           <div className="absolute inset-x-0 bottom-0">
@@ -108,7 +106,7 @@ export default function Index() {
                   <img
                     src={logoSrc}
                     alt="lePhare — Maison dédiée à la Santé Mentale"
-                    className="w-full max-w-[260px] sm:max-w-[360px] lg:max-w-[440px] xl:max-w-[500px] h-auto mx-auto drop-shadow-[0_2px_14px_rgba(0,0,0,0.55)]"
+                    className="w-full max-w-[260px] sm:max-w-[360px] lg:max-w-[440px] xl:max-w-[500px] h-auto mx-auto drop-shadow-[0_2px_18px_rgba(255,255,255,0.85)]"
                   />
                 </h1>
                 <span className="sr-only">
