@@ -365,6 +365,7 @@ export type Database = {
           created_at: string | null
           description: string | null
           doctolib_url: string | null
+          email: string | null
           hero_photo_url: string | null
           id: string | null
           jours_presence: string | null
@@ -376,6 +377,7 @@ export type Database = {
           public_cible: string | null
           site_web: string | null
           specialites: string[] | null
+          telephone: string | null
           updated_at: string | null
         }
         Relationships: []
