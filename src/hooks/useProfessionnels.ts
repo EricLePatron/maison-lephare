@@ -23,6 +23,10 @@ export type ProfessionnelPublic = {
   ordre_affichage: number | null;
   created_at: string;
   updated_at: string;
+  site_web: string | null;
+  doctolib_url: string | null;
+  telephone: string | null;
+  email: string | null;
 };
 
 // Fetch all active professionals (public) - uses the secure view
