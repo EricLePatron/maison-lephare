@@ -85,10 +85,10 @@ export default function Index() {
         description="Un château à Mérignac dédié à la santé mentale : cabinets de consultation, ateliers, groupes de parole et café inclusif ouvert à tous."
         path="/"
       />
-      {/* Hero - Photo pleine largeur du château */}
+      {/* Hero - Photo pleine largeur avec logo/CTA en overlay */}
       <section className="relative w-full overflow-hidden bg-sky-100">
-        <Reveal variant="fade">
-          <div className="relative aspect-[16/9] sm:aspect-[21/9] w-full">
+        <div className="relative aspect-[16/9] sm:aspect-[21/9] w-full min-h-[420px] sm:min-h-0">
+          <Reveal variant="fade">
             <img
               src={chateauImage}
               alt="Château du Tenet, Mérignac"
@@ -96,36 +96,41 @@ export default function Index() {
               width={1920}
               height={820}
             />
-          </div>
-        </Reveal>
-
-        <div className="container-wide py-10 sm:py-14 lg:py-16">
-          <Reveal variant="up" delay={150} className="text-center">
-            <h1 className="leading-none">
-              <img
-                src={logoSrc}
-                alt="lePhare — Maison dédiée à la Santé Mentale"
-                className="w-full max-w-[560px] lg:max-w-[680px] xl:max-w-[760px] h-auto mx-auto"
-              />
-            </h1>
-            <span className="sr-only">
-              {getContent("hero", "tagline", "Maison dédiée à la Santé Mentale")}
-            </span>
-            <p className="font-script text-lg sm:text-xl text-primary/80 mt-4">
-              {getContent("hero", "image_caption", "Château du Tenet — Mérignac (33)")}
-            </p>
-
-            <div className="mt-8 flex justify-center">
-              <Link
-                to="/ateliers"
-                onClick={() => trackCtaClick(getContent("hero", "cta", "Voir la programmation"), "home_hero")}
-                className="inline-flex items-center gap-2 px-7 py-3 bg-background text-primary border-2 border-primary rounded-2xl text-base font-medium hover:bg-primary hover:text-primary-foreground transition-colors shadow-soft"
-              >
-                {getContent("hero", "cta", "Voir la programmation")}
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
           </Reveal>
+          {/* Overlay sombre pour lisibilité */}
+          <div className="absolute inset-0 bg-gradient-to-t from-foreground/65 via-foreground/30 to-foreground/40" />
+
+          {/* Contenu superposé */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="container-wide">
+              <Reveal variant="up" delay={150} className="text-center">
+                <h1 className="leading-none">
+                  <img
+                    src={logoSrc}
+                    alt="lePhare — Maison dédiée à la Santé Mentale"
+                    className="w-full max-w-[340px] sm:max-w-[480px] lg:max-w-[600px] xl:max-w-[680px] h-auto mx-auto drop-shadow-[0_2px_14px_rgba(0,0,0,0.5)]"
+                  />
+                </h1>
+                <span className="sr-only">
+                  {getContent("hero", "tagline", "Maison dédiée à la Santé Mentale")}
+                </span>
+                <p className="font-script text-lg sm:text-xl text-background mt-3 sm:mt-4 drop-shadow-[0_1px_6px_rgba(0,0,0,0.7)]">
+                  {getContent("hero", "image_caption", "Château du Tenet — Mérignac (33)")}
+                </p>
+
+                <div className="mt-6 sm:mt-8 flex justify-center">
+                  <Link
+                    to="/ateliers"
+                    onClick={() => trackCtaClick(getContent("hero", "cta", "Voir la programmation"), "home_hero")}
+                    className="inline-flex items-center gap-2 px-7 py-3 bg-background/90 backdrop-blur text-primary border-2 border-background rounded-2xl text-base font-medium hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors shadow-elevated"
+                  >
+                    {getContent("hero", "cta", "Voir la programmation")}
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              </Reveal>
+            </div>
+          </div>
         </div>
       </section>
 
