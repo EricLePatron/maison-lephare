@@ -57,6 +57,9 @@ const emptyForm: ProfessionnelInsert = {
   jours_presence: "",
   contact: "",
   site_web: "",
+  telephone: "",
+  email: "",
+  doctolib_url: "",
   photo_url: "",
   hero_photo_url: "",
   actif: true,
@@ -104,6 +107,9 @@ export default function AdminProfessionnels() {
       jours_presence: pro.jours_presence || "",
       contact: pro.contact || "",
       site_web: pro.site_web || "",
+      telephone: (pro as any).telephone || "",
+      email: (pro as any).email || "",
+      doctolib_url: (pro as any).doctolib_url || "",
       photo_url: pro.photo_url || "",
       hero_photo_url: (pro as any).hero_photo_url || "",
       actif: pro.actif,
@@ -404,15 +410,30 @@ export default function AdminProfessionnels() {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="contact">Contact</Label>
+                <Label htmlFor="telephone">Téléphone</Label>
                 <Input
-                  id="contact"
-                  name="contact"
-                  value={formData.contact || ""}
+                  id="telephone"
+                  name="telephone"
+                  type="tel"
+                  value={(formData as any).telephone || ""}
                   onChange={handleChange}
-                  placeholder="Email ou téléphone"
+                  placeholder="Ex: 06 12 34 56 78"
                 />
               </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={(formData as any).email || ""}
+                  onChange={handleChange}
+                  placeholder="nom@exemple.com"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="site_web">Site web</Label>
                 <Input
@@ -421,6 +442,16 @@ export default function AdminProfessionnels() {
                   value={formData.site_web || ""}
                   onChange={handleChange}
                   placeholder="https://..."
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="doctolib_url">Lien Doctolib</Label>
+                <Input
+                  id="doctolib_url"
+                  name="doctolib_url"
+                  value={(formData as any).doctolib_url || ""}
+                  onChange={handleChange}
+                  placeholder="https://www.doctolib.fr/..."
                 />
               </div>
             </div>
