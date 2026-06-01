@@ -47,10 +47,6 @@ const activities = [
 
 const values = [
   {
-    title: "Accueil inconditionnel",
-    description: "Chaque personne est accueillie avec respect et bienveillance, quelle que soit sa situation.",
-  },
-  {
     title: "Approche par le rétablissement",
     description: "Nous croyons au potentiel de chacun à se rétablir et à mener une vie épanouissante.",
   },
@@ -61,6 +57,10 @@ const values = [
   {
     title: "Déstigmatisation",
     description: "Nous œuvrons pour changer le regard de la société sur la santé mentale.",
+  },
+  {
+    title: "Accueil inconditionnel",
+    description: "Chaque personne est accueillie avec respect et bienveillance, quelle que soit sa situation.",
   },
 ];
 
@@ -140,11 +140,8 @@ export default function Association() {
             </div>
             
             <div className="grid grid-cols-2 gap-4">
-              {values.map((value, index) => (
-                <div
-                  key={value.title}
-                  className={`card-elevated ${index === 0 ? "col-span-2" : ""}`}
-                >
+              {values.map((value) => (
+                <div key={value.title} className="card-elevated">
                   <h3 className="font-serif text-3xl sm:text-4xl font-medium text-foreground mb-2">
                     {value.title}
                   </h3>
