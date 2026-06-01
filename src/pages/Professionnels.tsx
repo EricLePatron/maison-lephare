@@ -156,7 +156,7 @@ export default function Professionnels() {
           <div className="absolute inset-0 flex items-center justify-center px-6">
             <Link
               to="/contact"
-              className="font-script text-primary-foreground text-center leading-[1.05] text-[clamp(2rem,6vw,4.5rem)] drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)] hover:opacity-90 transition-opacity"
+              className="font-script text-primary-foreground text-center leading-[1.05] text-[clamp(1.75rem,5.5vw,4rem)] drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)] hover:opacity-90 transition-opacity"
             >
               <span className="block">{getContent("cta", "line_1", "Vous souhaitez vous installer ?")}</span>
               <span className="block">{getContent("cta", "line_2", "Contactez-nous")}</span>
