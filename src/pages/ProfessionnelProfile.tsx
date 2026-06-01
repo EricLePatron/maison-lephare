@@ -92,6 +92,18 @@ export default function ProfessionnelProfile() {
                 {pro.prenom} {pro.nom}
               </h1>
               <p className="text-xl text-accent font-medium">{pro.profession}</p>
+              {pro.specialites && pro.specialites.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {pro.specialites.map((spec) => (
+                    <span
+                      key={spec}
+                      className="px-3 py-1 bg-primary-foreground/20 backdrop-blur-sm text-sm font-medium text-primary-foreground rounded-full border border-primary-foreground/30"
+                    >
+                      {spec}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
