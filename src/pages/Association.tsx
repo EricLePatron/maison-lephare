@@ -154,7 +154,7 @@ export default function Association() {
       </section>
 
       {/* Activities Section */}
-      <section className="section-padding bg-terra-700">
+      <section className="section-padding bg-sage-600">
         <div className="container-wide">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <h2 className="font-serif text-3xl sm:text-4xl font-medium text-primary-foreground mb-4">
