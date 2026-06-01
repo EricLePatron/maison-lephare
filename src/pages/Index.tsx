@@ -95,8 +95,8 @@ export default function Index() {
             width={1920}
             height={820}
           />
-          {/* Léger dégradé en bas pour lisibilité du texte sans masquer la photo */}
-          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-foreground/55 via-foreground/15 to-transparent pointer-events-none" />
+          {/* Dégradés discrets pour lisibilité du contenu sans masquer la photo */}
+          <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-foreground/65 via-foreground/25 to-transparent pointer-events-none" />
 
           {/* Contenu superposé en bas */}
           <div className="absolute inset-x-0 bottom-0">
@@ -106,7 +106,7 @@ export default function Index() {
                   <img
                     src={logoSrc}
                     alt="lePhare — Maison dédiée à la Santé Mentale"
-                    className="w-full max-w-[260px] sm:max-w-[360px] lg:max-w-[440px] xl:max-w-[500px] h-auto mx-auto drop-shadow-[0_2px_14px_rgba(0,0,0,0.55)]"
+                    className="w-full max-w-[260px] sm:max-w-[360px] lg:max-w-[440px] xl:max-w-[500px] h-auto mx-auto drop-shadow-[0_2px_18px_rgba(255,255,255,0.85)]"
                   />
                 </h1>
                 <span className="sr-only">
