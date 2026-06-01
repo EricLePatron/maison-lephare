@@ -82,13 +82,13 @@ export default function Association() {
         description="L'association loi 1901 Le Phare propose ateliers, groupes de parole et événements pour soutenir le rétablissement et déstigmatiser la santé mentale."
         path="/association"
       />
-      {/* Hero Section */}
+      {/* Hero Section — photo sans voile, jamais d'overlay */}
       <section className="relative min-h-[60vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-transparent">
           <img
             src={associationImage}
             alt="Salle de l'association"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover brightness-100 contrast-100"
           />
         </div>
 
