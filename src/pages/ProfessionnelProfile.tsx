@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useProfessionnels } from "@/hooks/useProfessionnels";
 import { useSiteImage } from "@/hooks/useTheme";
@@ -28,6 +29,20 @@ export default function ProfessionnelProfile() {
   const heroImage = (pro as any)?.hero_photo_url || fallbackHero;
   const doctolibUrl = (pro as any)?.doctolib_url as string | undefined;
 
+  const heroRef = useRef<HTMLElement | null>(null);
+  const [heroVisible, setHeroVisible] = useState(true);
+
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setHeroVisible(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [pro?.id]);
+
   if (isLoading) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
@@ -54,7 +69,7 @@ export default function ProfessionnelProfile() {
 
   return (
     <>
-      {doctolibUrl && (
+      {doctolibUrl && heroVisible && (
         <a
           href={doctolibUrl}
           target="_blank"
@@ -67,7 +82,7 @@ export default function ProfessionnelProfile() {
       )}
 
       {/* Hero Section */}
-      <section className="relative min-h-[40vh] flex items-end overflow-hidden">
+      <section ref={heroRef} className="relative min-h-[40vh] flex items-end overflow-hidden">
         <div className="absolute inset-0">
           <img
             src={heroImage}
