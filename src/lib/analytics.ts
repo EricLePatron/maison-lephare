@@ -78,6 +78,19 @@ export function trackAtelierCta(ctaLabel: string, destination: string) {
   });
 }
 
+// ─── Tracking Don ─────────────────────────────────────────────────────────
+
+/**
+ * Tracke un clic sur le bouton "Faire un don" (header desktop ou mobile).
+ * Envoie l'événement `don_click` vers GA4.
+ *
+ * Paramètres GA4 :
+ *   location — "header_desktop" | "header_mobile"
+ */
+export function trackDonClick(location: "header_desktop" | "header_mobile" | string) {
+  trackEvent("don_click", { location });
+}
+
 // ─── Tracking Professionnels ───────────────────────────────────────────────
 
 /**

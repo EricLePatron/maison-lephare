@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-06-01T14:13:48.859Z",
+  "generatedAt": "2026-06-01T14:53:03.265Z",
   "periods": {
     "24h": {
       "hourly": true,
       "overview": {
-        "sessions": 71,
+        "sessions": 72,
         "users": 66,
-        "pageViews": 239,
+        "pageViews": 249,
         "bounceRate": "1.0",
-        "avgDuration": 663
+        "avgDuration": 749
       },
       "contactForm": {
         "total": 3
@@ -16,11 +16,11 @@
       "topPages": [
         {
           "page": "/",
-          "views": 61
+          "views": 63
         },
         {
           "page": "/professionnels",
-          "views": 40
+          "views": 43
         },
         {
           "page": "/association",
@@ -32,11 +32,11 @@
         },
         {
           "page": "/ateliers",
-          "views": 24
+          "views": 27
         },
         {
           "page": "/professionnels/sheila-benoit-gonin",
-          "views": 11
+          "views": 13
         },
         {
           "page": "/contact",
@@ -58,11 +58,11 @@
       "sources": [
         {
           "source": "Unassigned",
-          "sessions": 52
+          "sessions": 53
         },
         {
           "source": "Direct",
-          "sessions": 43
+          "sessions": 45
         },
         {
           "source": "Organic Search",
@@ -155,8 +155,8 @@
         },
         {
           "date": "15h",
-          "users": 10,
-          "sessions": 10
+          "users": 11,
+          "sessions": 11
         },
         {
           "date": "16h",
@@ -167,7 +167,7 @@
       "proFunnel": [
         {
           "slug": "sheila-benoit-gonin",
-          "views": 11,
+          "views": 13,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
@@ -229,16 +229,26 @@
           "convRate": 0
         }
       ],
-      "totalRdvClicks": 0
+      "totalRdvClicks": 0,
+      "atelierInscriptions": {
+        "total": 0,
+        "parAtelier": []
+      },
+      "atelierCtaClics": 0,
+      "donClics": {
+        "total": 0,
+        "desktop": 0,
+        "mobile": 0
+      }
     },
     "7d": {
       "hourly": false,
       "overview": {
-        "sessions": 496,
+        "sessions": 497,
         "users": 332,
-        "pageViews": 1594,
+        "pageViews": 1604,
         "bounceRate": "0.5",
-        "avgDuration": 253
+        "avgDuration": 266
       },
       "contactForm": {
         "total": 6
@@ -246,15 +256,15 @@
       "topPages": [
         {
           "page": "/",
-          "views": 495
+          "views": 497
         },
         {
           "page": "/professionnels",
-          "views": 332
+          "views": 335
         },
         {
           "page": "/ateliers",
-          "views": 188
+          "views": 191
         },
         {
           "page": "/le-lieu",
@@ -274,7 +284,7 @@
         },
         {
           "page": "/professionnels/sheila-benoit-gonin",
-          "views": 19
+          "views": 21
         },
         {
           "page": "/admin/professionnels",
@@ -288,7 +298,7 @@
       "sources": [
         {
           "source": "Direct",
-          "sessions": 329
+          "sessions": 331
         },
         {
           "source": "Organic Search",
@@ -296,7 +306,7 @@
         },
         {
           "source": "Unassigned",
-          "sessions": 55
+          "sessions": 56
         },
         {
           "source": "Organic Social",
@@ -346,13 +356,13 @@
         {
           "date": "01/06",
           "users": 66,
-          "sessions": 71
+          "sessions": 72
         }
       ],
       "proFunnel": [
         {
           "slug": "sheila-benoit-gonin",
-          "views": 19,
+          "views": 21,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
@@ -463,16 +473,26 @@
           "convRate": 0
         }
       ],
-      "totalRdvClicks": 0
+      "totalRdvClicks": 0,
+      "atelierInscriptions": {
+        "total": 0,
+        "parAtelier": []
+      },
+      "atelierCtaClics": 0,
+      "donClics": {
+        "total": 0,
+        "desktop": 0,
+        "mobile": 0
+      }
     },
     "30d": {
       "hourly": false,
       "overview": {
-        "sessions": 1007,
+        "sessions": 1008,
         "users": 720,
-        "pageViews": 3106,
+        "pageViews": 3116,
         "bounceRate": "0.5",
-        "avgDuration": 206
+        "avgDuration": 213
       },
       "contactForm": {
         "total": 9
@@ -480,15 +500,15 @@
       "topPages": [
         {
           "page": "/",
-          "views": 904
+          "views": 906
         },
         {
           "page": "/professionnels",
-          "views": 621
+          "views": 624
         },
         {
           "page": "/ateliers",
-          "views": 388
+          "views": 391
         },
         {
           "page": "/le-lieu",
@@ -516,13 +536,13 @@
         },
         {
           "page": "/professionnels/sheila-benoit-gonin",
-          "views": 24
+          "views": 26
         }
       ],
       "sources": [
         {
           "source": "Direct",
-          "sessions": 719
+          "sessions": 721
         },
         {
           "source": "Organic Search",
@@ -530,7 +550,7 @@
         },
         {
           "source": "Unassigned",
-          "sessions": 55
+          "sessions": 56
         },
         {
           "source": "Organic Social",
@@ -695,7 +715,7 @@
         {
           "date": "01/06",
           "users": 66,
-          "sessions": 71
+          "sessions": 72
         }
       ],
       "proFunnel": [
@@ -708,7 +728,7 @@
         },
         {
           "slug": "sheila-benoit-gonin",
-          "views": 24,
+          "views": 26,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
@@ -868,16 +888,26 @@
           "convRate": 0
         }
       ],
-      "totalRdvClicks": 0
+      "totalRdvClicks": 0,
+      "atelierInscriptions": {
+        "total": 0,
+        "parAtelier": []
+      },
+      "atelierCtaClics": 0,
+      "donClics": {
+        "total": 0,
+        "desktop": 0,
+        "mobile": 0
+      }
     },
     "90d": {
       "hourly": false,
       "overview": {
-        "sessions": 1144,
+        "sessions": 1145,
         "users": 845,
-        "pageViews": 3265,
+        "pageViews": 3275,
         "bounceRate": "0.5",
-        "avgDuration": 195
+        "avgDuration": 201
       },
       "contactForm": {
         "total": 9
@@ -885,15 +915,15 @@
       "topPages": [
         {
           "page": "/",
-          "views": 965
+          "views": 967
         },
         {
           "page": "/professionnels",
-          "views": 622
+          "views": 625
         },
         {
           "page": "/ateliers",
-          "views": 389
+          "views": 392
         },
         {
           "page": "/maintenance",
@@ -921,13 +951,13 @@
         },
         {
           "page": "/professionnels/sheila-benoit-gonin",
-          "views": 24
+          "views": 26
         }
       ],
       "sources": [
         {
           "source": "Direct",
-          "sessions": 839
+          "sessions": 841
         },
         {
           "source": "Organic Search",
@@ -935,7 +965,7 @@
         },
         {
           "source": "Unassigned",
-          "sessions": 55
+          "sessions": 56
         },
         {
           "source": "Organic Social",
@@ -1150,7 +1180,7 @@
         {
           "date": "01/06",
           "users": 66,
-          "sessions": 71
+          "sessions": 72
         }
       ],
       "proFunnel": [
@@ -1163,7 +1193,7 @@
         },
         {
           "slug": "sheila-benoit-gonin",
-          "views": 24,
+          "views": 26,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
@@ -1323,7 +1353,17 @@
           "convRate": 0
         }
       ],
-      "totalRdvClicks": 0
+      "totalRdvClicks": 0,
+      "atelierInscriptions": {
+        "total": 0,
+        "parAtelier": []
+      },
+      "atelierCtaClics": 0,
+      "donClics": {
+        "total": 0,
+        "desktop": 0,
+        "mobile": 0
+      }
     }
   },
   "periodLabels": {

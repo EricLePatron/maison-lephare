@@ -238,6 +238,111 @@ async function fetchPeriod({ startDate, endDate, hourly }) {
 
   const totalRdvClicks = [...rdvClicksMap.values()].reduce((s, v) => s + v, 0);
 
+  // ── Ateliers & Don : second batch (customEvent:atelier_name peut échouer) ──
+  let atelierInscriptions = { total: 0, parAtelier: [] };
+  let atelierCtaClics = 0;
+  let donClics = { total: 0, desktop: 0, mobile: 0 };
+
+  try {
+    const [inscriptionsResult, ctaResult, donResult] = await Promise.all([
+      // Inscriptions par atelier (customEvent:atelier_name)
+      client.runReport({
+        property: `properties/${PROPERTY_ID}`,
+        dateRanges: [{ startDate, endDate }],
+        dimensions: [{ name: "customEvent:atelier_name" }],
+        metrics: [{ name: "eventCount" }],
+        dimensionFilter: {
+          filter: {
+            fieldName: "eventName",
+            stringFilter: { matchType: "EXACT", value: "atelier_inscription_click" },
+          },
+        },
+        orderBys: [{ metric: { metricName: "eventCount" }, desc: true }],
+        limit: 30,
+      }),
+      // Total clics CTA "Animer un atelier"
+      client.runReport({
+        property: `properties/${PROPERTY_ID}`,
+        dateRanges: [{ startDate, endDate }],
+        metrics: [{ name: "eventCount" }],
+        dimensionFilter: {
+          filter: {
+            fieldName: "eventName",
+            stringFilter: { matchType: "EXACT", value: "atelier_cta_click" },
+          },
+        },
+      }),
+      // Don : total + desktop vs mobile
+      client.runReport({
+        property: `properties/${PROPERTY_ID}`,
+        dateRanges: [{ startDate, endDate }],
+        dimensions: [{ name: "customEvent:location" }],
+        metrics: [{ name: "eventCount" }],
+        dimensionFilter: {
+          filter: {
+            fieldName: "eventName",
+            stringFilter: { matchType: "EXACT", value: "don_click" },
+          },
+        },
+        limit: 5,
+      }),
+    ]);
+
+    const inscriptionRows = inscriptionsResult[0].rows || [];
+    atelierInscriptions = {
+      total: inscriptionRows.reduce((s, r) => s + parseInt(r.metricValues[0].value), 0),
+      parAtelier: inscriptionRows
+        .filter((r) => r.dimensionValues[0].value !== "(not set)")
+        .map((r) => ({
+          nom: r.dimensionValues[0].value,
+          clics: parseInt(r.metricValues[0].value),
+        })),
+    };
+
+    atelierCtaClics = (ctaResult[0].rows || []).reduce(
+      (s, r) => s + parseInt(r.metricValues[0].value), 0
+    );
+
+    const donRows = donResult[0].rows || [];
+    donClics = {
+      total: donRows.reduce((s, r) => s + parseInt(r.metricValues[0].value), 0),
+      desktop: donRows.find((r) => r.dimensionValues[0].value === "header_desktop")
+        ? parseInt(donRows.find((r) => r.dimensionValues[0].value === "header_desktop").metricValues[0].value)
+        : 0,
+      mobile: donRows.find((r) => r.dimensionValues[0].value === "header_mobile")
+        ? parseInt(donRows.find((r) => r.dimensionValues[0].value === "header_mobile").metricValues[0].value)
+        : 0,
+    };
+  } catch (_err) {
+    // customEvent:atelier_name ou customEvent:location pas encore enregistrés en GA4 —
+    // fallback sur totaux simples sans dimension personnalisée
+    try {
+      const [inscTot, ctaTot, donTot] = await Promise.all([
+        client.runReport({
+          property: `properties/${PROPERTY_ID}`,
+          dateRanges: [{ startDate, endDate }],
+          metrics: [{ name: "eventCount" }],
+          dimensionFilter: { filter: { fieldName: "eventName", stringFilter: { matchType: "EXACT", value: "atelier_inscription_click" } } },
+        }),
+        client.runReport({
+          property: `properties/${PROPERTY_ID}`,
+          dateRanges: [{ startDate, endDate }],
+          metrics: [{ name: "eventCount" }],
+          dimensionFilter: { filter: { fieldName: "eventName", stringFilter: { matchType: "EXACT", value: "atelier_cta_click" } } },
+        }),
+        client.runReport({
+          property: `properties/${PROPERTY_ID}`,
+          dateRanges: [{ startDate, endDate }],
+          metrics: [{ name: "eventCount" }],
+          dimensionFilter: { filter: { fieldName: "eventName", stringFilter: { matchType: "EXACT", value: "don_click" } } },
+        }),
+      ]);
+      atelierInscriptions.total = (inscTot[0].rows || []).reduce((s, r) => s + parseInt(r.metricValues[0].value), 0);
+      atelierCtaClics = (ctaTot[0].rows || []).reduce((s, r) => s + parseInt(r.metricValues[0].value), 0);
+      donClics.total = (donTot[0].rows || []).reduce((s, r) => s + parseInt(r.metricValues[0].value), 0);
+    } catch (_) { /* pas de données */ }
+  }
+
   return {
     hourly,
     overview: {
@@ -263,6 +368,9 @@ async function fetchPeriod({ startDate, endDate, hourly }) {
     dailyTrend,
     proFunnel,
     totalRdvClicks,
+    atelierInscriptions,
+    atelierCtaClics,
+    donClics,
   };
 }
 

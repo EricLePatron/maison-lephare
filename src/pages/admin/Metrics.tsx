@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BarChart, Bar, AreaChart, Area, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import { Users, Eye, Clock, Mail, AlertCircle, RefreshCw, Loader2, Calendar, TrendingUp } from "lucide-react";
+import { Users, Eye, Clock, Mail, AlertCircle, RefreshCw, Loader2, Calendar, TrendingUp, Heart, BookOpen } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -30,6 +30,9 @@ interface PeriodData {
   dailyTrend: { date: string; users: number; sessions: number }[];
   proFunnel?: ProFunnelRow[];
   totalRdvClicks?: number;
+  atelierInscriptions?: { total: number; parAtelier: { nom: string; clics: number }[] };
+  atelierCtaClics?: number;
+  donClics?: { total: number; desktop: number; mobile: number };
 }
 
 interface DashboardData {
@@ -112,7 +115,13 @@ export default function Metrics() {
   }
 
   const d = data.periods[period];
-  const { overview, contactForm, topPages, sources, dailyTrend, proFunnel = [], totalRdvClicks = 0 } = d;
+  const {
+    overview, contactForm, topPages, sources, dailyTrend,
+    proFunnel = [], totalRdvClicks = 0,
+    atelierInscriptions = { total: 0, parAtelier: [] },
+    atelierCtaClics = 0,
+    donClics = { total: 0, desktop: 0, mobile: 0 },
+  } = d;
   const bouncePercent = Math.round(parseFloat(overview.bounceRate) * 100);
 
   const publicPages = topPages
@@ -341,6 +350,101 @@ export default function Metrics() {
         </Card>
       </div>
 
+      {/* ── Ateliers & Don ────────────────────────────────────────────── */}
+      <div className="grid gap-4 lg:grid-cols-3">
+        {/* Inscriptions ateliers */}
+        <Card className={atelierInscriptions.total > 0 ? "border-primary/40 bg-primary/5" : ""}>
+          <CardContent className="pt-5">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Inscriptions ateliers</p>
+                <p className="text-3xl font-bold text-foreground">{atelierInscriptions.total}</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {atelierInscriptions.total === 0 ? "Aucun clic S'inscrire" : `clic${atelierInscriptions.total > 1 ? "s" : ""} sur S'inscrire ✓`}
+                </p>
+              </div>
+              <div className={cn("h-10 w-10 rounded-lg flex items-center justify-center", atelierInscriptions.total > 0 ? "bg-primary/20" : "bg-muted")}>
+                <BookOpen className={cn("h-5 w-5", atelierInscriptions.total > 0 ? "text-primary" : "text-muted-foreground")} />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* CTA Animer un atelier */}
+        <Card>
+          <CardContent className="pt-5">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">CTA Intervenants</p>
+                <p className="text-3xl font-bold text-foreground">{atelierCtaClics}</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {atelierCtaClics === 0 ? "Bannière « Animer un atelier »" : `clic${atelierCtaClics > 1 ? "s" : ""} bannière intervenant`}
+                </p>
+              </div>
+              <div className="h-10 w-10 rounded-lg bg-sage-100 flex items-center justify-center">
+                <Users className="h-5 w-5 text-primary" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Clics Don */}
+        <Card className={donClics.total > 0 ? "border-primary/40 bg-primary/5" : ""}>
+          <CardContent className="pt-5">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Clics « Faire un don »</p>
+                <p className="text-3xl font-bold text-foreground">{donClics.total}</p>
+                {donClics.total > 0 ? (
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {donClics.desktop > 0 && `${donClics.desktop} desktop`}
+                    {donClics.desktop > 0 && donClics.mobile > 0 && " · "}
+                    {donClics.mobile > 0 && `${donClics.mobile} mobile`}
+                  </p>
+                ) : (
+                  <p className="text-xs text-muted-foreground mt-1">bouton header</p>
+                )}
+              </div>
+              <div className={cn("h-10 w-10 rounded-lg flex items-center justify-center", donClics.total > 0 ? "bg-primary/20" : "bg-muted")}>
+                <Heart className={cn("h-5 w-5", donClics.total > 0 ? "text-primary" : "text-muted-foreground")} />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Détail inscriptions par atelier */}
+      {atelierInscriptions.parAtelier.length > 0 && (
+        <Card>
+          <CardHeader className="pb-2">
+            <div className="flex items-center gap-3">
+              <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                <BookOpen className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <CardTitle className="text-base font-medium">Inscriptions par atelier</CardTitle>
+                <CardDescription>Clics sur le bouton "S'inscrire" par atelier</CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={Math.max(120, atelierInscriptions.parAtelier.length * 40)}>
+              <BarChart
+                data={atelierInscriptions.parAtelier.map((a) => ({ name: a.nom, clics: a.clics }))}
+                layout="vertical"
+                margin={{ top: 0, right: 20, left: 10, bottom: 0 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(30 20% 90%)" horizontal={false} />
+                <XAxis type="number" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} allowDecimals={false} />
+                <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} tickLine={false} width={140} />
+                <Tooltip contentStyle={{ fontSize: 12, borderRadius: 8 }} formatter={(v: number) => [v, "inscriptions"]} />
+                <Bar dataKey="clics" fill="hsl(24 55% 40%)" radius={[0, 4, 4, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Insights */}
       <Card className="bg-sage-50 border-sage-200">
         <CardHeader className="pb-2">
@@ -370,6 +474,12 @@ export default function Metrics() {
           )}
           {totalRdvClicks > 0 && (
             <p>📅 <strong>{totalRdvClicks} clic{totalRdvClicks > 1 ? "s" : ""} RDV</strong> enregistré{totalRdvClicks > 1 ? "s" : ""} {isHourly ? "aujourd'hui" : <>sur les {data.periodLabels[period]}</>}.</p>
+          )}
+          {donClics.total > 0 && (
+            <p>💝 <strong>{donClics.total} clic{donClics.total > 1 ? "s" : ""} sur "Faire un don"</strong> {isHourly ? "aujourd'hui" : <>sur les {data.periodLabels[period]}</>}{donClics.mobile > donClics.desktop ? " — majoritairement mobile" : donClics.desktop > donClics.mobile ? " — majoritairement desktop" : ""}.</p>
+          )}
+          {atelierInscriptions.total > 0 && (
+            <p>📚 <strong>{atelierInscriptions.total} inscription{atelierInscriptions.total > 1 ? "s" : ""} atelier</strong>{atelierInscriptions.parAtelier.length > 0 ? ` — atelier le plus cliqué : ${atelierInscriptions.parAtelier[0].nom}` : ""} {isHourly ? "aujourd'hui" : <>sur les {data.periodLabels[period]}</>}.</p>
           )}
         </CardContent>
       </Card>

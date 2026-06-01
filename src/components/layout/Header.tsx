@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { trackNavClick } from "@/lib/analytics";
+import { trackNavClick, trackDonClick } from "@/lib/analytics";
 import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
 import logoLePhare from "@/assets/logo-lephare.png";
@@ -67,7 +67,7 @@ export function Header() {
               href={donUrl}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackNavClick(donLabel, donUrl, "header_desktop")}
+              onClick={() => trackDonClick("header_desktop")}
               className="inline-flex items-center gap-2 px-5 py-2 bg-primary text-primary-foreground rounded-2xl text-sm font-medium hover:opacity-90 transition-opacity"
             >
               {donLabel}
@@ -124,7 +124,7 @@ export function Header() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => {
-                trackNavClick(donLabel, donUrl, "header_mobile");
+                trackDonClick("header_mobile");
                 setIsOpen(false);
               }}
               className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-primary text-primary-foreground rounded-2xl text-sm font-medium mb-3"
