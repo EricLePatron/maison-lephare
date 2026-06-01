@@ -1,0 +1,1 @@
+ALTER VIEW public.professionnels_public SET (security_invoker = true);
