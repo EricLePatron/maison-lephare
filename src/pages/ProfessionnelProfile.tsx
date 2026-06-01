@@ -12,6 +12,9 @@ import {
   Heart,
   Briefcase,
   MapPin,
+  Phone,
+  Globe,
+  CalendarCheck,
 } from "lucide-react";
 import cabinetImage from "@/assets/cabinet-room.png";
 
@@ -190,6 +193,67 @@ export default function ProfessionnelProfile() {
                   </li>
                 </ul>
               </div>
+
+              {((pro as any).telephone ||
+                (pro as any).email ||
+                (pro as any).site_web ||
+                (pro as any).doctolib_url) && (
+                <div className="card-elegant">
+                  <h3 className="font-serif text-lg font-medium text-foreground mb-4">
+                    Contact
+                  </h3>
+                  <ul className="space-y-4">
+                    {(pro as any).telephone && (
+                      <li className="flex items-start gap-3">
+                        <Phone className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                        <a
+                          href={`tel:${(pro as any).telephone}`}
+                          className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                        >
+                          {(pro as any).telephone}
+                        </a>
+                      </li>
+                    )}
+                    {(pro as any).email && (
+                      <li className="flex items-start gap-3">
+                        <Mail className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                        <a
+                          href={`mailto:${(pro as any).email}`}
+                          className="text-sm text-muted-foreground hover:text-primary transition-colors break-all"
+                        >
+                          {(pro as any).email}
+                        </a>
+                      </li>
+                    )}
+                    {(pro as any).site_web && (
+                      <li className="flex items-start gap-3">
+                        <Globe className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                        <a
+                          href={(pro as any).site_web}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-muted-foreground hover:text-primary transition-colors break-all"
+                        >
+                          Site web
+                        </a>
+                      </li>
+                    )}
+                    {(pro as any).doctolib_url && (
+                      <li className="flex items-start gap-3">
+                        <CalendarCheck className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                        <a
+                          href={(pro as any).doctolib_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                        >
+                          Prendre rendez-vous sur Doctolib
+                        </a>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         </div>
