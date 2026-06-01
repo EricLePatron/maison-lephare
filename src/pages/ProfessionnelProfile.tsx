@@ -58,7 +58,8 @@ export default function ProfessionnelProfile() {
             alt="Cabinet de consultation"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-sage-800/95 via-sage-700/70 to-sage-600/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-sage-900/95 via-sage-800/80 to-sage-700/60" />
+          <div className="absolute inset-0 bg-black/25" />
         </div>
 
         <div className="container-wide relative z-10 pb-12 pt-20">
@@ -87,11 +88,25 @@ export default function ProfessionnelProfile() {
             </div>
 
             {/* Name & Profession */}
-            <div className="flex-1">
-              <h1 className="font-serif text-3xl sm:text-4xl font-medium text-primary-foreground mb-2">
+            <div className="flex-1 [text-shadow:_0_2px_12px_rgba(0,0,0,0.55)]">
+              <h1 className="font-serif text-4xl sm:text-5xl font-medium text-primary-foreground mb-2 drop-shadow-lg">
                 {pro.prenom} {pro.nom}
               </h1>
-              <p className="text-xl text-accent font-medium">{pro.profession}</p>
+              <p className="font-sans uppercase tracking-[0.18em] text-sm sm:text-base text-primary-foreground font-semibold">
+                {pro.profession}
+              </p>
+              {pro.specialites && pro.specialites.length > 0 && (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {pro.specialites.map((spec) => (
+                    <span
+                      key={spec}
+                      className="px-3 py-1 rounded-full bg-primary-foreground/95 text-primary text-xs font-semibold shadow-sm"
+                    >
+                      {spec}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
