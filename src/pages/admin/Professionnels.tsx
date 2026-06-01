@@ -380,27 +380,15 @@ export default function AdminProfessionnels() {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="approche">Approche thérapeutique</Label>
-                <Input
-                  id="approche"
-                  name="approche"
-                  value={formData.approche || ""}
-                  onChange={handleChange}
-                  placeholder="Ex: TCC, Psychanalyse..."
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="public_cible">Public accueilli</Label>
-                <Input
-                  id="public_cible"
-                  name="public_cible"
-                  value={formData.public_cible || ""}
-                  onChange={handleChange}
-                  placeholder="Ex: Adultes, Adolescents..."
-                />
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="public_cible">Public accueilli</Label>
+              <Input
+                id="public_cible"
+                name="public_cible"
+                value={formData.public_cible || ""}
+                onChange={handleChange}
+                placeholder="Ex: Adultes, Adolescents..."
+              />
             </div>
 
             <div className="space-y-2">
