@@ -131,7 +131,7 @@ export default function Ateliers() {
             className="absolute inset-0 w-full h-full object-cover"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-black/35" />
+          <div className="absolute inset-0 bg-black/30" />
           <div className="absolute inset-0 flex items-center justify-center px-6">
             <Link
               to="/contact"
