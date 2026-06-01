@@ -96,7 +96,7 @@ export default function Professionnels() {
                   className="group flex flex-col items-center text-center"
                 >
                   {/* Photo ronde avec bordure bordeaux */}
-                  <div className="w-40 h-40 sm:w-44 sm:h-44 rounded-full border-[3px] border-primary overflow-hidden bg-cream-100 transition-transform duration-300 group-hover:scale-[1.02] flex items-center justify-center">
+                  <div className="w-40 h-40 sm:w-44 sm:h-44 rounded-2xl border-4 border-primary-foreground/20 ring-1 ring-primary/10 overflow-hidden bg-cream-100 transition-transform duration-300 group-hover:scale-[1.02] flex items-center justify-center">
                     {pro.photo_url ? (
                       <img
                         src={pro.photo_url}
