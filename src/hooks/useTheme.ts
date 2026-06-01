@@ -60,6 +60,7 @@ export const SITE_IMAGES = [
   { key: "cafe-phare", label: "Page Le Lieu — Le Café Le Phare", fallback: "" },
   { key: "lieu-solidarity", label: "Page Le Lieu — Bannière groupe (rétablissement)", fallback: "" },
   { key: "atelier-collectif", label: "Page Les ateliers — Photo atelier collectif (Hero & catégories)", fallback: "" },
+  { key: "professionnel-hero", label: "Page Professionnel — Photo de fond du héro", fallback: "" },
 ];
 
 export function useThemeSettings() {
