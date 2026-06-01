@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
 import { BarChart, Bar, AreaChart, Area, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import { Users, Eye, Clock, Mail, AlertCircle, RefreshCw, Loader2 } from "lucide-react";
+import { Users, Eye, Clock, Mail, AlertCircle, RefreshCw, Loader2, Calendar, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type PeriodKey = "24h" | "7d" | "30d" | "90d";
+
+interface ProFunnelRow {
+  slug: string;
+  views: number;
+  rdvClicks: number;
+  contactClicks: number;
+  convRate: number;
+}
 
 interface PeriodData {
   hourly?: boolean;
@@ -20,6 +28,8 @@ interface PeriodData {
   topPages: { page: string; views: number }[];
   sources: { source: string; sessions: number }[];
   dailyTrend: { date: string; users: number; sessions: number }[];
+  proFunnel?: ProFunnelRow[];
+  totalRdvClicks?: number;
 }
 
 interface DashboardData {
@@ -102,7 +112,7 @@ export default function Metrics() {
   }
 
   const d = data.periods[period];
-  const { overview, contactForm, topPages, sources, dailyTrend } = d;
+  const { overview, contactForm, topPages, sources, dailyTrend, proFunnel = [], totalRdvClicks = 0 } = d;
   const bouncePercent = Math.round(parseFloat(overview.bounceRate) * 100);
 
   const publicPages = topPages
@@ -357,6 +367,144 @@ export default function Metrics() {
           )}
           {!isHourly && trend < -10 && (
             <p>📉 Trafic en <strong>baisse de {trend}%</strong> sur la 2e moitié de la période.</p>
+          )}
+          {totalRdvClicks > 0 && (
+            <p>📅 <strong>{totalRdvClicks} clic{totalRdvClicks > 1 ? "s" : ""} RDV</strong> enregistré{totalRdvClicks > 1 ? "s" : ""} {isHourly ? "aujourd'hui" : <>sur les {data.periodLabels[period]}</>}.</p>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* ── Funnel RDV par professionnel ───────────────────────────────── */}
+      <Card>
+        <CardHeader className="pb-2">
+          <div className="flex items-center gap-3">
+            <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Calendar className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <CardTitle className="text-base font-medium">Funnel RDV par professionnel</CardTitle>
+              <CardDescription>
+                {proFunnel.length === 0
+                  ? "Les données apparaîtront après les premiers clics sur les boutons de prise de RDV."
+                  : `${proFunnel.length} professionnel${proFunnel.length > 1 ? "s" : ""} avec activité sur la période`}
+              </CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          {proFunnel.length === 0 ? (
+            <div className="py-8 text-center">
+              <TrendingUp className="h-8 w-8 text-muted-foreground/30 mx-auto mb-3" />
+              <p className="text-sm text-muted-foreground">
+                Aucune donnée pour cette période.<br />
+                Le funnel se remplira au fil des visites et clics sur les profils.
+              </p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto -mx-2">
+              <table className="w-full text-sm min-w-[540px]">
+                <thead>
+                  <tr className="border-b border-border">
+                    <th className="text-left py-2 px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Professionnel</th>
+                    <th className="text-right py-2 px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Vues fiche</th>
+                    <th className="text-right py-2 px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Clics RDV</th>
+                    <th className="text-right py-2 px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Clics contact</th>
+                    <th className="text-right py-2 px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Conv. RDV</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {proFunnel.map((pro) => {
+                    const maxViews = proFunnel[0]?.views || 1;
+                    const barWidth = Math.max(4, Math.round((pro.views / maxViews) * 100));
+                    const name = pro.slug
+                      .split("-")
+                      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                      .join(" ");
+                    return (
+                      <tr key={pro.slug} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
+                        <td className="py-2.5 px-3">
+                          <div className="flex items-center gap-2">
+                            <div className="flex-1 max-w-[180px]">
+                              <p className="font-medium text-foreground truncate">{name}</p>
+                              <div className="mt-1 h-1 rounded-full bg-muted overflow-hidden">
+                                <div
+                                  className="h-full rounded-full bg-primary/40"
+                                  style={{ width: `${barWidth}%` }}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="py-2.5 px-3 text-right font-medium tabular-nums">{pro.views}</td>
+                        <td className="py-2.5 px-3 text-right tabular-nums">
+                          {pro.rdvClicks > 0 ? (
+                            <span className="inline-flex items-center gap-1 font-medium text-primary">
+                              {pro.rdvClicks}
+                            </span>
+                          ) : (
+                            <span className="text-muted-foreground">—</span>
+                          )}
+                        </td>
+                        <td className="py-2.5 px-3 text-right tabular-nums">
+                          {pro.contactClicks > 0 ? (
+                            <span className="font-medium">{pro.contactClicks}</span>
+                          ) : (
+                            <span className="text-muted-foreground">—</span>
+                          )}
+                        </td>
+                        <td className="py-2.5 px-3 text-right tabular-nums">
+                          {pro.rdvClicks > 0 ? (
+                            <span
+                              className={cn(
+                                "inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-medium",
+                                pro.convRate >= 20
+                                  ? "bg-green-100 text-green-700"
+                                  : pro.convRate >= 10
+                                  ? "bg-yellow-100 text-yellow-700"
+                                  : "bg-red-50 text-red-600"
+                              )}
+                            >
+                              {pro.convRate}%
+                            </span>
+                          ) : (
+                            <span className="text-muted-foreground">—</span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+                {proFunnel.length > 1 && (
+                  <tfoot>
+                    <tr className="border-t-2 border-border bg-muted/20">
+                      <td className="py-2 px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Total</td>
+                      <td className="py-2 px-3 text-right font-bold tabular-nums">
+                        {proFunnel.reduce((s, p) => s + p.views, 0)}
+                      </td>
+                      <td className="py-2 px-3 text-right font-bold tabular-nums text-primary">
+                        {proFunnel.reduce((s, p) => s + p.rdvClicks, 0) || "—"}
+                      </td>
+                      <td className="py-2 px-3 text-right font-bold tabular-nums">
+                        {proFunnel.reduce((s, p) => s + p.contactClicks, 0) || "—"}
+                      </td>
+                      <td className="py-2 px-3 text-right">
+                        {(() => {
+                          const totalV = proFunnel.reduce((s, p) => s + p.views, 0);
+                          const totalR = proFunnel.reduce((s, p) => s + p.rdvClicks, 0);
+                          const rate = totalV > 0 ? Math.round((totalR / totalV) * 100) : 0;
+                          return totalR > 0 ? (
+                            <span className={cn(
+                              "inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-medium",
+                              rate >= 20 ? "bg-green-100 text-green-700" : rate >= 10 ? "bg-yellow-100 text-yellow-700" : "bg-red-50 text-red-600"
+                            )}>{rate}%</span>
+                          ) : <span className="text-muted-foreground">—</span>;
+                        })()}
+                      </td>
+                    </tr>
+                  </tfoot>
+                )}
+              </table>
+            </div>
           )}
         </CardContent>
       </Card>

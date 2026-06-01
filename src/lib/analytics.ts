@@ -77,3 +77,63 @@ export function trackAtelierCta(ctaLabel: string, destination: string) {
     destination,
   });
 }
+
+// ─── Tracking Professionnels ───────────────────────────────────────────────
+
+/**
+ * Tracke la vue d'une fiche profil.
+ * Envoie l'événement `pro_profile_view` vers GA4.
+ *
+ * Paramètres GA4 : pro_slug, pro_name, pro_profession
+ */
+export function trackProProfileView(
+  proSlug: string,
+  proName: string,
+  proProfession: string
+) {
+  trackEvent("pro_profile_view", {
+    pro_slug: proSlug,
+    pro_name: proName,
+    pro_profession: proProfession,
+  });
+}
+
+/**
+ * Tracke un clic sur le bouton "Prendre rendez-vous" (Doctolib, Calendly, etc.).
+ * Envoie l'événement `rdv_click` vers GA4.
+ *
+ * Paramètres GA4 :
+ *   pro_slug    — slug URL du professionnel
+ *   pro_name    — nom complet affiché
+ *   destination — "doctolib" | "calendly" | "autre"
+ *   rdv_url     — URL complète cliquée
+ */
+export function trackRdvClick(
+  proSlug: string,
+  proName: string,
+  rdvUrl: string
+) {
+  let destination = "autre";
+  if (rdvUrl.includes("doctolib")) destination = "doctolib";
+  else if (rdvUrl.includes("calendly")) destination = "calendly";
+
+  trackEvent("rdv_click", {
+    pro_slug: proSlug,
+    pro_name: proName,
+    destination,
+    rdv_url: rdvUrl,
+  });
+}
+
+/**
+ * Tracke un clic sur le lien "Contacter par email" (fallback quand pas de rdv_url).
+ * Envoie l'événement `pro_contact_click` vers GA4.
+ *
+ * Paramètres GA4 : pro_slug, pro_name
+ */
+export function trackProContactClick(proSlug: string, proName: string) {
+  trackEvent("pro_contact_click", {
+    pro_slug: proSlug,
+    pro_name: proName,
+  });
+}

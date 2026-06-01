@@ -16,8 +16,14 @@ import {
   Phone,
   Globe,
   CalendarCheck,
+  XCircle,
 } from "lucide-react";
 import cabinetImage from "@/assets/cabinet-room.png";
+import {
+  trackProProfileView,
+  trackRdvClick,
+  trackProContactClick,
+} from "@/lib/analytics";
 
 export default function ProfessionnelProfile() {
   const { slug } = useParams<{ slug: string }>();
@@ -28,6 +34,7 @@ export default function ProfessionnelProfile() {
   const fallbackHero = useSiteImage("professionnel-hero", cabinetImage);
   const heroImage = (pro as any)?.hero_photo_url || fallbackHero;
   const doctolibUrl = (pro as any)?.doctolib_url as string | undefined;
+  const accepteNouveauxPatients = (pro as any)?.accepte_nouveaux_patients as boolean | null | undefined;
 
   const heroRef = useRef<HTMLElement | null>(null);
   const [heroVisible, setHeroVisible] = useState(true);
@@ -56,6 +63,15 @@ export default function ProfessionnelProfile() {
     return () => observer.disconnect();
   }, [pro?.id, doctolibUrl]);
 
+  // Tracke la vue du profil dès que les données sont disponibles (une seule fois par slug)
+  const trackedSlug = useRef<string | null>(null);
+  useEffect(() => {
+    if (pro && slug && trackedSlug.current !== slug) {
+      trackedSlug.current = slug;
+      trackProProfileView(slug, `${pro.prenom} ${pro.nom}`, pro.profession);
+    }
+  }, [pro, slug]);
+
   if (isLoading) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
@@ -80,18 +96,33 @@ export default function ProfessionnelProfile() {
     );
   }
 
+  const proSlug = slug!;
+  const proName = `${pro.prenom} ${pro.nom}`;
+
   return (
     <>
+      {/* Bouton Doctolib flottant — desktop uniquement */}
       {doctolibUrl && heroVisible && (
-        <a
-          href={doctolibUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden md:inline-flex fixed top-24 right-6 z-40 items-center gap-2 px-5 py-3 rounded-2xl bg-primary text-primary-foreground font-semibold shadow-elevated hover:bg-sage-600 transition-colors"
-        >
-          <CalendarCheck className="h-5 w-5" />
-          Prendre rendez-vous sur Doctolib
-        </a>
+        accepteNouveauxPatients === false ? (
+          <span
+            className="hidden md:inline-flex fixed top-24 right-6 z-40 items-center gap-2 px-5 py-3 rounded-2xl bg-primary/30 text-primary-foreground/60 font-semibold cursor-not-allowed"
+            aria-disabled="true"
+          >
+            <XCircle className="h-5 w-5" />
+            Pas de nouveaux patients
+          </span>
+        ) : (
+          <a
+            href={doctolibUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:inline-flex fixed top-24 right-6 z-40 items-center gap-2 px-5 py-3 rounded-2xl bg-primary text-primary-foreground font-semibold shadow-elevated hover:bg-sage-600 transition-colors"
+            onClick={() => trackRdvClick(proSlug, proName, doctolibUrl)}
+          >
+            <CalendarCheck className="h-5 w-5" />
+            Prendre rendez-vous sur Doctolib
+          </a>
+        )
       )}
 
       {/* Hero Section */}
@@ -157,7 +188,7 @@ export default function ProfessionnelProfile() {
       </section>
 
       {/* Content */}
-      <section className="section-padding">
+      <section className="section-padding pb-28 lg:pb-16">
         <div className="container-wide">
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Main Content */}
@@ -261,6 +292,7 @@ export default function ProfessionnelProfile() {
                         <a
                           href={`mailto:${(pro as any).email}`}
                           className="text-sm text-muted-foreground hover:text-primary transition-colors break-all"
+                          onClick={() => trackProContactClick(proSlug, proName)}
                         >
                           {(pro as any).email}
                         </a>
@@ -281,18 +313,33 @@ export default function ProfessionnelProfile() {
                     )}
                     {(pro as any).doctolib_url && (
                       <li className="pt-2">
-                        <a
-                          ref={contactCtaRef}
-                          href={(pro as any).doctolib_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-primary/10 text-primary text-sm font-semibold border border-primary/20 hover:bg-primary hover:text-primary-foreground transition-colors"
-                        >
-                          <CalendarCheck className="h-4 w-4" />
-                          Prendre rendez-vous sur Doctolib
-                        </a>
+                        {accepteNouveauxPatients === false ? (
+                          <div className="space-y-2">
+                            <button
+                              disabled
+                              className="inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-primary/20 text-primary-foreground/50 text-sm font-semibold cursor-not-allowed"
+                            >
+                              <XCircle className="h-4 w-4" />
+                              Prendre rendez-vous sur Doctolib
+                            </button>
+                            <p className="text-xs text-muted-foreground text-center leading-relaxed">
+                              {pro.prenom} n'accepte pas de nouveaux patients pour le moment.
+                            </p>
+                          </div>
+                        ) : (
+                          <a
+                            ref={contactCtaRef}
+                            href={(pro as any).doctolib_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-primary/10 text-primary text-sm font-semibold border border-primary/20 hover:bg-primary hover:text-primary-foreground transition-colors"
+                            onClick={() => trackRdvClick(proSlug, proName, (pro as any).doctolib_url)}
+                          >
+                            <CalendarCheck className="h-4 w-4" />
+                            Prendre rendez-vous sur Doctolib
+                          </a>
+                        )}
                       </li>
-
                     )}
                   </ul>
                 </div>
@@ -320,26 +367,44 @@ export default function ProfessionnelProfile() {
         </div>
       </section>
 
+      {/* Barre sticky RDV mobile */}
       {doctolibUrl && (
-        <>
-          <div
-            className={`md:hidden fixed bottom-0 left-0 right-0 z-50 px-3 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] bg-background/95 backdrop-blur border-t border-border shadow-elevated transition-all duration-300 ${
-              !heroVisible && !contactCtaVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-full opacity-0 pointer-events-none"
-            }`}
-          >
+        <div
+          className={`md:hidden fixed bottom-0 left-0 right-0 z-50 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] bg-white/95 backdrop-blur-sm border-t border-primary/20 shadow-elevated transition-all duration-300 ${
+            !heroVisible && !contactCtaVisible
+              ? "translate-y-0 opacity-100"
+              : "translate-y-full opacity-0 pointer-events-none"
+          }`}
+          role="complementary"
+          aria-label="Prise de rendez-vous"
+        >
+          {accepteNouveauxPatients === false ? (
+            <div className="space-y-1">
+              <button
+                disabled
+                className="flex items-center justify-center gap-2 w-full h-12 rounded-lg bg-primary/30 text-primary-foreground/60 text-sm font-medium cursor-not-allowed"
+              >
+                <XCircle className="h-5 w-5" />
+                Prendre rendez-vous
+              </button>
+              <p className="text-xs text-muted-foreground text-center">
+                {pro.prenom} n'accepte pas de nouveaux patients.
+              </p>
+            </div>
+          ) : (
             <a
               href={doctolibUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-2xl bg-primary text-primary-foreground font-semibold"
+              className="flex items-center justify-center gap-2 w-full h-12 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              onClick={() => trackRdvClick(proSlug, proName, doctolibUrl)}
+              aria-label={`Prendre rendez-vous avec ${pro.prenom} sur Doctolib (ouvre un nouvel onglet)`}
             >
               <CalendarCheck className="h-5 w-5" />
               Prendre rendez-vous sur Doctolib
             </a>
-          </div>
-        </>
+          )}
+        </div>
       )}
     </>
   );

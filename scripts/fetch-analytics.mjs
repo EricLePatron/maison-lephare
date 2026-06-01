@@ -23,7 +23,10 @@ async function fetchPeriod({ startDate, endDate, hourly }) {
     ? [{ name: "hour" }]
     : [{ name: "date" }];
 
-  const [overview, topPages, sources, contactEvents, trend] = await Promise.all([
+  const [
+    overview, topPages, sources, contactEvents, trend,
+    proPageViewsResult, proRdvClicksResult, proContactClicksResult,
+  ] = await Promise.all([
     client.runReport({
       property: `properties/${PROPERTY_ID}`,
       dateRanges: [{ startDate, endDate }],
@@ -69,6 +72,92 @@ async function fetchPeriod({ startDate, endDate, hourly }) {
       metrics: [{ name: "activeUsers" }, { name: "sessions" }],
       orderBys: [{ dimension: { dimensionName: hourly ? "hour" : "date" } }],
     }),
+    // ── Funnel RDV : vues des fiches profils (/professionnels/[slug]) ──
+    client.runReport({
+      property: `properties/${PROPERTY_ID}`,
+      dateRanges: [{ startDate, endDate }],
+      dimensions: [{ name: "pagePath" }],
+      metrics: [{ name: "screenPageViews" }],
+      dimensionFilter: {
+        andGroup: {
+          expressions: [
+            {
+              filter: {
+                fieldName: "pagePath",
+                stringFilter: { matchType: "BEGINS_WITH", value: "/professionnels/" },
+              },
+            },
+            {
+              notExpression: {
+                filter: {
+                  fieldName: "pagePath",
+                  stringFilter: { matchType: "EXACT", value: "/professionnels/" },
+                },
+              },
+            },
+          ],
+        },
+      },
+      orderBys: [{ metric: { metricName: "screenPageViews" }, desc: true }],
+      limit: 50,
+    }),
+    // ── Funnel RDV : clics "Prendre rendez-vous" par page (slug) ──────
+    // Note : les custom dimensions GA4 (customEvent:pro_slug) nécessitent
+    // d'être enregistrées dans l'admin GA4. On utilise pagePath à la place,
+    // ce qui fonctionne car les clics se déclenchent sur la page du profil.
+    client.runReport({
+      property: `properties/${PROPERTY_ID}`,
+      dateRanges: [{ startDate, endDate }],
+      dimensions: [{ name: "pagePath" }],
+      metrics: [{ name: "eventCount" }],
+      dimensionFilter: {
+        andGroup: {
+          expressions: [
+            {
+              filter: {
+                fieldName: "eventName",
+                stringFilter: { matchType: "EXACT", value: "rdv_click" },
+              },
+            },
+            {
+              filter: {
+                fieldName: "pagePath",
+                stringFilter: { matchType: "BEGINS_WITH", value: "/professionnels/" },
+              },
+            },
+          ],
+        },
+      },
+      orderBys: [{ metric: { metricName: "eventCount" }, desc: true }],
+      limit: 50,
+    }),
+    // ── Funnel RDV : clics "Contacter par email" par page (slug) ──────
+    client.runReport({
+      property: `properties/${PROPERTY_ID}`,
+      dateRanges: [{ startDate, endDate }],
+      dimensions: [{ name: "pagePath" }],
+      metrics: [{ name: "eventCount" }],
+      dimensionFilter: {
+        andGroup: {
+          expressions: [
+            {
+              filter: {
+                fieldName: "eventName",
+                stringFilter: { matchType: "EXACT", value: "pro_contact_click" },
+              },
+            },
+            {
+              filter: {
+                fieldName: "pagePath",
+                stringFilter: { matchType: "BEGINS_WITH", value: "/professionnels/" },
+              },
+            },
+          ],
+        },
+      },
+      orderBys: [{ metric: { metricName: "eventCount" }, desc: true }],
+      limit: 50,
+    }),
   ]);
 
   const metrics = overview[0].rows?.[0]?.metricValues || [];
@@ -102,6 +191,53 @@ async function fetchPeriod({ startDate, endDate, hourly }) {
     });
   }
 
+  // ── Construire le funnel par professionnel ────────────────────────
+  const pathToSlug = (path) =>
+    path.replace("/professionnels/", "").replace(/\/$/, "");
+
+  const pageViewsMap = new Map();
+  for (const row of proPageViewsResult[0].rows || []) {
+    const slug = pathToSlug(row.dimensionValues[0].value);
+    if (slug) {
+      pageViewsMap.set(slug, (pageViewsMap.get(slug) || 0) + parseInt(row.metricValues[0].value));
+    }
+  }
+
+  const rdvClicksMap = new Map();
+  for (const row of proRdvClicksResult[0].rows || []) {
+    const slug = pathToSlug(row.dimensionValues[0].value);
+    if (slug && slug !== "(not set)") {
+      rdvClicksMap.set(slug, parseInt(row.metricValues[0].value));
+    }
+  }
+
+  const contactClicksMap = new Map();
+  for (const row of proContactClicksResult[0].rows || []) {
+    const slug = pathToSlug(row.dimensionValues[0].value);
+    if (slug && slug !== "(not set)") {
+      contactClicksMap.set(slug, parseInt(row.metricValues[0].value));
+    }
+  }
+
+  // Union de tous les slugs rencontrés
+  const allSlugs = new Set([
+    ...pageViewsMap.keys(),
+    ...rdvClicksMap.keys(),
+    ...contactClicksMap.keys(),
+  ]);
+
+  const proFunnel = [...allSlugs]
+    .map((slug) => {
+      const views        = pageViewsMap.get(slug)    || 0;
+      const rdvClicks    = rdvClicksMap.get(slug)    || 0;
+      const contactClicks = contactClicksMap.get(slug) || 0;
+      const convRate     = views > 0 ? Math.round((rdvClicks / views) * 100) : 0;
+      return { slug, views, rdvClicks, contactClicks, convRate };
+    })
+    .sort((a, b) => b.views - a.views);
+
+  const totalRdvClicks = [...rdvClicksMap.values()].reduce((s, v) => s + v, 0);
+
   return {
     hourly,
     overview: {
@@ -125,6 +261,8 @@ async function fetchPeriod({ startDate, endDate, hourly }) {
       sessions: parseInt(row.metricValues[0].value),
     })),
     dailyTrend,
+    proFunnel,
+    totalRdvClicks,
   };
 }
 
