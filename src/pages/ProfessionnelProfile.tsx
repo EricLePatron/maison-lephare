@@ -31,6 +31,8 @@ export default function ProfessionnelProfile() {
 
   const heroRef = useRef<HTMLElement | null>(null);
   const [heroVisible, setHeroVisible] = useState(true);
+  const contactCtaRef = useRef<HTMLAnchorElement | null>(null);
+  const [contactCtaVisible, setContactCtaVisible] = useState(false);
 
   useEffect(() => {
     const el = heroRef.current;
@@ -42,6 +44,17 @@ export default function ProfessionnelProfile() {
     observer.observe(el);
     return () => observer.disconnect();
   }, [pro?.id]);
+
+  useEffect(() => {
+    const el = contactCtaRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setContactCtaVisible(entry.isIntersecting),
+      { threshold: 0.4 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [pro?.id, doctolibUrl]);
 
   if (isLoading) {
     return (
