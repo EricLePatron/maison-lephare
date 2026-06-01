@@ -121,10 +121,23 @@ export default function Professionnels() {
                     {pro.profession}
                   </p>
 
-                  {/* Description */}
-                  <p className="mt-3 text-foreground/85 text-sm leading-relaxed max-w-[18rem] line-clamp-3">
-                    {pro.description}
-                  </p>
+                  {/* Spécialités sous forme de tags */}
+                  {pro.specialites && pro.specialites.length > 0 ? (
+                    <div className="mt-3 flex flex-wrap gap-1.5 justify-center max-w-[18rem]">
+                      {pro.specialites.map((spec) => (
+                        <span
+                          key={spec}
+                          className="px-2.5 py-0.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-xs font-medium"
+                        >
+                          {spec}
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="mt-3 text-foreground/85 text-sm leading-relaxed max-w-[18rem] line-clamp-3">
+                      {pro.description}
+                    </p>
+                  )}
 
                   {/* Pill "Voir le profil" */}
                   <span className="mt-4 inline-flex items-center px-5 py-1.5 rounded-2xl border-2 border-primary text-primary text-xs font-medium tracking-wide group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
