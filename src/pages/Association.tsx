@@ -82,30 +82,26 @@ export default function Association() {
         description="L'association loi 1901 Le Phare propose ateliers, groupes de parole et événements pour soutenir le rétablissement et déstigmatiser la santé mentale."
         path="/association"
       />
-      {/* Hero Section — photo sans voile, jamais d'overlay */}
-      <section className="relative min-h-[60vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0 bg-transparent">
+      {/* Hero Section — bannière plein écran avec voile et titre script */}
+      <section className="relative w-full overflow-hidden">
+        <div className="relative aspect-[16/7] sm:aspect-[21/8] w-full">
           <img
             src={associationImage}
             alt="Salle de l'association"
-            className="w-full h-full object-cover brightness-100 contrast-100"
+            className="absolute inset-0 w-full h-full object-cover"
           />
-        </div>
-
-        <div className="container-wide relative z-10 py-20">
-          <div className="max-w-2xl">
+          <div className="absolute inset-0 bg-black/30" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-background/80 backdrop-blur-sm rounded-full mb-6">
               <Heart className="h-4 w-4 text-accent" />
               <span className="text-foreground text-sm font-medium">
                 {getContent("hero", "badge", "Association loi 1901")}
               </span>
             </div>
-
-            <h1 className="font-serif text-4xl sm:text-5xl font-medium text-foreground leading-tight mb-6 [text-shadow:_0_2px_12px_hsl(var(--background)/0.8)]">
+            <h1 className="font-script text-primary-foreground leading-[1.05] text-[clamp(1.75rem,5.5vw,4rem)] drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)] max-w-4xl">
               {getContent("hero", "title", "L'Association Le Phare")}
             </h1>
-
-            <p className="text-lg sm:text-xl text-foreground leading-relaxed [text-shadow:_0_1px_8px_hsl(var(--background)/0.8)]">
+            <p className="mt-4 text-primary-foreground/95 text-base sm:text-lg font-light max-w-2xl drop-shadow">
               {getContent("hero", "description", "Des activités collectives et un accompagnement chaleureux pour tous ceux qui sont concernés par la santé mentale.")}
             </p>
           </div>
