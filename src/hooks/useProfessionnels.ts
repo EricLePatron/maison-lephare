@@ -18,6 +18,7 @@ export type ProfessionnelPublic = {
   public_cible: string | null;
   jours_presence: string | null;
   photo_url: string | null;
+  hero_photo_url: string | null;
   actif: boolean;
   ordre_affichage: number | null;
   created_at: string;
