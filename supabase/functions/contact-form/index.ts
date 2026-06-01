@@ -142,24 +142,16 @@ serve(async (req) => {
 
     const { nom, email, sujet, message } = validationResult.data;
 
-    // Log the submission (in production, you might store in DB or send email)
     console.log("Contact form submission received:", {
-      nom,
-      email,
-      sujet,
-      messageLength: message.length,
-      ip: clientIp,
-      timestamp: new Date().toISOString(),
+      nom, email, sujet, messageLength: message.length,
+      ip: clientIp, timestamp: new Date().toISOString(),
     });
 
-    // Send emails via the transactional email pipeline (queued + retried).
-    // We call the edge function directly with fetch. The functions gateway
-    // requires a JWT-format Authorization header. The auto-injected
-    // SUPABASE_ANON_KEY / SUPABASE_SERVICE_ROLE_KEY are in the new
-    // "sb_publishable_…" / "sb_secret_…" format which the gateway rejects,
-    // so we fall back to the legacy publishable JWT (safe — it's public).
-    const LEGACY_ANON_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoYW9neWdsdmxlZ21sdHhveGNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk3NjkzODUsImV4cCI6MjA4NTM0NTM4NX0.ewMLyWw_U4h-xTmng61FLeGwcUNhN9d5ya58ufJz_4I";
+    // ─── 1. Tentative via le pipeline Lovable (primaire) ───────────────────────
+    let lovableOk = false;
+
     const supabaseUrl = Deno.env.get("SUPABASE_URL");
+    const LEGACY_ANON_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoYW9neWdsdmxlZ21sdHhveGNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk3NjkzODUsImV4cCI6MjA4NTM0NTM4NX0.ewMLyWw_U4h-xTmng61FLeGwcUNhN9d5ya58ufJz_4I";
     const jwtCandidates = [
       Deno.env.get("SUPABASE_ANON_KEY"),
       Deno.env.get("SUPABASE_PUBLISHABLE_KEY"),
@@ -171,42 +163,113 @@ serve(async (req) => {
 
     if (supabaseUrl) {
       const submissionId = crypto.randomUUID();
-      const sendEmail = async (label: string, payload: Record<string, unknown>) => {
+      const enqueue = async (label: string, payload: Record<string, unknown>): Promise<boolean> => {
         try {
           const res = await fetch(`${supabaseUrl}/functions/v1/send-transactional-email`, {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${bearer}`,
-            },
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${bearer}` },
             body: JSON.stringify(payload),
           });
           if (!res.ok) {
             const text = await res.text();
-            console.error(`Failed to enqueue ${label} (status ${res.status}):`, text);
+            console.error(`Lovable pipeline failed for ${label} (${res.status}):`, text);
+            return false;
           }
+          return true;
         } catch (e) {
-          console.error(`Failed to enqueue ${label}:`, e);
+          console.error(`Lovable pipeline exception for ${label}:`, e);
+          return false;
         }
       };
 
-      // 1) Internal notification
-      await sendEmail("contact notification", {
+      const notifOk = await enqueue("contact-notification", {
         templateName: "contact-notification",
         recipientEmail: "contact@maison-lephare.com",
         idempotencyKey: `contact-notif-${submissionId}`,
         templateData: { nom, email, sujet, message },
       });
 
-      // 2) Acknowledgement to the visitor
-      await sendEmail("contact confirmation", {
+      await enqueue("contact-confirmation", {
         templateName: "contact-confirmation",
         recipientEmail: email,
         idempotencyKey: `contact-confirm-${submissionId}`,
         templateData: { nom },
       });
+
+      lovableOk = notifOk;
+    }
+
+    // ─── 2. Fallback Resend si Lovable a échoué ────────────────────────────────
+    if (!lovableOk) {
+      const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+
+      if (!RESEND_API_KEY) {
+        console.error("Lovable pipeline KO et RESEND_API_KEY absente — aucun email envoyé !");
+      } else {
+        const TO_EMAIL = Deno.env.get("CONTACT_EMAIL") || "contact@maison-lephare.com";
+
+        const html = `
+          <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;">
+            <h2 style="color:#8B4513;margin-bottom:4px;">Nouveau message depuis le site</h2>
+            <p style="color:#888;font-size:13px;margin-bottom:20px;">
+              ⚠️ Envoyé via Resend (fallback) — vérifier le pipeline Lovable
+            </p>
+            <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+              <tr>
+                <td style="padding:6px 0;color:#888;width:70px;font-size:13px;">De</td>
+                <td style="padding:6px 0;font-weight:600;">${nom}</td>
+              </tr>
+              <tr>
+                <td style="padding:6px 0;color:#888;font-size:13px;">Email</td>
+                <td style="padding:6px 0;">
+                  <a href="mailto:${email}" style="color:#8B4513;">${email}</a>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:6px 0;color:#888;font-size:13px;vertical-align:top;">Sujet</td>
+                <td style="padding:6px 0;">${sujet}</td>
+              </tr>
+            </table>
+            <div style="background:#f9f6f2;border-radius:8px;padding:16px;margin-bottom:20px;">
+              <p style="margin:0;white-space:pre-wrap;line-height:1.6;font-size:14px;">${message}</p>
+            </div>
+            <a href="mailto:${email}?subject=Re: ${encodeURIComponent(sujet)}"
+               style="display:inline-block;background:#8B4513;color:white;padding:10px 20px;border-radius:6px;text-decoration:none;font-size:14px;">
+              Répondre à ${nom}
+            </a>
+            <p style="margin-top:28px;font-size:11px;color:#bbb;">
+              Reçu le ${new Date().toLocaleDateString("fr-FR", { dateStyle: "full" })} à ${new Date().toLocaleTimeString("fr-FR", { timeStyle: "short" })}
+            </p>
+          </div>`;
+
+        try {
+          const res = await fetch("https://api.resend.com/emails", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${RESEND_API_KEY}`,
+            },
+            body: JSON.stringify({
+              from: "LePhare Contact <onboarding@resend.dev>",
+              to: [TO_EMAIL],
+              reply_to: email,
+              subject: `[LePhare] ${sujet} — ${nom}`,
+              html,
+            }),
+          });
+
+          if (res.ok) {
+            console.log("Resend fallback: email envoyé avec succès");
+          } else {
+            const body = await res.text();
+            console.error("Resend fallback failed:", res.status, body);
+          }
+        } catch (e) {
+          console.error("Resend fallback exception:", e);
+        }
+      }
     } else {
-      console.error("Missing SUPABASE_URL — cannot send emails");
+      console.log("Pipeline Lovable OK — Resend non nécessaire");
     }
 
     return new Response(
