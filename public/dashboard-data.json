@@ -1,242 +1,352 @@
 {
-  "generatedAt": "2026-05-20T09:53:39.067Z",
+  "generatedAt": "2026-06-01T12:23:46.070Z",
   "periods": {
-    "7d": {
+    "24h": {
+      "hourly": true,
       "overview": {
-        "sessions": 136,
-        "users": 123,
-        "pageViews": 289,
-        "bounceRate": "0.6",
-        "avgDuration": 111
+        "sessions": 33,
+        "users": 31,
+        "pageViews": 76,
+        "bounceRate": "1.0",
+        "avgDuration": 137
       },
       "contactForm": {
-        "total": 1
+        "total": 0
       },
       "topPages": [
         {
           "page": "/",
-          "views": 87
-        },
-        {
-          "page": "/maintenance",
-          "views": 64
+          "views": 22
         },
         {
           "page": "/professionnels",
-          "views": 41
-        },
-        {
-          "page": "/le-lieu",
-          "views": 24
-        },
-        {
-          "page": "/contact",
-          "views": 17
-        },
-        {
-          "page": "/ateliers",
-          "views": 16
-        },
-        {
-          "page": "/admin/login",
-          "views": 7
+          "views": 14
         },
         {
           "page": "/association",
-          "views": 7
+          "views": 11
         },
         {
-          "page": "/professionnels/d9e3e72e-e9e6-4ee0-9052-6f9d343436a1",
-          "views": 6
+          "page": "/ateliers",
+          "views": 11
         },
         {
-          "page": "/professionnels/05306e40-0a1a-4f9d-91f5-3559ced0b16d",
-          "views": 4
+          "page": "/le-lieu",
+          "views": 10
+        },
+        {
+          "page": "/contact",
+          "views": 2
+        },
+        {
+          "page": "/professionnels/dumortier-frisson",
+          "views": 2
+        },
+        {
+          "page": "/professionnels/alara-tanfer",
+          "views": 1
+        },
+        {
+          "page": "/professionnels/dr-arnaud",
+          "views": 1
+        },
+        {
+          "page": "/professionnels/dr-elodie-rochet",
+          "views": 1
+        }
+      ],
+      "sources": [
+        {
+          "source": "Unassigned",
+          "sessions": 22
+        },
+        {
+          "source": "Direct",
+          "sessions": 17
+        },
+        {
+          "source": "Organic Search",
+          "sessions": 5
+        },
+        {
+          "source": "Organic Social",
+          "sessions": 2
+        }
+      ],
+      "dailyTrend": [
+        {
+          "date": "00h",
+          "users": 1,
+          "sessions": 1
+        },
+        {
+          "date": "01h",
+          "users": 0,
+          "sessions": 0
+        },
+        {
+          "date": "02h",
+          "users": 1,
+          "sessions": 1
+        },
+        {
+          "date": "03h",
+          "users": 0,
+          "sessions": 0
+        },
+        {
+          "date": "04h",
+          "users": 0,
+          "sessions": 0
+        },
+        {
+          "date": "05h",
+          "users": 0,
+          "sessions": 0
+        },
+        {
+          "date": "06h",
+          "users": 1,
+          "sessions": 1
+        },
+        {
+          "date": "07h",
+          "users": 3,
+          "sessions": 3
+        },
+        {
+          "date": "08h",
+          "users": 6,
+          "sessions": 6
+        },
+        {
+          "date": "09h",
+          "users": 3,
+          "sessions": 3
+        },
+        {
+          "date": "10h",
+          "users": 6,
+          "sessions": 6
+        },
+        {
+          "date": "11h",
+          "users": 3,
+          "sessions": 4
+        },
+        {
+          "date": "12h",
+          "users": 3,
+          "sessions": 3
+        },
+        {
+          "date": "13h",
+          "users": 5,
+          "sessions": 5
+        },
+        {
+          "date": "14h",
+          "users": 0,
+          "sessions": 0
+        }
+      ]
+    },
+    "7d": {
+      "hourly": false,
+      "overview": {
+        "sessions": 458,
+        "users": 300,
+        "pageViews": 1431,
+        "bounceRate": "0.5",
+        "avgDuration": 181
+      },
+      "contactForm": {
+        "total": 3
+      },
+      "topPages": [
+        {
+          "page": "/",
+          "views": 456
+        },
+        {
+          "page": "/professionnels",
+          "views": 306
+        },
+        {
+          "page": "/ateliers",
+          "views": 175
+        },
+        {
+          "page": "/le-lieu",
+          "views": 126
+        },
+        {
+          "page": "/association",
+          "views": 95
+        },
+        {
+          "page": "/maintenance",
+          "views": 53
+        },
+        {
+          "page": "/contact",
+          "views": 48
+        },
+        {
+          "page": "/professionnels/isabelle-verges",
+          "views": 16
+        },
+        {
+          "page": "/professionnels/dr-victoire-vierling",
+          "views": 15
+        },
+        {
+          "page": "/professionnels/celine-verlhac",
+          "views": 13
         }
       ],
       "sources": [
         {
           "source": "Direct",
-          "sessions": 111
+          "sessions": 303
         },
         {
           "source": "Organic Search",
-          "sessions": 20
+          "sessions": 123
         },
         {
           "source": "Unassigned",
-          "sessions": 14
+          "sessions": 25
+        },
+        {
+          "source": "Organic Social",
+          "sessions": 17
         },
         {
           "source": "Referral",
-          "sessions": 3
+          "sessions": 2
         }
       ],
       "dailyTrend": [
         {
-          "date": "13/05",
-          "users": 15,
-          "sessions": 15
-        },
-        {
-          "date": "14/05",
-          "users": 12,
-          "sessions": 12
-        },
-        {
-          "date": "15/05",
-          "users": 9,
-          "sessions": 11
-        },
-        {
-          "date": "16/05",
-          "users": 18,
-          "sessions": 19
-        },
-        {
-          "date": "17/05",
-          "users": 15,
-          "sessions": 17
-        },
-        {
-          "date": "18/05",
-          "users": 28,
-          "sessions": 30
-        },
-        {
-          "date": "19/05",
-          "users": 18,
-          "sessions": 19
-        },
-        {
-          "date": "20/05",
-          "users": 11,
+          "date": "25/05",
+          "users": 10,
           "sessions": 13
+        },
+        {
+          "date": "26/05",
+          "users": 34,
+          "sessions": 43
+        },
+        {
+          "date": "27/05",
+          "users": 45,
+          "sessions": 63
+        },
+        {
+          "date": "28/05",
+          "users": 73,
+          "sessions": 107
+        },
+        {
+          "date": "29/05",
+          "users": 68,
+          "sessions": 86
+        },
+        {
+          "date": "30/05",
+          "users": 54,
+          "sessions": 75
+        },
+        {
+          "date": "31/05",
+          "users": 27,
+          "sessions": 37
+        },
+        {
+          "date": "01/06",
+          "users": 31,
+          "sessions": 33
         }
       ]
     },
     "30d": {
+      "hourly": false,
       "overview": {
-        "sessions": 448,
-        "users": 402,
-        "pageViews": 865,
-        "bounceRate": "0.5",
-        "avgDuration": 122
+        "sessions": 970,
+        "users": 688,
+        "pageViews": 2943,
+        "bounceRate": "0.4",
+        "avgDuration": 170
       },
       "contactForm": {
-        "total": 1
+        "total": 6
       },
       "topPages": [
         {
           "page": "/",
-          "views": 269
-        },
-        {
-          "page": "/maintenance",
-          "views": 249
+          "views": 865
         },
         {
           "page": "/professionnels",
-          "views": 101
+          "views": 595
         },
         {
           "page": "/ateliers",
-          "views": 62
+          "views": 375
         },
         {
           "page": "/le-lieu",
-          "views": 62
+          "views": 254
+        },
+        {
+          "page": "/maintenance",
+          "views": 253
         },
         {
           "page": "/contact",
-          "views": 56
+          "views": 126
         },
         {
           "page": "/association",
-          "views": 11
+          "views": 112
         },
         {
-          "page": "/professionnels/d9e3e72e-e9e6-4ee0-9052-6f9d343436a1",
-          "views": 11
+          "page": "/professionnels/association-romuald",
+          "views": 24
         },
         {
-          "page": "/admin/login",
-          "views": 9
+          "page": "/professionnels/isabelle-verges",
+          "views": 23
         },
         {
-          "page": "/professionnels/05306e40-0a1a-4f9d-91f5-3559ced0b16d",
-          "views": 6
+          "page": "/admin/professionnels",
+          "views": 22
         }
       ],
       "sources": [
         {
           "source": "Direct",
-          "sessions": 367
+          "sessions": 693
         },
         {
           "source": "Organic Search",
-          "sessions": 73
+          "sessions": 231
         },
         {
           "source": "Unassigned",
-          "sessions": 14
+          "sessions": 25
         },
         {
-          "source": "Referral",
-          "sessions": 6
-        }
-      ],
-      "dailyTrend": [
-        {
-          "date": "22/04",
-          "users": 3,
-          "sessions": 3
-        },
-        {
-          "date": "23/04",
-          "users": 21,
-          "sessions": 26
-        },
-        {
-          "date": "24/04",
-          "users": 15,
-          "sessions": 15
-        },
-        {
-          "date": "25/04",
-          "users": 6,
-          "sessions": 6
-        },
-        {
-          "date": "26/04",
-          "users": 7,
-          "sessions": 7
-        },
-        {
-          "date": "27/04",
-          "users": 23,
+          "source": "Organic Social",
           "sessions": 24
         },
         {
-          "date": "28/04",
-          "users": 17,
-          "sessions": 17
-        },
-        {
-          "date": "29/04",
-          "users": 13,
-          "sessions": 13
-        },
-        {
-          "date": "30/04",
-          "users": 17,
-          "sessions": 17
-        },
-        {
-          "date": "01/05",
-          "users": 10,
-          "sessions": 10
-        },
+          "source": "Referral",
+          "sessions": 8
+        }
+      ],
+      "dailyTrend": [
         {
           "date": "02/05",
           "users": 11,
@@ -324,85 +434,150 @@
         },
         {
           "date": "19/05",
-          "users": 18,
+          "users": 19,
           "sessions": 19
         },
         {
           "date": "20/05",
-          "users": 11,
+          "users": 51,
+          "sessions": 61
+        },
+        {
+          "date": "21/05",
+          "users": 40,
+          "sessions": 64
+        },
+        {
+          "date": "22/05",
+          "users": 33,
+          "sessions": 40
+        },
+        {
+          "date": "23/05",
+          "users": 23,
+          "sessions": 31
+        },
+        {
+          "date": "24/05",
+          "users": 18,
+          "sessions": 20
+        },
+        {
+          "date": "25/05",
+          "users": 10,
           "sessions": 13
+        },
+        {
+          "date": "26/05",
+          "users": 34,
+          "sessions": 43
+        },
+        {
+          "date": "27/05",
+          "users": 45,
+          "sessions": 63
+        },
+        {
+          "date": "28/05",
+          "users": 73,
+          "sessions": 107
+        },
+        {
+          "date": "29/05",
+          "users": 68,
+          "sessions": 86
+        },
+        {
+          "date": "30/05",
+          "users": 54,
+          "sessions": 75
+        },
+        {
+          "date": "31/05",
+          "users": 27,
+          "sessions": 37
+        },
+        {
+          "date": "01/06",
+          "users": 31,
+          "sessions": 33
         }
       ]
     },
     "90d": {
+      "hourly": false,
       "overview": {
-        "sessions": 448,
-        "users": 402,
-        "pageViews": 865,
-        "bounceRate": "0.5",
-        "avgDuration": 122
+        "sessions": 1107,
+        "users": 813,
+        "pageViews": 3102,
+        "bounceRate": "0.4",
+        "avgDuration": 163
       },
       "contactForm": {
-        "total": 1
+        "total": 6
       },
       "topPages": [
         {
           "page": "/",
-          "views": 269
-        },
-        {
-          "page": "/maintenance",
-          "views": 249
+          "views": 926
         },
         {
           "page": "/professionnels",
-          "views": 101
+          "views": 596
         },
         {
           "page": "/ateliers",
-          "views": 62
+          "views": 376
+        },
+        {
+          "page": "/maintenance",
+          "views": 343
         },
         {
           "page": "/le-lieu",
-          "views": 62
+          "views": 254
         },
         {
           "page": "/contact",
-          "views": 56
+          "views": 131
         },
         {
           "page": "/association",
-          "views": 11
+          "views": 112
         },
         {
-          "page": "/professionnels/d9e3e72e-e9e6-4ee0-9052-6f9d343436a1",
-          "views": 11
+          "page": "/professionnels/association-romuald",
+          "views": 24
         },
         {
-          "page": "/admin/login",
-          "views": 9
+          "page": "/professionnels/isabelle-verges",
+          "views": 23
         },
         {
-          "page": "/professionnels/05306e40-0a1a-4f9d-91f5-3559ced0b16d",
-          "views": 6
+          "page": "/admin/professionnels",
+          "views": 22
         }
       ],
       "sources": [
         {
           "source": "Direct",
-          "sessions": 367
+          "sessions": 813
         },
         {
           "source": "Organic Search",
-          "sessions": 73
+          "sessions": 248
         },
         {
           "source": "Unassigned",
-          "sessions": 14
+          "sessions": 25
+        },
+        {
+          "source": "Organic Social",
+          "sessions": 24
         },
         {
           "source": "Referral",
-          "sessions": 6
+          "sessions": 9
         }
       ],
       "dailyTrend": [
@@ -543,18 +718,79 @@
         },
         {
           "date": "19/05",
-          "users": 18,
+          "users": 19,
           "sessions": 19
         },
         {
           "date": "20/05",
-          "users": 11,
+          "users": 51,
+          "sessions": 61
+        },
+        {
+          "date": "21/05",
+          "users": 40,
+          "sessions": 64
+        },
+        {
+          "date": "22/05",
+          "users": 33,
+          "sessions": 40
+        },
+        {
+          "date": "23/05",
+          "users": 23,
+          "sessions": 31
+        },
+        {
+          "date": "24/05",
+          "users": 18,
+          "sessions": 20
+        },
+        {
+          "date": "25/05",
+          "users": 10,
           "sessions": 13
+        },
+        {
+          "date": "26/05",
+          "users": 34,
+          "sessions": 43
+        },
+        {
+          "date": "27/05",
+          "users": 45,
+          "sessions": 63
+        },
+        {
+          "date": "28/05",
+          "users": 73,
+          "sessions": 107
+        },
+        {
+          "date": "29/05",
+          "users": 68,
+          "sessions": 86
+        },
+        {
+          "date": "30/05",
+          "users": 54,
+          "sessions": 75
+        },
+        {
+          "date": "31/05",
+          "users": 27,
+          "sessions": 37
+        },
+        {
+          "date": "01/06",
+          "users": 31,
+          "sessions": 33
         }
       ]
     }
   },
   "periodLabels": {
+    "24h": "Aujourd'hui",
     "7d": "7 derniers jours",
     "30d": "30 derniers jours",
     "90d": "90 derniers jours"

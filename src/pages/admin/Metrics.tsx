@@ -5,9 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-type PeriodKey = "7d" | "30d" | "90d";
+type PeriodKey = "24h" | "7d" | "30d" | "90d";
 
 interface PeriodData {
+  hourly?: boolean;
   overview: {
     sessions: number;
     users: number;
@@ -28,9 +29,10 @@ interface DashboardData {
 }
 
 const PERIOD_BUTTONS: { key: PeriodKey; label: string }[] = [
-  { key: "7d",  label: "7 jours"  },
-  { key: "30d", label: "30 jours" },
-  { key: "90d", label: "90 jours" },
+  { key: "24h", label: "Aujourd'hui" },
+  { key: "7d",  label: "7 jours"     },
+  { key: "30d", label: "30 jours"    },
+  { key: "90d", label: "90 jours"    },
 ];
 
 const COLORS = ["hsl(24 55% 40%)", "hsl(155 22% 55%)", "hsl(25 50% 70%)", "hsl(155 25% 35%)"];
@@ -65,7 +67,7 @@ export default function Metrics() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [period, setPeriod] = useState<PeriodKey>("30d");
+  const [period, setPeriod] = useState<PeriodKey>("24h");
   const load = (silent = false) => {
     if (!silent) setLoading(true);
     setError(false);
@@ -113,14 +115,15 @@ export default function Metrics() {
   }));
 
   const maxDay = dailyTrend.length > 0 ? dailyTrend.reduce((a, b) => (a.users > b.users ? a : b)) : null;
+  const isHourly = d.hourly === true;
 
-  // Tendance : compare 2e moitié vs 1ère moitié de la période
+  // Tendance : compare 2e moitié vs 1ère moitié de la période (non applicable en vue 24h)
   const half = Math.floor(dailyTrend.length / 2);
   const firstHalf = dailyTrend.slice(0, half);
   const secondHalf = dailyTrend.slice(half);
   const avgFirst = firstHalf.reduce((s, d) => s + d.users, 0) / (firstHalf.length || 1);
   const avgSecond = secondHalf.reduce((s, d) => s + d.users, 0) / (secondHalf.length || 1);
-  const trend = avgFirst > 0 ? Math.round(((avgSecond - avgFirst) / avgFirst) * 100) : 0;
+  const trend = !isHourly && avgFirst > 0 ? Math.round(((avgSecond - avgFirst) / avgFirst) * 100) : 0;
 
   return (
     <div className="p-6 space-y-6 max-w-6xl">
@@ -235,9 +238,15 @@ export default function Metrics() {
       {/* Trend chart */}
       <Card>
         <CardHeader className="pb-2">
-          <CardTitle className="text-base font-medium">Tendance — {data.periodLabels[period]}</CardTitle>
+          <CardTitle className="text-base font-medium">
+            {isHourly ? "Visiteurs heure par heure — aujourd'hui" : `Tendance — ${data.periodLabels[period]}`}
+          </CardTitle>
           {maxDay && (
-            <CardDescription>Pic : {maxDay.users} visiteurs le {maxDay.date}</CardDescription>
+            <CardDescription>
+              {isHourly
+                ? `Pic : ${maxDay.users} visiteurs à ${maxDay.date}`
+                : `Pic : ${maxDay.users} visiteurs le ${maxDay.date}`}
+            </CardDescription>
           )}
         </CardHeader>
         <CardContent>
@@ -254,12 +263,13 @@ export default function Metrics() {
                 dataKey="date"
                 tick={{ fontSize: 11 }}
                 tickLine={false}
-                interval={period === "90d" ? 6 : period === "30d" ? 2 : 0}
+                interval={period === "90d" ? 6 : period === "30d" ? 2 : period === "24h" ? 2 : 0}
               />
-              <YAxis tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
+              <YAxis tick={{ fontSize: 11 }} tickLine={false} axisLine={false} allowDecimals={false} />
               <Tooltip
                 contentStyle={{ fontSize: 12, borderRadius: 8, border: "1px solid hsl(30 20% 85%)" }}
                 formatter={(v: number) => [v, "Visiteurs"]}
+                labelFormatter={(label) => isHourly ? `à ${label}` : label}
               />
               <Area type="monotone" dataKey="users" stroke="hsl(24 55% 40%)" strokeWidth={2} fill="url(#colorUsers)" />
             </AreaChart>
@@ -337,15 +347,15 @@ export default function Metrics() {
             <p>🔗 <strong>{(overview.pageViews / overview.sessions).toFixed(1)} pages/session</strong> — les visiteurs explorent peu le site.</p>
           )}
           {contactForm.total === 0 && (
-            <p>📬 Aucun contact reçu sur les <strong>{data.periodLabels[period]}</strong>.</p>
+            <p>📬 Aucun contact reçu {isHourly ? "aujourd'hui" : <>sur les <strong>{data.periodLabels[period]}</strong></>}.</p>
           )}
           {contactForm.total > 0 && (
-            <p>✅ <strong>{contactForm.total} demande{contactForm.total > 1 ? "s" : ""} de contact</strong> sur les {data.periodLabels[period]}.</p>
+            <p>✅ <strong>{contactForm.total} demande{contactForm.total > 1 ? "s" : ""} de contact</strong> {isHourly ? "aujourd'hui" : <>sur les {data.periodLabels[period]}</>}.</p>
           )}
-          {trend > 10 && (
+          {!isHourly && trend > 10 && (
             <p>📈 Trafic en <strong>hausse de +{trend}%</strong> sur la 2e moitié de la période.</p>
           )}
-          {trend < -10 && (
+          {!isHourly && trend < -10 && (
             <p>📉 Trafic en <strong>baisse de {trend}%</strong> sur la 2e moitié de la période.</p>
           )}
         </CardContent>

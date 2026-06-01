@@ -12,16 +12,21 @@ const CREDENTIALS_PATH =
 const client = new BetaAnalyticsDataClient({ keyFilename: CREDENTIALS_PATH });
 
 const PERIODS = [
-  { key: "7d",  label: "7 derniers jours",  startDate: "7daysAgo"  },
-  { key: "30d", label: "30 derniers jours", startDate: "30daysAgo" },
-  { key: "90d", label: "90 derniers jours", startDate: "90daysAgo" },
+  { key: "24h", label: "Aujourd'hui",        startDate: "today",     endDate: "today",  hourly: true  },
+  { key: "7d",  label: "7 derniers jours",   startDate: "7daysAgo",  endDate: "today",  hourly: false },
+  { key: "30d", label: "30 derniers jours",  startDate: "30daysAgo", endDate: "today",  hourly: false },
+  { key: "90d", label: "90 derniers jours",  startDate: "90daysAgo", endDate: "today",  hourly: false },
 ];
 
-async function fetchPeriod({ startDate }) {
-  const [overview, topPages, sources, contactEvents, dailyTrend] = await Promise.all([
+async function fetchPeriod({ startDate, endDate, hourly }) {
+  const trendDimension = hourly
+    ? [{ name: "hour" }]
+    : [{ name: "date" }];
+
+  const [overview, topPages, sources, contactEvents, trend] = await Promise.all([
     client.runReport({
       property: `properties/${PROPERTY_ID}`,
-      dateRanges: [{ startDate, endDate: "today" }],
+      dateRanges: [{ startDate, endDate }],
       metrics: [
         { name: "sessions" },
         { name: "activeUsers" },
@@ -32,7 +37,7 @@ async function fetchPeriod({ startDate }) {
     }),
     client.runReport({
       property: `properties/${PROPERTY_ID}`,
-      dateRanges: [{ startDate, endDate: "today" }],
+      dateRanges: [{ startDate, endDate }],
       dimensions: [{ name: "pagePath" }],
       metrics: [{ name: "screenPageViews" }],
       orderBys: [{ metric: { metricName: "screenPageViews" }, desc: true }],
@@ -40,14 +45,14 @@ async function fetchPeriod({ startDate }) {
     }),
     client.runReport({
       property: `properties/${PROPERTY_ID}`,
-      dateRanges: [{ startDate, endDate: "today" }],
+      dateRanges: [{ startDate, endDate }],
       dimensions: [{ name: "sessionDefaultChannelGroup" }],
       metrics: [{ name: "sessions" }],
       orderBys: [{ metric: { metricName: "sessions" }, desc: true }],
     }),
     client.runReport({
       property: `properties/${PROPERTY_ID}`,
-      dateRanges: [{ startDate, endDate: "today" }],
+      dateRanges: [{ startDate, endDate }],
       dimensions: [{ name: "eventName" }],
       metrics: [{ name: "eventCount" }],
       dimensionFilter: {
@@ -59,16 +64,46 @@ async function fetchPeriod({ startDate }) {
     }),
     client.runReport({
       property: `properties/${PROPERTY_ID}`,
-      dateRanges: [{ startDate, endDate: "today" }],
-      dimensions: [{ name: "date" }],
+      dateRanges: [{ startDate, endDate }],
+      dimensions: trendDimension,
       metrics: [{ name: "activeUsers" }, { name: "sessions" }],
-      orderBys: [{ dimension: { dimensionName: "date" } }],
+      orderBys: [{ dimension: { dimensionName: hourly ? "hour" : "date" } }],
     }),
   ]);
 
   const metrics = overview[0].rows?.[0]?.metricValues || [];
 
+  // Pour 24h : les heures pas encore écoulées ne remontent pas de GA4.
+  // On complète le tableau jusqu'à l'heure courante avec des zéros.
+  let dailyTrend;
+  if (hourly) {
+    const currentHour = new Date().getHours();
+    const rowsByHour = new Map();
+    for (const row of trend[0].rows || []) {
+      const h = parseInt(row.dimensionValues[0].value, 10);
+      rowsByHour.set(h, {
+        users:    parseInt(row.metricValues[0].value),
+        sessions: parseInt(row.metricValues[1].value),
+      });
+    }
+    dailyTrend = Array.from({ length: currentHour + 1 }, (_, h) => ({
+      date:     `${String(h).padStart(2, "0")}h`,
+      users:    rowsByHour.get(h)?.users    ?? 0,
+      sessions: rowsByHour.get(h)?.sessions ?? 0,
+    }));
+  } else {
+    dailyTrend = (trend[0].rows || []).map((row) => {
+      const d = row.dimensionValues[0].value;
+      return {
+        date:     `${d.slice(6, 8)}/${d.slice(4, 6)}`,
+        users:    parseInt(row.metricValues[0].value),
+        sessions: parseInt(row.metricValues[1].value),
+      };
+    });
+  }
+
   return {
+    hourly,
     overview: {
       sessions:    parseInt(metrics[0]?.value || 0),
       users:       parseInt(metrics[1]?.value || 0),
@@ -89,19 +124,12 @@ async function fetchPeriod({ startDate }) {
       source:   row.dimensionValues[0].value,
       sessions: parseInt(row.metricValues[0].value),
     })),
-    dailyTrend: (dailyTrend[0].rows || []).map((row) => {
-      const d = row.dimensionValues[0].value;
-      return {
-        date:     `${d.slice(6, 8)}/${d.slice(4, 6)}`,
-        users:    parseInt(row.metricValues[0].value),
-        sessions: parseInt(row.metricValues[1].value),
-      };
-    }),
+    dailyTrend,
   };
 }
 
 async function fetchMetrics() {
-  console.log("⏳ Collecte des données GA4 pour 3 périodes...");
+  console.log("⏳ Collecte des données GA4 pour 4 périodes...");
 
   const results = {};
   for (const period of PERIODS) {
