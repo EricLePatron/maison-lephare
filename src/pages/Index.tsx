@@ -87,16 +87,14 @@ export default function Index() {
       />
       {/* Hero - Photo pleine largeur avec logo/CTA en overlay */}
       <section className="relative w-full overflow-hidden bg-sky-100">
-        <div className="relative aspect-[16/9] sm:aspect-[21/9] w-full min-h-[420px] sm:min-h-0">
-          <Reveal variant="fade">
-            <img
-              src={chateauImage}
-              alt="Château du Tenet, Mérignac"
-              className="absolute inset-0 w-full h-full object-cover"
-              width={1920}
-              height={820}
-            />
-          </Reveal>
+        <div className="relative aspect-[4/5] sm:aspect-[16/10] lg:aspect-[21/10] w-full">
+          <img
+            src={chateauImage}
+            alt="Château du Tenet, Mérignac"
+            className="absolute inset-0 w-full h-full object-cover object-[center_60%] animate-fade-in"
+            width={1920}
+            height={820}
+          />
           {/* Léger dégradé en bas pour lisibilité du texte sans masquer la photo */}
           <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-foreground/55 via-foreground/15 to-transparent pointer-events-none" />
 
