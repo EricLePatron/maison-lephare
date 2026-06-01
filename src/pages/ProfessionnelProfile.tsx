@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useProfessionnels } from "@/hooks/useProfessionnels";
+import { useSiteImage } from "@/hooks/useTheme";
 import { professionnelSlug } from "@/lib/slug";
 import {
   ArrowLeft,
@@ -17,6 +18,7 @@ import cabinetImage from "@/assets/cabinet-room.png";
 export default function ProfessionnelProfile() {
   const { slug } = useParams<{ slug: string }>();
   const { data: professionnels, isLoading, error } = useProfessionnels();
+  const heroImage = useSiteImage("professionnel-hero", cabinetImage);
   const pro = professionnels?.find(
     (p) => professionnelSlug(p.prenom, p.nom) === slug
   );
@@ -51,7 +53,7 @@ export default function ProfessionnelProfile() {
       <section className="relative min-h-[40vh] flex items-end overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={cabinetImage}
+            src={heroImage}
             alt="Cabinet de consultation"
             className="w-full h-full object-cover"
           />
