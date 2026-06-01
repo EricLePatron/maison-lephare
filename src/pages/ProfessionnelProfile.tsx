@@ -106,15 +106,15 @@ export default function ProfessionnelProfile() {
           <div className="absolute inset-0 bg-black/25" />
         </div>
 
-        <div className="container-wide relative z-10 pb-12 pt-20">
-          <Link
-            to="/professionnels"
-            className="inline-flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground transition-colors mb-6"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Retour aux professionnels
-          </Link>
+        <Link
+          to="/professionnels"
+          className="absolute top-20 left-4 sm:left-6 lg:left-8 z-10 inline-flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Retour aux professionnels
+        </Link>
 
+        <div className="container-wide relative z-10 pb-12 pt-20">
           <div className="flex flex-col md:flex-row gap-6 items-start md:items-end">
             {/* Photo */}
             <div className="h-32 w-32 md:h-40 md:w-40 rounded-2xl bg-sage-100 flex items-center justify-center overflow-hidden border-4 border-primary-foreground/20 flex-shrink-0">
