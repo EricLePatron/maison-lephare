@@ -27,3 +27,9 @@ service-account.json
 *.njsproj
 *.sln
 *.sw?
+
+# Maquettes et assets lourds (hors dépôt)
+Maquette/
+
+# Dossier clone imbriqué
+maison-lephare/
