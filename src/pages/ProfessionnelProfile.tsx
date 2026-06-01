@@ -282,6 +282,7 @@ export default function ProfessionnelProfile() {
                     {(pro as any).doctolib_url && (
                       <li className="pt-2">
                         <a
+                          ref={contactCtaRef}
                           href={(pro as any).doctolib_url}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -321,7 +322,13 @@ export default function ProfessionnelProfile() {
 
       {doctolibUrl && (
         <>
-          <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 p-3 bg-background/95 backdrop-blur border-t border-border shadow-elevated">
+          <div
+            className={`md:hidden fixed bottom-0 left-0 right-0 z-50 px-3 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] bg-background/95 backdrop-blur border-t border-border shadow-elevated transition-all duration-300 ${
+              !heroVisible && !contactCtaVisible
+                ? "translate-y-0 opacity-100"
+                : "translate-y-full opacity-0 pointer-events-none"
+            }`}
+          >
             <a
               href={doctolibUrl}
               target="_blank"
@@ -332,8 +339,6 @@ export default function ProfessionnelProfile() {
               Prendre rendez-vous sur Doctolib
             </a>
           </div>
-          {/* Spacer to prevent sticky bar from covering footer content on mobile */}
-          <div className="md:hidden h-24" aria-hidden="true" />
         </>
       )}
     </>
