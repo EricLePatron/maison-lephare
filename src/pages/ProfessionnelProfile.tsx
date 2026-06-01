@@ -26,6 +26,7 @@ export default function ProfessionnelProfile() {
   );
   const fallbackHero = useSiteImage("professionnel-hero", cabinetImage);
   const heroImage = (pro as any)?.hero_photo_url || fallbackHero;
+  const doctolibUrl = (pro as any)?.doctolib_url as string | undefined;
 
   if (isLoading) {
     return (
@@ -53,6 +54,18 @@ export default function ProfessionnelProfile() {
 
   return (
     <>
+      {doctolibUrl && (
+        <a
+          href={doctolibUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden md:inline-flex fixed top-24 right-6 z-40 items-center gap-2 px-5 py-3 rounded-2xl bg-primary text-primary-foreground font-semibold shadow-elevated hover:bg-sage-600 transition-colors"
+        >
+          <CalendarCheck className="h-5 w-5" />
+          Prendre rendez-vous sur Doctolib
+        </a>
+      )}
+
       {/* Hero Section */}
       <section className="relative min-h-[40vh] flex items-end overflow-hidden">
         <div className="absolute inset-0">
@@ -276,6 +289,24 @@ export default function ProfessionnelProfile() {
           </Button>
         </div>
       </section>
+
+      {doctolibUrl && (
+        <>
+          <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 p-3 bg-background/95 backdrop-blur border-t border-border shadow-elevated">
+            <a
+              href={doctolibUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-2xl bg-primary text-primary-foreground font-semibold"
+            >
+              <CalendarCheck className="h-5 w-5" />
+              Prendre rendez-vous sur Doctolib
+            </a>
+          </div>
+          {/* Spacer to prevent sticky bar from covering footer content on mobile */}
+          <div className="md:hidden h-24" aria-hidden="true" />
+        </>
+      )}
     </>
   );
 }
