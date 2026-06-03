@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-06-03T15:41:20.218Z",
+  "generatedAt": "2026-06-03T16:22:09.057Z",
   "periods": {
     "24h": {
       "hourly": true,
       "overview": {
-        "sessions": 47,
-        "users": 31,
-        "pageViews": 184,
+        "sessions": 52,
+        "users": 33,
+        "pageViews": 189,
         "bounceRate": "1.0",
-        "avgDuration": 1025
+        "avgDuration": 931
       },
       "contactForm": {
         "total": 0
@@ -16,19 +16,19 @@
       "topPages": [
         {
           "page": "/professionnels",
-          "views": 57
+          "views": 59
         },
         {
           "page": "/",
-          "views": 37
+          "views": 38
         },
         {
           "page": "/professionnels/dr-elodie-rochet",
-          "views": 26
+          "views": 27
         },
         {
           "page": "/ateliers",
-          "views": 14
+          "views": 15
         },
         {
           "page": "/professionnels/carole-amores",
@@ -58,11 +58,11 @@
       "sources": [
         {
           "source": "Unassigned",
-          "sessions": 33
+          "sessions": 35
         },
         {
           "source": "Direct",
-          "sessions": 24
+          "sessions": 27
         },
         {
           "source": "Organic Search",
@@ -151,16 +151,21 @@
         },
         {
           "date": "15h",
-          "users": 4,
-          "sessions": 5
+          "users": 5,
+          "sessions": 6
         },
         {
           "date": "16h",
-          "users": 1,
-          "sessions": 1
+          "users": 2,
+          "sessions": 3
         },
         {
           "date": "17h",
+          "users": 1,
+          "sessions": 2
+        },
+        {
+          "date": "18h",
           "users": 0,
           "sessions": 0
         }
@@ -168,7 +173,7 @@
       "proFunnel": [
         {
           "slug": "dr-elodie-rochet",
-          "views": 26,
+          "views": 27,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
@@ -239,7 +244,7 @@
       ],
       "totalRdvClicks": 1,
       "atelierInscriptions": {
-        "total": 1,
+        "total": 2,
         "parAtelier": []
       },
       "atelierCtaClics": 0,
@@ -252,11 +257,11 @@
     "7d": {
       "hourly": false,
       "overview": {
-        "sessions": 698,
-        "users": 435,
-        "pageViews": 2571,
+        "sessions": 703,
+        "users": 436,
+        "pageViews": 2576,
         "bounceRate": "0.5",
-        "avgDuration": 327
+        "avgDuration": 325
       },
       "contactForm": {
         "total": 7
@@ -264,15 +269,15 @@
       "topPages": [
         {
           "page": "/",
-          "views": 724
+          "views": 725
         },
         {
           "page": "/professionnels",
-          "views": 590
+          "views": 592
         },
         {
           "page": "/ateliers",
-          "views": 303
+          "views": 304
         },
         {
           "page": "/le-lieu",
@@ -287,11 +292,11 @@
           "views": 92
         },
         {
-          "page": "/contact",
-          "views": 74
+          "page": "/professionnels/dr-elodie-rochet",
+          "views": 75
         },
         {
-          "page": "/professionnels/dr-elodie-rochet",
+          "page": "/contact",
           "views": 74
         },
         {
@@ -306,7 +311,7 @@
       "sources": [
         {
           "source": "Direct",
-          "sessions": 460
+          "sessions": 463
         },
         {
           "source": "Organic Search",
@@ -314,7 +319,7 @@
         },
         {
           "source": "Unassigned",
-          "sessions": 39
+          "sessions": 41
         },
         {
           "source": "Organic Social",
@@ -363,8 +368,8 @@
         },
         {
           "date": "03/06",
-          "users": 31,
-          "sessions": 47
+          "users": 33,
+          "sessions": 52
         }
       ],
       "proFunnel": [
@@ -377,7 +382,7 @@
         },
         {
           "slug": "dr-elodie-rochet",
-          "views": 74,
+          "views": 75,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
@@ -504,7 +509,7 @@
       ],
       "totalRdvClicks": 11,
       "atelierInscriptions": {
-        "total": 17,
+        "total": 18,
         "parAtelier": []
       },
       "atelierCtaClics": 1,
@@ -517,11 +522,11 @@
     "30d": {
       "hourly": false,
       "overview": {
-        "sessions": 1247,
-        "users": 838,
-        "pageViews": 4202,
+        "sessions": 1252,
+        "users": 839,
+        "pageViews": 4207,
         "bounceRate": "0.5",
-        "avgDuration": 254
+        "avgDuration": 253
       },
       "contactForm": {
         "total": 10
@@ -529,15 +534,15 @@
       "topPages": [
         {
           "page": "/",
-          "views": 1164
+          "views": 1165
         },
         {
           "page": "/professionnels",
-          "views": 916
+          "views": 918
         },
         {
           "page": "/ateliers",
-          "views": 517
+          "views": 518
         },
         {
           "page": "/le-lieu",
@@ -561,7 +566,7 @@
         },
         {
           "page": "/professionnels/dr-elodie-rochet",
-          "views": 76
+          "views": 77
         },
         {
           "page": "/professionnels/isabelle-verges",
@@ -571,18 +576,18 @@
       "sources": [
         {
           "source": "Direct",
-          "sessions": 868
+          "sessions": 871
         },
         {
           "source": "Organic Search",
           "sessions": 313
         },
         {
-          "source": "Organic Social",
-          "sessions": 39
+          "source": "Unassigned",
+          "sessions": 41
         },
         {
-          "source": "Unassigned",
+          "source": "Organic Social",
           "sessions": 39
         },
         {
@@ -743,8 +748,8 @@
         },
         {
           "date": "03/06",
-          "users": 31,
-          "sessions": 47
+          "users": 33,
+          "sessions": 52
         }
       ],
       "proFunnel": [
@@ -757,7 +762,7 @@
         },
         {
           "slug": "dr-elodie-rochet",
-          "views": 76,
+          "views": 77,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
@@ -947,7 +952,7 @@
       ],
       "totalRdvClicks": 11,
       "atelierInscriptions": {
-        "total": 17,
+        "total": 18,
         "parAtelier": []
       },
       "atelierCtaClics": 1,
@@ -960,11 +965,11 @@
     "90d": {
       "hourly": false,
       "overview": {
-        "sessions": 1403,
-        "users": 980,
-        "pageViews": 4380,
+        "sessions": 1409,
+        "users": 981,
+        "pageViews": 4385,
         "bounceRate": "0.4",
-        "avgDuration": 237
+        "avgDuration": 236
       },
       "contactForm": {
         "total": 10
@@ -972,15 +977,15 @@
       "topPages": [
         {
           "page": "/",
-          "views": 1229
+          "views": 1230
         },
         {
           "page": "/professionnels",
-          "views": 917
+          "views": 919
         },
         {
           "page": "/ateliers",
-          "views": 518
+          "views": 519
         },
         {
           "page": "/maintenance",
@@ -1004,7 +1009,7 @@
         },
         {
           "page": "/professionnels/dr-elodie-rochet",
-          "views": 76
+          "views": 77
         },
         {
           "page": "/professionnels/isabelle-verges",
@@ -1014,18 +1019,18 @@
       "sources": [
         {
           "source": "Direct",
-          "sessions": 1004
+          "sessions": 1007
         },
         {
           "source": "Organic Search",
           "sessions": 333
         },
         {
-          "source": "Organic Social",
-          "sessions": 39
+          "source": "Unassigned",
+          "sessions": 41
         },
         {
-          "source": "Unassigned",
+          "source": "Organic Social",
           "sessions": 39
         },
         {
@@ -1246,8 +1251,8 @@
         },
         {
           "date": "03/06",
-          "users": 31,
-          "sessions": 47
+          "users": 33,
+          "sessions": 52
         }
       ],
       "proFunnel": [
@@ -1260,7 +1265,7 @@
         },
         {
           "slug": "dr-elodie-rochet",
-          "views": 76,
+          "views": 77,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
@@ -1450,7 +1455,7 @@
       ],
       "totalRdvClicks": 11,
       "atelierInscriptions": {
-        "total": 17,
+        "total": 18,
         "parAtelier": []
       },
       "atelierCtaClics": 1,

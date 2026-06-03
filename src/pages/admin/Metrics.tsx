@@ -413,37 +413,105 @@ export default function Metrics() {
         </Card>
       </div>
 
-      {/* Détail inscriptions par atelier */}
-      {atelierInscriptions.parAtelier.length > 0 && (
-        <Card>
-          <CardHeader className="pb-2">
-            <div className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
-                <BookOpen className="h-5 w-5 text-primary" />
+      {/* ── Funnel Ateliers ───────────────────────────────────────────── */}
+      {(() => {
+        const ateliersViews = topPages.find((p) => p.page === "/ateliers")?.views ?? 0;
+        const convRate = ateliersViews > 0
+          ? Math.round((atelierInscriptions.total / ateliersViews) * 100)
+          : 0;
+
+        return (
+          <Card>
+            <CardHeader className="pb-2">
+              <div className="flex items-center gap-3">
+                <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <BookOpen className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <CardTitle className="text-base font-medium">Funnel Ateliers</CardTitle>
+                  <CardDescription>
+                    De la visite de la page jusqu'au clic "S'inscrire"
+                  </CardDescription>
+                </div>
               </div>
-              <div>
-                <CardTitle className="text-base font-medium">Inscriptions par atelier</CardTitle>
-                <CardDescription>Clics sur le bouton "S'inscrire" par atelier</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+
+              {/* Étapes du funnel */}
+              <div className="grid grid-cols-3 gap-2">
+                {/* Étape 1 : Vues */}
+                <div className="rounded-xl bg-muted/40 p-4 text-center">
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Vues page</p>
+                  <p className="text-2xl font-bold text-foreground">{ateliersViews}</p>
+                  <p className="text-xs text-muted-foreground mt-1">/ateliers</p>
+                </div>
+                {/* Flèche */}
+                <div className="flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="flex items-center gap-1 justify-center text-muted-foreground/40">
+                      <div className="h-px w-8 bg-muted-foreground/30" />
+                      <span className="text-lg">›</span>
+                    </div>
+                    {ateliersViews > 0 && (
+                      <span className={cn(
+                        "text-xs font-semibold px-2 py-0.5 rounded-full mt-1 inline-block",
+                        convRate >= 10 ? "bg-green-100 text-green-700" : convRate >= 5 ? "bg-yellow-100 text-yellow-700" : "bg-muted text-muted-foreground"
+                      )}>
+                        {convRate}%
+                      </span>
+                    )}
+                  </div>
+                </div>
+                {/* Étape 2 : Inscriptions */}
+                <div className={cn(
+                  "rounded-xl p-4 text-center",
+                  atelierInscriptions.total > 0 ? "bg-primary/10 border border-primary/20" : "bg-muted/40"
+                )}>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Clics S'inscrire</p>
+                  <p className="text-2xl font-bold text-foreground">{atelierInscriptions.total}</p>
+                  <p className="text-xs text-muted-foreground mt-1">toutes fiches</p>
+                </div>
               </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={Math.max(120, atelierInscriptions.parAtelier.length * 40)}>
-              <BarChart
-                data={atelierInscriptions.parAtelier.map((a) => ({ name: a.nom, clics: a.clics }))}
-                layout="vertical"
-                margin={{ top: 0, right: 20, left: 10, bottom: 0 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(30 20% 90%)" horizontal={false} />
-                <XAxis type="number" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} allowDecimals={false} />
-                <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} tickLine={false} width={140} />
-                <Tooltip contentStyle={{ fontSize: 12, borderRadius: 8 }} formatter={(v: number) => [v, "inscriptions"]} />
-                <Bar dataKey="clics" fill="hsl(24 55% 40%)" radius={[0, 4, 4, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-      )}
+
+              {/* Détail par atelier */}
+              {atelierInscriptions.parAtelier.length > 0 ? (
+                <div>
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">Clics S'inscrire par atelier</p>
+                  <ResponsiveContainer width="100%" height={Math.max(120, atelierInscriptions.parAtelier.length * 44)}>
+                    <BarChart
+                      data={atelierInscriptions.parAtelier.map((a) => ({ name: a.nom, clics: a.clics }))}
+                      layout="vertical"
+                      margin={{ top: 0, right: 20, left: 10, bottom: 0 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(30 20% 90%)" horizontal={false} />
+                      <XAxis type="number" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} allowDecimals={false} />
+                      <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} tickLine={false} width={150} />
+                      <Tooltip contentStyle={{ fontSize: 12, borderRadius: 8 }} formatter={(v: number) => [v, "clics S'inscrire"]} />
+                      <Bar dataKey="clics" fill="hsl(24 55% 40%)" radius={[0, 4, 4, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              ) : (
+                <div className="rounded-lg border border-dashed border-muted-foreground/20 p-4 text-center space-y-1">
+                  <p className="text-sm font-medium text-muted-foreground">Détail par atelier à venir</p>
+                  <p className="text-xs text-muted-foreground/70">
+                    Le nom de chaque atelier sera affiché ici dès que Google Analytics aura enregistré
+                    suffisamment d'événements. Cela se remplit automatiquement — aucune action requise.
+                  </p>
+                </div>
+              )}
+
+              {/* CTA bannière intervenant */}
+              {atelierCtaClics > 0 && (
+                <div className="flex items-center justify-between rounded-lg bg-sage-50 px-4 py-3 text-sm">
+                  <span className="text-muted-foreground">Clics bannière "Animer un atelier"</span>
+                  <span className="font-semibold text-foreground">{atelierCtaClics}</span>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        );
+      })()}
 
       {/* Insights */}
       <Card className="bg-sage-50 border-sage-200">
