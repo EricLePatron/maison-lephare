@@ -139,13 +139,13 @@ export default function ProfessionnelProfile() {
 
         <Link
           to="/professionnels"
-          className="absolute top-20 left-4 sm:left-6 lg:left-8 z-10 inline-flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+          className="absolute top-20 left-4 sm:left-6 lg:left-8 z-20 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-foreground/40 backdrop-blur-sm text-primary-foreground hover:bg-foreground/60 transition-colors text-sm"
         >
           <ArrowLeft className="h-4 w-4" />
           Retour aux professionnels
         </Link>
 
-        <div className="container-wide relative z-10 pb-12 pt-20">
+        <div className="container-wide relative z-10 pb-12 pt-32 sm:pt-20">
           <div className="flex flex-col md:flex-row gap-6 items-start md:items-end">
             {/* Photo */}
             <div className="h-32 w-32 md:h-40 md:w-40 rounded-2xl bg-sage-100 flex items-center justify-center overflow-hidden border-4 border-primary-foreground/20 flex-shrink-0">
