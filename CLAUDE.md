@@ -7,7 +7,7 @@
 > **Toute modification de code qui part sur `main` doit passer le protocole de validation complet. Sans exception.**
 
 ### Pourquoi cette règle existe
-En juin 2025, un `git filter-branch` + force push a réécrit tous les SHAs de commits → Lovable ne savait plus à partir de quel commit déployer → **site blanc en production**. Cette règle existe pour que cela n'arrive plus jamais.
+En juin 2026, un `git filter-branch` + force push a réécrit tous les SHAs de commits → Lovable ne savait plus à partir de quel commit déployer → **site blanc en production**. Cette règle existe pour que cela n'arrive plus jamais.
 
 ### Protocole obligatoire avant chaque push sur `main`
 

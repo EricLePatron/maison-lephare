@@ -65,7 +65,7 @@ git diff --cached
 - Toute opération qui réécrit l'historique git
 
 ### Pourquoi ? Leçon apprise
-Un `git filter-branch` + force push a cassé le déploiement Lovable en juin 2025 : tous les SHAs de commits ont été réécrits, Lovable ne savait plus à partir de quel commit déployer → site blanc en production pendant plusieurs heures.
+Un `git filter-branch` + force push a cassé le déploiement Lovable en juin 2026 : tous les SHAs de commits ont été réécrits, Lovable ne savait plus à partir de quel commit déployer → site blanc en production pendant plusieurs heures.
 
 ### Si un force push est absolument nécessaire
 1. Prévenir l'utilisateur et expliquer le risque
