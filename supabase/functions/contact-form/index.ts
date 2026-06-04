@@ -151,15 +151,13 @@ serve(async (req) => {
     let lovableOk = false;
 
     const supabaseUrl = Deno.env.get("SUPABASE_URL");
-    const LEGACY_ANON_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoYW9neWdsdmxlZ21sdHhveGNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk3NjkzODUsImV4cCI6MjA4NTM0NTM4NX0.ewMLyWw_U4h-xTmng61FLeGwcUNhN9d5ya58ufJz_4I";
     const jwtCandidates = [
       Deno.env.get("SUPABASE_ANON_KEY"),
       Deno.env.get("SUPABASE_PUBLISHABLE_KEY"),
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY"),
     ];
     const bearer =
-      jwtCandidates.find((v) => typeof v === "string" && v.split(".").length === 3) ??
-      LEGACY_ANON_JWT;
+      jwtCandidates.find((v) => typeof v === "string" && v.split(".").length === 3);
 
     if (supabaseUrl) {
       const submissionId = crypto.randomUUID();
