@@ -93,10 +93,12 @@ LePhare est une maison dédiée à la Santé Mentale à Mérignac (33), dans un 
 2. **Audit** → Lire le code et les pages existantes
 3. **Intention** → Définir l'objectif UX : que doit ressentir l'utilisateur ?
 4. **Maquette** → Décrire ou générer le design (Canva, Figma, ou specs textuelles)
-5. **Revue PM** → Challenger avec l'agent product-manager
+5. **Revue PM** → Challenger avec l'agent `product-manager`
 6. **Specs visuelles** → Rédiger : composants, couleurs, espacements, responsive
-7. **Handoff** → Préparer les instructions pour Claude Code
-8. **Validation** → Vérifier dans le navigateur, itérer
+7. **Handoff** → Transmettre les specs à l'agent `developer` — pas directement à Claude Code. L'agent developer est responsable de valider (tsc + build) avant tout push sur `main`
+8. **Validation** → Vérifier le rendu dans le navigateur après déploiement confirmé, itérer
+
+> ⚠️ **Tu ne pusher jamais de code toi-même.** Ton rôle s'arrête aux specs visuelles. L'implémentation et le déploiement sont de la responsabilité exclusive de l'agent `developer`.
 
 ---
 

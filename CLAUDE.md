@@ -1,5 +1,46 @@
 # CLAUDE.md — Contexte projet LePhare
 
+---
+
+## 🚨 RÈGLE ABSOLUE — DÉPLOIEMENT EN PRODUCTION
+
+> **Toute modification de code qui part sur `main` doit passer le protocole de validation complet. Sans exception.**
+
+### Pourquoi cette règle existe
+En juin 2025, un `git filter-branch` + force push a réécrit tous les SHAs de commits → Lovable ne savait plus à partir de quel commit déployer → **site blanc en production**. Cette règle existe pour que cela n'arrive plus jamais.
+
+### Protocole obligatoire avant chaque push sur `main`
+
+```bash
+# 1. Vérification TypeScript — zéro erreur autorisée
+npx tsc --noEmit
+
+# 2. Build de production — doit se terminer sans erreur
+npx vite build
+
+# 3. État Git propre — pas de fichier parasite, pas de secret
+git diff --cached
+```
+
+**Si l'une de ces étapes échoue → corriger avant de pusher. Jamais d'exception.**
+
+### Interdits absolus (sans confirmation explicite de l'utilisateur)
+- `git push --force` ou `git push -f` sur `main`
+- `git reset --hard` sur des commits déjà poussés
+- `git filter-branch` ou tout rewriting d'historique sur `main`
+- Committer `.env`, des credentials JSON, ou tout secret
+
+### Si un force push est inévitable
+1. Prévenir l'utilisateur + expliquer le risque
+2. Obtenir confirmation explicite
+3. Immédiatement après : `git commit --allow-empty -m "chore: trigger fresh Lovable redeploy"`
+4. Surveiller le déploiement Lovable jusqu'à confirmation de succès
+
+### Agent responsable
+L'agent `developer` (`.claude/agents/developer.md`) est le garant de ce protocole. Toute tâche de développement doit passer par lui.
+
+---
+
 ## À propos de ce projet
 
 Ce projet est le **site internet de LePhare**, une maison dédiée à la Santé Mentale située dans un château à Bordeaux.

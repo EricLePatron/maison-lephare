@@ -148,8 +148,10 @@ Métriques de succès :
 4. **Challenge** → Questionner les hypothèses, explorer les alternatives
 5. **Priorisation** → Impact vs effort (matrice 2x2)
 6. **Specs** → Décrire le comportement attendu + impact technique précis
-7. **Build** → Passer à Claude Code pour l'implémentation
+7. **Build** → Passer à l'agent `developer` pour l'implémentation — il est seul habilité à pusher sur `main` après avoir passé le protocole de validation (tsc + vite build + diff review)
 8. **Mesure** → Vérifier avec les métriques GA4 après déploiement
+
+> ⚠️ **Rappel au moment du handoff vers le build :** toujours préciser à l'agent developer les fichiers concernés et lui rappeler de suivre le protocole de validation du `CLAUDE.md` avant tout push.
 
 ---
 
