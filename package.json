@@ -9,7 +9,7 @@
     "prebuild": "bunx tsx ./scripts/generate-sitemap.ts",
     "build": "vite build",
     "build:dev": "bunx tsx ./scripts/generate-sitemap.ts && vite build --mode development",
-    "dashboard": "NODE_EXTRA_CA_CERTS=/usr/local/etc/ca-certificates/cert.pem node scripts/fetch-analytics.mjs",
+    "dashboard": "NODE_EXTRA_CA_CERTS=/usr/local/etc/ca-certificates/cert.pem node --env-file=.env scripts/fetch-analytics.mjs",
     "deploy:local": "bash scripts/deploy-local.sh",
     "lint": "eslint .",
     "preview": "vite preview",
