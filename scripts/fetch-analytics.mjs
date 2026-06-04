@@ -5,9 +5,13 @@ import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROPERTY_ID = "534146800";
-const CREDENTIALS_PATH =
-  process.env.GA_CREDENTIALS ||
-  "/Users/ericchollet/Downloads/lephare-494208-6a6df4102954.json";
+const CREDENTIALS_PATH = process.env.GA_CREDENTIALS;
+
+if (!CREDENTIALS_PATH) {
+  console.error("❌ Variable GA_CREDENTIALS manquante.");
+  console.error("   Exemple : GA_CREDENTIALS=~/Downloads/service-account.json npm run dashboard");
+  process.exit(1);
+}
 
 const client = new BetaAnalyticsDataClient({ keyFilename: CREDENTIALS_PATH });
 
