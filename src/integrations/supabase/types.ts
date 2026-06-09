@@ -228,6 +228,7 @@ export type Database = {
           created_at: string
           description: string | null
           doctolib_url: string | null
+          email: string | null
           hero_photo_url: string | null
           id: string
           jours_presence: string | null
@@ -237,7 +238,9 @@ export type Database = {
           prenom: string
           profession: string
           public_cible: string | null
+          site_web: string | null
           specialites: string[] | null
+          telephone: string | null
           updated_at: string
         }
         Insert: {
@@ -246,6 +249,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           doctolib_url?: string | null
+          email?: string | null
           hero_photo_url?: string | null
           id: string
           jours_presence?: string | null
@@ -255,7 +259,9 @@ export type Database = {
           prenom: string
           profession: string
           public_cible?: string | null
+          site_web?: string | null
           specialites?: string[] | null
+          telephone?: string | null
           updated_at?: string
         }
         Update: {
@@ -264,6 +270,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           doctolib_url?: string | null
+          email?: string | null
           hero_photo_url?: string | null
           id?: string
           jours_presence?: string | null
@@ -273,7 +280,9 @@ export type Database = {
           prenom?: string
           profession?: string
           public_cible?: string | null
+          site_web?: string | null
           specialites?: string[] | null
+          telephone?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -365,6 +374,7 @@ export type Database = {
           created_at: string | null
           description: string | null
           doctolib_url: string | null
+          email: string | null
           hero_photo_url: string | null
           id: string | null
           jours_presence: string | null
@@ -374,7 +384,9 @@ export type Database = {
           prenom: string | null
           profession: string | null
           public_cible: string | null
+          site_web: string | null
           specialites: string[] | null
+          telephone: string | null
           updated_at: string | null
         }
         Insert: {
@@ -383,6 +395,7 @@ export type Database = {
           created_at?: string | null
           description?: string | null
           doctolib_url?: string | null
+          email?: string | null
           hero_photo_url?: string | null
           id?: string | null
           jours_presence?: string | null
@@ -392,7 +405,9 @@ export type Database = {
           prenom?: string | null
           profession?: string | null
           public_cible?: string | null
+          site_web?: string | null
           specialites?: string[] | null
+          telephone?: string | null
           updated_at?: string | null
         }
         Update: {
@@ -401,6 +416,7 @@ export type Database = {
           created_at?: string | null
           description?: string | null
           doctolib_url?: string | null
+          email?: string | null
           hero_photo_url?: string | null
           id?: string | null
           jours_presence?: string | null
@@ -410,7 +426,9 @@ export type Database = {
           prenom?: string | null
           profession?: string | null
           public_cible?: string | null
+          site_web?: string | null
           specialites?: string[] | null
+          telephone?: string | null
           updated_at?: string | null
         }
         Relationships: []
