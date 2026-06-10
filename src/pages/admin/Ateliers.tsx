@@ -410,6 +410,32 @@ export default function AdminAteliers() {
                     </div>
 
                     <div className="space-y-2">
+                      <Label htmlFor="date_evenement">Date de l'événement (optionnel)</Label>
+                      <Input
+                        id="date_evenement"
+                        type="datetime-local"
+                        value={
+                          (formData as any).date_evenement
+                            ? new Date((formData as any).date_evenement)
+                                .toISOString()
+                                .slice(0, 16)
+                            : ""
+                        }
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            date_evenement: e.target.value
+                              ? new Date(e.target.value).toISOString()
+                              : null,
+                          } as FormData)
+                        }
+                      />
+                      <p className="text-xs text-muted-foreground">
+                        Si la date est passée, l'atelier s'affichera comme « Événement terminé » (photo grisée) au lieu d'être masqué.
+                      </p>
+                    </div>
+
+                    <div className="space-y-2">
                       <Label>Photo (optionnel)</Label>
                       <ImageUpload
                         value={(formData as any).image_url || ""}
