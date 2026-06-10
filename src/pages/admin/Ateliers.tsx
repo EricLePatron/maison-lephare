@@ -96,6 +96,7 @@ const emptyForm: FormData = {
   ordre_affichage: 0,
   lien_inscription: "",
   image_url: "",
+  date_evenement: null,
 };
 
 export default function AdminAteliers() {
@@ -142,6 +143,7 @@ export default function AdminAteliers() {
       ordre_affichage: atelier.ordre_affichage || 0,
       lien_inscription: (atelier as any).lien_inscription || "",
       image_url: (atelier as any).image_url || "",
+      date_evenement: (atelier as any).date_evenement || null,
     });
     setObjectifsText((atelier.objectifs || []).join("\n"));
     setIsDialogOpen(true);
@@ -404,6 +406,32 @@ export default function AdminAteliers() {
                       />
                       <p className="text-xs text-muted-foreground">
                         Le bouton "S'inscrire" apparaîtra sur le site si un lien est renseigné.
+                      </p>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="date_evenement">Date de l'événement (optionnel)</Label>
+                      <Input
+                        id="date_evenement"
+                        type="datetime-local"
+                        value={
+                          (formData as any).date_evenement
+                            ? new Date((formData as any).date_evenement)
+                                .toISOString()
+                                .slice(0, 16)
+                            : ""
+                        }
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            date_evenement: e.target.value
+                              ? new Date(e.target.value).toISOString()
+                              : null,
+                          } as FormData)
+                        }
+                      />
+                      <p className="text-xs text-muted-foreground">
+                        Si la date est passée, l'atelier s'affichera comme « Événement terminé » (photo grisée) au lieu d'être masqué.
                       </p>
                     </div>
 
