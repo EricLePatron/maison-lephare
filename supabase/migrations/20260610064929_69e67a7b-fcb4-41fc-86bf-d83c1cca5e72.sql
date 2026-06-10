@@ -1,0 +1,1 @@
+ALTER TABLE public.ateliers ADD COLUMN IF NOT EXISTS date_evenement timestamptz;

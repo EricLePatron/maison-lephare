@@ -19,6 +19,7 @@ export type Database = {
           actif: boolean
           categorie: string
           created_at: string
+          date_evenement: string | null
           description: string | null
           format: string | null
           icone: string | null
@@ -35,6 +36,7 @@ export type Database = {
           actif?: boolean
           categorie: string
           created_at?: string
+          date_evenement?: string | null
           description?: string | null
           format?: string | null
           icone?: string | null
@@ -51,6 +53,7 @@ export type Database = {
           actif?: boolean
           categorie?: string
           created_at?: string
+          date_evenement?: string | null
           description?: string | null
           format?: string | null
           icone?: string | null
