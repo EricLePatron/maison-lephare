@@ -18,7 +18,15 @@ export default function Ateliers() {
   const atelierImage = useSiteImage("atelier-collectif", atelierImageStatic);
   const chateauImage = useSiteImage("chateau-main", chateauImageStatic);
   const { data: ateliers, isLoading } = useAteliers();
-  const activeAteliers = (ateliers || []).filter((a) => a.actif);
+  const now = Date.now();
+  const activeAteliers = (ateliers || [])
+    .filter((a) => a.actif)
+    .map((a) => {
+      const dateStr = (a as any).date_evenement as string | null;
+      const isPast = dateStr ? new Date(dateStr).getTime() < now : false;
+      return { atelier: a, isPast };
+    })
+    .sort((x, y) => Number(x.isPast) - Number(y.isPast));
 
   return (
     <>
@@ -69,25 +77,32 @@ export default function Ateliers() {
             </div>
           ) : activeAteliers.length > 0 ? (
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-5xl mx-auto">
-              {activeAteliers.map((atelier, index) => {
+              {activeAteliers.map(({ atelier, isPast }, index) => {
                 const IconComp = ICON_MAP[atelier.icone || "Brain"] || Brain;
                 const lien = (atelier as any).lien_inscription as string | null;
                 const imageUrl = (atelier as any).image_url as string | null;
                 return (
                   <Reveal key={atelier.id} variant="up" delay={index * 100} className="flex flex-col items-center text-center">
-                    <div className="w-full aspect-[4/3] rounded-2xl border-[3px] border-primary overflow-hidden bg-sky-100 flex items-center justify-center">
+                    <div className="relative w-full aspect-[4/3] rounded-2xl border-[3px] border-primary overflow-hidden bg-sky-100 flex items-center justify-center">
                       {imageUrl ? (
                         <img
                           src={imageUrl}
                           alt={atelier.titre}
-                          className="w-full h-full object-cover"
+                          className={`w-full h-full object-cover ${isPast ? "grayscale opacity-60" : ""}`}
                           loading="lazy"
                         />
                       ) : (
-                        <IconComp className="h-16 w-16 text-primary" />
+                        <IconComp className={`h-16 w-16 text-primary ${isPast ? "opacity-50" : ""}`} />
+                      )}
+                      {isPast && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                          <span className="px-3 py-1 rounded-full bg-background/90 text-foreground text-xs font-semibold uppercase tracking-wider">
+                            Événement terminé
+                          </span>
+                        </div>
                       )}
                     </div>
-                    <h3 className="mt-4 sm:mt-5 uppercase tracking-wide text-primary font-bold text-sm sm:text-base leading-tight">
+                    <h3 className={`mt-4 sm:mt-5 uppercase tracking-wide font-bold text-sm sm:text-base leading-tight ${isPast ? "text-foreground/60" : "text-primary"}`}>
                       {atelier.titre}
                     </h3>
                     {atelier.categorie && (
@@ -100,7 +115,7 @@ export default function Ateliers() {
                         {atelier.description}
                       </p>
                     )}
-                    {lien && (
+                    {lien && !isPast && (
                       <a
                         href={lien}
                         target="_blank"
