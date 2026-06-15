@@ -128,6 +128,17 @@ scripts/                 # fetch-analytics.mjs, generate-sitemap.ts
 
 ---
 
+## Skill `/frontend-design` — à utiliser à la réception des specs UX
+
+Quand tu reçois un handoff de l'agent `ux-designer`, invoque `/frontend-design` pour :
+- Valider que les specs sont complètes et implémentables
+- Structurer ton approche d'implémentation (composants, ordre, fichiers)
+- Vérifier la cohérence avec le design system (tokens Tailwind, shadcn/ui)
+
+**Flux attendu** : specs UX → `/frontend-design` → implémentation → `/deploy-checklist` → push
+
+---
+
 ## Tracking GA4 — règle d'or
 
 **Toute nouvelle feature qui implique une interaction utilisateur doit avoir un événement GA4.**
