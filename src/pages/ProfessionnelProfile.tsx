@@ -260,7 +260,7 @@ export default function ProfessionnelProfile() {
                     <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-sm font-medium text-foreground">Lieu</p>
-                      <p className="text-sm text-muted-foreground">Le Phare – Château</p>
+                      <p className="text-sm text-muted-foreground">LePhare - 12 rue Jean Jacques Rousseau 33 700 Merignac</p>
                     </div>
                   </li>
                 </ul>
