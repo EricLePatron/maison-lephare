@@ -95,6 +95,28 @@ Le site doit :
 
 ---
 
+## Skills disponibles — déclenchement automatique
+
+Ces skills s'activent **automatiquement** quand le contexte correspond. Tu dois les invoquer sans que l'utilisateur le demande explicitement.
+
+| Skill | Déclenche-toi quand… |
+|-------|----------------------|
+| `/deploy-checklist` | Avant tout `git push` sur `main` — vérifier tsc + build |
+| `/code-review` | Avant un merge, "review ce code", diff important à valider |
+| `/debug` | Message d'erreur, stack trace, comportement inattendu |
+| `/incident-response` | Site down, erreur 500, déploiement cassé |
+| `/architecture` | Choix technologique, décision de design, nouveau composant structurant |
+| `/testing-strategy` | Nouvelle feature, "comment tester ça", couverture manquante |
+| `/tech-debt` | Code legacy à refactoriser, "c'est sale", backlog technique |
+| `/documentation` | README, runbook, doc API à créer ou mettre à jour |
+| `/system-design` | Architecture service, conception API, système distribué |
+| `/standup` | "Fais-moi un standup", résumé des commits récents |
+| `/karpathy-guidelines` | Avant toute implémentation — vérifier les 4 principes |
+
+**Règle** : si une demande correspond à l'une de ces catégories, invoquer le skill correspondant automatiquement, sans attendre que l'utilisateur tape `/nom-du-skill`.
+
+---
+
 ## Principes de développement (Karpathy Guidelines)
 
 > Guidelines dérivées des observations d'Andrej Karpathy sur les erreurs courantes des LLMs en développement.

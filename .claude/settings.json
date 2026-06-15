@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git push*)",
+            "command": "echo '{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"additionalContext\": \"\\u26a8\\ufe0f HOOK D\\u00c9PLOIEMENT: Tu t\\'appr\\u00eates \\u00e0 pusher sur main. As-tu bien ex\\u00e9cut\\u00e9 les deux commandes obligatoires?\\n1. npx tsc --noEmit (z\\u00e9ro erreur)\\n2. npx vite build (build r\\u00e9ussi)\\nSi non \\u2192 arr\\u00eate et ex\\u00e9cute ces v\\u00e9rifications d\\'abord. Le skill /deploy-checklist peut t\\'aider.\"}}'",
+            "timeout": 5,
+            "statusMessage": "Vérification protocole déploiement..."
+          }
+        ]
+      }
+    ]
+  }
+}
