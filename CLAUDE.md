@@ -117,6 +117,51 @@ Ces skills s'activent **automatiquement** quand le contexte correspond. Tu dois 
 
 ---
 
+## Plugins désactivés — suggestion d'activation
+
+Certains plugins sont désactivés par défaut pour économiser les tokens. Si une question porterait clairement bénéfice d'un skill désactivé, **demander avant de répondre** :
+
+> 💡 *"Cette demande bénéficierait du skill `/[nom]` (plugin `[plugin]` actuellement désactivé). Veux-tu que je l'active pour cette session ? (`claude plugin enable [plugin]`)"*
+
+### Plugins désactivés et leurs skills
+
+#### `taste-skill@taste-skill` — design premium (~1 103 tok always-on)
+Suggérer d'activer si la demande porte sur :
+- Direction artistique globale → `/taste-skill`
+- Cohérence de marque / brand kit → `/brandkit`
+- Assemblage multi-sections → `/stitch-skill`
+- Style minimaliste → `/minimalist-skill`
+- Style brutaliste → `/brutalist-skill`
+- Génération d'image de référence design → `/imagegen-frontend-web`, `/imagegen-frontend-mobile`
+
+*(Ne pas suggérer pour `/soft-skill` et `/redesign-skill` — déjà disponibles en local.)*
+
+#### `marketing-skills@marketingskills` — marketing complet (~7 340 tok always-on)
+Suggérer d'activer si la demande porte sur :
+- Newsletter ou campagne email → `/emails`
+- Test A/B → `/ab-testing`
+- Plan éditorial, calendrier de contenu → `/content-strategy`
+- Lancement atelier/service → `/launch`
+- Stratégie de partenariat → `/co-marketing`
+- Tarification, stratégie de dons → `/pricing`
+- Email de prospection professionnels → `/cold-email`
+- Programme de recommandation → `/referrals`
+- Relations presse, partenariats locaux → `/public-relations`
+- Stratégie communautaire → `/community-marketing`
+- Plan marketing global → `/marketing-plan`
+- Psychologie de la persuasion → `/marketing-psychology`
+- Analyse concurrentielle → `/competitors`
+
+*(Ne pas suggérer pour `/copywriting`, `/cro`, `/social`, `/seo-audit`, `/ai-seo` — déjà disponibles en local.)*
+
+### Règles de suggestion
+1. **Une seule suggestion par réponse** — ne pas proposer d'activer les deux plugins en même temps
+2. **Suggérer, ne pas forcer** — si l'utilisateur refuse ou ignore, répondre sans le skill
+3. **Économie d'abord** — si un skill local couvre 80% du besoin, ne pas suggérer le plugin
+4. **Clarifier le bénéfice** — expliquer en une phrase pourquoi ce skill aiderait
+
+---
+
 ## Principes de développement (Karpathy Guidelines)
 
 > Guidelines dérivées des observations d'Andrej Karpathy sur les erreurs courantes des LLMs en développement.
