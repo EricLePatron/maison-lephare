@@ -1,0 +1,48 @@
+name: Refresh Dashboard Data
+
+on:
+  schedule:
+    # Tous les jours à 7h UTC (9h Paris CEST)
+    - cron: '0 7 * * *'
+  workflow_dispatch: # déclenchement manuel possible
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Write GA4 credentials
+        run: echo '${{ secrets.GA_CREDENTIALS_JSON }}' > /tmp/ga-credentials.json
+
+      - name: Fetch GA4 analytics data
+        run: GA_CREDENTIALS=/tmp/ga-credentials.json node scripts/fetch-analytics.mjs
+
+      - name: Commit and push if data changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/dashboard-data.json
+          if git diff --staged --quiet; then
+            echo "Aucune nouvelle donnée, pas de commit."
+          else
+            git commit -m "chore(analytics): refresh dashboard data $(date +'%d/%m/%Y %H:%M') UTC"
+            git push
+          fi
+
+      - name: Cleanup credentials
+        if: always()
+        run: rm -f /tmp/ga-credentials.json
