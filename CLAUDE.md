@@ -92,3 +92,32 @@ Le site doit :
 **Clémentine Espinasse**
 - 📧 clementine.espinasse@gmail.com
 - 💼 LinkedIn
+
+---
+
+## Principes de développement (Karpathy Guidelines)
+
+> Guidelines dérivées des observations d'Andrej Karpathy sur les erreurs courantes des LLMs en développement.
+
+### 1. Réfléchir avant de coder
+- Formuler les hypothèses explicitement — si incertain, demander plutôt que supposer
+- Si plusieurs interprétations existent, les présenter — ne pas choisir en silence
+- Si une approche plus simple existe, le dire
+- Si quelque chose est flou, s'arrêter et demander
+
+### 2. Simplicité d'abord
+- Le minimum de code qui résout le problème — rien de spéculatif
+- Pas de features au-delà de ce qui a été demandé
+- Pas d'abstractions pour du code à usage unique
+- Si 200 lignes pourraient être 50, réécrire
+
+### 3. Changements chirurgicaux
+- Toucher uniquement ce qui est nécessaire
+- Ne pas "améliorer" le code adjacent non concerné
+- Ne pas refactoriser ce qui n'est pas cassé
+- Signaler le code mort orphelin — ne pas le supprimer sans demande
+
+### 4. Exécution orientée objectifs
+- Définir des critères de succès vérifiables avant de commencer
+- Pour les tâches multi-étapes, énoncer un plan avec une vérification à chaque étape
+- Boucler jusqu'à vérification complète
