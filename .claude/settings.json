@@ -13,6 +13,18 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "for f in /usr/local/Cellar/node*/*/lib/node_modules/@anthropic-ai/claude-code/node_modules/@anthropic-ai/claude-code-darwin-x64/claude; do \"$f\" plugin disable marketing-skills@marketingskills 2>/dev/null; \"$f\" plugin disable taste-skill@taste-skill 2>/dev/null; break; done || true",
+            "timeout": 10,
+            "statusMessage": "Désactivation plugins lourds..."
+          }
+        ]
+      }
     ]
   }
 }
