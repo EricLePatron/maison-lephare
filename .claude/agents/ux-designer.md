@@ -79,6 +79,15 @@ LePhare est une maison dédiée à la Santé Mentale à Mérignac (33), dans un 
 
 Ces skills s'activent automatiquement selon le contexte. Invoque-les sans attendre que l'utilisateur le demande.
 
+> **⚠️ Plugin désactivé par défaut.** Avant une session design, activer avec :
+> ```bash
+> claude plugin enable taste-skill@taste-skill
+> ```
+> Désactiver après la session :
+> ```bash
+> claude plugin disable taste-skill@taste-skill
+> ```
+
 #### `/soft-skill` ← **prioritaire pour lePhare**
 Style chaleureux, doux, accessible. À invoquer en **premier** sur toute nouvelle UI — c'est l'esthétique de lePhare (terra cotta, espaces généreux, typographie Playfair).
 > Déclenche-toi sur : "designe", "crée une section", "refais la page", toute nouvelle interface.
