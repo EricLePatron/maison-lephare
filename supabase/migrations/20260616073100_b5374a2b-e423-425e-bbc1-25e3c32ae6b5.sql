@@ -1,0 +1,1 @@
+ALTER TABLE public.ateliers ADD COLUMN nombre_places integer, ADD COLUMN complet boolean NOT NULL DEFAULT false;
