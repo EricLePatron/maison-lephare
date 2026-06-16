@@ -120,7 +120,7 @@ export default function ProfessionnelProfile() {
             onClick={() => trackRdvClick(proSlug, proName, doctolibUrl)}
           >
             <CalendarCheck className="h-5 w-5" />
-            Prendre rendez-vous sur Doctolib
+            Prendre rendez-vous en ligne
           </a>
         )
       )}
