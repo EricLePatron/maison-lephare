@@ -18,6 +18,7 @@ export type Database = {
         Row: {
           actif: boolean
           categorie: string
+          complet: boolean
           created_at: string
           date_evenement: string | null
           description: string | null
@@ -26,6 +27,7 @@ export type Database = {
           id: string
           image_url: string | null
           lien_inscription: string | null
+          nombre_places: number | null
           objectifs: string[] | null
           ordre_affichage: number | null
           public_cible: string | null
@@ -35,6 +37,7 @@ export type Database = {
         Insert: {
           actif?: boolean
           categorie: string
+          complet?: boolean
           created_at?: string
           date_evenement?: string | null
           description?: string | null
@@ -43,6 +46,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           lien_inscription?: string | null
+          nombre_places?: number | null
           objectifs?: string[] | null
           ordre_affichage?: number | null
           public_cible?: string | null
@@ -52,6 +56,7 @@ export type Database = {
         Update: {
           actif?: boolean
           categorie?: string
+          complet?: boolean
           created_at?: string
           date_evenement?: string | null
           description?: string | null
@@ -60,6 +65,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           lien_inscription?: string | null
+          nombre_places?: number | null
           objectifs?: string[] | null
           ordre_affichage?: number | null
           public_cible?: string | null

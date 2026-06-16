@@ -97,6 +97,8 @@ const emptyForm: FormData = {
   lien_inscription: "",
   image_url: "",
   date_evenement: null,
+  nombre_places: null,
+  complet: false,
 };
 
 export default function AdminAteliers() {
@@ -144,6 +146,8 @@ export default function AdminAteliers() {
       lien_inscription: (atelier as any).lien_inscription || "",
       image_url: (atelier as any).image_url || "",
       date_evenement: (atelier as any).date_evenement || null,
+      nombre_places: (atelier as any).nombre_places ?? null,
+      complet: (atelier as any).complet ?? false,
     });
     setObjectifsText((atelier.objectifs || []).join("\n"));
     setIsDialogOpen(true);
@@ -447,6 +451,35 @@ export default function AdminAteliers() {
                       <p className="text-xs text-muted-foreground">
                         Si renseignée, la photo remplace l'icône sur la page Ateliers.
                       </p>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="nombre_places">Nombre de places (optionnel)</Label>
+                        <Input
+                          id="nombre_places"
+                          type="number"
+                          min={0}
+                          value={(formData as any).nombre_places ?? ""}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              nombre_places: e.target.value === "" ? null : parseInt(e.target.value),
+                            } as FormData)
+                          }
+                          placeholder="Ex : 12"
+                        />
+                      </div>
+                      <div className="flex items-end gap-2 pb-2">
+                        <Switch
+                          id="complet"
+                          checked={(formData as any).complet ?? false}
+                          onCheckedChange={(checked) =>
+                            setFormData({ ...formData, complet: checked } as FormData)
+                          }
+                        />
+                        <Label htmlFor="complet">Atelier complet</Label>
+                      </div>
                     </div>
 
                     <div className="flex items-center gap-2">
