@@ -7,9 +7,20 @@
           {
             "type": "command",
             "if": "Bash(git push*)",
-            "command": "echo '{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"additionalContext\": \"\\u26a8\\ufe0f HOOK D\\u00c9PLOIEMENT: Tu t\\'appr\\u00eates \\u00e0 pusher sur main. As-tu bien ex\\u00e9cut\\u00e9 les deux commandes obligatoires?\\n1. npx tsc --noEmit (z\\u00e9ro erreur)\\n2. npx vite build (build r\\u00e9ussi)\\nSi non \\u2192 arr\\u00eate et ex\\u00e9cute ces v\\u00e9rifications d\\'abord. Le skill /deploy-checklist peut t\\'aider.\"}}'",
+            "command": "echo '{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"additionalContext\": \"\\u26a0\\ufe0f HOOK D\\u00c9PLOIEMENT: Tu t\\'appr\\u00eates \\u00e0 pusher sur main. As-tu bien ex\\u00e9cut\\u00e9 les deux commandes obligatoires?\\n1. npx tsc --noEmit (z\\u00e9ro erreur)\\n2. npx vite build (build r\\u00e9ussi)\\nSi non \\u2192 arr\\u00eate et ex\\u00e9cute ces v\\u00e9rifications d\\'abord. Le skill /deploy-checklist peut t\\'aider.\"}}'" ,
             "timeout": 5,
             "statusMessage": "Vérification protocole déploiement..."
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"additionalContext\": \"\\u26a0\\ufe0f R\\u00c8GLE ABSOLUE \\u2014 Modification directe d\\u00e9tect\\u00e9e. STOP. Toute modification de code source doit passer par l\\'agent developer (Agent tool avec subagent_type=developer). D\\u00e9l\\u00e8gue \\u00e0 l\\'agent developer avant de modifier ce fichier.\"}}'" ,
+            "timeout": 5,
+            "statusMessage": "Vérification règle agent developer..."
           }
         ]
       }
