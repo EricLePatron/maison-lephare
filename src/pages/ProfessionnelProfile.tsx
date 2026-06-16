@@ -24,6 +24,7 @@ import {
   trackRdvClick,
   trackProContactClick,
 } from "@/lib/analytics";
+import { Seo } from "@/components/Seo";
 
 export default function ProfessionnelProfile() {
   const { slug } = useParams<{ slug: string }>();
@@ -99,8 +100,18 @@ export default function ProfessionnelProfile() {
   const proSlug = slug!;
   const proName = `${pro.prenom} ${pro.nom}`;
 
+  const seoDescription = pro.description
+    ? pro.description.slice(0, 150).trimEnd() + (pro.description.length > 150 ? "…" : "")
+    : `${pro.prenom} ${pro.nom}, ${pro.profession} au Phare à Mérignac (33). Prenez rendez-vous en ligne.`;
+
   return (
     <>
+      <Seo
+        title={`${pro.prenom} ${pro.nom} – ${pro.profession} à Mérignac | Le Phare`}
+        description={seoDescription}
+        path={`/professionnels/${slug}`}
+        type="profile"
+      />
       {/* Bouton Doctolib flottant — desktop uniquement */}
       {doctolibUrl && heroVisible && (
         accepteNouveauxPatients === false ? (
