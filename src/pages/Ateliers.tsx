@@ -31,7 +31,7 @@ export default function Ateliers() {
   return (
     <>
       <Seo
-        title="Les ateliers – Le Phare"
+        title="Ateliers & groupes de parole – Santé Mentale à Mérignac | Le Phare"
         description="Découvrez les ateliers, groupes de parole et activités proposés par l'association Le Phare pour accompagner le rétablissement en santé mentale."
         path="/ateliers"
       />
