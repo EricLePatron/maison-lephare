@@ -21,8 +21,8 @@ export default function Contact() {
   return (
     <>
       <Seo
-        title="Contact – Le Phare, Maison de la Santé Mentale"
-        description="Contactez Le Phare à Mérignac : informations, rendez-vous avec un professionnel, propositions d'ateliers ou installation en libéral."
+        title="Contact – Le Phare, Maison de la Santé Mentale à Mérignac"
+        description="Contactez Le Phare à Mérignac : informations, rendez-vous avec un professionnel, propositions d'ateliers ou installation en libéral."
         path="/contact"
       />
       {/* Hero — fond bleu ciel + carte coordonnées centrée */}
