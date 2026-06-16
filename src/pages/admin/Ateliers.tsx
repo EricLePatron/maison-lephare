@@ -453,6 +453,35 @@ export default function AdminAteliers() {
                       </p>
                     </div>
 
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="nombre_places">Nombre de places (optionnel)</Label>
+                        <Input
+                          id="nombre_places"
+                          type="number"
+                          min={0}
+                          value={(formData as any).nombre_places ?? ""}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              nombre_places: e.target.value === "" ? null : parseInt(e.target.value),
+                            } as FormData)
+                          }
+                          placeholder="Ex : 12"
+                        />
+                      </div>
+                      <div className="flex items-end gap-2 pb-2">
+                        <Switch
+                          id="complet"
+                          checked={(formData as any).complet ?? false}
+                          onCheckedChange={(checked) =>
+                            setFormData({ ...formData, complet: checked } as FormData)
+                          }
+                        />
+                        <Label htmlFor="complet">Atelier complet</Label>
+                      </div>
+                    </div>
+
                     <div className="flex items-center gap-2">
                       <Switch
                         id="actif"
