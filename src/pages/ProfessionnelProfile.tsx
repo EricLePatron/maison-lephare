@@ -120,7 +120,7 @@ export default function ProfessionnelProfile() {
             onClick={() => trackRdvClick(proSlug, proName, doctolibUrl)}
           >
             <CalendarCheck className="h-5 w-5" />
-            Prendre rendez-vous sur Doctolib
+            Prendre rendez-vous en ligne
           </a>
         )
       )}
@@ -320,7 +320,7 @@ export default function ProfessionnelProfile() {
                               className="inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-primary/20 text-primary-foreground/50 text-sm font-semibold cursor-not-allowed"
                             >
                               <XCircle className="h-4 w-4" />
-                              Prendre rendez-vous sur Doctolib
+                              Prendre rendez-vous en ligne
                             </button>
                             <p className="text-xs text-muted-foreground text-center leading-relaxed">
                               {pro.prenom} n'accepte pas de nouveaux patients pour le moment.
@@ -336,7 +336,7 @@ export default function ProfessionnelProfile() {
                             onClick={() => trackRdvClick(proSlug, proName, (pro as any).doctolib_url)}
                           >
                             <CalendarCheck className="h-4 w-4" />
-                            Prendre rendez-vous sur Doctolib
+                            Prendre rendez-vous en ligne
                           </a>
                         )}
                       </li>
@@ -401,7 +401,7 @@ export default function ProfessionnelProfile() {
               aria-label={`Prendre rendez-vous avec ${pro.prenom} sur Doctolib (ouvre un nouvel onglet)`}
             >
               <CalendarCheck className="h-5 w-5" />
-              Prendre rendez-vous sur Doctolib
+              Prendre rendez-vous en ligne
             </a>
           )}
         </div>
