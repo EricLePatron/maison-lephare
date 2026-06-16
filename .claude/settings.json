@@ -1,4 +1,9 @@
 {
+  "permissions": {
+    "allow": [
+      "mcp__8a976694-cb8c-4493-a1c3-60d7a486f9d9__*"
+    ]
+  },
   "hooks": {
     "PreToolUse": [
       {
