@@ -97,6 +97,8 @@ const emptyForm: FormData = {
   lien_inscription: "",
   image_url: "",
   date_evenement: null,
+  nombre_places: null,
+  complet: false,
 };
 
 export default function AdminAteliers() {
@@ -144,6 +146,8 @@ export default function AdminAteliers() {
       lien_inscription: (atelier as any).lien_inscription || "",
       image_url: (atelier as any).image_url || "",
       date_evenement: (atelier as any).date_evenement || null,
+      nombre_places: (atelier as any).nombre_places ?? null,
+      complet: (atelier as any).complet ?? false,
     });
     setObjectifsText((atelier.objectifs || []).join("\n"));
     setIsDialogOpen(true);
