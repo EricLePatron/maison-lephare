@@ -81,6 +81,8 @@ export default function Ateliers() {
                 const IconComp = ICON_MAP[atelier.icone || "Brain"] || Brain;
                 const lien = (atelier as any).lien_inscription as string | null;
                 const imageUrl = (atelier as any).image_url as string | null;
+                const nombrePlaces = (atelier as any).nombre_places as number | null;
+                const complet = Boolean((atelier as any).complet);
                 return (
                   <Reveal key={atelier.id} variant="up" delay={index * 100} className="flex flex-col items-center text-center">
                     <div className="relative w-full aspect-[4/3] rounded-2xl border-[3px] border-primary overflow-hidden bg-sky-100 flex items-center justify-center">
@@ -88,11 +90,11 @@ export default function Ateliers() {
                         <img
                           src={imageUrl}
                           alt={atelier.titre}
-                          className={`w-full h-full object-cover ${isPast ? "grayscale opacity-60" : ""}`}
+                          className={`w-full h-full object-cover ${isPast || complet ? "grayscale opacity-60" : ""}`}
                           loading="lazy"
                         />
                       ) : (
-                        <IconComp className={`h-16 w-16 text-primary ${isPast ? "opacity-50" : ""}`} />
+                        <IconComp className={`h-16 w-16 text-primary ${isPast || complet ? "opacity-50" : ""}`} />
                       )}
                       {isPast && (
                         <div className="absolute inset-0 flex items-center justify-center bg-black/30">
@@ -101,8 +103,15 @@ export default function Ateliers() {
                           </span>
                         </div>
                       )}
+                      {!isPast && complet && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                          <span className="px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-semibold uppercase tracking-wider">
+                            Complet
+                          </span>
+                        </div>
+                      )}
                     </div>
-                    <h3 className={`mt-4 sm:mt-5 uppercase tracking-wide font-bold text-sm sm:text-base leading-tight ${isPast ? "text-foreground/60" : "text-primary"}`}>
+                    <h3 className={`mt-4 sm:mt-5 uppercase tracking-wide font-bold text-sm sm:text-base leading-tight ${isPast || complet ? "text-foreground/60" : "text-primary"}`}>
                       {atelier.titre}
                     </h3>
                     {atelier.categorie && (
@@ -110,12 +119,17 @@ export default function Ateliers() {
                         {atelier.categorie}
                       </p>
                     )}
+                    {nombrePlaces != null && !isPast && (
+                      <p className="mt-1 text-xs text-foreground/70">
+                        {complet ? `${nombrePlaces} places — complet` : `${nombrePlaces} places`}
+                      </p>
+                    )}
                     {atelier.description && (
                       <p className="mt-2 text-sm text-foreground/80 leading-relaxed">
                         {atelier.description}
                       </p>
                     )}
-                    {lien && !isPast && (
+                    {lien && !isPast && !complet && (
                       <a
                         href={lien}
                         target="_blank"
