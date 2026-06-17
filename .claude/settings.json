@@ -1,4 +1,18 @@
 {
+  "permissions": {
+    "allow": [
+      "mcp__8a976694-cb8c-4493-a1c3-60d7a486f9d9__notion-create-pages",
+      "mcp__8a976694-cb8c-4493-a1c3-60d7a486f9d9__notion-update-page",
+      "mcp__8a976694-cb8c-4493-a1c3-60d7a486f9d9__notion-fetch",
+      "mcp__8a976694-cb8c-4493-a1c3-60d7a486f9d9__notion-search",
+      "mcp__8a976694-cb8c-4493-a1c3-60d7a486f9d9__notion-query-database",
+      "mcp__8a976694-cb8c-4493-a1c3-60d7a486f9d9__notion-duplicate-page",
+      "mcp__8a976694-cb8c-4493-a1c3-60d7a486f9d9__notion-move-pages",
+      "mcp__8a976694-cb8c-4493-a1c3-60d7a486f9d9__notion-get-users",
+      "mcp__8a976694-cb8c-4493-a1c3-60d7a486f9d9__notion-get-comments",
+      "mcp__8a976694-cb8c-4493-a1c3-60d7a486f9d9__notion-create-comment"
+    ]
+  },
   "hooks": {
     "PreToolUse": [
       {
