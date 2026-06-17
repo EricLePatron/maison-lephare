@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { useProfessionnels } from "@/hooks/useProfessionnels";
 import { useSiteImage } from "@/hooks/useTheme";
@@ -112,6 +113,23 @@ export default function ProfessionnelProfile() {
         path={`/professionnels/${slug}`}
         type="profile"
       />
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": `${pro.prenom} ${pro.nom}`,
+            "jobTitle": pro.profession,
+            ...(pro.description ? { "description": pro.description } : {}),
+            "url": `https://www.maison-lephare.org/professionnels/${slug}`,
+            "worksFor": {
+              "@type": "MedicalClinic",
+              "name": "Maison lePhare",
+              "url": "https://www.maison-lephare.org",
+            },
+          })}
+        </script>
+      </Helmet>
       {/* Bouton Doctolib flottant — desktop uniquement */}
       {doctolibUrl && heroVisible && (
         accepteNouveauxPatients === false ? (

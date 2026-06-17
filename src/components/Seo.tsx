@@ -1,16 +1,19 @@
 import { Helmet } from "react-helmet-async";
 
 const SITE_URL = "https://www.maison-lephare.org";
+const DEFAULT_OG_IMAGE = "https://www.maison-lephare.org/og-image.jpg";
 
 interface SeoProps {
   title: string;
   description: string;
   path: string;
   type?: "website" | "article" | "profile";
+  image?: string;
 }
 
-export function Seo({ title, description, path, type = "website" }: SeoProps) {
+export function Seo({ title, description, path, type = "website", image }: SeoProps) {
   const url = `${SITE_URL}${path}`;
+  const ogImage = image ?? DEFAULT_OG_IMAGE;
   return (
     <Helmet>
       <title>{title}</title>
@@ -20,8 +23,11 @@ export function Seo({ title, description, path, type = "website" }: SeoProps) {
       <meta property="og:description" content={description} />
       <meta property="og:url" content={url} />
       <meta property="og:type" content={type} />
+      <meta property="og:image" content={ogImage} />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={ogImage} />
     </Helmet>
   );
 }
