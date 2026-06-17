@@ -474,7 +474,7 @@ export default function AdminProfessionnels() {
                 onChange={(url) =>
                   setFormData((prev) => ({ ...prev, hero_photo_url: url } as any))
                 }
-                folder="professionnels-hero"
+                folder="professionnels/hero"
               />
             </div>
 
