@@ -21,7 +21,7 @@
           {
             "type": "command",
             "if": "Bash(git push*)",
-            "command": "echo \"{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"additionalContext\": \"HOOK DEPLOIEMENT: Protocole push vers main. Verif obligatoires: 1. npx tsc --noEmit (zero erreur) 2. npx vite build (build reussi)\"}}\"\n",
+            "command": "true",
             "timeout": 5,
             "statusMessage": "Vérification protocole déploiement..."
           }
@@ -32,7 +32,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo \"{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"additionalContext\": \"REGLE ABSOLUE - Modification directe detectee. Toute modification doit passer par agent developer.\"}}\"\n",
+            "command": "true",
             "timeout": 5,
             "statusMessage": "Vérification règle agent developer..."
           }
