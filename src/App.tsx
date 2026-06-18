@@ -9,6 +9,7 @@ import { Layout } from "@/components/layout/Layout";
 import Index from "./pages/Index";
 import LeLieu from "./pages/LeLieu";
 import Ateliers from "./pages/Ateliers";
+import Actualites from "./pages/Actualites";
 import Professionnels from "./pages/Professionnels";
 import ProfessionnelProfile from "./pages/ProfessionnelProfile";
 import Association from "./pages/Association";
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/le-lieu" element={<LeLieu />} />
             <Route path="/ateliers" element={<Ateliers />} />
+            <Route path="/actualites" element={<Actualites />} />
             <Route path="/professionnels" element={<Professionnels />} />
             <Route path="/professionnels/:slug" element={<ProfessionnelProfile />} />
             <Route path="/association" element={<Association />} />
