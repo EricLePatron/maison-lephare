@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { trackNavClick, trackDonClick } from "@/lib/analytics";
 import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
+import { useFeatureFlag, useActualitesVisible } from "@/hooks/usePublications";
 import logoLePhare from "@/assets/logo-lephare.png";
 
 export function Header() {
@@ -12,6 +13,9 @@ export function Header() {
   const location = useLocation();
   const { getContent } = usePageContent("global");
   const logoSrc = useSiteImage("logo-main", logoLePhare);
+  const { enabled: flagActuHeader } = useFeatureFlag("actualites_header");
+  const { visible: actuVisible } = useActualitesVisible();
+  const showActualites = flagActuHeader && actuVisible;
 
   const navLinks = [
     { href: "/", label: getContent("nav", "accueil", "Accueil") },
@@ -19,6 +23,9 @@ export function Header() {
     { href: "/professionnels", label: getContent("nav", "professionnels", "Les professionnels") },
     { href: "/ateliers", label: getContent("nav", "ateliers", "Les ateliers") },
     { href: "/association", label: getContent("nav", "association", "L'association") },
+    ...(showActualites
+      ? [{ href: "/actualites", label: getContent("nav", "actualites", "Actualités") }]
+      : []),
   ];
   const ctaLabel = getContent("nav", "cta", "Contactez-nous !");
   const donUrl = "https://lephare-sante-mentale-czk7vv2pjnfua.assoconnect.com/collect/donation/01KQY7G52YB5FTRZ1PS35TCM9B/un-don-a-l-association-lephare-sante-mentale";
