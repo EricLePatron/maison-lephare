@@ -586,7 +586,7 @@ export default function Metrics() {
         {/* En-tête avec badge sitemap */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-xl font-serif text-foreground">Monitoring SEO</h2>
+            <h2 className="text-xl font-serif font-medium text-foreground">Monitoring SEO</h2>
             <p className="text-xs text-muted-foreground mt-0.5">Données indicatives — Google Search Console</p>
           </div>
           {data?.seo?.sitemapOk ? (
@@ -606,7 +606,7 @@ export default function Metrics() {
         ) : (
           <>
             {/* 4 KPI cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               {/* Score SEO */}
               <Card>
                 <CardContent className="pt-5">
@@ -646,8 +646,8 @@ export default function Metrics() {
                           : 'GSC non configuré'}
                       </p>
                     </div>
-                    <div className="h-10 w-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'hsl(155 22% 55% / 0.12)' }}>
-                      <Globe className="h-5 w-5" style={{ color: 'hsl(155, 22%, 40%)' }} />
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Globe className="h-5 w-5 text-primary" />
                     </div>
                   </div>
                 </CardContent>
@@ -664,8 +664,8 @@ export default function Metrics() {
                         {(data.seo.keywords ?? []).length > 0 ? `sur ${(data.seo.keywords ?? []).length} requêtes` : 'GSC non configuré'}
                       </p>
                     </div>
-                    <div className="h-10 w-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
-                      <TrendingUp className="h-5 w-5 text-amber-600" />
+                    <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center">
+                      <TrendingUp className="h-5 w-5 text-muted-foreground" />
                     </div>
                   </div>
                 </CardContent>
@@ -680,8 +680,8 @@ export default function Metrics() {
                       <p className="text-3xl font-bold text-foreground">{data.seo.avgPosition ?? '—'}</p>
                       <p className="text-xs text-muted-foreground mt-1">Top 20 requêtes GSC</p>
                     </div>
-                    <div className="h-10 w-10 rounded-lg bg-violet-500/10 flex items-center justify-center">
-                      <Target className="h-5 w-5 text-violet-500" />
+                    <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center">
+                      <Target className="h-5 w-5 text-muted-foreground" />
                     </div>
                   </div>
                 </CardContent>
@@ -701,10 +701,10 @@ export default function Metrics() {
                   <table className="w-full text-sm min-w-[640px]">
                     <thead>
                       <tr className="border-b border-border">
-                        <th className="text-left py-2 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">Page</th>
-                        <th className="text-left py-2 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">Titre</th>
-                        <th className="text-left py-2 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">Description</th>
-                        <th className="text-left py-2 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">Robots</th>
+                        <th className="text-left py-2 px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Page</th>
+                        <th className="text-left py-2 px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Titre</th>
+                        <th className="text-left py-2 px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Description</th>
+                        <th className="text-left py-2 px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Robots</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -716,18 +716,18 @@ export default function Metrics() {
                         const isNoindex = page.robots.includes('noindex');
                         return (
                           <tr key={page.path} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
-                            <td className="py-2.5 px-4 font-mono text-xs text-muted-foreground whitespace-nowrap">{page.path}</td>
-                            <td className="py-2.5 px-4 max-w-[200px]">
+                            <td className="py-2.5 px-3 font-mono text-xs text-muted-foreground whitespace-nowrap">{page.path}</td>
+                            <td className="py-2.5 px-3 max-w-[200px]">
                               <p className="truncate text-foreground text-xs">{page.title}</p>
                             </td>
-                            <td className="py-2.5 px-4 max-w-[260px]">
+                            <td className="py-2.5 px-3 max-w-[260px]">
                               {page.description ? (
                                 <p className="truncate text-muted-foreground text-xs">{page.description}</p>
                               ) : (
                                 <span className="text-muted-foreground/40 text-xs italic">—</span>
                               )}
                             </td>
-                            <td className="py-2.5 px-4 whitespace-nowrap">
+                            <td className="py-2.5 px-3 whitespace-nowrap">
                               <span className={cn(
                                 "inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium",
                                 isNoindex
