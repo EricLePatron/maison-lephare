@@ -128,14 +128,20 @@ scripts/                 # fetch-analytics.mjs, generate-sitemap.ts
 
 ---
 
-## Skill `/frontend-design` — à utiliser à la réception des specs UX
+## Skills disponibles
 
-Quand tu reçois un handoff de l'agent `ux-designer`, invoque `/frontend-design` pour :
-- Valider que les specs sont complètes et implémentables
-- Structurer ton approche d'implémentation (composants, ordre, fichiers)
-- Vérifier la cohérence avec le design system (tokens Tailwind, shadcn/ui)
+| Skill | Source | Déclenchement |
+|-------|--------|---------------|
+| `/deploy-checklist` | Local | Avant tout `git push` — hook automatique |
+| `/frontend-design` | Plugin actif (~59 tok always-on, ~860 tok on-invoke) | Réception specs UX depuis `ux-designer` |
+| `/karpathy-guidelines` | Local | Avant toute implémentation |
+| `/code-review` | Local | Avant merge / PR |
+| `/debug` | Local | Erreur, bug, comportement inattendu |
+| `/incident-response` | Local | Site down, erreur prod |
+| `/architecture` | Local | Décision technique structurante |
+| `/documentation` | Local | README, runbook à créer |
 
-**Flux attendu** : specs UX → `/frontend-design` → implémentation → `/deploy-checklist` → push
+**Flux attendu** : specs UX → `/frontend-design` → `/karpathy-guidelines` → implémentation → `/deploy-checklist` → push
 
 ---
 
