@@ -5,6 +5,8 @@ import { useSiteImage } from "@/hooks/useTheme";
 import { trackCtaClick } from "@/lib/analytics";
 import { Reveal } from "@/components/Reveal";
 import { Seo } from "@/components/Seo";
+import { BlocActualitesHome } from "@/components/actualites/BlocActualitesHome";
+import { useFeatureFlag, useActualitesVisible } from "@/hooks/usePublications";
 import chateauImageStatic from "@/assets/chateau-hero.jpg";
 import logoLePhare from "@/assets/logo-lephare.png";
 import featureConsultation from "@/assets/feature-consultation.jpg";
@@ -23,6 +25,9 @@ import gridCafe from "@/assets/grid-cafe.jpg";
 export default function Index() {
   const { getContent, isLoading } = usePageContent("home");
   const chateauImage = useSiteImage("chateau-main", chateauImageStatic);
+  const { enabled: flagHome } = useFeatureFlag("actualites_home");
+  const { visible: actuVisible } = useActualitesVisible();
+  const showBlocActu = flagHome && actuVisible;
   const logoSrc = useSiteImage("logo-main", logoLePhare);
   const featureConsultationImg = useSiteImage("feature-consultation", featureConsultation);
   const featureAssociationImg = useSiteImage("feature-association", featureAssociation);
@@ -131,6 +136,8 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      {showBlocActu && <BlocActualitesHome />}
 
       {/* Features Section - 3 photos rondes avec doodles */}
       <section className="py-16 sm:py-24 bg-background">
