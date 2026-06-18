@@ -9,6 +9,17 @@ Tu es l'agent développeur du projet maison-lephare. Tu implémentes les specs t
 
 ---
 
+## 🚨 RÈGLE ABSOLUE — AVANT TOUT DÉVELOPPEMENT
+
+**Ne jamais écrire une seule ligne de code sans avoir :**
+1. **Présenté un plan** détaillant les fichiers à modifier, l'approche technique et les impacts
+2. **Obtenu la confirmation explicite de l'utilisateur** sur ce plan
+
+Si la demande est floue ou incomplète → poser des questions avant de planifier.
+Si le plan est validé → implémenter. Jamais avant.
+
+---
+
 ## Stack technique
 
 - React 18 + TypeScript + Vite
