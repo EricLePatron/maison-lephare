@@ -31,6 +31,7 @@ export type Database = {
           objectifs: string[] | null
           ordre_affichage: number | null
           public_cible: string | null
+          statut: string
           titre: string
           updated_at: string
         }
@@ -50,6 +51,7 @@ export type Database = {
           objectifs?: string[] | null
           ordre_affichage?: number | null
           public_cible?: string | null
+          statut?: string
           titre: string
           updated_at?: string
         }
@@ -69,6 +71,7 @@ export type Database = {
           objectifs?: string[] | null
           ordre_affichage?: number | null
           public_cible?: string | null
+          statut?: string
           titre?: string
           updated_at?: string
         }
@@ -158,6 +161,27 @@ export type Database = {
           id?: string
           token?: string
           used_at?: string | null
+        }
+        Relationships: []
+      }
+      feature_flags: {
+        Row: {
+          enabled: boolean
+          key: string
+          label: string | null
+          updated_at: string
+        }
+        Insert: {
+          enabled?: boolean
+          key: string
+          label?: string | null
+          updated_at?: string
+        }
+        Update: {
+          enabled?: boolean
+          key?: string
+          label?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
@@ -293,6 +317,51 @@ export type Database = {
           specialites?: string[] | null
           telephone?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      publications: {
+        Row: {
+          actif: boolean
+          auteur: string
+          categorie: string | null
+          created_at: string
+          date_publication: string
+          extrait: string
+          featured: boolean
+          id: string
+          image_url: string | null
+          type: string
+          updated_at: string
+          url_linkedin: string | null
+        }
+        Insert: {
+          actif?: boolean
+          auteur: string
+          categorie?: string | null
+          created_at?: string
+          date_publication: string
+          extrait: string
+          featured?: boolean
+          id?: string
+          image_url?: string | null
+          type: string
+          updated_at?: string
+          url_linkedin?: string | null
+        }
+        Update: {
+          actif?: boolean
+          auteur?: string
+          categorie?: string | null
+          created_at?: string
+          date_publication?: string
+          extrait?: string
+          featured?: boolean
+          id?: string
+          image_url?: string | null
+          type?: string
+          updated_at?: string
+          url_linkedin?: string | null
         }
         Relationships: []
       }
