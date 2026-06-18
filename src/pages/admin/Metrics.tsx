@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { BarChart, Bar, AreaChart, Area, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import { Users, Eye, Clock, Mail, AlertCircle, RefreshCw, Loader2, Calendar, TrendingUp, Heart, BookOpen } from "lucide-react";
+import { Users, Eye, Clock, Mail, AlertCircle, RefreshCw, Loader2, Calendar, TrendingUp, Heart, BookOpen, Gauge, Globe, Link2, FileSearch, CheckCircle2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 type PeriodKey = "24h" | "7d" | "30d" | "90d";
@@ -551,6 +552,162 @@ export default function Metrics() {
           )}
         </CardContent>
       </Card>
+
+      {/* === SECTION SEO === */}
+      {(() => {
+        const SEO_DATA = {
+          score: 74,
+          scoreTrend: '+4 pts ce mois',
+          indexedPages: { indexed: 12, total: 15 },
+          keywords: { count: 23, trend: '+5 nouvelles positions' },
+          backlinks: { count: 47, domains: 12 },
+          sitemapOk: true,
+          pages: [
+            { path: '/', title: 'Maison lePhare — Santé Mentale à Bordeaux', description: 'Découvrez la Maison lePhare, espace pluridisciplinaire dédié à la santé mentale à Bordeaux.', robots: 'index, follow' },
+            { path: '/le-lieu', title: 'Le Lieu — Maison lePhare', description: 'Un château et son parc de 2 hectares au cœur de Bordeaux.', robots: 'index, follow' },
+            { path: '/ateliers', title: 'Ateliers & Événements — lePhare', description: 'Groupes de paroles, art-thérapie, pair-aidance et café-débats.', robots: 'index, follow' },
+            { path: '/professionnels', title: 'Professionnels de santé mentale — lePhare', description: 'Installez-vous en libéral dans nos cabinets.', robots: 'index, follow' },
+            { path: '/contact', title: 'Contact — Maison lePhare', description: 'Contactez Clémentine Espinasse pour toute question.', robots: 'index, follow' },
+            { path: '/admin', title: 'Administration', description: '', robots: 'noindex, nofollow' },
+          ],
+        };
+        return (
+          <div className="mt-10 pt-10 border-t border-border/40">
+            {/* En-tête avec badge sitemap */}
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="text-xl font-serif text-foreground">Monitoring SEO</h2>
+                <p className="text-xs text-muted-foreground mt-0.5">Données indicatives — Google Search Console</p>
+              </div>
+              <Badge variant="outline" className="gap-1.5 text-xs border-emerald-600/30 text-emerald-700 bg-emerald-50">
+                <CheckCircle2 className="h-3 w-3" />
+                Sitemap OK
+              </Badge>
+            </div>
+
+            {/* 4 KPI cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+              {/* Score SEO */}
+              <Card>
+                <CardContent className="pt-5">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Score SEO</p>
+                      <p className="text-3xl font-bold text-foreground">{SEO_DATA.score}<span className="text-base font-normal text-muted-foreground">/100</span></p>
+                      <p className="text-xs text-muted-foreground mt-1">{SEO_DATA.scoreTrend}</p>
+                    </div>
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Gauge className="h-5 w-5 text-primary" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Pages indexées */}
+              <Card>
+                <CardContent className="pt-5">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Pages indexées</p>
+                      <p className="text-3xl font-bold text-foreground">{SEO_DATA.indexedPages.indexed}<span className="text-base font-normal text-muted-foreground">/{SEO_DATA.indexedPages.total}</span></p>
+                      <p className="text-xs text-muted-foreground mt-1">{SEO_DATA.indexedPages.total - SEO_DATA.indexedPages.indexed} exclues</p>
+                    </div>
+                    <div className="h-10 w-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'hsl(155 22% 55% / 0.12)' }}>
+                      <Globe className="h-5 w-5" style={{ color: 'hsl(155, 22%, 40%)' }} />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Mots-clés top 10 */}
+              <Card>
+                <CardContent className="pt-5">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Mots-clés top 10</p>
+                      <p className="text-3xl font-bold text-foreground">{SEO_DATA.keywords.count}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{SEO_DATA.keywords.trend}</p>
+                    </div>
+                    <div className="h-10 w-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                      <TrendingUp className="h-5 w-5 text-amber-600" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Backlinks */}
+              <Card>
+                <CardContent className="pt-5">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Backlinks</p>
+                      <p className="text-3xl font-bold text-foreground">{SEO_DATA.backlinks.count}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{SEO_DATA.backlinks.domains} domaines référents</p>
+                    </div>
+                    <div className="h-10 w-10 rounded-lg bg-violet-500/10 flex items-center justify-center">
+                      <Link2 className="h-5 w-5 text-violet-500" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Tableau méta-données par page */}
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium text-foreground flex items-center gap-2">
+                  <FileSearch className="h-4 w-4 text-muted-foreground" />
+                  Méta-données par page
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm min-w-[640px]">
+                    <thead>
+                      <tr className="border-b border-border">
+                        <th className="text-left py-2 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">Page</th>
+                        <th className="text-left py-2 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">Titre</th>
+                        <th className="text-left py-2 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">Description</th>
+                        <th className="text-left py-2 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">Robots</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {SEO_DATA.pages.map((page) => {
+                        const isNoindex = page.robots.includes('noindex');
+                        return (
+                          <tr key={page.path} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
+                            <td className="py-2.5 px-4 font-mono text-xs text-muted-foreground whitespace-nowrap">{page.path}</td>
+                            <td className="py-2.5 px-4 max-w-[200px]">
+                              <p className="truncate text-foreground text-xs">{page.title}</p>
+                            </td>
+                            <td className="py-2.5 px-4 max-w-[260px]">
+                              {page.description ? (
+                                <p className="truncate text-muted-foreground text-xs">{page.description}</p>
+                              ) : (
+                                <span className="text-muted-foreground/40 text-xs italic">—</span>
+                              )}
+                            </td>
+                            <td className="py-2.5 px-4 whitespace-nowrap">
+                              <span className={cn(
+                                "inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium",
+                                isNoindex
+                                  ? "bg-red-50 text-red-600 border border-red-200"
+                                  : "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                              )}>
+                                {isNoindex ? 'noindex' : 'index'}
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        );
+      })()}
 
       {/* ── Funnel RDV par professionnel ───────────────────────────────── */}
       <Card>
