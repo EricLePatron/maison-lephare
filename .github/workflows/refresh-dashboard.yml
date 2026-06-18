@@ -30,8 +30,19 @@ jobs:
       - name: Write GA4 credentials
         run: echo '${{ secrets.GA_CREDENTIALS_JSON }}' > /tmp/ga-credentials.json
 
-      - name: Fetch GA4 analytics data
-        run: GA_CREDENTIALS=/tmp/ga-credentials.json node scripts/fetch-analytics.mjs
+      - name: Setup GSC credentials (optional)
+        if: env.GSC_CREDENTIALS_JSON != ''
+        run: |
+          echo '${{ secrets.GSC_CREDENTIALS_JSON }}' > /tmp/gsc-credentials.json
+        env:
+          GSC_CREDENTIALS_JSON: ${{ secrets.GSC_CREDENTIALS_JSON }}
+
+      - name: Fetch analytics data
+        run: node scripts/fetch-analytics.mjs
+        env:
+          GA_CREDENTIALS: /tmp/ga-credentials.json
+          GSC_CREDENTIALS: /tmp/gsc-credentials.json
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
 
       - name: Commit and push if data changed
         run: |
@@ -47,4 +58,4 @@ jobs:
 
       - name: Cleanup credentials
         if: always()
-        run: rm -f /tmp/ga-credentials.json
+        run: rm -f /tmp/ga-credentials.json /tmp/gsc-credentials.json

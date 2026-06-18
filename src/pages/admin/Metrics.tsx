@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { BarChart, Bar, AreaChart, Area, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import { Users, Eye, Clock, Mail, AlertCircle, RefreshCw, Loader2, Calendar, TrendingUp, Heart, BookOpen } from "lucide-react";
+import { Users, Eye, Clock, Mail, AlertCircle, RefreshCw, Loader2, Calendar, TrendingUp, Heart, BookOpen, Gauge, Globe, Target, FileSearch, CheckCircle2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 type PeriodKey = "24h" | "7d" | "30d" | "90d";
@@ -35,10 +36,38 @@ interface PeriodData {
   donClics?: { total: number; desktop: number; mobile: number };
 }
 
+interface SeoPage {
+  path: string;
+  title: string;
+  description: string;
+  robots: string;
+}
+
+interface SeoKeyword {
+  query: string;
+  clicks: number;
+  impressions: number;
+  position: number;
+  ctr: number;
+}
+
+interface SeoData {
+  sitemapOk: boolean;
+  sitemapUrlCount: number;
+  indexedPages: { indexed: number; total: number } | null;
+  keywords: SeoKeyword[];
+  keywordsTop10Count?: number;
+  avgPosition?: number | null;
+  score?: number | null;
+  pagespeed: { score: number | null; lcp: string | null; cls: string | null } | null;
+  pages: SeoPage[];
+}
+
 interface DashboardData {
   generatedAt: string;
   periods: Record<PeriodKey, PeriodData>;
   periodLabels: Record<PeriodKey, string>;
+  seo?: SeoData;
 }
 
 const PERIOD_BUTTONS: { key: PeriodKey; label: string }[] = [
@@ -551,6 +580,174 @@ export default function Metrics() {
           )}
         </CardContent>
       </Card>
+
+      {/* === SECTION SEO === */}
+      <div className="mt-10 pt-10 border-t border-border/40">
+        {/* En-tête avec badge sitemap */}
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-xl font-serif font-medium text-foreground">Monitoring SEO</h2>
+            <p className="text-xs text-muted-foreground mt-0.5">Données indicatives — Google Search Console</p>
+          </div>
+          {data?.seo?.sitemapOk ? (
+            <Badge variant="outline" className="gap-1.5 text-xs border-emerald-600/30 text-emerald-700 bg-emerald-50">
+              <CheckCircle2 className="h-3 w-3" />
+              Sitemap OK
+            </Badge>
+          ) : (
+            <Badge variant="outline" className="gap-1.5 text-xs border-muted-foreground/30 text-muted-foreground">
+              Sitemap non vérifié
+            </Badge>
+          )}
+        </div>
+
+        {!data?.seo ? (
+          <p className="text-xs text-muted-foreground">Données SEO non disponibles — relancer npm run dashboard</p>
+        ) : (
+          <>
+            {/* 4 KPI cards */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+              {/* Score SEO */}
+              <Card>
+                <CardContent className="pt-5">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Score SEO</p>
+                      <p className="text-3xl font-bold text-foreground">
+                        {data.seo.score ?? '—'}
+                        {data.seo.score != null && <span className="text-base font-normal text-muted-foreground">/100</span>}
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {data.seo.avgPosition != null ? `Pos. moy. ${data.seo.avgPosition}` : '—'}
+                      </p>
+                    </div>
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Gauge className="h-5 w-5 text-primary" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Pages indexées */}
+              <Card>
+                <CardContent className="pt-5">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Pages indexées</p>
+                      <p className="text-3xl font-bold text-foreground">
+                        {data.seo.indexedPages?.indexed ?? '—'}
+                        {data.seo.indexedPages != null && (
+                          <span className="text-base font-normal text-muted-foreground">/{data.seo.indexedPages.total}</span>
+                        )}
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {data.seo.indexedPages != null
+                          ? `${data.seo.indexedPages.total - data.seo.indexedPages.indexed} exclues`
+                          : 'GSC non configuré'}
+                      </p>
+                    </div>
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Globe className="h-5 w-5 text-primary" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Mots-clés top 10 */}
+              <Card>
+                <CardContent className="pt-5">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Mots-clés top 10</p>
+                      <p className="text-3xl font-bold text-foreground">{data.seo.keywordsTop10Count ?? '—'}</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {(data.seo.keywords ?? []).length > 0 ? `sur ${(data.seo.keywords ?? []).length} requêtes` : 'GSC non configuré'}
+                      </p>
+                    </div>
+                    <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center">
+                      <TrendingUp className="h-5 w-5 text-muted-foreground" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Position moyenne (remplace Backlinks) */}
+              <Card>
+                <CardContent className="pt-5">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Position moyenne</p>
+                      <p className="text-3xl font-bold text-foreground">{data.seo.avgPosition ?? '—'}</p>
+                      <p className="text-xs text-muted-foreground mt-1">Top 20 requêtes GSC</p>
+                    </div>
+                    <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center">
+                      <Target className="h-5 w-5 text-muted-foreground" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Tableau méta-données par page */}
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium text-foreground flex items-center gap-2">
+                  <FileSearch className="h-4 w-4 text-muted-foreground" />
+                  Méta-données par page
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm min-w-[640px]">
+                    <thead>
+                      <tr className="border-b border-border">
+                        <th className="text-left py-2 px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Page</th>
+                        <th className="text-left py-2 px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Titre</th>
+                        <th className="text-left py-2 px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Description</th>
+                        <th className="text-left py-2 px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Robots</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(data.seo.pages ?? []).length === 0 ? (
+                        <tr>
+                          <td colSpan={4} className="py-6 text-center text-xs text-muted-foreground italic">Aucune page analysée</td>
+                        </tr>
+                      ) : (data.seo.pages ?? []).map((page) => {
+                        const isNoindex = page.robots.includes('noindex');
+                        return (
+                          <tr key={page.path} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
+                            <td className="py-2.5 px-3 font-mono text-xs text-muted-foreground whitespace-nowrap">{page.path}</td>
+                            <td className="py-2.5 px-3 max-w-[200px]">
+                              <p className="truncate text-foreground text-xs">{page.title}</p>
+                            </td>
+                            <td className="py-2.5 px-3 max-w-[260px]">
+                              {page.description ? (
+                                <p className="truncate text-muted-foreground text-xs">{page.description}</p>
+                              ) : (
+                                <span className="text-muted-foreground/40 text-xs italic">—</span>
+                              )}
+                            </td>
+                            <td className="py-2.5 px-3 whitespace-nowrap">
+                              <span className={cn(
+                                "inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium",
+                                isNoindex
+                                  ? "bg-red-50 text-red-600 border border-red-200"
+                                  : "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                              )}>
+                                {isNoindex ? 'noindex' : 'index'}
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </CardContent>
+            </Card>
+          </>
+        )}
+      </div>
 
       {/* ── Funnel RDV par professionnel ───────────────────────────────── */}
       <Card>
