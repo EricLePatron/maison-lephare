@@ -1,4 +1,5 @@
 import { BetaAnalyticsDataClient } from "@google-analytics/data";
+import { GoogleAuth } from "google-auth-library";
 import { writeFileSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
@@ -6,6 +7,9 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROPERTY_ID = "534146800";
 const CREDENTIALS_PATH = process.env.GA_CREDENTIALS;
+const GSC_CREDENTIALS_PATH = process.env.GSC_CREDENTIALS;
+const GSC_SITE_URL = process.env.GSC_SITE_URL || 'sc-domain:maison-lephare.fr';
+const PSI_API_KEY = process.env.PSI_API_KEY || '';
 
 if (!CREDENTIALS_PATH) {
   console.error("❌ Variable GA_CREDENTIALS manquante.");
@@ -378,6 +382,126 @@ async function fetchPeriod({ startDate, endDate, hourly }) {
   };
 }
 
+async function fetchSeoData() {
+  const seo = {
+    sitemapOk: false,
+    sitemapUrlCount: 0,
+    indexedPages: null,
+    keywords: [],
+    pagespeed: null,
+    pages: [
+      { path: '/', title: 'Maison lePhare — Santé Mentale à Bordeaux', description: 'Découvrez la Maison lePhare, espace pluridisciplinaire dédié à la santé mentale à Bordeaux.', robots: 'index, follow' },
+      { path: '/le-lieu', title: 'Le Lieu — Maison lePhare', description: 'Un château et son parc de 2 hectares au cœur de Bordeaux.', robots: 'index, follow' },
+      { path: '/ateliers', title: 'Ateliers & Événements — lePhare', description: 'Groupes de paroles, art-thérapie, pair-aidance et café-débats.', robots: 'index, follow' },
+      { path: '/professionnels', title: 'Professionnels de santé mentale — lePhare', description: 'Installez-vous en libéral dans nos cabinets.', robots: 'index, follow' },
+      { path: '/contact', title: 'Contact — Maison lePhare', description: 'Contactez Clémentine Espinasse pour toute question.', robots: 'index, follow' },
+      { path: '/admin', title: 'Administration', description: '', robots: 'noindex, nofollow' },
+    ],
+  };
+
+  // 1. Sitemap check — fetch sitemap.xml, compter les URLs
+  try {
+    const sitemapRes = await fetch('https://maison-lephare.fr/sitemap.xml');
+    if (sitemapRes.ok) {
+      const xml = await sitemapRes.text();
+      const matches = xml.match(/<loc>/g);
+      seo.sitemapOk = true;
+      seo.sitemapUrlCount = matches ? matches.length : 0;
+    }
+  } catch (e) {
+    console.warn('⚠️  Sitemap check failed:', e.message);
+  }
+
+  // 2. Google Search Console — uniquement si GSC_CREDENTIALS est configuré
+  if (GSC_CREDENTIALS_PATH) {
+    try {
+      const auth = new GoogleAuth({
+        keyFilename: GSC_CREDENTIALS_PATH,
+        scopes: ['https://www.googleapis.com/auth/webmasters.readonly'],
+      });
+      const client = await auth.getClient();
+      const token = await client.getAccessToken();
+      const headers = { Authorization: `Bearer ${token.token}`, 'Content-Type': 'application/json' };
+
+      // Requêtes top keywords — 28 derniers jours
+      const endDate = new Date().toISOString().slice(0, 10);
+      const startDate = new Date(Date.now() - 28 * 86400000).toISOString().slice(0, 10);
+
+      const gscBody = JSON.stringify({
+        startDate,
+        endDate,
+        dimensions: ['query'],
+        rowLimit: 20,
+        orderBy: [{ fieldName: 'impressions', sortOrder: 'DESCENDING' }],
+      });
+
+      const gscUrl = `https://www.googleapis.com/webmasters/v3/sites/${encodeURIComponent(GSC_SITE_URL)}/searchAnalytics/query`;
+      const gscRes = await fetch(gscUrl, { method: 'POST', headers, body: gscBody });
+
+      if (gscRes.ok) {
+        const gscData = await gscRes.json();
+        seo.keywords = (gscData.rows || []).map(r => ({
+          query: r.keys[0],
+          clicks: Math.round(r.clicks),
+          impressions: Math.round(r.impressions),
+          position: Math.round(r.position * 10) / 10,
+          ctr: Math.round(r.ctr * 1000) / 10,
+        }));
+        // Compter les mots-clés en top 10
+        seo.keywordsTop10Count = seo.keywords.filter(k => k.position <= 10).length;
+        // Position moyenne globale
+        seo.avgPosition = seo.keywords.length > 0
+          ? Math.round(seo.keywords.reduce((s, k) => s + k.position, 0) / seo.keywords.length * 10) / 10
+          : null;
+        // Score SEO approx basé sur position moyenne (100 = pos 1, 0 = pos 100+)
+        seo.score = seo.avgPosition ? Math.max(0, Math.round(100 - (seo.avgPosition - 1) * 1.5)) : null;
+      } else {
+        console.warn('⚠️  GSC API error:', gscRes.status, await gscRes.text());
+      }
+
+      // Nombre de pages indexées via GSC (pages avec au moins 1 impression)
+      const gscPagesBody = JSON.stringify({
+        startDate,
+        endDate,
+        dimensions: ['page'],
+        rowLimit: 100,
+      });
+      const gscPagesRes = await fetch(gscUrl, { method: 'POST', headers, body: gscPagesBody });
+      if (gscPagesRes.ok) {
+        const gscPagesData = await gscPagesRes.json();
+        seo.indexedPages = {
+          indexed: (gscPagesData.rows || []).length,
+          total: seo.pages.filter(p => !p.robots.includes('noindex')).length,
+        };
+      }
+    } catch (e) {
+      console.warn('⚠️  GSC fetch failed:', e.message);
+    }
+  } else {
+    console.log('ℹ️  GSC_CREDENTIALS non configuré — données SEO partielles (sitemap only)');
+  }
+
+  // 3. PageSpeed Insights — page d'accueil uniquement
+  try {
+    const psiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent('https://maison-lephare.fr/')}&strategy=mobile${PSI_API_KEY ? `&key=${PSI_API_KEY}` : ''}`;
+    const psiRes = await fetch(psiUrl);
+    if (psiRes.ok) {
+      const psiData = await psiRes.json();
+      const cats = psiData.lighthouseResult?.categories;
+      const audits = psiData.lighthouseResult?.audits;
+      seo.pagespeed = {
+        score: cats?.performance ? Math.round(cats.performance.score * 100) : null,
+        lcp: audits?.['largest-contentful-paint']?.displayValue || null,
+        cls: audits?.['cumulative-layout-shift']?.displayValue || null,
+      };
+    }
+  } catch (e) {
+    console.warn('⚠️  PageSpeed Insights failed:', e.message);
+  }
+
+  return seo;
+}
+
 async function fetchMetrics() {
   console.log("⏳ Collecte des données GA4 pour 4 périodes...");
 
@@ -388,10 +512,14 @@ async function fetchMetrics() {
     console.log("✓");
   }
 
+  console.log('\n📊 Collecte des données SEO...');
+  const seoData = await fetchSeoData();
+
   const data = {
     generatedAt: new Date().toISOString(),
     periods: results,
     periodLabels: Object.fromEntries(PERIODS.map((p) => [p.key, p.label])),
+    seo: seoData,
   };
 
   const outputPath = resolve(__dirname, "../public/dashboard-data.json");
