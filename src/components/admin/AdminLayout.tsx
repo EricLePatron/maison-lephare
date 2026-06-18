@@ -1,5 +1,5 @@
 import { Outlet, useLocation, Link } from "react-router-dom";
-import { FileText, Palette, Users, BookOpen, LogOut, Home, BarChart2, Eye } from "lucide-react";
+import { FileText, Palette, Users, BookOpen, LogOut, Home, BarChart2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,6 @@ const navItems = [
   { title: "Apparence", path: "/admin/apparence", icon: Palette },
   { title: "Professionnels", path: "/admin/professionnels", icon: Users },
   { title: "Ateliers", path: "/admin/ateliers", icon: BookOpen },
-  { title: "Visibilité", path: "/admin/visibilite", icon: Eye },
 ];
 
 export function AdminLayout() {

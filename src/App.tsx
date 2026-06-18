@@ -21,7 +21,6 @@ import AdminAteliers from "./pages/admin/Ateliers";
 import AdminContenu from "./pages/admin/Contenu";
 import AdminApparence from "./pages/admin/Apparence";
 import AdminMetrics from "./pages/admin/Metrics";
-import AdminVisibilite from "./pages/admin/Visibilite";
 import Unsubscribe from "./pages/Unsubscribe";
 
 const queryClient = new QueryClient();
@@ -58,7 +57,6 @@ const App = () => (
             <Route path="ateliers" element={<AdminAteliers />} />
             <Route path="contenu" element={<AdminContenu />} />
             <Route path="apparence" element={<AdminApparence />} />
-            <Route path="visibilite" element={<AdminVisibilite />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
