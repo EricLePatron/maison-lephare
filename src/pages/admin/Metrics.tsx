@@ -661,7 +661,7 @@ export default function Metrics() {
                       <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Mots-clés top 10</p>
                       <p className="text-3xl font-bold text-foreground">{data.seo.keywordsTop10Count ?? '—'}</p>
                       <p className="text-xs text-muted-foreground mt-1">
-                        {data.seo.keywords.length > 0 ? `sur ${data.seo.keywords.length} requêtes` : 'GSC non configuré'}
+                        {(data.seo.keywords ?? []).length > 0 ? `sur ${(data.seo.keywords ?? []).length} requêtes` : 'GSC non configuré'}
                       </p>
                     </div>
                     <div className="h-10 w-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
@@ -708,7 +708,11 @@ export default function Metrics() {
                       </tr>
                     </thead>
                     <tbody>
-                      {(data.seo.pages ?? []).map((page) => {
+                      {(data.seo.pages ?? []).length === 0 ? (
+                        <tr>
+                          <td colSpan={4} className="py-6 text-center text-xs text-muted-foreground italic">Aucune page analysée</td>
+                        </tr>
+                      ) : (data.seo.pages ?? []).map((page) => {
                         const isNoindex = page.robots.includes('noindex');
                         return (
                           <tr key={page.path} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
