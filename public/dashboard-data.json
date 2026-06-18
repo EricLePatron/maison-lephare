@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-06-18T10:20:52.042Z",
+  "generatedAt": "2026-06-18T11:06:41.296Z",
   "periods": {
     "24h": {
       "hourly": true,
       "overview": {
-        "sessions": 13,
+        "sessions": 14,
         "users": 12,
-        "pageViews": 29,
+        "pageViews": 37,
         "bounceRate": "0.9",
-        "avgDuration": 175
+        "avgDuration": 363
       },
       "contactForm": {
         "total": 0
@@ -16,10 +16,18 @@
       "topPages": [
         {
           "page": "/",
-          "views": 13
+          "views": 14
         },
         {
           "page": "/ateliers",
+          "views": 4
+        },
+        {
+          "page": "/admin/contenu",
+          "views": 3
+        },
+        {
+          "page": "/admin/metrics",
           "views": 3
         },
         {
@@ -39,19 +47,11 @@
           "views": 2
         },
         {
+          "page": "/admin/ateliers",
+          "views": 1
+        },
+        {
           "page": "/admin/login",
-          "views": 1
-        },
-        {
-          "page": "/admin/metrics",
-          "views": 1
-        },
-        {
-          "page": "/admin/professionnels",
-          "views": 1
-        },
-        {
-          "page": "/le-lieu",
           "views": 1
         }
       ],
@@ -70,7 +70,7 @@
         },
         {
           "source": "Referral",
-          "sessions": 1
+          "sessions": 2
         }
       ],
       "dailyTrend": [
@@ -132,12 +132,7 @@
         {
           "date": "11h",
           "users": 3,
-          "sessions": 3
-        },
-        {
-          "date": "12h",
-          "users": 0,
-          "sessions": 0
+          "sessions": 4
         }
       ],
       "proFunnel": [
@@ -164,11 +159,11 @@
     "7d": {
       "hourly": false,
       "overview": {
-        "sessions": 384,
+        "sessions": 385,
         "users": 236,
-        "pageViews": 1167,
+        "pageViews": 1175,
         "bounceRate": "0.6",
-        "avgDuration": 294
+        "avgDuration": 301
       },
       "contactForm": {
         "total": 1
@@ -176,7 +171,7 @@
       "topPages": [
         {
           "page": "/",
-          "views": 367
+          "views": 368
         },
         {
           "page": "/professionnels",
@@ -184,7 +179,7 @@
         },
         {
           "page": "/ateliers",
-          "views": 142
+          "views": 143
         },
         {
           "page": "/le-lieu",
@@ -234,7 +229,7 @@
         },
         {
           "source": "Referral",
-          "sessions": 5
+          "sessions": 6
         }
       ],
       "dailyTrend": [
@@ -276,7 +271,7 @@
         {
           "date": "18/06",
           "users": 12,
-          "sessions": 13
+          "sessions": 14
         }
       ],
       "proFunnel": [
@@ -436,11 +431,11 @@
     "30d": {
       "hourly": false,
       "overview": {
-        "sessions": 1872,
+        "sessions": 1873,
         "users": 1045,
-        "pageViews": 6186,
+        "pageViews": 6194,
         "bounceRate": "0.5",
-        "avgDuration": 258
+        "avgDuration": 259
       },
       "contactForm": {
         "total": 11
@@ -448,7 +443,7 @@
       "topPages": [
         {
           "page": "/",
-          "views": 1835
+          "views": 1836
         },
         {
           "page": "/professionnels",
@@ -456,7 +451,7 @@
         },
         {
           "page": "/ateliers",
-          "views": 781
+          "views": 782
         },
         {
           "page": "/le-lieu",
@@ -506,7 +501,7 @@
         },
         {
           "source": "Referral",
-          "sessions": 14
+          "sessions": 15
         }
       ],
       "dailyTrend": [
@@ -663,7 +658,7 @@
         {
           "date": "18/06",
           "users": 12,
-          "sessions": 13
+          "sessions": 14
         }
       ],
       "proFunnel": [
@@ -893,11 +888,11 @@
     "90d": {
       "hourly": false,
       "overview": {
-        "sessions": 2289,
+        "sessions": 2290,
         "users": 1405,
-        "pageViews": 6999,
+        "pageViews": 7007,
         "bounceRate": "0.5",
-        "avgDuration": 232
+        "avgDuration": 233
       },
       "contactForm": {
         "total": 12
@@ -905,7 +900,7 @@
       "topPages": [
         {
           "page": "/",
-          "views": 2086
+          "views": 2087
         },
         {
           "page": "/professionnels",
@@ -913,7 +908,7 @@
         },
         {
           "page": "/ateliers",
-          "views": 841
+          "views": 842
         },
         {
           "page": "/le-lieu",
@@ -963,7 +958,7 @@
         },
         {
           "source": "Referral",
-          "sessions": 20
+          "sessions": 21
         }
       ],
       "dailyTrend": [
@@ -1255,7 +1250,7 @@
         {
           "date": "18/06",
           "users": 12,
-          "sessions": 13
+          "sessions": 14
         }
       ],
       "proFunnel": [
@@ -1492,10 +1487,7 @@
   "seo": {
     "sitemapOk": false,
     "sitemapUrlCount": 0,
-    "indexedPages": {
-      "indexed": 0,
-      "total": 5
-    },
+    "indexedPages": null,
     "keywords": [],
     "pagespeed": null,
     "pages": [
@@ -1535,9 +1527,6 @@
         "description": "",
         "robots": "noindex, nofollow"
       }
-    ],
-    "keywordsTop10Count": 0,
-    "avgPosition": null,
-    "score": null
+    ]
   }
 }
