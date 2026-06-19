@@ -21,6 +21,7 @@ import AdminAteliers from "./pages/admin/Ateliers";
 import AdminContenu from "./pages/admin/Contenu";
 import AdminApparence from "./pages/admin/Apparence";
 import AdminMetrics from "./pages/admin/Metrics";
+import AdminPublications from "./pages/admin/Publications";
 import Unsubscribe from "./pages/Unsubscribe";
 
 const queryClient = new QueryClient();
@@ -57,6 +58,7 @@ const App = () => (
             <Route path="ateliers" element={<AdminAteliers />} />
             <Route path="contenu" element={<AdminContenu />} />
             <Route path="apparence" element={<AdminApparence />} />
+            <Route path="publications" element={<AdminPublications />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
