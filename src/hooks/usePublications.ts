@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { useAteliers } from "@/hooks/useAteliers";
+import { useFeatureFlags } from "@/hooks/useFeatureFlags";
 
 export type Publication = Tables<"publications">;
 export type PublicationType = "linkedin" | "actualite";
@@ -82,19 +83,8 @@ export function useDeletePublication() {
 }
 
 export function useFeatureFlag(key: string) {
-  const query = useQuery({
-    queryKey: ["feature_flag", key],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("feature_flags")
-        .select("enabled")
-        .eq("key", key)
-        .maybeSingle();
-      if (error) throw error;
-      return data?.enabled ?? false;
-    },
-  });
-  return { enabled: query.data ?? false, isLoading: query.isLoading };
+  const { data, isLoading } = useFeatureFlags();
+  return { enabled: data?.find((f) => f.key === key)?.enabled ?? false, isLoading };
 }
 
 export function useActualitesVisible() {

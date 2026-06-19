@@ -12,6 +12,16 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import {
   Table,
   TableBody,
   TableCell,
@@ -27,7 +37,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Pencil, Trash2, Loader2, AlertCircle } from "lucide-react";
+import { Plus, Pencil, Trash2, Loader2, AlertCircle, ExternalLink } from "lucide-react";
+import { Link } from "react-router-dom";
 import {
   useAllPublications,
   useCreatePublication,
@@ -41,7 +52,7 @@ import { useFeatureFlags, useUpdateFeatureFlag } from "@/hooks/useFeatureFlags";
 
 const CATEGORIES = ["LIEU", "ÉVÉNEMENT", "PARTENARIAT", "ÉQUIPE", "AUTRE"];
 
-type FormData = Omit<PublicationInsert, "id" | "created_at">;
+type FormData = Omit<PublicationInsert, "id" | "created_at" | "updated_at">;
 
 const emptyForm: FormData = {
   type: "linkedin",
@@ -67,9 +78,11 @@ export default function AdminPublications() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editing, setEditing] = useState<Publication | null>(null);
   const [formData, setFormData] = useState<FormData>(emptyForm);
+  const [deleteTarget, setDeleteTarget] = useState<Publication | null>(null);
 
   const flagHeader = flags?.find((f) => f.key === "actualites_header")?.enabled ?? false;
   const flagHome = flags?.find((f) => f.key === "actualites_home")?.enabled ?? false;
+  const activeCount = publications?.filter((p) => p.actif).length ?? 0;
 
   const handleFlagToggle = async (key: string, enabled: boolean) => {
     try {
@@ -126,173 +139,212 @@ export default function AdminPublications() {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Supprimer cette publication ?")) return;
+  const handleDeleteConfirm = async () => {
+    if (!deleteTarget) return;
     try {
-      await deletePublication.mutateAsync(id);
+      await deletePublication.mutateAsync(deleteTarget.id);
       toast({ title: "Publication supprimée" });
     } catch {
       toast({ title: "Erreur", description: "Impossible de supprimer.", variant: "destructive" });
+    } finally {
+      setDeleteTarget(null);
     }
   };
 
   const toggleActif = async (pub: Publication) => {
     try {
       await updatePublication.mutateAsync({ id: pub.id, actif: !pub.actif });
-      toast({ title: pub.actif ? "Désactivée" : "Activée" });
+      toast({ title: pub.actif ? "Publication masquée" : "Publication visible" });
     } catch {
-      toast({ title: "Erreur", variant: "destructive" });
+      toast({ title: "Erreur", description: "Impossible de modifier.", variant: "destructive" });
     }
   };
 
-  const activeCount = publications?.filter((p) => p.actif).length ?? 0;
+  const toggleFeatured = async (pub: Publication) => {
+    try {
+      await updatePublication.mutateAsync({ id: pub.id, featured: !pub.featured });
+      toast({ title: pub.featured ? "Mise en avant retirée" : "Publication mise en avant" });
+    } catch {
+      toast({ title: "Erreur", description: "Impossible de modifier.", variant: "destructive" });
+    }
+  };
 
   return (
     <div className="p-6 space-y-6">
+      {/* En-tête */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-serif font-medium text-foreground">Publications</h1>
-          <p className="text-sm text-muted-foreground">{publications?.length ?? 0} publication(s) · {activeCount} active(s)</p>
+          <p className="text-sm text-muted-foreground">
+            {publications?.length ?? 0} publication(s) · {activeCount} active(s)
+          </p>
         </div>
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <Button onClick={openCreate}>
-              <Plus className="h-4 w-4 mr-2" />
-              Ajouter
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>{editing ? "Modifier la publication" : "Nouvelle publication"}</DialogTitle>
-            </DialogHeader>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label>Type</Label>
-                <Select
-                  value={formData.type}
-                  onValueChange={(v) => setFormData({ ...formData, type: v as PublicationType })}
-                >
-                  <SelectTrigger><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="linkedin">Post LinkedIn</SelectItem>
-                    <SelectItem value="actualite">Actualité</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="auteur">Auteur *</Label>
-                <Input
-                  id="auteur"
-                  value={formData.auteur}
-                  onChange={(e) => setFormData({ ...formData, auteur: e.target.value })}
-                  placeholder={formData.type === "linkedin" ? "ex : Maison lePhare" : "ex : L'équipe lePhare"}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="extrait">
-                  {formData.type === "linkedin" ? "Extrait du post (2-3 phrases)" : "Texte de l'actualité"} *
-                </Label>
-                <Textarea
-                  id="extrait"
-                  value={formData.extrait}
-                  onChange={(e) => setFormData({ ...formData, extrait: e.target.value })}
-                  rows={4}
-                  placeholder={
-                    formData.type === "linkedin"
-                      ? "Copiez-collez les premières phrases du post LinkedIn…"
-                      : "Rédigez votre actualité ici…"
-                  }
-                  required
-                />
-              </div>
-
-              {formData.type === "linkedin" && (
+        <div className="flex items-center gap-2">
+          <Link
+            to="/actualites"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
+          >
+            <ExternalLink className="h-4 w-4" />
+            Voir sur le site
+          </Link>
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogTrigger asChild>
+              <Button onClick={openCreate}>
+                <Plus className="h-4 w-4 mr-2" />
+                Ajouter
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>{editing ? "Modifier la publication" : "Nouvelle publication"}</DialogTitle>
+              </DialogHeader>
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="url_linkedin">URL du post LinkedIn</Label>
-                  <Input
-                    id="url_linkedin"
-                    type="url"
-                    value={formData.url_linkedin ?? ""}
-                    onChange={(e) => setFormData({ ...formData, url_linkedin: e.target.value })}
-                    placeholder="https://www.linkedin.com/posts/…"
-                  />
-                  <p className="text-xs text-muted-foreground">Apparaît en lien "Lire sur LinkedIn →"</p>
+                  <Label>Type de publication</Label>
+                  <Select
+                    value={formData.type}
+                    onValueChange={(v) => setFormData({ ...formData, type: v as PublicationType })}
+                  >
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="linkedin">Post LinkedIn</SelectItem>
+                      <SelectItem value="actualite">Actualité maison</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <p className="text-xs text-muted-foreground">
+                    {formData.type === "linkedin"
+                      ? "Affiche un extrait d'un post déjà publié sur LinkedIn, avec un lien vers l'original."
+                      : "Rédige directement une actualité qui s'affiche sur le site, sans passer par LinkedIn."}
+                  </p>
                 </div>
-              )}
 
-              {formData.type === "actualite" && (
-                <>
+                <div className="space-y-2">
+                  <Label htmlFor="auteur">
+                    {formData.type === "linkedin" ? "Auteur du post *" : "Signataire *"}
+                  </Label>
+                  <Input
+                    id="auteur"
+                    value={formData.auteur}
+                    onChange={(e) => setFormData({ ...formData, auteur: e.target.value })}
+                    placeholder={formData.type === "linkedin" ? "ex : Maison lePhare" : "ex : L'équipe lePhare"}
+                    required
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    {formData.type === "linkedin"
+                      ? "Le nom du compte qui a publié le post."
+                      : "Apparaît en bas de la carte sur le site."}
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="extrait">
+                    {formData.type === "linkedin" ? "Extrait du post (2-3 phrases) *" : "Texte de l'actualité *"}
+                  </Label>
+                  <Textarea
+                    id="extrait"
+                    value={formData.extrait}
+                    onChange={(e) => setFormData({ ...formData, extrait: e.target.value })}
+                    rows={4}
+                    placeholder={
+                      formData.type === "linkedin"
+                        ? "Copiez-collez les premières phrases du post LinkedIn…"
+                        : "Rédigez votre actualité ici…"
+                    }
+                    required
+                  />
+                </div>
+
+                {formData.type === "linkedin" && (
                   <div className="space-y-2">
-                    <Label htmlFor="categorie">Catégorie</Label>
-                    <Select
-                      value={formData.categorie ?? ""}
-                      onValueChange={(v) => setFormData({ ...formData, categorie: v })}
-                    >
-                      <SelectTrigger><SelectValue placeholder="Choisir une catégorie" /></SelectTrigger>
-                      <SelectContent>
-                        {CATEGORIES.map((c) => (<SelectItem key={c} value={c}>{c}</SelectItem>))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="image_url">URL de l'image (optionnel)</Label>
+                    <Label htmlFor="url_linkedin">URL du post LinkedIn</Label>
                     <Input
-                      id="image_url"
+                      id="url_linkedin"
                       type="url"
-                      value={formData.image_url ?? ""}
-                      onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                      placeholder="https://…"
+                      value={formData.url_linkedin ?? ""}
+                      onChange={(e) => setFormData({ ...formData, url_linkedin: e.target.value })}
+                      placeholder="https://www.linkedin.com/posts/…"
                     />
+                    <p className="text-xs text-muted-foreground">Apparaît en lien "Lire sur LinkedIn →"</p>
                   </div>
-                </>
-              )}
+                )}
 
-              <div className="space-y-2">
-                <Label htmlFor="date_publication">Date de publication *</Label>
-                <Input
-                  id="date_publication"
-                  type="date"
-                  value={formData.date_publication}
-                  onChange={(e) => setFormData({ ...formData, date_publication: e.target.value })}
-                  required
-                />
-              </div>
+                {formData.type === "actualite" && (
+                  <>
+                    <div className="space-y-2">
+                      <Label htmlFor="categorie">Catégorie</Label>
+                      <Select
+                        value={formData.categorie ?? ""}
+                        onValueChange={(v) => setFormData({ ...formData, categorie: v })}
+                      >
+                        <SelectTrigger><SelectValue placeholder="Choisir une catégorie" /></SelectTrigger>
+                        <SelectContent>
+                          {CATEGORIES.map((c) => (<SelectItem key={c} value={c}>{c}</SelectItem>))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="image_url">URL de l'image (optionnel)</Label>
+                      <Input
+                        id="image_url"
+                        type="url"
+                        value={formData.image_url ?? ""}
+                        onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+                        placeholder="https://…"
+                      />
+                    </div>
+                  </>
+                )}
 
-              <div className="flex items-center gap-2">
-                <Switch
-                  id="featured"
-                  checked={formData.featured}
-                  onCheckedChange={(v) => setFormData({ ...formData, featured: v })}
-                />
-                <Label htmlFor="featured">Mettre en avant (bannière pleine largeur)</Label>
-              </div>
+                <div className="space-y-2">
+                  <Label htmlFor="date_publication">Date de publication *</Label>
+                  <Input
+                    id="date_publication"
+                    type="date"
+                    value={formData.date_publication}
+                    onChange={(e) => setFormData({ ...formData, date_publication: e.target.value })}
+                    required
+                  />
+                </div>
 
-              <div className="flex items-center gap-2">
-                <Switch
-                  id="actif"
-                  checked={formData.actif}
-                  onCheckedChange={(v) => setFormData({ ...formData, actif: v })}
-                />
-                <Label htmlFor="actif">Visible sur le site</Label>
-              </div>
+                <div className="flex items-center gap-2">
+                  <Switch
+                    id="featured"
+                    checked={formData.featured}
+                    onCheckedChange={(v) => setFormData({ ...formData, featured: v })}
+                  />
+                  <div>
+                    <Label htmlFor="featured">Mettre en avant</Label>
+                    <p className="text-xs text-muted-foreground">Cette publication apparaît en tête du bloc Actualités sur la home.</p>
+                  </div>
+                </div>
 
-              <div className="flex justify-end gap-2 pt-2">
-                <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>Annuler</Button>
-                <Button type="submit" disabled={createPublication.isPending || updatePublication.isPending}>
-                  {(createPublication.isPending || updatePublication.isPending) && (
-                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  )}
-                  {editing ? "Enregistrer" : "Créer"}
-                </Button>
-              </div>
-            </form>
-          </DialogContent>
-        </Dialog>
+                <div className="flex items-center gap-2">
+                  <Switch
+                    id="actif"
+                    checked={formData.actif}
+                    onCheckedChange={(v) => setFormData({ ...formData, actif: v })}
+                  />
+                  <Label htmlFor="actif">Visible sur le site</Label>
+                </div>
+
+                <div className="flex justify-end gap-2 pt-2">
+                  <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>Annuler</Button>
+                  <Button type="submit" disabled={createPublication.isPending || updatePublication.isPending}>
+                    {(createPublication.isPending || updatePublication.isPending) && (
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    )}
+                    {editing ? "Enregistrer" : "Créer"}
+                  </Button>
+                </div>
+              </form>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
 
+      {/* Feature flags */}
       <div className="rounded-lg border bg-card p-5 space-y-4">
         <h2 className="text-sm font-semibold text-foreground">Visibilité de la page Actualités</h2>
         <div className="flex flex-col sm:flex-row gap-4">
@@ -317,16 +369,19 @@ export default function AdminPublications() {
             />
             <div>
               <Label htmlFor="flag-home" className="font-medium cursor-pointer">Afficher sur la home</Label>
-              <p className="text-xs text-muted-foreground">Bloc aperçu sur la page d'accueil</p>
+              <p className="text-xs text-muted-foreground">Bloc aperçu sur la page d'accueil · 2 ateliers + 1 publication</p>
             </div>
           </div>
         </div>
-        <div className="flex items-start gap-2 rounded-md bg-muted/50 px-3 py-2 text-xs text-muted-foreground">
+        <div className={`flex items-start gap-2 rounded-md px-3 py-2 text-xs ${activeCount === 0 ? "bg-amber-50 text-amber-700" : "bg-muted/50 text-muted-foreground"}`}>
           <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
-          <span>Ces options n'ont aucun effet si aucun atelier à venir ni aucune publication active n'est présent.</span>
+          {activeCount === 0
+            ? "Aucune publication active — les options ci-dessus n'auront aucun effet tant qu'aucune publication n'est visible."
+            : `${activeCount} publication(s) active(s) — le bloc est prêt à s'afficher si aucun atelier à venir n'est présent.`}
         </div>
       </div>
 
+      {/* Tableau */}
       <div className="rounded-lg border bg-card overflow-hidden">
         {isLoading ? (
           <div className="flex justify-center py-12">
@@ -340,8 +395,8 @@ export default function AdminPublications() {
                 <TableHead>Auteur</TableHead>
                 <TableHead>Extrait</TableHead>
                 <TableHead>Date</TableHead>
-                <TableHead className="w-20">En avant</TableHead>
-                <TableHead className="w-20">Actif</TableHead>
+                <TableHead className="w-24">En avant</TableHead>
+                <TableHead className="w-24">Visibilité</TableHead>
                 <TableHead className="w-20">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -357,7 +412,7 @@ export default function AdminPublications() {
                   </TableCell>
                   <TableCell className="font-medium text-sm">{pub.auteur}</TableCell>
                   <TableCell className="text-sm text-muted-foreground max-w-xs">
-                    <span className="line-clamp-2">{pub.extrait}</span>
+                    <span className="line-clamp-2" title={pub.extrait}>{pub.extrait}</span>
                   </TableCell>
                   <TableCell className="text-sm text-muted-foreground whitespace-nowrap">
                     {new Date(pub.date_publication).toLocaleDateString("fr-FR")}
@@ -365,18 +420,28 @@ export default function AdminPublications() {
                   <TableCell>
                     <Switch
                       checked={pub.featured}
-                      onCheckedChange={() => updatePublication.mutate({ id: pub.id, featured: !pub.featured })}
+                      onCheckedChange={() => toggleFeatured(pub)}
+                      disabled={updatePublication.isPending}
                     />
                   </TableCell>
                   <TableCell>
-                    <Switch checked={pub.actif} onCheckedChange={() => toggleActif(pub)} />
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        checked={pub.actif}
+                        onCheckedChange={() => toggleActif(pub)}
+                        disabled={updatePublication.isPending}
+                      />
+                      <span className="text-xs text-muted-foreground">
+                        {pub.actif ? "Visible" : "Masqué"}
+                      </span>
+                    </div>
                   </TableCell>
                   <TableCell>
                     <div className="flex gap-1">
                       <Button variant="ghost" size="icon" onClick={() => openEdit(pub)}>
                         <Pencil className="h-4 w-4" />
                       </Button>
-                      <Button variant="ghost" size="icon" onClick={() => handleDelete(pub.id)}>
+                      <Button variant="ghost" size="icon" onClick={() => setDeleteTarget(pub)}>
                         <Trash2 className="h-4 w-4 text-destructive" />
                       </Button>
                     </div>
@@ -386,7 +451,8 @@ export default function AdminPublications() {
               {(!publications || publications.length === 0) && (
                 <TableRow>
                   <TableCell colSpan={7} className="text-center py-10 text-muted-foreground">
-                    Aucune publication. Cliquez sur "Ajouter" pour commencer.
+                    <p className="font-medium mb-1">Aucune publication pour l'instant.</p>
+                    <p className="text-xs">Ajoutez un post LinkedIn déjà publié ou rédigez une actualité maison.</p>
                   </TableCell>
                 </TableRow>
               )}
@@ -394,6 +460,35 @@ export default function AdminPublications() {
           </Table>
         )}
       </div>
+
+      {/* Dialog confirmation suppression */}
+      <AlertDialog open={!!deleteTarget} onOpenChange={(open) => { if (!open) setDeleteTarget(null); }}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Supprimer cette publication ?</AlertDialogTitle>
+            <AlertDialogDescription>
+              {deleteTarget && (
+                <>
+                  <strong>"{deleteTarget.auteur} — {new Date(deleteTarget.date_publication).toLocaleDateString("fr-FR")}"</strong>
+                  <br />
+                  Cette action est définitive et ne peut pas être annulée.
+                </>
+              )}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Annuler</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDeleteConfirm}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              disabled={deletePublication.isPending}
+            >
+              {deletePublication.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+              Supprimer définitivement
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
