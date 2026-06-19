@@ -137,8 +137,6 @@ export default function Index() {
         </div>
       </section>
 
-      {showBlocActu && <BlocActualitesHome />}
-
       {/* Features Section - 3 photos rondes avec doodles */}
       <section className="py-16 sm:py-24 bg-background">
         <div className="container-wide">
@@ -181,6 +179,8 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      {showBlocActu && <BlocActualitesHome />}
 
       {/* "Vous souhaitez..." - grille de 9 cartes-photos avec overlay */}
       <section className="section-padding">
