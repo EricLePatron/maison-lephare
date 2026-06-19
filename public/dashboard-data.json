@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-06-19T09:20:38.917Z",
+  "generatedAt": "2026-06-19T11:16:40.543Z",
   "periods": {
     "24h": {
       "hourly": true,
       "overview": {
-        "sessions": 2,
-        "users": 2,
-        "pageViews": 3,
+        "sessions": 5,
+        "users": 5,
+        "pageViews": 5,
         "bounceRate": "1.0",
-        "avgDuration": 3
+        "avgDuration": 10
       },
       "contactForm": {
         "total": 0
@@ -16,21 +16,21 @@
       "topPages": [
         {
           "page": "/ateliers",
-          "views": 2
+          "views": 3
         },
         {
           "page": "/",
-          "views": 1
+          "views": 2
         }
       ],
       "sources": [
         {
-          "source": "Direct",
-          "sessions": 2
+          "source": "Unassigned",
+          "sessions": 4
         },
         {
-          "source": "Unassigned",
-          "sessions": 1
+          "source": "Direct",
+          "sessions": 3
         }
       ],
       "dailyTrend": [
@@ -76,8 +76,8 @@
         },
         {
           "date": "08h",
-          "users": 0,
-          "sessions": 0
+          "users": 3,
+          "sessions": 3
         },
         {
           "date": "09h",
@@ -98,7 +98,7 @@
       "proFunnel": [],
       "totalRdvClicks": 0,
       "atelierInscriptions": {
-        "total": 0,
+        "total": 1,
         "parAtelier": []
       },
       "atelierCtaClics": 0,
@@ -111,11 +111,11 @@
     "7d": {
       "hourly": false,
       "overview": {
-        "sessions": 394,
-        "users": 245,
-        "pageViews": 1270,
+        "sessions": 397,
+        "users": 247,
+        "pageViews": 1272,
         "bounceRate": "0.6",
-        "avgDuration": 353
+        "avgDuration": 350
       },
       "contactForm": {
         "total": 1
@@ -123,7 +123,7 @@
       "topPages": [
         {
           "page": "/",
-          "views": 381
+          "views": 382
         },
         {
           "page": "/professionnels",
@@ -131,7 +131,7 @@
         },
         {
           "page": "/ateliers",
-          "views": 140
+          "views": 141
         },
         {
           "page": "/le-lieu",
@@ -169,11 +169,11 @@
         },
         {
           "source": "Direct",
-          "sessions": 175
+          "sessions": 176
         },
         {
           "source": "Unassigned",
-          "sessions": 44
+          "sessions": 47
         },
         {
           "source": "Organic Social",
@@ -226,8 +226,8 @@
         },
         {
           "date": "19/06",
-          "users": 2,
-          "sessions": 2
+          "users": 5,
+          "sessions": 5
         }
       ],
       "proFunnel": [
@@ -374,7 +374,7 @@
       ],
       "totalRdvClicks": 18,
       "atelierInscriptions": {
-        "total": 70,
+        "total": 71,
         "parAtelier": []
       },
       "atelierCtaClics": 1,
@@ -387,9 +387,9 @@
     "30d": {
       "hourly": false,
       "overview": {
-        "sessions": 1906,
-        "users": 1051,
-        "pageViews": 6401,
+        "sessions": 1909,
+        "users": 1053,
+        "pageViews": 6403,
         "bounceRate": "0.5",
         "avgDuration": 270
       },
@@ -399,7 +399,7 @@
       "topPages": [
         {
           "page": "/",
-          "views": 1885
+          "views": 1886
         },
         {
           "page": "/professionnels",
@@ -407,7 +407,7 @@
         },
         {
           "page": "/ateliers",
-          "views": 795
+          "views": 796
         },
         {
           "page": "/le-lieu",
@@ -441,7 +441,7 @@
       "sources": [
         {
           "source": "Direct",
-          "sessions": 1136
+          "sessions": 1137
         },
         {
           "source": "Organic Search",
@@ -453,7 +453,7 @@
         },
         {
           "source": "Unassigned",
-          "sessions": 57
+          "sessions": 60
         },
         {
           "source": "Referral",
@@ -617,8 +617,8 @@
         },
         {
           "date": "19/06",
-          "users": 2,
-          "sessions": 2
+          "users": 5,
+          "sessions": 5
         }
       ],
       "proFunnel": [
@@ -835,7 +835,7 @@
       ],
       "totalRdvClicks": 45,
       "atelierInscriptions": {
-        "total": 139,
+        "total": 140,
         "parAtelier": []
       },
       "atelierCtaClics": 2,
@@ -848,9 +848,9 @@
     "90d": {
       "hourly": false,
       "overview": {
-        "sessions": 2342,
-        "users": 1428,
-        "pageViews": 7241,
+        "sessions": 2345,
+        "users": 1430,
+        "pageViews": 7243,
         "bounceRate": "0.5",
         "avgDuration": 240
       },
@@ -860,7 +860,7 @@
       "topPages": [
         {
           "page": "/",
-          "views": 2145
+          "views": 2146
         },
         {
           "page": "/professionnels",
@@ -868,7 +868,7 @@
         },
         {
           "page": "/ateliers",
-          "views": 855
+          "views": 856
         },
         {
           "page": "/le-lieu",
@@ -902,7 +902,7 @@
       "sources": [
         {
           "source": "Direct",
-          "sessions": 1491
+          "sessions": 1492
         },
         {
           "source": "Organic Search",
@@ -914,7 +914,7 @@
         },
         {
           "source": "Unassigned",
-          "sessions": 57
+          "sessions": 60
         },
         {
           "source": "Referral",
@@ -1218,8 +1218,8 @@
         },
         {
           "date": "19/06",
-          "users": 2,
-          "sessions": 2
+          "users": 5,
+          "sessions": 5
         }
       ],
       "proFunnel": [
@@ -1436,7 +1436,7 @@
       ],
       "totalRdvClicks": 45,
       "atelierInscriptions": {
-        "total": 139,
+        "total": 140,
         "parAtelier": []
       },
       "atelierCtaClics": 2,
