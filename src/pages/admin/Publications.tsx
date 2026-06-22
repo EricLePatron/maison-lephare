@@ -103,7 +103,7 @@ export default function AdminPublications() {
   const openEdit = (pub: Publication) => {
     setEditing(pub);
     setFormData({
-      type: pub.type,
+      type: (pub.type as PublicationType),
       auteur: pub.auteur,
       extrait: pub.extrait,
       url_linkedin: pub.url_linkedin ?? "",
