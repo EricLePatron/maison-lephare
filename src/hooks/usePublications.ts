@@ -1,13 +1,13 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import type { Tables } from "@/integrations/supabase/types";
+import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 import { useAteliers } from "@/hooks/useAteliers";
 import { useFeatureFlags } from "@/hooks/useFeatureFlags";
 
 export type Publication = Tables<"publications">;
 export type PublicationType = "linkedin" | "actualite";
-export type PublicationInsert = Tables<"publications">["Insert"] & { type: PublicationType };
-export type PublicationUpdate = Partial<PublicationInsert> & { id: string };
+export type PublicationInsert = TablesInsert<"publications"> & { type: PublicationType };
+export type PublicationUpdate = TablesUpdate<"publications"> & { type?: PublicationType };
 
 export function usePublications() {
   return useQuery({
