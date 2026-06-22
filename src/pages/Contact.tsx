@@ -6,7 +6,6 @@ export default function Contact() {
   const { getContent, isLoading: contentLoading } = usePageContent("contact");
 
   const address = getContent("info", "address", "12 rue Jean Jacques Rousseau 33700 Mérignac");
-  const phone = getContent("info", "phone", "06 32 80 24 98");
   const email = getContent("info", "email", "contact@maison-lephare.com");
   const social = getContent("info", "social", "@lamaisonlephare");
 
@@ -48,17 +47,6 @@ export default function Contact() {
                   <span className="text-foreground text-lg sm:text-xl leading-snug">
                     {address}
                   </span>
-                </li>
-                <li className="flex items-center gap-5 pb-6 sm:pb-8 border-b border-dashed border-foreground/30">
-                  <span className="flex-shrink-0">
-                    <Phone className="h-8 w-8 text-accent" strokeWidth={2} fill="currentColor" />
-                  </span>
-                  <a
-                    href={`tel:${phone.replace(/\s/g, "")}`}
-                    className="text-foreground text-lg sm:text-xl hover:text-primary transition-colors font-medium"
-                  >
-                    {phone}
-                  </a>
                 </li>
                 <li className="flex items-center gap-5 pb-6 sm:pb-8 border-b border-dashed border-foreground/30">
                   <span className="flex-shrink-0">
