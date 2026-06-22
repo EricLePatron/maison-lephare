@@ -1,4 +1,4 @@
-import { Mail, MapPin, Phone, Globe } from "lucide-react";
+import { Mail, MapPin, Globe } from "lucide-react";
 import { usePageContent } from "@/hooks/useSiteContent";
 import { Seo } from "@/components/Seo";
 
