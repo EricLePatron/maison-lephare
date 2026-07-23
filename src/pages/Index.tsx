@@ -117,7 +117,7 @@ export default function Index() {
                 <span className="sr-only">
                   {getContent("hero", "tagline", "Maison dédiée à la Santé Mentale")}
                 </span>
-                <p className="font-script text-base sm:text-lg text-background mt-2 sm:mt-3 drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
+                <p className="font-script text-lg sm:text-xl text-white mt-2 sm:mt-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                   {getContent("hero", "image_caption", "Château du Tenet — Mérignac (33)")}
                 </p>
 
