@@ -82,7 +82,7 @@ export default function LocationSalle() {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <p className="mt-4 text-secondary font-medium text-base sm:text-lg">
+                  <p className="mt-4 text-primary font-medium text-base sm:text-lg">
                     {f.label}
                   </p>
                 </div>
@@ -133,7 +133,7 @@ export default function LocationSalle() {
       <section className="bg-background py-16 sm:py-24">
         <div className="container-narrow text-center">
           <Reveal variant="up">
-            <p className="text-secondary tracking-[0.2em] uppercase text-sm sm:text-base font-medium mb-6">
+            <p className="text-primary tracking-[0.2em] uppercase text-sm sm:text-base font-medium mb-6">
               Un lieu hors du commun
             </p>
             <Link
