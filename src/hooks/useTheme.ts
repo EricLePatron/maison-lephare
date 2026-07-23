@@ -61,6 +61,12 @@ export const SITE_IMAGES = [
   { key: "lieu-solidarity", label: "Page Le Lieu — Bannière groupe (rétablissement)", fallback: "" },
   { key: "atelier-collectif", label: "Page Les ateliers — Photo atelier collectif (Hero & catégories)", fallback: "" },
   { key: "professionnel-hero", label: "Page Professionnel — Photo de fond du héro", fallback: "" },
+  { key: "location-hero", label: "Page Location salle — Photo principale (salon)", fallback: "" },
+  { key: "location-feature-1", label: "Page Location salle — Vignette Parc de 2ha", fallback: "" },
+  { key: "location-feature-2", label: "Page Location salle — Vignette Écran portatif", fallback: "" },
+  { key: "location-feature-3", label: "Page Location salle — Vignette Cadre chaleureux", fallback: "" },
+  { key: "location-feature-4", label: "Page Location salle — Vignette Baigné de lumière", fallback: "" },
+  { key: "location-chateau", label: "Page Location salle — Bannière château (bas de page)", fallback: "" },
 ];
 
 export function useThemeSettings() {

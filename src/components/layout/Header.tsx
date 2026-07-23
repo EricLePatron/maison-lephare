@@ -23,6 +23,7 @@ export function Header() {
     { href: "/professionnels", label: getContent("nav", "professionnels", "Les professionnels") },
     { href: "/ateliers", label: getContent("nav", "ateliers", "Les ateliers") },
     { href: "/association", label: getContent("nav", "association", "L'association") },
+    { href: "/location-salle", label: getContent("nav", "location", "Location salle") },
     ...(showActualites
       ? [{ href: "/actualites", label: getContent("nav", "actualites", "Actualités") }]
       : []),
