@@ -14,6 +14,7 @@ import Professionnels from "./pages/Professionnels";
 import ProfessionnelProfile from "./pages/ProfessionnelProfile";
 import Association from "./pages/Association";
 import Contact from "./pages/Contact";
+import LocationSalle from "./pages/LocationSalle";
 import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/admin/Login";
 import AdminProfessionnels from "./pages/admin/Professionnels";
@@ -42,6 +43,7 @@ const App = () => (
             <Route path="/professionnels/:slug" element={<ProfessionnelProfile />} />
             <Route path="/association" element={<Association />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/location-salle" element={<LocationSalle />} />
           </Route>
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
