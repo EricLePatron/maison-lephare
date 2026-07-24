@@ -28,6 +28,7 @@ export function Header() {
       ? [{ href: "/actualites", label: getContent("nav", "actualites", "Actualités") }]
       : []),
   ];
+  const desktopNavLinks = navLinks.filter((link) => link.href !== "/");
   const ctaLabel = getContent("nav", "cta", "Contactez-nous !");
   const donUrl = "https://lephare-sante-mentale-czk7vv2pjnfua.assoconnect.com/collect/donation/01KQY7G52YB5FTRZ1PS35TCM9B/un-don-a-l-association-lephare-sante-mentale";
   const donLabel = getContent("nav", "don", "Faire un don à l'association");
@@ -52,7 +53,7 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {desktopNavLinks.map((link) => (
               <Link
                 key={link.href}
                 to={link.href}
