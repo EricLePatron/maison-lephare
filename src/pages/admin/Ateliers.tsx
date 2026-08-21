@@ -84,6 +84,11 @@ const CATEGORIES = [
 
 type FormData = Omit<AtelierInsert, "id" | "created_at" | "updated_at">;
 
+const TYPES_OFFRE = [
+  { value: "benevole", label: "Gratuit — bénévoles LePhare" },
+  { value: "partenaire", label: "Payant — partenaire locataire" },
+];
+
 const emptyForm: FormData = {
   titre: "",
   categorie: "",
@@ -99,6 +104,8 @@ const emptyForm: FormData = {
   date_evenement: null,
   nombre_places: null,
   complet: false,
+  type_offre: "benevole",
+  tarif: "",
 };
 
 export default function AdminAteliers() {
@@ -148,7 +155,11 @@ export default function AdminAteliers() {
       date_evenement: (atelier as any).date_evenement || null,
       nombre_places: (atelier as any).nombre_places ?? null,
       complet: (atelier as any).complet ?? false,
+      type_offre: (atelier as any).type_offre || "benevole",
+      tarif: (atelier as any).tarif || "",
     });
+
+
     setObjectifsText((atelier.objectifs || []).join("\n"));
     setIsDialogOpen(true);
   };
@@ -305,6 +316,45 @@ export default function AdminAteliers() {
                         />
                       </div>
                     </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="type_offre">Type d'atelier *</Label>
+                        <Select
+                          value={(formData as any).type_offre || "benevole"}
+                          onValueChange={(value) =>
+                            setFormData({ ...formData, type_offre: value } as FormData)
+                          }
+                        >
+                          <SelectTrigger id="type_offre">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {TYPES_OFFRE.map((t) => (
+                              <SelectItem key={t.value} value={t.value}>
+                                {t.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <p className="text-xs text-muted-foreground">
+                          Détermine la section d'affichage sur la page Ateliers.
+                        </p>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="tarif">Tarif (optionnel)</Label>
+                        <Input
+                          id="tarif"
+                          value={(formData as any).tarif || ""}
+                          onChange={(e) =>
+                            setFormData({ ...formData, tarif: e.target.value } as FormData)
+                          }
+                          placeholder="Ex : 15 € la séance"
+                        />
+                      </div>
+                    </div>
+
+
 
                     <div className="space-y-2">
                       <Label htmlFor="description">Description</Label>
@@ -531,6 +581,7 @@ export default function AdminAteliers() {
                 <TableHead className="w-12">Icône</TableHead>
                 <TableHead>Titre</TableHead>
                 <TableHead>Catégorie</TableHead>
+                <TableHead>Type</TableHead>
                 <TableHead>Format</TableHead>
                 <TableHead>Public</TableHead>
                 <TableHead className="w-20">Actif</TableHead>
@@ -552,6 +603,11 @@ export default function AdminAteliers() {
                       <span className="text-xs font-medium text-accent uppercase tracking-wider">
                         {atelier.categorie}
                       </span>
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      {(atelier as any).type_offre === "partenaire"
+                        ? `Partenaire${(atelier as any).tarif ? ` · ${(atelier as any).tarif}` : " · payant"}`
+                        : "Bénévoles · gratuit"}
                     </TableCell>
                     <TableCell className="text-sm text-muted-foreground">
                       {atelier.format || "-"}
@@ -588,7 +644,7 @@ export default function AdminAteliers() {
               })}
               {(!ateliers || ateliers.length === 0) && (
                 <TableRow>
-                  <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
+                  <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
                     Aucun atelier enregistré. Cliquez sur "Ajouter un atelier" pour commencer.
                   </TableCell>
                 </TableRow>

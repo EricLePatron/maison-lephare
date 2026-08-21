@@ -32,7 +32,9 @@ export type Database = {
           ordre_affichage: number | null
           public_cible: string | null
           statut: string
+          tarif: string | null
           titre: string
+          type_offre: string
           updated_at: string
         }
         Insert: {
@@ -52,7 +54,9 @@ export type Database = {
           ordre_affichage?: number | null
           public_cible?: string | null
           statut?: string
+          tarif?: string | null
           titre: string
+          type_offre?: string
           updated_at?: string
         }
         Update: {
@@ -72,7 +76,9 @@ export type Database = {
           ordre_affichage?: number | null
           public_cible?: string | null
           statut?: string
+          tarif?: string | null
           titre?: string
+          type_offre?: string
           updated_at?: string
         }
         Relationships: []

@@ -13,6 +13,22 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Brain, Palette, MessageCircle, Users, Heart, Sparkles, BookOpen, Music, Lightbulb,
 };
 
+const GROUPES = [
+  {
+    key: "benevole",
+    title: "Les ateliers gratuits de LePhare",
+    subtitle:
+      "Animés par les bénévoles de l'association LePhare, ces temps de rencontre et de partage sont ouverts à tous et entièrement gratuits.",
+  },
+  {
+    key: "partenaire",
+    title: "Les ateliers de nos partenaires",
+    subtitle:
+      "Proposés par des professionnels et partenaires qui louent nos salles. Ces ateliers sont payants, les tarifs et inscriptions sont fixés par l'intervenant.",
+  },
+];
+
+
 export default function Ateliers() {
   const { getContent } = usePageContent("ateliers");
   const atelierImage = useSiteImage("atelier-collectif", atelierImageStatic);
@@ -76,78 +92,103 @@ export default function Ateliers() {
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>
           ) : activeAteliers.length > 0 ? (
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-5xl mx-auto">
-              {activeAteliers.map(({ atelier, isPast }, index) => {
-                const IconComp = ICON_MAP[atelier.icone || "Brain"] || Brain;
-                const lien = (atelier as any).lien_inscription as string | null;
-                const imageUrl = (atelier as any).image_url as string | null;
-                const nombrePlaces = (atelier as any).nombre_places as number | null;
-                const complet = Boolean((atelier as any).complet);
+            <div className="space-y-16 sm:space-y-24">
+              {GROUPES.map((groupe) => {
+                const items = activeAteliers.filter(
+                  ({ atelier }) =>
+                    ((atelier as any).type_offre || "benevole") === groupe.key
+                );
+                if (items.length === 0) return null;
                 return (
-                  <Reveal key={atelier.id} variant="up" delay={index * 100} className="flex flex-col items-center text-center">
-                    <div className="relative w-full aspect-[4/3] rounded-2xl border-[3px] border-primary overflow-hidden bg-sky-100 flex items-center justify-center">
-                      {imageUrl ? (
-                        <img
-                          src={imageUrl}
-                          alt={atelier.titre}
-                          className={`w-full h-full object-cover ${isPast || complet ? "grayscale opacity-60" : ""}`}
-                          loading="lazy"
-                        />
-                      ) : (
-                        <IconComp className={`h-16 w-16 text-primary ${isPast || complet ? "opacity-50" : ""}`} />
-                      )}
-                      {isPast && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                          <span className="px-3 py-1 rounded-full bg-background/90 text-foreground text-xs font-semibold uppercase tracking-wider">
-                            Événement terminé
-                          </span>
-                        </div>
-                      )}
-                      {!isPast && complet && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                          <span className="px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-semibold uppercase tracking-wider">
-                            Complet
-                          </span>
-                        </div>
-                      )}
+                  <div key={groupe.key}>
+                    <Reveal variant="up" className="max-w-3xl mx-auto text-center mb-8 sm:mb-12">
+                      <h3 className="text-primary font-bold uppercase tracking-[0.15em] text-sm sm:text-base">
+                        {groupe.title}
+                      </h3>
+                      <p className="mt-3 text-sm sm:text-base text-foreground/80 leading-relaxed">
+                        {groupe.subtitle}
+                      </p>
+                    </Reveal>
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-5xl mx-auto">
+                      {items.map(({ atelier, isPast }, index) => {
+                        const IconComp = ICON_MAP[atelier.icone || "Brain"] || Brain;
+                        const lien = (atelier as any).lien_inscription as string | null;
+                        const imageUrl = (atelier as any).image_url as string | null;
+                        const nombrePlaces = (atelier as any).nombre_places as number | null;
+                        const tarif = (atelier as any).tarif as string | null;
+                        const complet = Boolean((atelier as any).complet);
+                        return (
+                          <Reveal key={atelier.id} variant="up" delay={index * 100} className="flex flex-col items-center text-center">
+                            <div className="relative w-full aspect-[4/3] rounded-2xl border-[3px] border-primary overflow-hidden bg-sky-100 flex items-center justify-center">
+                              {imageUrl ? (
+                                <img
+                                  src={imageUrl}
+                                  alt={atelier.titre}
+                                  className={`w-full h-full object-cover ${isPast || complet ? "grayscale opacity-60" : ""}`}
+                                  loading="lazy"
+                                />
+                              ) : (
+                                <IconComp className={`h-16 w-16 text-primary ${isPast || complet ? "opacity-50" : ""}`} />
+                              )}
+                              {isPast && (
+                                <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                                  <span className="px-3 py-1 rounded-full bg-background/90 text-foreground text-xs font-semibold uppercase tracking-wider">
+                                    Événement terminé
+                                  </span>
+                                </div>
+                              )}
+                              {!isPast && complet && (
+                                <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                                  <span className="px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-semibold uppercase tracking-wider">
+                                    Complet
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+                            <h4 className={`mt-4 sm:mt-5 uppercase tracking-wide font-bold text-sm sm:text-base leading-tight ${isPast || complet ? "text-foreground/60" : "text-primary"}`}>
+                              {atelier.titre}
+                            </h4>
+                            {atelier.categorie && (
+                              <p className="mt-1 text-xs uppercase tracking-[0.15em] text-foreground/60">
+                                {atelier.categorie}
+                              </p>
+                            )}
+                            <p className="mt-1 text-xs font-semibold text-primary/80">
+                              {groupe.key === "benevole" ? "Gratuit" : tarif || "Payant"}
+                            </p>
+                            {nombrePlaces != null && !isPast && (
+                              <p className="mt-1 text-xs text-foreground/70">
+                                {complet ? `${nombrePlaces} places — complet` : `${nombrePlaces} places`}
+                              </p>
+                            )}
+                            {atelier.description && (
+                              <p className="mt-2 text-sm text-foreground/80 leading-relaxed">
+                                {atelier.description}
+                              </p>
+                            )}
+                            {lien && !isPast && !complet && (
+                              <a
+                                href={lien}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="mt-4 inline-flex items-center gap-2 px-5 py-2 rounded-2xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
+                                onClick={() =>
+                                  trackAtelierInscription(
+                                    atelier.titre,
+                                    atelier.categorie,
+                                    index,
+                                    lien
+                                  )
+                                }
+                              >
+                                S'inscrire <ArrowRight className="h-4 w-4" />
+                              </a>
+                            )}
+                          </Reveal>
+                        );
+                      })}
                     </div>
-                    <h3 className={`mt-4 sm:mt-5 uppercase tracking-wide font-bold text-sm sm:text-base leading-tight ${isPast || complet ? "text-foreground/60" : "text-primary"}`}>
-                      {atelier.titre}
-                    </h3>
-                    {atelier.categorie && (
-                      <p className="mt-1 text-xs uppercase tracking-[0.15em] text-foreground/60">
-                        {atelier.categorie}
-                      </p>
-                    )}
-                    {nombrePlaces != null && !isPast && (
-                      <p className="mt-1 text-xs text-foreground/70">
-                        {complet ? `${nombrePlaces} places — complet` : `${nombrePlaces} places`}
-                      </p>
-                    )}
-                    {atelier.description && (
-                      <p className="mt-2 text-sm text-foreground/80 leading-relaxed">
-                        {atelier.description}
-                      </p>
-                    )}
-                    {lien && !isPast && !complet && (
-                      <a
-                        href={lien}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-4 inline-flex items-center gap-2 px-5 py-2 rounded-2xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
-                        onClick={() =>
-                          trackAtelierInscription(
-                            atelier.titre,
-                            atelier.categorie,
-                            index,
-                            lien
-                          )
-                        }
-                      >
-                        S'inscrire <ArrowRight className="h-4 w-4" />
-                      </a>
-                    )}
-                  </Reveal>
+                  </div>
                 );
               })}
             </div>
@@ -159,6 +200,7 @@ export default function Ateliers() {
 
         </div>
       </section>
+
 
       {/* Bannière château — recherche d'intervenants */}
       <section className="relative w-full overflow-hidden">
