@@ -115,10 +115,39 @@ export default function Ateliers() {
       <section className="bg-background py-16 sm:py-24">
         <div className="container-wide">
           <Reveal variant="up">
-            <h2 className="font-script text-primary text-center leading-[1.05] text-[clamp(2rem,5vw,3.75rem)] mb-12 sm:mb-16">
+            <h2 className="font-script text-primary text-center leading-[1.05] text-[clamp(2rem,5vw,3.75rem)] mb-8 sm:mb-10">
               {getContent("categories", "title", "Trouvez l'atelier qui résonne chez vous")}
             </h2>
           </Reveal>
+
+          {availableThemes.length > 0 && (
+            <div className="flex flex-wrap justify-center gap-2 mb-12 sm:mb-16">
+              <button
+                onClick={() => setSelectedTheme(null)}
+                className={`px-4 py-1.5 rounded-2xl text-sm font-medium border-2 transition-colors ${
+                  selectedTheme === null
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "bg-background text-primary border-primary/40 hover:border-primary"
+                }`}
+              >
+                Tous
+              </button>
+              {availableThemes.map((theme) => (
+                <button
+                  key={theme.key}
+                  onClick={() => setSelectedTheme(theme.key)}
+                  className={`px-4 py-1.5 rounded-2xl text-sm font-medium border-2 transition-colors ${
+                    selectedTheme === theme.key
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "bg-background text-primary border-primary/40 hover:border-primary"
+                  }`}
+                >
+                  {theme.label}
+                </button>
+              ))}
+            </div>
+          )}
+
 
           {isLoading ? (
             <div className="flex justify-center py-12">
