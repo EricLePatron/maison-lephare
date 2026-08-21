@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Loader2, Brain, Palette, MessageCircle, Users, Heart, Sparkles, BookOpen, Music, Lightbulb } from "lucide-react";
 import { usePageContent } from "@/hooks/useSiteContent";
