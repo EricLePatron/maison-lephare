@@ -157,6 +157,8 @@ export default function AdminAteliers() {
       complet: (atelier as any).complet ?? false,
       type_offre: (atelier as any).type_offre || "benevole",
       tarif: (atelier as any).tarif || "",
+    });
+
 
     setObjectifsText((atelier.objectifs || []).join("\n"));
     setIsDialogOpen(true);
