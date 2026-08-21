@@ -30,20 +30,52 @@ const GROUPES = [
 ];
 
 
+const THEMES = [
+  { key: "groupes-de-parole", label: "Groupes de parole", match: ["groupe de parole", "groupes de parole", "parole"] },
+  { key: "psycho-corporel", label: "Psycho-corporel", match: ["psycho-corporel", "psycho corporel", "corporel", "psychocorporel"] },
+  { key: "conference", label: "Conférence", match: ["conference", "conférence", "conferences", "café-débat", "cafe-debat", "debat"] },
+  { key: "art-therapie", label: "Art thérapie", match: ["art therapie", "art-thérapie", "art thérapie", "art-therapie", "art"] },
+  { key: "formation", label: "Formation", match: ["formation", "formations"] },
+  { key: "autre", label: "Autre", match: [] },
+];
+
+const normalize = (value: string) =>
+  value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+
+const themeKeyFor = (categorie?: string | null) => {
+  if (!categorie) return "autre";
+  const cat = normalize(categorie);
+  const found = THEMES.find((t) =>
+    t.match.some((m) => cat.includes(normalize(m)))
+  );
+  return found?.key || "autre";
+};
+
 export default function Ateliers() {
   const { getContent } = usePageContent("ateliers");
   const atelierImage = useSiteImage("atelier-collectif", atelierImageStatic);
   const chateauImage = useSiteImage("chateau-main", chateauImageStatic);
   const { data: ateliers, isLoading } = useAteliers();
+  const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const now = Date.now();
   const activeAteliers = (ateliers || [])
     .filter((a) => a.actif)
     .map((a) => {
       const dateStr = (a as any).date_evenement as string | null;
       const isPast = dateStr ? new Date(dateStr).getTime() < now : false;
-      return { atelier: a, isPast };
+      return { atelier: a, isPast, themeKey: themeKeyFor(a.categorie) };
     })
+    .filter((entry) => !selectedTheme || entry.themeKey === selectedTheme)
     .sort((x, y) => Number(x.isPast) - Number(y.isPast));
+
+  const availableThemes = THEMES.filter((theme) =>
+    (ateliers || []).some((a) => a.actif && themeKeyFor(a.categorie) === theme.key)
+  );
+
 
   return (
     <>
