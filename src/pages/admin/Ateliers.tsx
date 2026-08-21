@@ -581,6 +581,7 @@ export default function AdminAteliers() {
                 <TableHead className="w-12">Icône</TableHead>
                 <TableHead>Titre</TableHead>
                 <TableHead>Catégorie</TableHead>
+                <TableHead>Type</TableHead>
                 <TableHead>Format</TableHead>
                 <TableHead>Public</TableHead>
                 <TableHead className="w-20">Actif</TableHead>
@@ -602,6 +603,11 @@ export default function AdminAteliers() {
                       <span className="text-xs font-medium text-accent uppercase tracking-wider">
                         {atelier.categorie}
                       </span>
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      {(atelier as any).type_offre === "partenaire"
+                        ? `Partenaire${(atelier as any).tarif ? ` · ${(atelier as any).tarif}` : " · payant"}`
+                        : "Bénévoles · gratuit"}
                     </TableCell>
                     <TableCell className="text-sm text-muted-foreground">
                       {atelier.format || "-"}
