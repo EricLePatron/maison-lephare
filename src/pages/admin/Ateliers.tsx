@@ -84,6 +84,11 @@ const CATEGORIES = [
 
 type FormData = Omit<AtelierInsert, "id" | "created_at" | "updated_at">;
 
+const TYPES_OFFRE = [
+  { value: "benevole", label: "Gratuit — bénévoles LePhare" },
+  { value: "partenaire", label: "Payant — partenaire locataire" },
+];
+
 const emptyForm: FormData = {
   titre: "",
   categorie: "",
@@ -99,6 +104,8 @@ const emptyForm: FormData = {
   date_evenement: null,
   nombre_places: null,
   complet: false,
+  type_offre: "benevole",
+  tarif: "",
 };
 
 export default function AdminAteliers() {
@@ -148,7 +155,9 @@ export default function AdminAteliers() {
       date_evenement: (atelier as any).date_evenement || null,
       nombre_places: (atelier as any).nombre_places ?? null,
       complet: (atelier as any).complet ?? false,
-    });
+      type_offre: (atelier as any).type_offre || "benevole",
+      tarif: (atelier as any).tarif || "",
+
     setObjectifsText((atelier.objectifs || []).join("\n"));
     setIsDialogOpen(true);
   };
