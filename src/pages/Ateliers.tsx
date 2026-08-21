@@ -13,6 +13,22 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Brain, Palette, MessageCircle, Users, Heart, Sparkles, BookOpen, Music, Lightbulb,
 };
 
+const GROUPES = [
+  {
+    key: "benevole",
+    title: "Les ateliers gratuits de LePhare",
+    subtitle:
+      "Animés par les bénévoles de l'association LePhare, ces temps de rencontre et de partage sont ouverts à tous et entièrement gratuits.",
+  },
+  {
+    key: "partenaire",
+    title: "Les ateliers de nos partenaires",
+    subtitle:
+      "Proposés par des professionnels et partenaires qui louent nos salles. Ces ateliers sont payants, les tarifs et inscriptions sont fixés par l'intervenant.",
+  },
+];
+
+
 export default function Ateliers() {
   const { getContent } = usePageContent("ateliers");
   const atelierImage = useSiteImage("atelier-collectif", atelierImageStatic);
