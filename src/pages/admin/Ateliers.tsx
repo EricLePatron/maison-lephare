@@ -317,6 +317,45 @@ export default function AdminAteliers() {
                       </div>
                     </div>
 
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="type_offre">Type d'atelier *</Label>
+                        <Select
+                          value={(formData as any).type_offre || "benevole"}
+                          onValueChange={(value) =>
+                            setFormData({ ...formData, type_offre: value } as FormData)
+                          }
+                        >
+                          <SelectTrigger id="type_offre">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {TYPES_OFFRE.map((t) => (
+                              <SelectItem key={t.value} value={t.value}>
+                                {t.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <p className="text-xs text-muted-foreground">
+                          Détermine la section d'affichage sur la page Ateliers.
+                        </p>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="tarif">Tarif (optionnel)</Label>
+                        <Input
+                          id="tarif"
+                          value={(formData as any).tarif || ""}
+                          onChange={(e) =>
+                            setFormData({ ...formData, tarif: e.target.value } as FormData)
+                          }
+                          placeholder="Ex : 15 € la séance"
+                        />
+                      </div>
+                    </div>
+
+
+
                     <div className="space-y-2">
                       <Label htmlFor="description">Description</Label>
                       <Textarea
