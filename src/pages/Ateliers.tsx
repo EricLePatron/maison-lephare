@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Loader2, Brain, Palette, MessageCircle, Users, Heart, Sparkles, BookOpen, Music, Lightbulb } from "lucide-react";
 import { usePageContent } from "@/hooks/useSiteContent";
@@ -29,20 +30,52 @@ const GROUPES = [
 ];
 
 
+const THEMES = [
+  { key: "groupes-de-parole", label: "Groupes de parole", match: ["groupe de parole", "groupes de parole", "parole"] },
+  { key: "psycho-corporel", label: "Psycho-corporel", match: ["psycho-corporel", "psycho corporel", "corporel", "psychocorporel"] },
+  { key: "conference", label: "Conférence", match: ["conference", "conférence", "conferences", "café-débat", "cafe-debat", "debat"] },
+  { key: "art-therapie", label: "Art thérapie", match: ["art therapie", "art-thérapie", "art thérapie", "art-therapie", "art"] },
+  { key: "formation", label: "Formation", match: ["formation", "formations"] },
+  { key: "autre", label: "Autre", match: [] },
+];
+
+const normalize = (value: string) =>
+  value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+
+const themeKeyFor = (categorie?: string | null) => {
+  if (!categorie) return "autre";
+  const cat = normalize(categorie);
+  const found = THEMES.find((t) =>
+    t.match.some((m) => cat.includes(normalize(m)))
+  );
+  return found?.key || "autre";
+};
+
 export default function Ateliers() {
   const { getContent } = usePageContent("ateliers");
   const atelierImage = useSiteImage("atelier-collectif", atelierImageStatic);
   const chateauImage = useSiteImage("chateau-main", chateauImageStatic);
   const { data: ateliers, isLoading } = useAteliers();
+  const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const now = Date.now();
   const activeAteliers = (ateliers || [])
     .filter((a) => a.actif)
     .map((a) => {
       const dateStr = (a as any).date_evenement as string | null;
       const isPast = dateStr ? new Date(dateStr).getTime() < now : false;
-      return { atelier: a, isPast };
+      return { atelier: a, isPast, themeKey: themeKeyFor(a.categorie) };
     })
+    .filter((entry) => !selectedTheme || entry.themeKey === selectedTheme)
     .sort((x, y) => Number(x.isPast) - Number(y.isPast));
+
+  const availableThemes = THEMES.filter((theme) =>
+    (ateliers || []).some((a) => a.actif && themeKeyFor(a.categorie) === theme.key)
+  );
+
 
   return (
     <>
@@ -82,10 +115,39 @@ export default function Ateliers() {
       <section className="bg-background py-16 sm:py-24">
         <div className="container-wide">
           <Reveal variant="up">
-            <h2 className="font-script text-primary text-center leading-[1.05] text-[clamp(2rem,5vw,3.75rem)] mb-12 sm:mb-16">
+            <h2 className="font-script text-primary text-center leading-[1.05] text-[clamp(2rem,5vw,3.75rem)] mb-8 sm:mb-10">
               {getContent("categories", "title", "Trouvez l'atelier qui résonne chez vous")}
             </h2>
           </Reveal>
+
+          {availableThemes.length > 0 && (
+            <div className="flex flex-wrap justify-center gap-2 mb-12 sm:mb-16">
+              <button
+                onClick={() => setSelectedTheme(null)}
+                className={`px-4 py-1.5 rounded-2xl text-sm font-medium border-2 transition-colors ${
+                  selectedTheme === null
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "bg-background text-primary border-primary/40 hover:border-primary"
+                }`}
+              >
+                Tous
+              </button>
+              {availableThemes.map((theme) => (
+                <button
+                  key={theme.key}
+                  onClick={() => setSelectedTheme(theme.key)}
+                  className={`px-4 py-1.5 rounded-2xl text-sm font-medium border-2 transition-colors ${
+                    selectedTheme === theme.key
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "bg-background text-primary border-primary/40 hover:border-primary"
+                  }`}
+                >
+                  {theme.label}
+                </button>
+              ))}
+            </div>
+          )}
+
 
           {isLoading ? (
             <div className="flex justify-center py-12">
