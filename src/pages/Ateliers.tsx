@@ -372,12 +372,16 @@ export default function Ateliers() {
       {/* Bannière château — recherche d'intervenants */}
       <section className="relative w-full overflow-hidden">
         <div className="relative aspect-[16/7] sm:aspect-[21/8] w-full">
-          <img
-            src={chateauImage}
-            alt={getContent("cta", "image_alt", "Château LePhare")}
-            className="absolute inset-0 w-full h-full object-cover"
-            loading="lazy"
-          />
+          {!themeLoading && (
+            <img
+              key={chateauImage}
+              src={chateauImage}
+              alt={getContent("cta", "image_alt", "Château LePhare")}
+              className="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          )}
           <div className="absolute inset-0 bg-black/30" />
           <div className="absolute inset-0 flex items-center justify-center px-6">
             <Link
