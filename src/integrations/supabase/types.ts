@@ -29,7 +29,6 @@ export type Database = {
           lien_inscription: string | null
           nombre_places: number | null
           objectifs: string[] | null
-          ordre_affichage: number | null
           public_cible: string | null
           statut: string
           tarif: string | null
@@ -51,7 +50,6 @@ export type Database = {
           lien_inscription?: string | null
           nombre_places?: number | null
           objectifs?: string[] | null
-          ordre_affichage?: number | null
           public_cible?: string | null
           statut?: string
           tarif?: string | null
@@ -73,7 +71,6 @@ export type Database = {
           lien_inscription?: string | null
           nombre_places?: number | null
           objectifs?: string[] | null
-          ordre_affichage?: number | null
           public_cible?: string | null
           statut?: string
           tarif?: string | null

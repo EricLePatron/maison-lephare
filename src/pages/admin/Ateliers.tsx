@@ -99,7 +99,6 @@ const emptyForm: FormData = {
   objectifs: [],
   icone: "Brain",
   actif: true,
-  ordre_affichage: 0,
   lien_inscription: "",
   image_url: "",
   date_evenement: null,
@@ -150,7 +149,6 @@ export default function AdminAteliers() {
       objectifs: atelier.objectifs || [],
       icone: atelier.icone || "Brain",
       actif: atelier.actif,
-      ordre_affichage: atelier.ordre_affichage || 0,
       lien_inscription: (atelier as any).lien_inscription || "",
       image_url: (atelier as any).image_url || "",
       date_evenement: (atelier as any).date_evenement || null,
@@ -433,20 +431,6 @@ export default function AdminAteliers() {
                             })}
                           </SelectContent>
                         </Select>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="ordre">Ordre d'affichage</Label>
-                        <Input
-                          id="ordre"
-                          type="number"
-                          value={formData.ordre_affichage || 0}
-                          onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              ordre_affichage: parseInt(e.target.value) || 0,
-                            })
-                          }
-                        />
                       </div>
                     </div>
 
