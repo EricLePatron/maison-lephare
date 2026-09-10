@@ -162,10 +162,10 @@ export default function Ateliers() {
             <div className="flex justify-center py-12">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>
-          ) : activeAteliers.length > 0 ? (
+          ) : upcomingAteliers.length > 0 ? (
             <div className="space-y-16 sm:space-y-24">
               {GROUPES.map((groupe) => {
-                const items = activeAteliers.filter(
+                const items = upcomingAteliers.filter(
                   ({ atelier }) =>
                     ((atelier as any).type_offre || "benevole") === groupe.key
                 );
@@ -267,8 +267,60 @@ export default function Ateliers() {
             </div>
           ) : (
             <p className="text-center text-muted-foreground py-12">
-              Aucun atelier disponible pour le moment.
+              Aucun atelier à venir pour le moment.
             </p>
+          )}
+
+          {pastAteliers.length > 0 && (
+            <div className="mt-16 sm:mt-24 pt-12 border-t border-primary/20">
+              <Reveal variant="up" className="max-w-3xl mx-auto text-center mb-8 sm:mb-12">
+                <h3 className="text-primary font-bold uppercase tracking-[0.15em] text-sm sm:text-base">
+                  Nos événements passés
+                </h3>
+              </Reveal>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-5xl mx-auto">
+                {pastAteliers.map(({ atelier }, index) => {
+                  const IconComp = ICON_MAP[atelier.icone || "Brain"] || Brain;
+                  const imageUrl = (atelier as any).image_url as string | null;
+                  const groupeKey = ((atelier as any).type_offre || "benevole") as string;
+                  const tarif = (atelier as any).tarif as string | null;
+                  return (
+                    <Reveal key={atelier.id} variant="up" delay={index * 100} className="flex flex-col items-center text-center">
+                      <div className="relative w-full aspect-[4/3] rounded-2xl border-[3px] border-primary/40 overflow-hidden bg-sky-100 flex items-center justify-center">
+                        {imageUrl ? (
+                          <img
+                            key={imageUrl}
+                            src={withVersion(imageUrl, (atelier as any).updated_at)}
+                            alt={atelier.titre}
+                            className="w-full h-full object-cover grayscale opacity-60"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        ) : (
+                          <IconComp className="h-16 w-16 text-primary opacity-50" />
+                        )}
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                          <span className="px-3 py-1 rounded-full bg-background/90 text-foreground text-xs font-semibold uppercase tracking-wider">
+                            Événement terminé
+                          </span>
+                        </div>
+                      </div>
+                      <h4 className="mt-4 sm:mt-5 uppercase tracking-wide font-bold text-sm sm:text-base leading-tight text-foreground/60">
+                        {atelier.titre}
+                      </h4>
+                      {atelier.categorie && (
+                        <p className="mt-1 text-xs uppercase tracking-[0.15em] text-foreground/60">
+                          {atelier.categorie}
+                        </p>
+                      )}
+                      <p className="mt-1 text-xs font-semibold text-primary/80">
+                        {groupeKey === "benevole" ? "Gratuit" : tarif || "Payant"}
+                      </p>
+                    </Reveal>
+                  );
+                })}
+              </div>
+            </div>
           )}
 
         </div>
