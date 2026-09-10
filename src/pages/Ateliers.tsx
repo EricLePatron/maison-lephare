@@ -44,6 +44,26 @@ const withVersion = (url?: string | null, version?: string | null) => {
   return `${url}${url.includes("?") ? "&" : "?"}v=${encodeURIComponent(version)}`;
 };
 
+const dateTimestamp = (dateStr?: string | null) => {
+  if (!dateStr) return null;
+  const ts = new Date(dateStr).getTime();
+  return isNaN(ts) ? null : ts;
+};
+
+const compareByDate = (
+  aDate?: string | null,
+  bDate?: string | null,
+  direction: "asc" | "desc" = "asc"
+) => {
+  const aTs = dateTimestamp(aDate);
+  const bTs = dateTimestamp(bDate);
+  if (aTs == null && bTs == null) return 0;
+  if (aTs == null) return 1; // sans date en dernier
+  if (bTs == null) return -1; // sans date en dernier
+  const diff = aTs - bTs;
+  return direction === "asc" ? diff : -diff;
+};
+
 const themeKeyFor = (categorie?: string | null) => {
   const cat = (categorie || "").trim();
   return cat ? normalize(cat) : "autre";
