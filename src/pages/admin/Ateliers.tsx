@@ -168,6 +168,17 @@ export default function AdminAteliers() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!formData.categorie.trim()) {
+      toast({
+        title: "Catégorie requise",
+        description: "Choisissez une catégorie existante ou créez-en une nouvelle.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+
+
     const objectifsArray = objectifsText
       .split("\n")
       .map((o) => o.trim())
