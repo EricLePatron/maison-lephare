@@ -72,6 +72,7 @@ const themeKeyFor = (categorie?: string | null) => {
 
 export default function Ateliers() {
   const { getContent } = usePageContent("ateliers");
+  const { isLoading: themeLoading } = useThemeSettings();
   const atelierImage = useSiteImage("atelier-collectif", atelierImageStatic);
   const chateauImage = useSiteImage("chateau-main", chateauImageStatic);
   const { data: ateliers, isLoading } = useAteliers();
