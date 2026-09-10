@@ -8,7 +8,7 @@ import { Seo } from "@/components/Seo";
 import { BlocActualitesHome } from "@/components/actualites/BlocActualitesHome";
 import { useFeatureFlag, useActualitesVisible } from "@/hooks/usePublications";
 import chateauImageStatic from "@/assets/chateau-hero.jpg";
-import logoLePhare from "@/assets/logo-lephare.svg";
+import logoLePhare from "@/assets/logo-lephare.png";
 import featureConsultation from "@/assets/feature-consultation.jpg";
 import featureAssociation from "@/assets/feature-association.jpg";
 import featureCafe from "@/assets/feature-cafe.jpg";
