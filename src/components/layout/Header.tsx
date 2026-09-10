@@ -6,7 +6,7 @@ import { trackNavClick, trackDonClick } from "@/lib/analytics";
 import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
 import { useFeatureFlag, useActualitesVisible } from "@/hooks/usePublications";
-import logoLePhare from "@/assets/logo-lephare.svg";
+import logoLePhare from "@/assets/logo-lephare.png";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);

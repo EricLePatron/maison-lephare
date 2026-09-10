@@ -3,7 +3,7 @@ import { Mail, MapPin } from "lucide-react";
 import { trackNavClick } from "@/lib/analytics";
 import { usePageContent } from "@/hooks/useSiteContent";
 import { useSiteImage } from "@/hooks/useTheme";
-import logoLePhare from "@/assets/logo-lephare.svg";
+import logoLePhare from "@/assets/logo-lephare.png";
 
 export function Footer() {
   const { getContent } = usePageContent("global");
