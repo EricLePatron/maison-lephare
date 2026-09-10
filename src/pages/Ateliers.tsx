@@ -46,6 +46,13 @@ const normalize = (value: string) =>
     .replace(/[\u0300-\u036f]/g, "")
     .trim();
 
+// Évite qu'une ancienne image en cache s'affiche après une mise à jour
+const withVersion = (url?: string | null, version?: string | null) => {
+  if (!url) return url;
+  if (!version) return url;
+  return `${url}${url.includes("?") ? "&" : "?"}v=${encodeURIComponent(version)}`;
+};
+
 const themeKeyFor = (categorie?: string | null) => {
   if (!categorie) return "autre";
   const cat = normalize(categorie);
