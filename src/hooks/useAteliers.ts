@@ -13,7 +13,7 @@ export function useAteliers() {
       const { data, error } = await supabase
         .from("ateliers")
         .select("*")
-        .order("ordre_affichage", { ascending: true });
+        .order("date_evenement", { ascending: true, nullsFirst: false });
 
       if (error) throw error;
       return data as Atelier[];
