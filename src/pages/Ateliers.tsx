@@ -30,15 +30,6 @@ const GROUPES = [
 ];
 
 
-const THEMES = [
-  { key: "groupes-de-parole", label: "Groupes de parole", match: ["groupe de parole", "groupes de parole", "parole"] },
-  { key: "psycho-corporel", label: "Psycho-corporel", match: ["psycho-corporel", "psycho corporel", "corporel", "psychocorporel"] },
-  { key: "conference", label: "Conférence", match: ["conference", "conférence", "conferences", "café-débat", "cafe-debat", "debat"] },
-  { key: "art-therapie", label: "Art thérapie", match: ["art therapie", "art-thérapie", "art thérapie", "art-therapie", "art"] },
-  { key: "formation", label: "Formation", match: ["formation", "formations"] },
-  { key: "autre", label: "Autre", match: [] },
-];
-
 const normalize = (value: string) =>
   value
     .toLowerCase()
@@ -54,13 +45,10 @@ const withVersion = (url?: string | null, version?: string | null) => {
 };
 
 const themeKeyFor = (categorie?: string | null) => {
-  if (!categorie) return "autre";
-  const cat = normalize(categorie);
-  const found = THEMES.find((t) =>
-    t.match.some((m) => cat.includes(normalize(m)))
-  );
-  return found?.key || "autre";
+  const cat = (categorie || "").trim();
+  return cat ? normalize(cat) : "autre";
 };
+
 
 export default function Ateliers() {
   const { getContent } = usePageContent("ateliers");
@@ -81,9 +69,20 @@ export default function Ateliers() {
   const upcomingAteliers = entries.filter(({ isPast }) => !isPast);
   const pastAteliers = entries.filter(({ isPast }) => isPast);
 
-  const availableThemes = THEMES.filter((theme) =>
-    (ateliers || []).some((a) => a.actif && themeKeyFor(a.categorie) === theme.key)
-  );
+  const availableThemes = (() => {
+    const map = new Map<string, string>();
+    (ateliers || [])
+      .filter((a) => a.actif)
+      .forEach((a) => {
+        const label = (a.categorie || "").trim() || "Autre";
+        const key = themeKeyFor(a.categorie);
+        if (!map.has(key)) map.set(key, label);
+      });
+    return Array.from(map, ([key, label]) => ({ key, label })).sort((a, b) =>
+      a.label.localeCompare(b.label, "fr")
+    );
+  })();
+
 
 
   return (
