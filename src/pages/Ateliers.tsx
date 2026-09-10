@@ -86,8 +86,24 @@ export default function Ateliers() {
     })
     .filter((entry) => !selectedTheme || entry.themeKey === selectedTheme);
 
-  const upcomingAteliers = entries.filter(({ isPast }) => !isPast);
-  const pastAteliers = entries.filter(({ isPast }) => isPast);
+  const upcomingAteliers = entries
+    .filter(({ isPast }) => !isPast)
+    .sort((a, b) =>
+      compareByDate(
+        (a.atelier as any).date_evenement,
+        (b.atelier as any).date_evenement,
+        "asc"
+      )
+    );
+  const pastAteliers = entries
+    .filter(({ isPast }) => isPast)
+    .sort((a, b) =>
+      compareByDate(
+        (a.atelier as any).date_evenement,
+        (b.atelier as any).date_evenement,
+        "desc"
+      )
+    );
 
   const availableThemes = (() => {
     const map = new Map<string, string>();
