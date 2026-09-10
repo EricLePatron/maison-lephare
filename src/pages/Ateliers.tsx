@@ -69,15 +69,17 @@ export default function Ateliers() {
   const { data: ateliers, isLoading } = useAteliers();
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const now = Date.now();
-  const activeAteliers = (ateliers || [])
+  const entries = (ateliers || [])
     .filter((a) => a.actif)
     .map((a) => {
       const dateStr = (a as any).date_evenement as string | null;
       const isPast = dateStr ? new Date(dateStr).getTime() < now : false;
       return { atelier: a, isPast, themeKey: themeKeyFor(a.categorie) };
     })
-    .filter((entry) => !selectedTheme || entry.themeKey === selectedTheme)
-    .sort((x, y) => Number(x.isPast) - Number(y.isPast));
+    .filter((entry) => !selectedTheme || entry.themeKey === selectedTheme);
+
+  const upcomingAteliers = entries.filter(({ isPast }) => !isPast);
+  const pastAteliers = entries.filter(({ isPast }) => isPast);
 
   const availableThemes = THEMES.filter((theme) =>
     (ateliers || []).some((a) => a.actif && themeKeyFor(a.categorie) === theme.key)
