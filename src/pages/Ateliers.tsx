@@ -69,9 +69,20 @@ export default function Ateliers() {
   const upcomingAteliers = entries.filter(({ isPast }) => !isPast);
   const pastAteliers = entries.filter(({ isPast }) => isPast);
 
-  const availableThemes = THEMES.filter((theme) =>
-    (ateliers || []).some((a) => a.actif && themeKeyFor(a.categorie) === theme.key)
-  );
+  const availableThemes = (() => {
+    const map = new Map<string, string>();
+    (ateliers || [])
+      .filter((a) => a.actif)
+      .forEach((a) => {
+        const label = (a.categorie || "").trim() || "Autre";
+        const key = themeKeyFor(a.categorie);
+        if (!map.has(key)) map.set(key, label);
+      });
+    return Array.from(map, ([key, label]) => ({ key, label })).sort((a, b) =>
+      a.label.localeCompare(b.label, "fr")
+    );
+  })();
+
 
 
   return (
