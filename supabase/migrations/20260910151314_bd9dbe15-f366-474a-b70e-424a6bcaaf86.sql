@@ -1,0 +1,1 @@
+ALTER TABLE public.ateliers DROP COLUMN IF EXISTS ordre_affichage;
