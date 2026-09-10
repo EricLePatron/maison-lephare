@@ -134,11 +134,17 @@ export default function Ateliers() {
         <div className="container-wide">
           <div className="grid gap-10 lg:grid-cols-2 items-center max-w-6xl mx-auto">
             <Reveal variant="left" className="rounded-2xl overflow-hidden shadow-soft">
-              <img
-                src={atelierImage}
-                alt={getContent("hero", "image_alt", "Atelier collectif à LePhare")}
-                className="w-full h-full object-cover aspect-[4/3]"
-              />
+              {themeLoading ? (
+                <div className="w-full aspect-[4/3] bg-sky-200/60 animate-pulse" aria-hidden="true" />
+              ) : (
+                <img
+                  key={atelierImage}
+                  src={atelierImage}
+                  alt={getContent("hero", "image_alt", "Atelier collectif à LePhare")}
+                  className="w-full h-full object-cover aspect-[4/3]"
+                  decoding="async"
+                />
+              )}
             </Reveal>
             <Reveal variant="right" delay={120}>
               <h1 className="font-script text-primary leading-[1.05] text-[clamp(2.5rem,6vw,4.5rem)] mb-6">
