@@ -305,33 +305,17 @@ export default function AdminAteliers() {
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="categorie">Catégorie *</Label>
-                        <Input
-                          id="categorie"
-                          list="categories-existantes"
+                        <CategoryCombobox
                           value={formData.categorie}
-                          onChange={(e) =>
-                            setFormData({ ...formData, categorie: e.target.value })
-                          }
-                          placeholder="Choisir ou créer une catégorie"
-                          required
+                          options={(ateliers || []).map((a) => a.categorie || "")}
+                          onChange={(categorie) => setFormData({ ...formData, categorie })}
                         />
-                        <datalist id="categories-existantes">
-                          {Array.from(
-                            new Set(
-                              (ateliers || [])
-                                .map((a) => (a.categorie || "").trim())
-                                .filter(Boolean)
-                            )
-                          )
-                            .sort((a, b) => a.localeCompare(b, "fr"))
-                            .map((cat) => (
-                              <option key={cat} value={cat} />
-                            ))}
-                        </datalist>
                         <p className="text-xs text-muted-foreground">
-                          Les catégories saisies apparaissent automatiquement comme filtres sur la page Ateliers.
+                          Choisissez une catégorie existante ou créez-en une nouvelle : elle apparaîtra
+                          automatiquement comme filtre sur la page Ateliers.
                         </p>
                       </div>
+
 
                     </div>
 
