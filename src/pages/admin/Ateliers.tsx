@@ -30,6 +30,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { ImageUpload } from "@/components/admin/ImageUpload";
+import { CategoryCombobox } from "@/components/admin/CategoryCombobox";
 import {
   useAteliers,
   useCreateAtelier,
