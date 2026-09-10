@@ -17,7 +17,7 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
 const GROUPES = [
   {
     key: "benevole",
-    title: "Les ateliers gratuits de LePhare",
+    title: "Les ateliers gratuits proposés par l'Association LePhare",
     subtitle:
       "Animés par les bénévoles de l'association LePhare, ces temps de rencontre et de partage sont ouverts à tous et entièrement gratuits.",
   },
@@ -160,7 +160,7 @@ export default function Ateliers() {
         <div className="container-wide">
           <Reveal variant="up">
             <h2 className="font-script text-primary text-center leading-[1.05] text-[clamp(2rem,5vw,3.75rem)] mb-8 sm:mb-10">
-              {getContent("categories", "title", "Trouvez l'atelier qui résonne chez vous")}
+              {getContent("categories", "title", "Les ateliers proposés au Phare")}
             </h2>
           </Reveal>
 
