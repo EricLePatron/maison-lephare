@@ -191,10 +191,12 @@ export default function Ateliers() {
                             <div className="relative w-full aspect-[4/3] rounded-2xl border-[3px] border-primary overflow-hidden bg-sky-100 flex items-center justify-center">
                               {imageUrl ? (
                                 <img
-                                  src={imageUrl}
+                                  key={imageUrl}
+                                  src={withVersion(imageUrl, (atelier as any).updated_at)}
                                   alt={atelier.titre}
                                   className={`w-full h-full object-cover ${isPast || complet ? "grayscale opacity-60" : ""}`}
                                   loading="lazy"
+                                  decoding="async"
                                 />
                               ) : (
                                 <IconComp className={`h-16 w-16 text-primary ${isPast || complet ? "opacity-50" : ""}`} />
