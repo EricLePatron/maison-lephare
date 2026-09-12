@@ -6,6 +6,17 @@
 
 ---
 
+## ⚠️ Avertissement majeur : le dépôt GitHub est désynchronisé de la production
+
+L'audit « code » ci-dessous a été réalisé sur le dépôt GitHub (`main`). Or **le site en production (`maison-lephare.org`) est en avance sur le dépôt** : plusieurs éléments présents en ligne n'existent pas dans le code versionné. Vérifié le 2026-09-12 :
+
+- **La date et l'heure des ateliers s'affichent bien en production** (ex. « 24 septembre à 18h30 »), ainsi que le bouton « S'inscrire ». Dans le repo, `date_evenement` ne sert qu'au tri (`Ateliers.tsx:84,94-104`) et n'est jamais rendu.
+- Conséquence : les constats 2a et 2b ci-dessous (date/CTA absents) **ne s'appliquent pas au site live** — ils sont déjà résolus en production, probablement via des éditions Lovable non repoussées vers GitHub.
+
+**Ce désync est un risque en soi** : (1) tout audit ancré sur le repo est partiellement faux ; (2) toute implémentation faite sur le repo risque d'écraser la version Lovable au prochain déploiement (cf. l'incident « site blanc » décrit dans `CLAUDE.md`). **Avant toute implémentation, resynchroniser repo ↔ production.** Les parties « données GA4 / Search Console » et « SEO / marketing » de cette étude ne sont pas affectées.
+
+---
+
 ## Verdict global
 
 Le site est en **fort momentum** : le trafic accélère nettement (≈ 58 → 106 sessions/jour en cadence sur 90j → 7j), et la page **/ateliers est déjà la 3ᵉ page la plus vue** du site (1 866 vues/90j), avec une intention d'inscription **remarquablement élevée** (~38 % de clic « S'inscrire »).
@@ -70,13 +81,11 @@ Requêtes Search Console : « le phare merignac » (64 clics), « maison le phar
 
 ## ENJEU 2 — Booster la réservation d'ateliers
 
-### 2a. Le point le plus grave : la date de l'atelier n'est jamais affichée — **BLOQUANT**
-*(Constat remonté indépendamment par l'UX et le Marketing.)*
-Le champ `date_evenement` existe en base et sert à trier/déterminer passé-futur, mais **il n'est jamais rendu à l'écran** sur `/ateliers`. On ne sait pas *quand* a lieu l'atelier — l'information n°1 pour décider de s'inscrire.
-**Ironie** : le composant `CarteAtelier.tsx` affiche déjà parfaitement date + heure… mais il n'est pas utilisé sur la page ateliers. → **Quick win majeur.**
+### 2a. Date de l'atelier — ✅ déjà affichée en production (absente du repo)
+**Corrigé sur le site live** : la date + l'heure s'affichent bien (ex. « 24 septembre à 18h30 »). Ce constat ne vaut donc **que pour le dépôt GitHub**, où `date_evenement` ne sert qu'au tri (`Ateliers.tsx:84,94-104`) et n'est jamais rendu — symptôme du désync repo/prod signalé en tête d'étude. **Action réelle** : rapatrier la version production dans le repo (pas de développement neuf à faire).
 
-### 2b. Les ateliers gratuits n'ont souvent aucun CTA → cul-de-sac — **BLOQUANT**
-Le bouton « S'inscrire » ne s'affiche **que si `lien_inscription` existe** (`Ateliers.tsx:284`). Les ateliers gratuits animés par les bénévoles n'ont typiquement pas de billetterie externe → **carte sans aucun moyen d'agir**. Un fallback (`mailto:` pré-rempli ou `/contact`) existe déjà dans `CarteAtelier.tsx` — il suffit de le généraliser. **Jamais de carte sans CTA.**
+### 2b. CTA « S'inscrire » — ✅ présent en production ; reste à vérifier le cas « sans lien »
+**Le bouton s'affiche bien en production** sur les ateliers de la capture. Dans le repo, il est conditionné à `lien_inscription` (`Ateliers.tsx:284`) : **à confirmer sur le site live** qu'aucun atelier (notamment gratuit sans billetterie externe) ne se retrouve sans aucun CTA. Si le cas existe, prévoir un fallback (`mailto:`/`/contact`) — le pattern existe déjà dans `CarteAtelier.tsx`. À vérifier une fois le repo resynchronisé.
 
 ### 2c. La conversion finale n'est pas mesurée
 « S'inscrire » ouvre `lien_inscription` (AssoConnect) **dans un nouvel onglet, hors-site**. On mesure les 708 clics d'intention mais **pas les inscriptions finalisées** → pilotage à l'aveugle. De plus, l'ouverture d'onglet externe n'est pas signalée (pas d'icône « lien externe »).
