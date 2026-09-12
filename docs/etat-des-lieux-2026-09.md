@@ -10,9 +10,11 @@
 
 Le site est en **fort momentum** : le trafic accélère nettement (≈ 58 → 106 sessions/jour en cadence sur 90j → 7j), et la page **/ateliers est déjà la 3ᵉ page la plus vue** du site (1 866 vues/90j), avec une intention d'inscription **remarquablement élevée** (~38 % de clic « S'inscrire »).
 
-**Le problème n'est donc pas l'acquisition, mais la conversion** — et deux angles morts empêchent aujourd'hui de la piloter :
-1. **On ne peut pas mesurer le mobile** (dimension appareil non collectée dans GA4).
+**Le problème n'est donc pas l'acquisition, mais la conversion.** Deux points de mesure encadrent le diagnostic :
+1. **Mobile confirmé** : ~64 % des clics Google Search viennent du mobile (Search Console) — reste à mesurer l'écart de *conversion* mobile vs desktop côté GA4.
 2. **On ne mesure pas les inscriptions réellement finalisées** (elles se terminent sur AssoConnect, hors tracking).
+
+Et un signal SEO fort : **la recherche est quasi 100 % de marque** (« le phare merignac »…) → le site capte ceux qui connaissent déjà LePhare, mais reste peu découvrable par de nouveaux publics — un gisement d'acquisition inexploité.
 
 La bonne nouvelle : la majorité des correctifs à fort impact sont **des quick wins** (données déjà présentes mais non affichées, composants déjà écrits mais non réutilisés).
 
@@ -38,9 +40,15 @@ La bonne nouvelle : la majorité des correctifs à fort impact sont **des quick 
 
 ## ENJEU 1 — Capitaliser sur le trafic mobile
 
-### 1a. Angle mort : le mobile n'est pas mesurable aujourd'hui
-Le collecteur `scripts/fetch-analytics.mjs` **n'interroge jamais la dimension `deviceCategory`** de GA4. Impossible donc de chiffrer le split mobile/desktop, ni les écarts de conversion par appareil. L'hypothèse « beaucoup de trafic mobile » est **crédible** (Organic Social = 430 sessions, canal typiquement mobile) mais **non vérifiée**.
-→ **Correctif prioritaire n°1** : ajouter `deviceCategory` au collecteur (overview, sources, top pages, events). Débloque tout l'enjeu au prochain fetch. *(Nécessite aussi `GA_CREDENTIALS` pour re-fetch.)*
+### 1a. Le mobile est confirmé — via Google Search Console
+**Données Search Console (clics depuis Google, dernier mois)** : Mobile **214** · Ordinateur **109** · Tablette **11** → sur 334 clics, **≈ 64 % mobile** (67 % avec la tablette). L'hypothèse « beaucoup de trafic mobile » est **confirmée**. Localité : France 330, requêtes « merignac » → cible **Mérignac**.
+
+Nuance de mesure : ce chiffre concerne les arrivées **organiques (Google Search)**, pas le split toutes sources. Côté GA4, le collecteur `scripts/fetch-analytics.mjs` **n'interroge toujours pas `deviceCategory`** → on ne peut pas encore chiffrer les **écarts de conversion** mobile vs desktop (ateliers, RDV, dons).
+→ **Correctif restant** : ajouter `deviceCategory` au collecteur GA4 pour mesurer la conversion par appareil (le *volume* mobile, lui, est désormais établi). *(Nécessite `GA_CREDENTIALS` pour re-fetch.)*
+
+### 1a-bis. La recherche est quasi 100 % de marque → gisement SEO d'acquisition
+Requêtes Search Console : « le phare merignac » (64 clics), « maison le phare » (17), « le phare association »… **Presque personne n'arrive via une requête non-marque.** Autrement dit, le site capte les gens qui **connaissent déjà** LePhare (bouche-à-oreille, réputation locale) mais **ne se fait pas découvrir** par de nouveaux publics cherchant un service (« atelier santé mentale Mérignac », « groupe de parole Bordeaux », « café associatif Mérignac »).
+→ **Opportunité** : contenu/SEO local sur des requêtes non-marque (pages ateliers optimisées, articles, Google Business Profile) pour élargir l'audience au-delà du cercle déjà acquis. L'incohérence **Bordeaux/Mérignac** dans les titres (relevée par l'UX) nuit directement à ce SEO local — à corriger.
 
 ### 1b. Frictions mobiles confirmées dans le code
 | Friction | Sévérité | Fichier |
