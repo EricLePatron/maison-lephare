@@ -35,6 +35,9 @@ export default function Professionnels() {
               <span className="block">{getContent("hero", "title_line_1", "Les professionnels de la Santé Mentale")}</span>
               <span className="block">{getContent("hero", "title_line_2", "qui exercent au Phare")}</span>
             </h1>
+             <p className="mt-5 text-base sm:text-lg text-muted-foreground">
+               {getContent("hero", "subtitle", "Information sur les professionnels")}
+             </p>
           </Reveal>
         </div>
       </section>
