@@ -25,7 +25,17 @@ import AdminMetrics from "./pages/admin/Metrics";
 import AdminPublications from "./pages/admin/Publications";
 import Unsubscribe from "./pages/Unsubscribe";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 10 * 60 * 1000,
+      gcTime: 30 * 60 * 1000,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      retry: 1,
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
