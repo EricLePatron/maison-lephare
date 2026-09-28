@@ -12,6 +12,23 @@ interface ImageUploadProps {
   label?: string;
 }
 
+// Redimensionne (max 1920 px) et convertit en WebP avant envoi, pour alléger le site.
+async function compressImage(file: File, maxSize = 1920, quality = 0.82): Promise<Blob | File> {
+  if (file.type === "image/svg+xml" || file.type === "image/gif") return file;
+  try {
+    const bitmap = await createImageBitmap(file);
+    const scale = Math.min(1, maxSize / Math.max(bitmap.width, bitmap.height));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(bitmap.width * scale);
+    canvas.height = Math.round(bitmap.height * scale);
+    canvas.getContext("2d")?.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/webp", quality));
+    return blob && blob.type === "image/webp" && blob.size < file.size ? blob : file;
+  } catch {
+    return file;
+  }
+}
+
 export function ImageUpload({ value, onChange, folder = "uploads", label }: ImageUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
@@ -28,10 +45,12 @@ export function ImageUpload({ value, onChange, folder = "uploads", label }: Imag
     }
     setUploading(true);
     try {
-      const ext = file.name.split(".").pop() || "jpg";
+      const optimized = await compressImage(file);
+      const ext = optimized === file ? file.name.split(".").pop() || "jpg" : "webp";
       const path = `${folder}/${crypto.randomUUID()}.${ext}`;
-      const { error } = await supabase.storage.from("site-images").upload(path, file, {
-        cacheControl: "3600",
+      const { error } = await supabase.storage.from("site-images").upload(path, optimized, {
+        cacheControl: "31536000",
+        contentType: optimized.type,
         upsert: false,
       });
       if (error) throw error;
