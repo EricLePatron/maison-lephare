@@ -121,6 +121,7 @@ export default function AdminAteliers() {
   const [editingAtelier, setEditingAtelier] = useState<Atelier | null>(null);
   const [formData, setFormData] = useState<FormData>(emptyForm);
   const [objectifsText, setObjectifsText] = useState("");
+  const [filter, setFilter] = useState<"tous" | "gratuits" | "partenaires" | "termines">("tous");
 
   const handleSignOut = async () => {
     await signOut();
