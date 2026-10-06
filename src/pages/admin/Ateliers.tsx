@@ -121,6 +121,7 @@ export default function AdminAteliers() {
   const [editingAtelier, setEditingAtelier] = useState<Atelier | null>(null);
   const [formData, setFormData] = useState<FormData>(emptyForm);
   const [objectifsText, setObjectifsText] = useState("");
+  const [filter, setFilter] = useState<"tous" | "gratuits" | "partenaires" | "termines">("tous");
 
   const handleSignOut = async () => {
     await signOut();
@@ -584,17 +585,45 @@ export default function AdminAteliers() {
             if (tb === null) return -1;
             return ta - tb;
           };
-          const upcoming = all.filter((a) => !isPast(a));
-          const groups = [
-            { title: "Les gratuits", items: upcoming.filter((a: any) => a.type_offre !== "partenaire").sort(asc) },
-            { title: "Les partenaires", items: upcoming.filter((a: any) => a.type_offre === "partenaire").sort(asc) },
-            { title: "Les terminés", items: all.filter(isPast).sort((a, b) => asc(b, a)) },
-          ];
-          return groups.map((g) => (
-            <section key={g.title}>
-              <h2 className="text-lg font-semibold mb-3 text-foreground">
-                {g.title} <span className="text-sm font-normal text-muted-foreground">({g.items.length})</span>
-              </h2>
+          const counts = {
+            tous: all.length,
+            gratuits: all.filter((a: any) => a.type_offre !== "partenaire" && !isPast(a)).length,
+            partenaires: all.filter((a: any) => a.type_offre === "partenaire" && !isPast(a)).length,
+            termines: all.filter(isPast).length,
+          };
+          let items: Atelier[] = [];
+          if (filter === "gratuits") {
+            items = all.filter((a: any) => a.type_offre !== "partenaire" && !isPast(a)).sort(asc);
+          } else if (filter === "partenaires") {
+            items = all.filter((a: any) => a.type_offre === "partenaire" && !isPast(a)).sort(asc);
+          } else if (filter === "termines") {
+            items = all.filter(isPast).sort((a, b) => asc(b, a));
+          } else {
+            items = [...all].sort(asc);
+          }
+          const FILTERS = [
+            { key: "tous", label: "Tous" },
+            { key: "gratuits", label: "Les gratuits" },
+            { key: "partenaires", label: "Les partenaires" },
+            { key: "termines", label: "Les terminés" },
+          ] as const;
+          return (
+            <section>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {FILTERS.map((f) => (
+                  <button
+                    key={f.key}
+                    onClick={() => setFilter(f.key)}
+                    className={`px-4 py-1.5 rounded-2xl text-sm font-medium border-2 transition-colors ${
+                      filter === f.key
+                        ? "bg-primary text-primary-foreground border-primary"
+                        : "bg-card text-primary border-primary/40 hover:border-primary"
+                    }`}
+                  >
+                    {f.label} <span className="opacity-70">({counts[f.key]})</span>
+                  </button>
+                ))}
+              </div>
               <div className="bg-card rounded-lg border border-border overflow-hidden">
                 <Table>
                   <TableHeader>
@@ -610,11 +639,12 @@ export default function AdminAteliers() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {g.items.map((atelier) => {
+                    {items.map((atelier) => {
                       const IconComp = getIconComponent(atelier.icone || "Brain");
                       const d = (atelier as any).date_evenement ? new Date((atelier as any).date_evenement) : null;
+                      const past = isPast(atelier);
                       return (
-                        <TableRow key={atelier.id}>
+                        <TableRow key={atelier.id} className={past ? "opacity-60" : undefined}>
                           <TableCell>
                             <div className="h-10 w-10 rounded-lg bg-sage-100 flex items-center justify-center">
                               <IconComp className="h-5 w-5 text-primary" />
@@ -623,7 +653,12 @@ export default function AdminAteliers() {
                           <TableCell className="text-sm text-muted-foreground whitespace-nowrap">
                             {d ? d.toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" }) : "Sans date"}
                           </TableCell>
-                          <TableCell className="font-medium">{atelier.titre}</TableCell>
+                          <TableCell className="font-medium">
+                            {atelier.titre}
+                            {past && (
+                              <span className="ml-2 text-xs font-normal text-muted-foreground">(terminé)</span>
+                            )}
+                          </TableCell>
                           <TableCell>
                             <span className="text-xs font-medium text-accent uppercase tracking-wider">
                               {atelier.categorie}
@@ -653,10 +688,10 @@ export default function AdminAteliers() {
                         </TableRow>
                       );
                     })}
-                    {g.items.length === 0 && (
+                    {items.length === 0 && (
                       <TableRow>
                         <TableCell colSpan={8} className="text-center py-6 text-muted-foreground">
-                          Aucun atelier dans cette catégorie.
+                          Aucun atelier dans ce filtre.
                         </TableCell>
                       </TableRow>
                     )}
@@ -664,7 +699,7 @@ export default function AdminAteliers() {
                 </Table>
               </div>
             </section>
-          ));
+          );
         })()}
       </main>
     </div>
