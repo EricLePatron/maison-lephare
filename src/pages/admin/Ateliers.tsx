@@ -571,85 +571,101 @@ export default function AdminAteliers() {
       </header>
 
       {/* Content */}
-      <main className="container mx-auto px-4 py-8">
-        <div className="bg-card rounded-lg border border-border overflow-hidden">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-12">Icône</TableHead>
-                <TableHead>Titre</TableHead>
-                <TableHead>Catégorie</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead>Format</TableHead>
-                <TableHead>Public</TableHead>
-                <TableHead className="w-20">Actif</TableHead>
-                <TableHead className="w-24">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {ateliers?.map((atelier) => {
-                const IconComp = getIconComponent(atelier.icone || "Brain");
-                return (
-                  <TableRow key={atelier.id}>
-                    <TableCell>
-                      <div className="h-10 w-10 rounded-lg bg-sage-100 flex items-center justify-center">
-                        <IconComp className="h-5 w-5 text-primary" />
-                      </div>
-                    </TableCell>
-                    <TableCell className="font-medium">{atelier.titre}</TableCell>
-                    <TableCell>
-                      <span className="text-xs font-medium text-accent uppercase tracking-wider">
-                        {atelier.categorie}
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-sm text-muted-foreground">
-                      {(atelier as any).type_offre === "partenaire"
-                        ? `Partenaire${(atelier as any).tarif ? ` · ${(atelier as any).tarif}` : " · payant"}`
-                        : "Bénévoles · gratuit"}
-                    </TableCell>
-                    <TableCell className="text-sm text-muted-foreground">
-                      {atelier.format || "-"}
-                    </TableCell>
-                    <TableCell className="text-sm text-muted-foreground">
-                      {atelier.public_cible || "-"}
-                    </TableCell>
-                    <TableCell>
-                      <Switch
-                        checked={atelier.actif}
-                        onCheckedChange={() => toggleActif(atelier)}
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex gap-1">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => openEditDialog(atelier)}
-                        >
-                          <Pencil className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => handleDelete(atelier.id)}
-                        >
-                          <Trash2 className="h-4 w-4 text-destructive" />
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-              {(!ateliers || ateliers.length === 0) && (
-                <TableRow>
-                  <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
-                    Aucun atelier enregistré. Cliquez sur "Ajouter un atelier" pour commencer.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </div>
+      <main className="container mx-auto px-4 py-8 space-y-10">
+        {(() => {
+          const now = Date.now();
+          const all = ateliers || [];
+          const ts = (a: any) => (a.date_evenement ? new Date(a.date_evenement).getTime() : null);
+          const isPast = (a: any) => { const t = ts(a); return t !== null && t < now; };
+          const asc = (a: any, b: any) => {
+            const ta = ts(a), tb = ts(b);
+            if (ta === null && tb === null) return 0;
+            if (ta === null) return 1;
+            if (tb === null) return -1;
+            return ta - tb;
+          };
+          const upcoming = all.filter((a) => !isPast(a));
+          const groups = [
+            { title: "Les gratuits", items: upcoming.filter((a: any) => a.type_offre !== "partenaire").sort(asc) },
+            { title: "Les partenaires", items: upcoming.filter((a: any) => a.type_offre === "partenaire").sort(asc) },
+            { title: "Les terminés", items: all.filter(isPast).sort((a, b) => asc(b, a)) },
+          ];
+          return groups.map((g) => (
+            <section key={g.title}>
+              <h2 className="text-lg font-semibold mb-3 text-foreground">
+                {g.title} <span className="text-sm font-normal text-muted-foreground">({g.items.length})</span>
+              </h2>
+              <div className="bg-card rounded-lg border border-border overflow-hidden">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-12">Icône</TableHead>
+                      <TableHead>Date</TableHead>
+                      <TableHead>Titre</TableHead>
+                      <TableHead>Catégorie</TableHead>
+                      <TableHead>Type</TableHead>
+                      <TableHead>Format</TableHead>
+                      <TableHead className="w-20">Actif</TableHead>
+                      <TableHead className="w-24">Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {g.items.map((atelier) => {
+                      const IconComp = getIconComponent(atelier.icone || "Brain");
+                      const d = (atelier as any).date_evenement ? new Date((atelier as any).date_evenement) : null;
+                      return (
+                        <TableRow key={atelier.id}>
+                          <TableCell>
+                            <div className="h-10 w-10 rounded-lg bg-sage-100 flex items-center justify-center">
+                              <IconComp className="h-5 w-5 text-primary" />
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-sm text-muted-foreground whitespace-nowrap">
+                            {d ? d.toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" }) : "Sans date"}
+                          </TableCell>
+                          <TableCell className="font-medium">{atelier.titre}</TableCell>
+                          <TableCell>
+                            <span className="text-xs font-medium text-accent uppercase tracking-wider">
+                              {atelier.categorie}
+                            </span>
+                          </TableCell>
+                          <TableCell className="text-sm text-muted-foreground">
+                            {(atelier as any).type_offre === "partenaire"
+                              ? `Partenaire${(atelier as any).tarif ? ` · ${(atelier as any).tarif}` : " · payant"}`
+                              : "Bénévoles · gratuit"}
+                          </TableCell>
+                          <TableCell className="text-sm text-muted-foreground">
+                            {atelier.format || "-"}
+                          </TableCell>
+                          <TableCell>
+                            <Switch checked={atelier.actif} onCheckedChange={() => toggleActif(atelier)} />
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex gap-1">
+                              <Button variant="ghost" size="icon" onClick={() => openEditDialog(atelier)}>
+                                <Pencil className="h-4 w-4" />
+                              </Button>
+                              <Button variant="ghost" size="icon" onClick={() => handleDelete(atelier.id)}>
+                                <Trash2 className="h-4 w-4 text-destructive" />
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                    {g.items.length === 0 && (
+                      <TableRow>
+                        <TableCell colSpan={8} className="text-center py-6 text-muted-foreground">
+                          Aucun atelier dans cette catégorie.
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
+            </section>
+          ));
+        })()}
       </main>
     </div>
   );
