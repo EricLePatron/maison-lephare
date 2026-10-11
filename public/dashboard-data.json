@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-10T13:13:44.023Z",
+  "generatedAt": "2026-10-11T13:43:54.996Z",
   "periods": {
     "24h": {
       "hourly": true,
       "overview": {
-        "sessions": 191,
-        "users": 188,
-        "pageViews": 187,
+        "sessions": 206,
+        "users": 203,
+        "pageViews": 188,
         "bounceRate": "1.0",
-        "avgDuration": 15
+        "avgDuration": 11
       },
       "contactForm": {
         "total": 0
@@ -16,64 +16,64 @@
       "topPages": [
         {
           "page": "/",
-          "views": 161
-        },
-        {
-          "page": "/ateliers",
-          "views": 10
-        },
-        {
-          "page": "/le-lieu",
-          "views": 4
+          "views": 159
         },
         {
           "page": "/professionnels",
-          "views": 4
+          "views": 6
         },
         {
-          "page": "/association",
-          "views": 3
+          "page": "/professionnels/dr-arnaud-duchier",
+          "views": 5
         },
         {
-          "page": "/professionnels/manon-moyal",
+          "page": "/le-lieu",
           "views": 2
         },
         {
-          "page": "/professionnels/amandine-paumard",
+          "page": "/professionnels/dr-elodie-rochet",
+          "views": 2
+        },
+        {
+          "page": "/professionnels/dr-victoire-vierling",
+          "views": 2
+        },
+        {
+          "page": "/association",
           "views": 1
         },
         {
-          "page": "/professionnels/carole-amores",
+          "page": "/ateliers",
           "views": 1
         },
         {
-          "page": "/professionnels/sheila-benoit-gonin",
+          "page": "/location-salle",
+          "views": 1
+        },
+        {
+          "page": "/professionnels/alara-tanfer",
           "views": 1
         }
       ],
       "sources": [
         {
           "source": "Direct",
-          "sessions": 153
+          "sessions": 175
         },
         {
           "source": "Unassigned",
-          "sessions": 91
+          "sessions": 94
         },
         {
           "source": "Organic Search",
-          "sessions": 8
-        },
-        {
-          "source": "Referral",
           "sessions": 3
         }
       ],
       "dailyTrend": [
         {
           "date": "00h",
-          "users": 13,
-          "sessions": 13
+          "users": 14,
+          "sessions": 14
         },
         {
           "date": "01h",
@@ -82,58 +82,58 @@
         },
         {
           "date": "02h",
-          "users": 10,
-          "sessions": 10
-        },
-        {
-          "date": "03h",
           "users": 15,
           "sessions": 15
         },
         {
-          "date": "04h",
+          "date": "03h",
           "users": 11,
           "sessions": 11
         },
         {
+          "date": "04h",
+          "users": 13,
+          "sessions": 13
+        },
+        {
           "date": "05h",
-          "users": 14,
-          "sessions": 14
+          "users": 13,
+          "sessions": 13
         },
         {
           "date": "06h",
-          "users": 15,
-          "sessions": 15
+          "users": 13,
+          "sessions": 13
         },
         {
           "date": "07h",
-          "users": 14,
-          "sessions": 14
+          "users": 26,
+          "sessions": 26
         },
         {
           "date": "08h",
-          "users": 14,
-          "sessions": 14
+          "users": 12,
+          "sessions": 12
         },
         {
           "date": "09h",
-          "users": 16,
+          "users": 15,
           "sessions": 16
         },
         {
           "date": "10h",
-          "users": 12,
-          "sessions": 14
+          "users": 13,
+          "sessions": 13
         },
         {
           "date": "11h",
-          "users": 14,
+          "users": 15,
           "sessions": 15
         },
         {
           "date": "12h",
-          "users": 13,
-          "sessions": 13
+          "users": 15,
+          "sessions": 15
         },
         {
           "date": "13h",
@@ -143,8 +143,29 @@
       ],
       "proFunnel": [
         {
-          "slug": "manon-moyal",
+          "slug": "dr-arnaud-duchier",
+          "views": 5,
+          "rdvClicks": 0,
+          "contactClicks": 0,
+          "convRate": 0
+        },
+        {
+          "slug": "dr-elodie-rochet",
           "views": 2,
+          "rdvClicks": 0,
+          "contactClicks": 0,
+          "convRate": 0
+        },
+        {
+          "slug": "dr-victoire-vierling",
+          "views": 2,
+          "rdvClicks": 0,
+          "contactClicks": 1,
+          "convRate": 0
+        },
+        {
+          "slug": "alara-tanfer",
+          "views": 1,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
@@ -157,7 +178,42 @@
           "convRate": 0
         },
         {
-          "slug": "carole-amores",
+          "slug": "association-romuald",
+          "views": 1,
+          "rdvClicks": 0,
+          "contactClicks": 0,
+          "convRate": 0
+        },
+        {
+          "slug": "dr-fatiha-kheffache",
+          "views": 1,
+          "rdvClicks": 0,
+          "contactClicks": 0,
+          "convRate": 0
+        },
+        {
+          "slug": "emmanuelle-monteil",
+          "views": 1,
+          "rdvClicks": 0,
+          "contactClicks": 0,
+          "convRate": 0
+        },
+        {
+          "slug": "isabelle-verges",
+          "views": 1,
+          "rdvClicks": 0,
+          "contactClicks": 0,
+          "convRate": 0
+        },
+        {
+          "slug": "les-cercles-solidaires",
+          "views": 1,
+          "rdvClicks": 0,
+          "contactClicks": 0,
+          "convRate": 0
+        },
+        {
+          "slug": "manon-moyal",
           "views": 1,
           "rdvClicks": 0,
           "contactClicks": 0,
@@ -173,7 +229,7 @@
       ],
       "totalRdvClicks": 0,
       "atelierInscriptions": {
-        "total": 4,
+        "total": 0,
         "parAtelier": []
       },
       "atelierCtaClics": 0,
@@ -186,11 +242,11 @@
     "7d": {
       "hourly": false,
       "overview": {
-        "sessions": 1412,
-        "users": 1170,
-        "pageViews": 2449,
+        "sessions": 1684,
+        "users": 1451,
+        "pageViews": 2624,
         "bounceRate": "0.8",
-        "avgDuration": 98
+        "avgDuration": 76
       },
       "contactForm": {
         "total": 0
@@ -198,39 +254,39 @@
       "topPages": [
         {
           "page": "/",
-          "views": 1141
+          "views": 1372
         },
         {
           "page": "/professionnels",
-          "views": 366
+          "views": 344
         },
         {
           "page": "/ateliers",
-          "views": 279
-        },
-        {
-          "page": "/professionnels/dr-arnaud-duchier",
-          "views": 97
+          "views": 264
         },
         {
           "page": "/le-lieu",
-          "views": 94
+          "views": 91
+        },
+        {
+          "page": "/professionnels/dr-arnaud-duchier",
+          "views": 89
         },
         {
           "page": "/association",
-          "views": 80
+          "views": 76
         },
         {
           "page": "/contact",
-          "views": 66
+          "views": 60
         },
         {
           "page": "/professionnels/dr-victoire-vierling",
-          "views": 52
+          "views": 50
         },
         {
           "page": "/professionnels/dr-elodie-rochet",
-          "views": 42
+          "views": 46
         },
         {
           "page": "/location-salle",
@@ -240,35 +296,26 @@
       "sources": [
         {
           "source": "Direct",
-          "sessions": 894
+          "sessions": 1182
         },
         {
           "source": "Organic Search",
-          "sessions": 365
+          "sessions": 350
         },
         {
           "source": "Unassigned",
-          "sessions": 275
+          "sessions": 255
         },
         {
           "source": "Organic Social",
-          "sessions": 52
+          "sessions": 49
         },
         {
           "source": "Referral",
-          "sessions": 32
-        },
-        {
-          "source": "Cross-network",
-          "sessions": 13
+          "sessions": 31
         }
       ],
       "dailyTrend": [
-        {
-          "date": "03/10",
-          "users": 78,
-          "sessions": 99
-        },
         {
           "date": "04/10",
           "users": 47,
@@ -296,36 +343,48 @@
         },
         {
           "date": "09/10",
-          "users": 362,
-          "sessions": 377
+          "users": 376,
+          "sessions": 393
         },
         {
           "date": "10/10",
-          "users": 188,
-          "sessions": 191
+          "users": 331,
+          "sessions": 337
+        },
+        {
+          "date": "11/10",
+          "users": 203,
+          "sessions": 206
         }
       ],
       "proFunnel": [
         {
           "slug": "dr-arnaud-duchier",
-          "views": 97,
-          "rdvClicks": 57,
+          "views": 89,
+          "rdvClicks": 51,
           "contactClicks": 0,
-          "convRate": 59
+          "convRate": 57
         },
         {
           "slug": "dr-victoire-vierling",
-          "views": 52,
+          "views": 50,
           "rdvClicks": 12,
-          "contactClicks": 0,
-          "convRate": 23
+          "contactClicks": 1,
+          "convRate": 24
         },
         {
           "slug": "dr-elodie-rochet",
-          "views": 42,
+          "views": 46,
           "rdvClicks": 9,
           "contactClicks": 0,
-          "convRate": 21
+          "convRate": 20
+        },
+        {
+          "slug": "amandine-paumard",
+          "views": 22,
+          "rdvClicks": 4,
+          "contactClicks": 0,
+          "convRate": 18
         },
         {
           "slug": "celine-verlhac",
@@ -333,13 +392,6 @@
           "rdvClicks": 3,
           "contactClicks": 0,
           "convRate": 14
-        },
-        {
-          "slug": "amandine-paumard",
-          "views": 19,
-          "rdvClicks": 4,
-          "contactClicks": 0,
-          "convRate": 21
         },
         {
           "slug": "lea-marinelli",
@@ -351,13 +403,13 @@
         {
           "slug": "manon-moyal",
           "views": 17,
-          "rdvClicks": 4,
+          "rdvClicks": 3,
           "contactClicks": 0,
-          "convRate": 24
+          "convRate": 18
         },
         {
           "slug": "dr-fatiha-kheffache",
-          "views": 13,
+          "views": 14,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
@@ -384,13 +436,6 @@
           "convRate": 0
         },
         {
-          "slug": "marie-oceane-brice",
-          "views": 11,
-          "rdvClicks": 4,
-          "contactClicks": 0,
-          "convRate": 36
-        },
-        {
           "slug": "association-romuald",
           "views": 10,
           "rdvClicks": 0,
@@ -398,11 +443,11 @@
           "convRate": 0
         },
         {
-          "slug": "les-cercles-solidaires",
-          "views": 9,
-          "rdvClicks": 0,
+          "slug": "marie-oceane-brice",
+          "views": 10,
+          "rdvClicks": 4,
           "contactClicks": 0,
-          "convRate": 0
+          "convRate": 40
         },
         {
           "slug": "juliette-coupeau",
@@ -412,15 +457,22 @@
           "convRate": 0
         },
         {
-          "slug": "carole-amores",
-          "views": 6,
+          "slug": "les-cercles-solidaires",
+          "views": 7,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
         },
         {
           "slug": "alara-tanfer",
-          "views": 3,
+          "views": 4,
+          "rdvClicks": 0,
+          "contactClicks": 0,
+          "convRate": 0
+        },
+        {
+          "slug": "carole-amores",
+          "views": 4,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
@@ -461,9 +513,9 @@
           "convRate": 0
         }
       ],
-      "totalRdvClicks": 97,
+      "totalRdvClicks": 90,
       "atelierInscriptions": {
-        "total": 102,
+        "total": 95,
         "parAtelier": []
       },
       "atelierCtaClics": 0,
@@ -476,11 +528,11 @@
     "30d": {
       "hourly": false,
       "overview": {
-        "sessions": 3892,
-        "users": 2780,
-        "pageViews": 9281,
+        "sessions": 4177,
+        "users": 3064,
+        "pageViews": 9247,
         "bounceRate": "0.6",
-        "avgDuration": 152
+        "avgDuration": 135
       },
       "contactForm": {
         "total": 0
@@ -488,81 +540,68 @@
       "topPages": [
         {
           "page": "/",
-          "views": 3022
+          "views": 3231
         },
         {
           "page": "/professionnels",
-          "views": 1961
+          "views": 1891
         },
         {
           "page": "/ateliers",
-          "views": 1214
+          "views": 1137
         },
         {
           "page": "/le-lieu",
-          "views": 409
+          "views": 402
         },
         {
           "page": "/association",
-          "views": 376
+          "views": 368
         },
         {
           "page": "/professionnels/dr-victoire-vierling",
-          "views": 369
+          "views": 354
         },
         {
           "page": "/contact",
-          "views": 302
+          "views": 296
         },
         {
           "page": "/professionnels/dr-elodie-rochet",
-          "views": 271
+          "views": 261
         },
         {
           "page": "/professionnels/manon-moyal",
-          "views": 122
+          "views": 119
         },
         {
-          "page": "/professionnels/lea-marinelli",
+          "page": "/professionnels/dr-arnaud-duchier",
           "views": 118
         }
       ],
       "sources": [
         {
           "source": "Direct",
-          "sessions": 1913
+          "sessions": 2206
         },
         {
           "source": "Organic Search",
-          "sessions": 1679
+          "sessions": 1640
         },
         {
           "source": "Unassigned",
-          "sessions": 282
+          "sessions": 262
         },
         {
           "source": "Organic Social",
-          "sessions": 237
+          "sessions": 230
         },
         {
           "source": "Referral",
-          "sessions": 80
-        },
-        {
-          "source": "Cross-network",
-          "sessions": 13
-        },
-        {
-          "source": "AI Assistant",
-          "sessions": 1
+          "sessions": 78
         }
       ],
       "dailyTrend": [
-        {
-          "date": "10/09",
-          "users": 94,
-          "sessions": 121
-        },
         {
           "date": "11/09",
           "users": 68,
@@ -705,71 +744,76 @@
         },
         {
           "date": "09/10",
-          "users": 362,
-          "sessions": 377
+          "users": 376,
+          "sessions": 393
         },
         {
           "date": "10/10",
-          "users": 188,
-          "sessions": 191
+          "users": 331,
+          "sessions": 337
+        },
+        {
+          "date": "11/10",
+          "users": 203,
+          "sessions": 206
         }
       ],
       "proFunnel": [
         {
           "slug": "dr-victoire-vierling",
-          "views": 369,
-          "rdvClicks": 93,
-          "contactClicks": 11,
-          "convRate": 25
+          "views": 354,
+          "rdvClicks": 91,
+          "contactClicks": 12,
+          "convRate": 26
         },
         {
           "slug": "dr-elodie-rochet",
-          "views": 271,
-          "rdvClicks": 72,
-          "contactClicks": 0,
-          "convRate": 27
-        },
-        {
-          "slug": "manon-moyal",
-          "views": 122,
-          "rdvClicks": 32,
+          "views": 261,
+          "rdvClicks": 67,
           "contactClicks": 0,
           "convRate": 26
         },
         {
-          "slug": "lea-marinelli",
+          "slug": "manon-moyal",
+          "views": 119,
+          "rdvClicks": 31,
+          "contactClicks": 0,
+          "convRate": 26
+        },
+        {
+          "slug": "dr-arnaud-duchier",
           "views": 118,
-          "rdvClicks": 30,
+          "rdvClicks": 64,
+          "contactClicks": 0,
+          "convRate": 54
+        },
+        {
+          "slug": "lea-marinelli",
+          "views": 115,
+          "rdvClicks": 29,
           "contactClicks": 1,
           "convRate": 25
         },
         {
-          "slug": "dr-arnaud-duchier",
-          "views": 112,
-          "rdvClicks": 63,
-          "contactClicks": 0,
-          "convRate": 56
-        },
-        {
           "slug": "sheila-benoit-gonin",
-          "views": 109,
-          "rdvClicks": 24,
+          "views": 102,
+          "rdvClicks": 23,
           "contactClicks": 0,
-          "convRate": 22
+          "convRate": 23
         },
         {
           "slug": "amandine-paumard",
-          "views": 90,
-          "rdvClicks": 16,
+          "views": 94,
+          "rdvClicks": 15,
           "contactClicks": 0,
-          "convRate": 18
+          "convRate": 16
         },
         {
           "slug": "marie-oceane-brice",
-          "views": 89,
+          "views": 85,
           "rdvClicks": 25,
           "contactClicks": 0,
-          "convRate": 28
+          "convRate": 29
         },
         {
           "slug": "celine-verlhac",
@@ -780,35 +824,35 @@
         },
         {
           "slug": "dr-fatiha-kheffache",
-          "views": 73,
+          "views": 72,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
         },
         {
           "slug": "juliette-coupeau",
-          "views": 54,
+          "views": 53,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
         },
         {
           "slug": "les-cercles-solidaires",
-          "views": 47,
+          "views": 48,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
         },
         {
           "slug": "isabelle-verges",
-          "views": 46,
+          "views": 44,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
         },
         {
           "slug": "association-romuald",
-          "views": 41,
+          "views": 42,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
@@ -821,18 +865,18 @@
           "convRate": 5
         },
         {
-          "slug": "alara-tanfer",
-          "views": 33,
+          "slug": "emmanuelle-monteil",
+          "views": 29,
           "rdvClicks": 6,
           "contactClicks": 0,
-          "convRate": 18
+          "convRate": 21
         },
         {
-          "slug": "emmanuelle-monteil",
-          "views": 27,
-          "rdvClicks": 6,
+          "slug": "alara-tanfer",
+          "views": 26,
+          "rdvClicks": 1,
           "contactClicks": 0,
-          "convRate": 22
+          "convRate": 4
         },
         {
           "slug": "dumortier-frisson",
@@ -926,9 +970,9 @@
           "convRate": 0
         }
       ],
-      "totalRdvClicks": 377,
+      "totalRdvClicks": 362,
       "atelierInscriptions": {
-        "total": 583,
+        "total": 561,
         "parAtelier": []
       },
       "atelierCtaClics": 3,
@@ -941,11 +985,11 @@
     "90d": {
       "hourly": false,
       "overview": {
-        "sessions": 7485,
-        "users": 5192,
-        "pageViews": 17792,
+        "sessions": 7816,
+        "users": 5532,
+        "pageViews": 18115,
         "bounceRate": "0.6",
-        "avgDuration": 145
+        "avgDuration": 138
       },
       "contactForm": {
         "total": 0
@@ -953,69 +997,65 @@
       "topPages": [
         {
           "page": "/",
-          "views": 5335
+          "views": 5634
         },
         {
           "page": "/professionnels",
-          "views": 3800
+          "views": 3804
         },
         {
           "page": "/ateliers",
-          "views": 2496
+          "views": 2497
         },
         {
           "page": "/le-lieu",
-          "views": 895
+          "views": 898
         },
         {
           "page": "/association",
-          "views": 778
+          "views": 777
         },
         {
           "page": "/professionnels/dr-victoire-vierling",
-          "views": 667
+          "views": 668
         },
         {
           "page": "/contact",
-          "views": 579
+          "views": 582
         },
         {
           "page": "/professionnels/dr-elodie-rochet",
-          "views": 567
+          "views": 565
         },
         {
           "page": "/professionnels/manon-moyal",
-          "views": 231
+          "views": 232
         },
         {
           "page": "/location-salle",
-          "views": 218
+          "views": 220
         }
       ],
       "sources": [
         {
           "source": "Direct",
-          "sessions": 3732
+          "sessions": 4003
         },
         {
           "source": "Organic Search",
-          "sessions": 2784
+          "sessions": 2797
         },
         {
           "source": "Organic Social",
-          "sessions": 560
+          "sessions": 561
         },
         {
           "source": "Referral",
-          "sessions": 305
+          "sessions": 304
         },
         {
           "source": "Unassigned",
-          "sessions": 287
-        },
-        {
-          "source": "Cross-network",
-          "sessions": 13
+          "sessions": 267
         },
         {
           "source": "AI Assistant",
@@ -1023,11 +1063,6 @@
         }
       ],
       "dailyTrend": [
-        {
-          "date": "12/07",
-          "users": 16,
-          "sessions": 21
-        },
         {
           "date": "13/07",
           "users": 39,
@@ -1470,47 +1505,52 @@
         },
         {
           "date": "09/10",
-          "users": 362,
-          "sessions": 377
+          "users": 376,
+          "sessions": 393
         },
         {
           "date": "10/10",
-          "users": 188,
-          "sessions": 191
+          "users": 331,
+          "sessions": 337
+        },
+        {
+          "date": "11/10",
+          "users": 203,
+          "sessions": 206
         }
       ],
       "proFunnel": [
         {
           "slug": "dr-victoire-vierling",
-          "views": 667,
-          "rdvClicks": 170,
-          "contactClicks": 23,
+          "views": 668,
+          "rdvClicks": 169,
+          "contactClicks": 24,
           "convRate": 25
         },
         {
           "slug": "dr-elodie-rochet",
-          "views": 567,
+          "views": 565,
           "rdvClicks": 153,
           "contactClicks": 0,
           "convRate": 27
         },
         {
           "slug": "manon-moyal",
-          "views": 231,
+          "views": 232,
           "rdvClicks": 53,
           "contactClicks": 0,
           "convRate": 23
         },
         {
           "slug": "lea-marinelli",
-          "views": 217,
+          "views": 216,
           "rdvClicks": 48,
           "contactClicks": 1,
           "convRate": 22
         },
         {
           "slug": "amandine-paumard",
-          "views": 199,
+          "views": 205,
           "rdvClicks": 36,
           "contactClicks": 1,
           "convRate": 18
@@ -1531,14 +1571,14 @@
         },
         {
           "slug": "dr-fatiha-kheffache",
-          "views": 152,
+          "views": 153,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
         },
         {
           "slug": "alara-tanfer",
-          "views": 144,
+          "views": 143,
           "rdvClicks": 27,
           "contactClicks": 0,
           "convRate": 19
@@ -1552,24 +1592,24 @@
         },
         {
           "slug": "isabelle-verges",
-          "views": 120,
+          "views": 119,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
         },
         {
           "slug": "dr-arnaud-duchier",
-          "views": 112,
-          "rdvClicks": 63,
+          "views": 118,
+          "rdvClicks": 64,
           "contactClicks": 0,
-          "convRate": 56
+          "convRate": 54
         },
         {
           "slug": "marie-oceane-brice",
-          "views": 97,
-          "rdvClicks": 26,
+          "views": 98,
+          "rdvClicks": 27,
           "contactClicks": 0,
-          "convRate": 27
+          "convRate": 28
         },
         {
           "slug": "les-cercles-solidaires",
@@ -1580,7 +1620,7 @@
         },
         {
           "slug": "association-romuald",
-          "views": 86,
+          "views": 87,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
@@ -1608,14 +1648,14 @@
         },
         {
           "slug": "emmanuelle-monteil",
-          "views": 27,
+          "views": 29,
           "rdvClicks": 6,
           "contactClicks": 0,
-          "convRate": 22
+          "convRate": 21
         },
         {
           "slug": "amandine",
-          "views": 8,
+          "views": 7,
           "rdvClicks": 0,
           "contactClicks": 0,
           "convRate": 0
@@ -1656,13 +1696,6 @@
           "convRate": 0
         },
         {
-          "slug": "lea-marrinelli",
-          "views": 5,
-          "rdvClicks": 0,
-          "contactClicks": 0,
-          "convRate": 0
-        },
-        {
           "slug": "a3ff673f-c16a-41a3-b76b-185a535f60d5",
           "views": 4,
           "rdvClicks": 0,
@@ -1685,6 +1718,13 @@
         },
         {
           "slug": "juliettecoupeau.carrd.co",
+          "views": 4,
+          "rdvClicks": 0,
+          "contactClicks": 0,
+          "convRate": 0
+        },
+        {
+          "slug": "lea-marrinelli",
           "views": 4,
           "rdvClicks": 0,
           "contactClicks": 0,
@@ -1719,9 +1759,9 @@
           "convRate": 0
         }
       ],
-      "totalRdvClicks": 652,
+      "totalRdvClicks": 653,
       "atelierInscriptions": {
-        "total": 1081,
+        "total": 1083,
         "parAtelier": []
       },
       "atelierCtaClics": 6,
@@ -1748,45 +1788,45 @@
     "keywords": [
       {
         "query": "le phare merignac",
-        "clicks": 194,
-        "impressions": 238,
+        "clicks": 206,
+        "impressions": 257,
         "position": 1,
-        "ctr": 81.5
+        "ctr": 80.2
       },
       {
         "query": "maison le phare",
-        "clicks": 42,
-        "impressions": 51,
+        "clicks": 46,
+        "impressions": 55,
         "position": 1.1,
-        "ctr": 82.4
+        "ctr": 83.6
       },
       {
         "query": "maison le phare merignac",
-        "clicks": 40,
-        "impressions": 54,
+        "clicks": 41,
+        "impressions": 57,
         "position": 1,
-        "ctr": 74.1
+        "ctr": 71.9
       },
       {
         "query": "association le phare merignac",
-        "clicks": 30,
-        "impressions": 35,
+        "clicks": 35,
+        "impressions": 40,
         "position": 1,
-        "ctr": 85.7
+        "ctr": 87.5
+      },
+      {
+        "query": "le phare bordeaux",
+        "clicks": 19,
+        "impressions": 45,
+        "position": 1.6,
+        "ctr": 42.2
       },
       {
         "query": "victoire vierling",
         "clicks": 19,
-        "impressions": 68,
+        "impressions": 69,
         "position": 2.4,
-        "ctr": 27.9
-      },
-      {
-        "query": "le phare bordeaux",
-        "clicks": 15,
-        "impressions": 39,
-        "position": 1.6,
-        "ctr": 38.5
+        "ctr": 27.5
       },
       {
         "query": "le phare mérignac",
@@ -1798,72 +1838,79 @@
       {
         "query": "elodie rochet psychiatre",
         "clicks": 13,
-        "impressions": 62,
-        "position": 2.2,
-        "ctr": 21
-      },
-      {
-        "query": "le phare association",
-        "clicks": 11,
-        "impressions": 22,
-        "position": 2.6,
-        "ctr": 50
+        "impressions": 68,
+        "position": 2.5,
+        "ctr": 19.1
       },
       {
         "query": "le phare santé mentale",
-        "clicks": 11,
-        "impressions": 17,
-        "position": 1.4,
-        "ctr": 64.7
+        "clicks": 13,
+        "impressions": 21,
+        "position": 1.3,
+        "ctr": 61.9
+      },
+      {
+        "query": "le phare association",
+        "clicks": 12,
+        "impressions": 23,
+        "position": 2.6,
+        "ctr": 52.2
       },
       {
         "query": "lephare",
-        "clicks": 9,
-        "impressions": 64,
+        "clicks": 10,
+        "impressions": 72,
         "position": 6.3,
-        "ctr": 14.1
-      },
-      {
-        "query": "association le phare",
-        "clicks": 7,
-        "impressions": 21,
-        "position": 6.4,
-        "ctr": 33.3
+        "ctr": 13.9
       },
       {
         "query": "dr elodie rochet",
-        "clicks": 7,
-        "impressions": 19,
-        "position": 2.2,
-        "ctr": 36.8
+        "clicks": 9,
+        "impressions": 23,
+        "position": 3,
+        "ctr": 39.1
       },
       {
         "query": "manon moyal",
         "clicks": 7,
-        "impressions": 17,
-        "position": 1.1,
-        "ctr": 41.2
+        "impressions": 21,
+        "position": 1.3,
+        "ctr": 33.3
+      },
+      {
+        "query": "association le phare",
+        "clicks": 6,
+        "impressions": 20,
+        "position": 6.7,
+        "ctr": 30
+      },
+      {
+        "query": "12 rue jean jacques rousseau merignac",
+        "clicks": 5,
+        "impressions": 41,
+        "position": 2,
+        "ctr": 12.2
       },
       {
         "query": "association santé mentale bordeaux",
         "clicks": 5,
-        "impressions": 29,
+        "impressions": 31,
         "position": 8.9,
-        "ctr": 17.2
+        "ctr": 16.1
       },
       {
-        "query": "12 rue jean jacques rousseau merignac",
-        "clicks": 4,
-        "impressions": 36,
-        "position": 2,
-        "ctr": 11.1
+        "query": "dr victoire vierling",
+        "clicks": 5,
+        "impressions": 38,
+        "position": 2.2,
+        "ctr": 13.2
       },
       {
         "query": "elodie rochet",
         "clicks": 4,
-        "impressions": 17,
+        "impressions": 19,
         "position": 2.2,
-        "ctr": 23.5
+        "ctr": 21.1
       },
       {
         "query": "chateau tenet merignac",
@@ -1873,18 +1920,11 @@
         "ctr": 33.3
       },
       {
-        "query": "dr victoire vierling",
-        "clicks": 3,
-        "impressions": 35,
-        "position": 2.3,
-        "ctr": 8.6
-      },
-      {
         "query": "sheila benoit gonin",
         "clicks": 3,
-        "impressions": 23,
+        "impressions": 22,
         "position": 3,
-        "ctr": 13
+        "ctr": 13.6
       }
     ],
     "pagespeed": null,
@@ -1927,7 +1967,7 @@
       }
     ],
     "keywordsTop10Count": 20,
-    "avgPosition": 2.8,
+    "avgPosition": 2.9,
     "score": 97
   }
 }
